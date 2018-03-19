@@ -4,9 +4,14 @@ const passport = require('../auth/passport')
 const dbAPI = require( '../db/dbAPI') 
 const { loginRequired } = require('../auth/helpers')
 
-router.post('/signup', (res, req, next) => {
+router.post('/signup', (req, res, next) => {
   var user = req.body
-  dbAPI.registerUser(user, (err, data) => {})
+  dbAPI.registerUser(user, (err, data) => {
+    if(err) {
+      res.status(500)
+      res.json({err: err, stack: err.stack})
+    }
+  })
 })
 
 

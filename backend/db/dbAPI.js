@@ -26,14 +26,18 @@ const registerUser = (user, callback) => {
   db.none('INSERT INTO users(username, fullname, password_digest, profile_pic, number_of_posts, number_of_followers, number_of_following )' +
           'VALUES (${userName}, ${fullName}, ${passwordDigest}, ${profilePicUrl}, ${numberOfPosts}, ${numberOfFollowers}, ${numberOfFollowing})', newUser)
   .then(()=> {
+    var user_id = 1 //Hardcoded
     var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
-    user.sports.forEach((sport, index) => {
+    sports.forEach((sport, index) => {
+      console.log(sport)
       if(index === 0) {
-        SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency}),` 
+        SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency})` 
       } else {
-        SQLStatement = SQLStatement + '\n' + `(${user_id}, ${sport.sport_id}, ${sport.proficiency});`
+        SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id}, ${sport.proficiency})`
       }
     })
+    SQLStatement += ';' 
+
     db.none(SQLStatement)
       .then(() => callback(null))
       .catch((err) => callback(err))
