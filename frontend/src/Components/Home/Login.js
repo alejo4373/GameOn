@@ -120,13 +120,14 @@ class Login extends React.Component {
                 />
               </label>
 
-              <input type="submit" value="Log In" />
-            </form>
-            <span>{message}</span>
-          </div>
-          <div class='login-box'>
-            Don't have an account? <Link to="/registration">Sign Up</Link>
-          </div>
+                    <input type="submit" value="Log In" />
+                    </form>
+                    <span>{message}</span>
+                </div>
+                <div class='login-box'>
+                Don't have an account? <Link to="/register">Sign Up</Link>
+                </div>
+            </div>
         </div>
       </div>
     );
