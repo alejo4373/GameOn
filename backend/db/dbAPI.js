@@ -21,10 +21,12 @@ const registerUser = (user, callback) => {
       profilePicUrl: '/images/user.png',
       expPoints: 50,
       email: user.email,
-      sports: user.sports
+      sports: user.sports,
+      zipcode: user.zipcode
   }
-  db.none('INSERT INTO users(username, fullname, password_digest, profile_pic, number_of_posts, number_of_followers, number_of_following )' +
-          'VALUES (${userName}, ${fullName}, ${passwordDigest}, ${profilePicUrl}, ${numberOfPosts}, ${numberOfFollowers}, ${numberOfFollowing})', newUser)
+  const sports = JSON.parse(newUser.sports)
+  db.none('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points )' +
+          'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints});', newUser)
   .then(()=> {
     var user_id = 1 //Hardcoded
     var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
