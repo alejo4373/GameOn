@@ -20,11 +20,24 @@ const registerUser = (user, callback) => {
       passwordDigest: helpers.generatePasswordDigest(user.password),
       profilePicUrl: '/images/user.png',
       expPoints: 50,
-      email: user.email
+      email: user.email,
+      sports: user.sports
   }
   db.none('INSERT INTO users(username, fullname, password_digest, profile_pic, number_of_posts, number_of_followers, number_of_following )' +
           'VALUES (${userName}, ${fullName}, ${passwordDigest}, ${profilePicUrl}, ${numberOfPosts}, ${numberOfFollowers}, ${numberOfFollowing})', newUser)
-  .then(() => callback(null))
+  .then(()=> {
+    var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
+    user.sports.forEach((sport, index) => {
+      if(index === 0) {
+        SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency}),` 
+      } else {
+        SQLStatement = SQLStatement + '\n' + `(${user_id}, ${sport.sport_id}, ${sport.proficiency});`
+      }
+    })
+    db.none(SQLStatement)
+      .then(() => callback(null))
+      .catch((err) => callback(err))
+  })
   .catch(err => callback(err))
 }
 //expecting an obj for our post
