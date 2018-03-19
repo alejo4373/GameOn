@@ -19,9 +19,9 @@ CREATE TABLE sports (
 );
 
 CREATE TABLE sports_proficiency (
-  user_id: INT REFERENCES users(id),
-  sport_id: INT REFERENCES sports(id),
-  proficiency: INT NOT NULL
+  user_id INT REFERENCES users(id),
+  sport_id INT REFERENCES sports(id),
+  proficiency INT NOT NULL
 );
 
 INSERT INTO sports (name)
