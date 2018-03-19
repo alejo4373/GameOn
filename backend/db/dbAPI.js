@@ -23,9 +23,10 @@ const registerUser = (user, callback) => {
       email: user.email,
       sports: user.sports
   }
-  db.none('INSERT INTO users(username, fullname, password_digest, profile_pic, number_of_posts, number_of_followers, number_of_following )' +
+  db.one('INSERT INTO users(username, fullname, password_digest, profile_pic, number_of_posts, number_of_followers, number_of_following )' +
           'VALUES (${userName}, ${fullName}, ${passwordDigest}, ${profilePicUrl}, ${numberOfPosts}, ${numberOfFollowers}, ${numberOfFollowing})', newUser)
-  .then(()=> {
+  .then((user)=> {
+    console.log('====> user' + user)
     var user_id = 1 //Hardcoded
     var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
     sports.forEach((sport, index) => {
