@@ -30,21 +30,24 @@ const registerUser = (user, callback) => {
           'RETURNING id', newUser)
   .then((user)=> {
     var user_id = user.id //Hardcoded
-    const sports = JSON.parse(newUser.sports)
-    var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
-    sports.forEach((sport, index) => {
-      console.log(sport)
-      if(index === 0) {
-        SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency})` 
-      } else {
-        SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id}, ${sport.proficiency})`
-      }
-    })
-    SQLStatement += ';' 
+    if(user.sports && user.sports.length) {
+      const sports = JSON.parse(newUser.sports)
+      var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
+      sports.forEach((sport, index) => {
+        console.log(sport)
+        if(index === 0) {
+          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency})` 
+        } else {
+          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id}, ${sport.proficiency})`
+        }
+      })
+      SQLStatement += ';' 
 
-    db.none(SQLStatement)
-      .then(() => callback(null))
-      .catch((err) => callback(err))
+      db.none(SQLStatement)
+        .then(() => callback(null))
+        .catch((err) => callback(err))
+    }
+    callback(null)
   })
   .catch(err => callback(err))
 }
