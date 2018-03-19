@@ -5,6 +5,7 @@ CREATE DATABASE gameon_db;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
+    fulllname VARCHAR NOT NULL,
     username VARCHAR UNIQUE NOT NULL,
     email VARCHAR NOT NULL,
     password_digest VARCHAR,
