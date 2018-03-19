@@ -119,15 +119,13 @@ class Login extends React.Component {
                   onChange={this.handlePasswordChange}
                 />
               </label>
-
-                    <input type="submit" value="Log In" />
-                    </form>
-                    <span>{message}</span>
-                </div>
-                <div class='login-box'>
-                Don't have an account? <Link to="/register">Sign Up</Link>
-                </div>
-            </div>
+              <input type="submit" value="Log In" />
+            </form>
+            <span>{message}</span>
+          </div>
+          <div class='login-box'>
+            Don't have an account? <Link to="/register">Sign Up</Link>
+          </div>
         </div>
       </div>
     );
