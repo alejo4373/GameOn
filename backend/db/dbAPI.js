@@ -18,17 +18,19 @@ const registerUser = (user, callback) => {
       userName: user.username,
       fullName: user.fullname,
       passwordDigest: helpers.generatePasswordDigest(user.password),
+      zipcode: user.zipcode,
       profilePicUrl: '/images/user.png',
       expPoints: 50,
       email: user.email,
       sports: user.sports,
       zipcode: user.zipcode
   }
-  db.one('INSERT INTO users(username, fullname, password_digest, profile_pic, number_of_posts, number_of_followers, number_of_following )' +
-          'VALUES (${userName}, ${fullName}, ${passwordDigest}, ${profilePicUrl}, ${numberOfPosts}, ${numberOfFollowers}, ${numberOfFollowing})', newUser)
+  db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
+          'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
+          'RETURNING id', newUser)
   .then((user)=> {
-    console.log('====> user' + user)
-    var user_id = 1 //Hardcoded
+    var user_id = user.id //Hardcoded
+    const sports = JSON.parse(newUser.sports)
     var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
     sports.forEach((sport, index) => {
       console.log(sport)
