@@ -5,10 +5,10 @@ CREATE DATABASE gameon_db;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR UNIQUE,
-    email VARCHAR,
+    username VARCHAR UNIQUE NOT NULL,
+    email VARCHAR NOT NULL,
     password_digest VARCHAR,
-    zip_code INT,
+    zip_code INT NOT NULL,
     profile_pic VARCHAR,
     exp_points INT
 );
@@ -16,6 +16,12 @@ CREATE TABLE users (
 CREATE TABLE sports (
     id SERIAL PRIMARY KEY,
     name VARCHAR
+);
+
+CREATE TABLE sports_proficiency (
+  user_id: INT REFERENCES users(id),
+  sport_id: INT REFERENCES sports(id),
+  proficiency: INT NOT NULL
 );
 
 INSERT INTO sports (name)
