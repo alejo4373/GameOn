@@ -136,7 +136,7 @@ class Registration extends Component {
         email: emailInput,
         fullname: fullNameInput,
         zipcode: zipcodeInput,
-        sports: [{sport_id:'2', proficiency: '2'}],
+        sports: JSON.stringify([{sport_id:'2', proficiency: '2'}]),
       })
       .then(res => {
         console.log(res.data);
