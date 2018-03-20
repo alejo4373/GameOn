@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
-import { Grid, Jumbotron, Forms, Button, PageHeader, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
+import { Grid, Jumbotron, Form, Button, PageHeader, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from "axios";
 import { Redirect } from "react-router";
@@ -98,11 +98,10 @@ export default class Login extends Component {
 
         return (
             <Grid>
-                <Jumbotron>
+                <Jumbotron bsClass="LoginJumbotron">
                     <PageHeader>
                         Game On! <br /><small>Let's Play. Game On!</small>
                     </PageHeader>
-                   
                 </Jumbotron>
                 <form onSubmit={this.submitForm}>
                     <FormGroup controlId="formControlsSelect" >
@@ -131,7 +130,9 @@ export default class Login extends Component {
                         type="submit"
                     >Submit</Button>
                     <p id="or">OR</p>
-                    <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
+                    <p>Don't have an account? <br/>
+                        <Link to="/register">Sign Up</Link>
+                        </p>
                 </form>
             </Grid>
         )

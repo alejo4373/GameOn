@@ -2,8 +2,18 @@
     The Jumbotron holds the title and the slogan 
     ~Romie
 */
-.jumbotron {
+.LoginJumbotron {
     margin-top: 20px;
+    padding-right: 60px;
+    padding-left: 60px;
+    border-radius: 6px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: #eee;
+    box-sizing: border-box;
+    /* width: 100%; */
 }
 
 #loginSubmitButton {
