@@ -62,7 +62,7 @@ class Login extends React.Component {
     const { usernameInput, passwordInput } = this.state;
 
     axios
-      .post('', {
+      .post('/login', {
         username: usernameInput,
         password: passwordInput
       })

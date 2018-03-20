@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 
-//These are images Being Imported
-import basketball from "../../Images/baskteball.png";
-import football from "../../Images/football.png";
-import soccer from "../../Images/soccer.png";
-import tennis from "../../Images/tennis.png";
-import handball from "../../Images/handball.png";
-import volleyball from "../../Images/volleyball.gif";
+
 
 class SportTiles extends Component {
   state = {
@@ -37,7 +31,7 @@ class SportTiles extends Component {
               <span className="sport_name">
                 <h4>{s}</h4>
               </span>
-              <img src={handball} width={"200px"} id={s} alt="" />
+              <img src={`/images/${s}.png`} width={"200px"} height={'200px'}id={s} alt="" />
             </div>
           ))}
         </div>

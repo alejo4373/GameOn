@@ -6,11 +6,11 @@ const { loginRequired } = require('../auth/helpers')
 
 router.post('/signup', (req, res, next) => {
   var user = req.body
+  console.log(req.body)
   dbAPI.registerUser(user, (err) => {
     if(err) {
       next(err)
     }
-    
     //login the user automaticlly after sign up
     req.login(user, function(err) {
       if (err) { return next(err); }

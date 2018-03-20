@@ -34,7 +34,7 @@ class Selection extends Component {
 
   handleNextButton = () => {
     const { selectedSports } = this.state;
-    if (selectedSports[0]) {
+    if (selectedSports.length) {
       this.setState({
         nextPressed: true
       });
@@ -43,7 +43,7 @@ class Selection extends Component {
 
   handlePreviousButton = () => {
     const { selectedSports } = this.state;
-    if (selectedSports[0]) {
+    if (selectedSports.length) {
       this.setState({
         nextPressed: false
       });

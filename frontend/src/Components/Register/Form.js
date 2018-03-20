@@ -130,17 +130,23 @@ class Registration extends Component {
       return;
     }
     axios
-      .post("", {
+      .post("/signup", {
         username: usernameInput,
         password: passwordInput,
         email: emailInput,
-        full_name: fullNameInput,
-        zipcode: zipcodeInput
+        fullname: fullNameInput,
+        zipcode: zipcodeInput,
+        sports: [{sport_id:'2', proficiency: '2'}],
       })
       .then(res => {
         console.log(res.data);
         this.setState({
           registered: true,
+          usernameInput: "",
+          passwordInput: "",
+          confirmInput: "",
+          nextPressed: true,
+          emailInput: "",
           message: `Welcome to the site ${this.state.usernameInput}`
         });
       })
@@ -157,6 +163,7 @@ class Registration extends Component {
   };
 
   render() {
+
     const {
       emailInput,
       fullNameInput,
@@ -175,60 +182,17 @@ class Registration extends Component {
       handleFullNameChange,
       handleUsernameChange
     } = this;
-    if (registered) {
-      axios
-        .post("", {
-          username: usernameInput,
-          password: passwordInput
-        })
-        .then(res => {
-          this.setState({
-            message: "success"
-          });
-        })
-        .catch(err => {
-          this.setState({
-            message: "username/password not found"
-          });
-        });
-      return <Redirect to="/user" />;
-    }
+   
 
     if(nextPressed){
-      this.setState({
-        nextPressed: false
-      })
       return <Redirect to="/selection" />;
     }
-
-    let color = 'none'
-    if((
-      emailInput || 
-      fullNameInput ||
-      usernameInput ||
-      passwordInput ||
-      confirmInput || 
-      zipcodeInput )
-      && alert){
-      
-        color =  'red'
-      
-    }else if(
-      emailInput & 
-      fullNameInput &
-      usernameInput &
-      passwordInput &
-      confirmInput & 
-      zipcodeInput){
-        color = 'green'
-    }
-
     
     return (
       <div className='parent'>
           <div class="login-container">
             <div class="login-box">
-              <form onSubmit={submitForm}>
+              <form>
                 <h1 className="title">GameOn</h1>
                 <h2>Sign Up To Play, Compete, and Rank-Up</h2>
                 <label>
@@ -238,7 +202,7 @@ class Registration extends Component {
                     placeholder="Email"
                     value={emailInput}
                     onChange={handleEmailChange}
-                    style={{borderColor: color}}
+                    
                   />
                 </label>
                 <label>
@@ -248,7 +212,7 @@ class Registration extends Component {
                     placeholder="Full name"
                     value={fullNameInput}
                     onChange={handleFullNameChange}
-                    style={{borderColor: color}}
+                    
                   />
                 </label>
                 <label>
@@ -258,7 +222,7 @@ class Registration extends Component {
                     placeholder="Username"
                     value={usernameInput}
                     onChange={handleUsernameChange}
-                    style={{borderColor: color}}
+                    
                   />
                 </label>
                 <label>
@@ -268,7 +232,7 @@ class Registration extends Component {
                     placeholder="Password"
                     value={passwordInput}
                     onChange={this.handlePasswordChange}
-                    style={{borderColor: color}}
+                    
                   />
                 </label>
                 <label id="confirm">
@@ -278,7 +242,7 @@ class Registration extends Component {
                     placeholder="Confirm Password"
                     value={confirmInput}
                     onChange={this.handleConfirmChange}
-                    style={{borderColor: color}}
+                    
                   />
                 </label>
                 <label>
@@ -288,12 +252,11 @@ class Registration extends Component {
                     placeholder="Zipcode"
                     value={zipcodeInput}
                     onChange={this.handleZipCodeChange}
-                    style={{borderColor: color}}
+                    
                   />
                 </label>
-                <input type="submit" value="Sign Up" />
+                <button  onClick={submitForm}>Next</button>
               </form>
-              <button onClick={this.handleNextButton}>Next</button>
               <p>{message}</p>
             </div>
             <div class="login-box">
@@ -307,3 +270,49 @@ class Registration extends Component {
 
 
 export default Registration;
+
+
+
+ // if (registered) {
+    //   axios
+    //     .post("/login", {
+    //       username: usernameInput,
+    //       password: passwordInput
+    //     })
+    //     .then(res => {
+    //       this.setState({
+    //         message: "success"
+    //       });
+    //     })
+    //     .catch(err => {
+    //       this.setState({
+    //         message: "username/password not found"
+    //       });
+    //     });
+    //   return <Redirect to="/user" />;
+    // }
+
+
+
+
+    // let color = 'none'
+    // if((
+    //   emailInput || 
+    //   fullNameInput ||
+    //   usernameInput ||
+    //   passwordInput ||
+    //   confirmInput || 
+    //   zipcodeInput )
+    //   && alert){
+      
+    //     color =  'red'
+      
+    // }else if(
+    //   emailInput & 
+    //   fullNameInput &
+    //   usernameInput &
+    //   passwordInput &
+    //   confirmInput & 
+    //   zipcodeInput){
+    //     color = 'green'
+    // }

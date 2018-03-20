@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Redirect} from 'react-router-dom'
 
-//Images for Each Sport ~Kelvin
-import basketball from "../../Images/baskteball.png";
-import football from "../../Images/football.png";
-import soccer from "../../Images/soccer.png";
-import tennis from "../../Images/tennis.png";
-import handball from "../../Images/handball.png";
-import volleyball from "../../Images/volleyball.gif";
 
 //Bootstrap Elements ~Kelvin
 import "rc-slider/assets/index.css";
@@ -27,11 +21,18 @@ class Skills extends Component {
     super();
     this.state = {
       skillValue: 0,
-      userSkill: ""
+      userSkill: "",
+      finished: false
     };
   }
 
   //   getUsersInfo = () => {};
+
+  // signupFinished = () => {
+  //   this.setState({
+  //     finished: true
+  //   })
+  // }
 
   handle = props => {
     const { value, dragging, index, ...restProps } = props;
@@ -52,15 +53,15 @@ class Skills extends Component {
   setSkills = props => {
     const { userSkill } = this.state;
 
-    if (props > 0 && props <= 25) {
+    if (props === 1) {
       this.setState({
         userSkill: "Beginner"
       });
-    } else if (props > 25 && props <= 50) {
+    } else if (props === 2 ) {
       this.setState({
         userSkill: "Intermediate"
       });
-    } else if (props > 50) {
+    } else if (props === 3) {
       this.setState({
         userSkill: "Expert"
       });
@@ -72,6 +73,7 @@ class Skills extends Component {
       sportSelected,
       sliderValue,
       userSkill,
+      finished
     } = this.state;
 
     const {
@@ -79,9 +81,13 @@ class Skills extends Component {
         selectedSports
     } = this.props
 
+    if(finished){
+      return <Redirect to='/user' />
+    }
+
     console.log("userSkills:", userSkill);
 
-   const wrapperStyle = { width: 400, margin: 50 };
+   const wrapperStyle = { width: 500, margin: 50 };
     return (
       <div id="slider_container">
         {selectedSports.map(s => {
@@ -90,8 +96,8 @@ class Skills extends Component {
               <span>{s}</span>
               <Slider
                 defaultValue={0}
-                min={0}
-                max={75}
+                min={1}
+                max={3}
                 handle={this.handle}
                 onChange={this.setSkills}
               />
@@ -102,7 +108,7 @@ class Skills extends Component {
           );
         })}
         <button onClick={handlePreviousButton}>Previous</button>
-        <button>Finish</button>
+        <button onClick={this.signupFinished}>Finish</button>
       </div>
     );
   }
