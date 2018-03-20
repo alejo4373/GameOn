@@ -1,0 +1,34 @@
+.jumbotron {
+    margin-top: 20px;
+}
+
+/* #formControlsSelect {
+    width: 50%;
+    margin-left: 25%;
+} */
+
+#loginSubmitButton {
+    /* width: 10%; */
+    padding-right: 5%;
+    padding-left: 5%;
+    margin-bottom: 1%;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+

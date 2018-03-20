@@ -104,12 +104,12 @@ class Login extends React.Component {
                 <input
                   type="text"
                   name="username"
-                  placeholder='Username or Email'
+                  placeholder='Username or E-mail'
                   value={usernameInput}
                   onChange={this.handleUsernameChange}
                 />
               </label>
-
+              <br/>
               <label>
                 <input
                   type="password"
@@ -119,6 +119,7 @@ class Login extends React.Component {
                   onChange={this.handlePasswordChange}
                 />
               </label>
+              <br/>
               <input type="submit" value="Log In" />
             </form>
             <span>{message}</span>
