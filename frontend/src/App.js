@@ -3,8 +3,8 @@ import { Route, /*Link*/ Switch} from 'react-router-dom'
 import './App.css';
 import Home from './Components/Home/Home';
 import Login from './Components/Home/Login'
-import Register from './Components/Register/Form'
-import Selection from './Components/Register/Selection'
+import Registration from './Components/Register/Registration'
+
 
 
 
@@ -16,8 +16,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
-                    <Route exact path="/register" component={Register}/>
-                    <Route exact path="/selection" component={Selection}/>
+                    <Route exact path="/register" component={Registration}/>
                 </Switch>
             </div>
         )

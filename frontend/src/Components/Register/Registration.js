@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 
+import Selection from "./Selection";
+
 class Registration extends Component {
   state = {
     emailInput: "",
@@ -48,8 +50,8 @@ class Registration extends Component {
   };
 
   handleZipCodeChange = e => {
-    const {zipcodeInput} = this.state
-    const userZip = Number(e.target.value)
+    const { zipcodeInput } = this.state;
+    const userZip = Number(e.target.value);
     if (!isNaN(userZip) && zipcodeInput.length <= 5) {
       this.setState({
         zipcodeInput: e.target.value
@@ -64,7 +66,8 @@ class Registration extends Component {
       confirmInput,
       emailInput,
       fullNameInput,
-      zipcodeInput
+      zipcodeInput,
+      alert
     } = this.state;
 
     if (
@@ -74,20 +77,19 @@ class Registration extends Component {
       !emailInput ||
       !fullNameInput ||
       !zipcodeInput
-    ){
+    ) {
       this.setState({
         nextPressed: true
-      })
-    }else{
+      });
+    } else {
       this.setState({
         message: "Please Fill Out The Require Fields"
-      })
+      });
     }
-    
-  }
+  };
 
-  submitForm = e => {
-    e.preventDefault();
+  submitForm = () => {
+    
     const {
       usernameInput,
       passwordInput,
@@ -97,6 +99,8 @@ class Registration extends Component {
       registered,
       zipcodeInput
     } = this.state;
+
+    
     if (
       !usernameInput ||
       !passwordInput ||
@@ -117,6 +121,7 @@ class Registration extends Component {
       this.setState({
         passwordInput: "",
         confirmInput: "",
+        alert: true,
         message: "Password length must be at least 8 characters"
       });
       return;
@@ -125,45 +130,18 @@ class Registration extends Component {
       this.setState({
         passwordInput: "",
         confirmInput: "",
+        alert: true,
         message: "Passwords do not match!"
       });
       return;
     }
-    axios
-      .post("/signup", {
-        username: usernameInput,
-        password: passwordInput,
-        email: emailInput,
-        fullname: fullNameInput,
-        zipcode: zipcodeInput,
-        sports: JSON.stringify([{sport_id:'2', proficiency: '2'}]),
-      })
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          registered: true,
-          usernameInput: "",
-          passwordInput: "",
-          confirmInput: "",
-          nextPressed: true,
-          emailInput: "",
-          message: `Welcome to the site ${this.state.usernameInput}`
-        });
-      })
-      .catch(err => {
-        console.log("error: ", err);
-        this.setState({
-          usernameInput: "",
-          passwordInput: "",
-          confirmInput: "",
-          emailInput: "",
-          message: "Error inserting user"
-        });
-      });
+
+    this.setState({
+      nextPressed:true
+    })
   };
 
   render() {
-
     const {
       emailInput,
       fullNameInput,
@@ -176,20 +154,30 @@ class Registration extends Component {
       nextPressed,
       alert
     } = this.state;
+
     const {
       submitForm,
       handleEmailChange,
       handleFullNameChange,
       handleUsernameChange
     } = this;
-   
 
-    if(nextPressed){
-      return <Redirect to="/selection" />;
-    }
-    
+    console.log(nextPressed)
+
     return (
-      <div className='parent'>
+      <div className="parent">
+        {nextPressed ? (
+          <div>
+            <Selection
+            emailInput={emailInput}
+            fullNameInput={fullNameInput}
+            usernameInput={usernameInput}
+            passwordInput={passwordInput}
+            zipcodeInput={zipcodeInput}
+          />
+          </div>
+          
+        ) : (
           <div class="login-container">
             <div class="login-box">
               <form>
@@ -202,7 +190,6 @@ class Registration extends Component {
                     placeholder="Email"
                     value={emailInput}
                     onChange={handleEmailChange}
-                    
                   />
                 </label>
                 <label>
@@ -212,7 +199,6 @@ class Registration extends Component {
                     placeholder="Full name"
                     value={fullNameInput}
                     onChange={handleFullNameChange}
-                    
                   />
                 </label>
                 <label>
@@ -222,7 +208,6 @@ class Registration extends Component {
                     placeholder="Username"
                     value={usernameInput}
                     onChange={handleUsernameChange}
-                    
                   />
                 </label>
                 <label>
@@ -232,7 +217,6 @@ class Registration extends Component {
                     placeholder="Password"
                     value={passwordInput}
                     onChange={this.handlePasswordChange}
-                    
                   />
                 </label>
                 <label id="confirm">
@@ -242,7 +226,6 @@ class Registration extends Component {
                     placeholder="Confirm Password"
                     value={confirmInput}
                     onChange={this.handleConfirmChange}
-                    
                   />
                 </label>
                 <label>
@@ -252,67 +235,61 @@ class Registration extends Component {
                     placeholder="Zipcode"
                     value={zipcodeInput}
                     onChange={this.handleZipCodeChange}
-                    
                   />
                 </label>
-                <button  onClick={submitForm}>Next</button>
-              </form>
+                
+              </form><button onClick={submitForm}>Next</button>
               <p>{message}</p>
             </div>
             <div class="login-box">
               Have an account? <Link to="/login">Log in</Link>
             </div>
           </div>
+        )}
       </div>
     );
   }
 }
 
-
 export default Registration;
 
+// if (registered) {
+//   axios
+//     .post("/login", {
+//       username: usernameInput,
+//       password: passwordInput
+//     })
+//     .then(res => {
+//       this.setState({
+//         message: "success"
+//       });
+//     })
+//     .catch(err => {
+//       this.setState({
+//         message: "username/password not found"
+//       });
+//     });
+//   return <Redirect to="/user" />;
+// }
 
+// let color = 'none'
+// if((
+//   emailInput ||
+//   fullNameInput ||
+//   usernameInput ||
+//   passwordInput ||
+//   confirmInput ||
+//   zipcodeInput )
+//   && alert){
 
- // if (registered) {
-    //   axios
-    //     .post("/login", {
-    //       username: usernameInput,
-    //       password: passwordInput
-    //     })
-    //     .then(res => {
-    //       this.setState({
-    //         message: "success"
-    //       });
-    //     })
-    //     .catch(err => {
-    //       this.setState({
-    //         message: "username/password not found"
-    //       });
-    //     });
-    //   return <Redirect to="/user" />;
-    // }
+//     color =  'red'
 
-
-
-
-    // let color = 'none'
-    // if((
-    //   emailInput || 
-    //   fullNameInput ||
-    //   usernameInput ||
-    //   passwordInput ||
-    //   confirmInput || 
-    //   zipcodeInput )
-    //   && alert){
-      
-    //     color =  'red'
-      
-    // }else if(
-    //   emailInput & 
-    //   fullNameInput &
-    //   usernameInput &
-    //   passwordInput &
-    //   confirmInput & 
-    //   zipcodeInput){
-    //     color = 'green'
-    // }
+// }else if(
+//   emailInput &
+//   fullNameInput &
+//   usernameInput &
+//   passwordInput &
+//   confirmInput &
+//   zipcodeInput){
+//     color = 'green'
+// }

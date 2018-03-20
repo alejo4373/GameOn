@@ -58,6 +58,14 @@ class Selection extends Component {
       handlePreviousButton
     } = this;
 
+    const {
+      emailInput,
+      fullNameInput,
+      usernameInput,
+      passwordInput,
+      zipcodeInput
+    } = this.props
+
     console.log(selectedSports);
 
     return (
@@ -66,6 +74,11 @@ class Selection extends Component {
           <Skills
             selectedSports={selectedSports}
             handlePreviousButton={handlePreviousButton}
+            emailInput={emailInput}
+            fullNameInput={fullNameInput}
+            usernameInput={usernameInput}
+            passwordInput={passwordInput}
+            zipcodeInput={zipcodeInput}
           />
         ) : (
           <SportTiles

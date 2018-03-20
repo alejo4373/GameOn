@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import {Redirect} from 'react-router-dom'
-
+import { Redirect } from "react-router-dom";
 
 //Bootstrap Elements ~Kelvin
 import "rc-slider/assets/index.css";
@@ -14,25 +13,58 @@ const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 const Handle = Slider.Handle;
 
-
-
 class Skills extends Component {
   constructor() {
     super();
     this.state = {
       skillValue: 0,
       userSkill: "",
-      finished: false
+      submitted: false
     };
   }
 
-  //   getUsersInfo = () => {};
 
-  // signupFinished = () => {
-  //   this.setState({
-  //     finished: true
-  //   })
-  // }
+  submitForm = () => {
+    const {
+      emailInput,
+      fullNameInput,
+      usernameInput,
+      passwordInput,
+      zipcodeInput,
+
+    } = this.props
+    axios
+      .post("/signup", {
+        username: usernameInput,
+        password: passwordInput,
+        email: emailInput,
+        fullname: fullNameInput,
+        zipcode: zipcodeInput,
+        sports: JSON.stringify([{ sport_id: "2", proficiency: "2" }])
+      })
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          registered: true,
+          usernameInput: "",
+          passwordInput: "",
+          confirmInput: "",
+          submitted: true,
+          emailInput: "",
+          message: `Welcome to the site ${this.state.usernameInput}`
+        });
+      })
+      .catch(err => {
+        console.log("error: ", err);
+        this.setState({
+          usernameInput: "",
+          passwordInput: "",
+          confirmInput: "",
+          emailInput: "",
+          message: "Error inserting user"
+        });
+      });
+  }
 
   handle = props => {
     const { value, dragging, index, ...restProps } = props;
@@ -57,7 +89,7 @@ class Skills extends Component {
       this.setState({
         userSkill: "Beginner"
       });
-    } else if (props === 2 ) {
+    } else if (props === 2) {
       this.setState({
         userSkill: "Intermediate"
       });
@@ -69,25 +101,20 @@ class Skills extends Component {
   };
 
   render() {
-    const {
-      sportSelected,
-      sliderValue,
-      userSkill,
-      finished
-    } = this.state;
+    const { sportSelected, sliderValue, userSkill, submitted } = this.state;
 
     const {
-        handlePreviousButton,
-        selectedSports
-    } = this.props
+      handlePreviousButton,
+      selectedSports
+    } = this.props;
 
-    if(finished){
-      return <Redirect to='/user' />
+    if (submitted) {
+      return <Redirect to="/user" />;
     }
 
     console.log("userSkills:", userSkill);
 
-   const wrapperStyle = { width: 500, margin: 50 };
+    const wrapperStyle = { width: 500, margin: 50 };
     return (
       <div id="slider_container">
         {selectedSports.map(s => {
@@ -108,7 +135,7 @@ class Skills extends Component {
           );
         })}
         <button onClick={handlePreviousButton}>Previous</button>
-        <button onClick={this.signupFinished}>Finish</button>
+        <button onClick={this.submitForm}>Finish</button>
       </div>
     );
   }
