@@ -1,19 +1,22 @@
+/*
+    The Jumbotron holds the title and the slogan 
+    ~Romie
+*/
 .jumbotron {
     margin-top: 20px;
 }
 
-/* #formControlsSelect {
-    width: 50%;
-    margin-left: 25%;
-} */
-
 #loginSubmitButton {
-    /* width: 10%; */
     padding-right: 5%;
     padding-left: 5%;
     margin-bottom: 1%;
 }
 
+/*
+    The @media is for the container that everything is in,
+    it is also the <Grid> in the Login.jsx
+    ~Romie
+*/
 @media (min-width: 1200px) {
     .container {
         width: 1170px;
@@ -32,3 +35,27 @@
     }
 }
 
+/* 
+    Adjusted the automatic styling for the <FormControl>
+    to be centerd and responsive.
+    ~Romie
+*/ 
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    text-align: center;
+    width: 75%;
+    margin-left: 13%;
+}
+
+/*
+    Minor styling for the OR in "Submit OR Register"
+    ~Romie
+*/
+#or {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
