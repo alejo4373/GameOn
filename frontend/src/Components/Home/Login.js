@@ -95,11 +95,11 @@ class Login extends React.Component {
     }
 
     return (
-        <div id='parent'>
+        <div className='parent'>
             <div class='login-container' >
                 <div class='login-box'>
                 <h1 id='title'>GameOn</h1>
-                    <form onSubmit={this.submitForm}>
+                    <form onSubmit={submitForm}>
                     <label>
                         <input
                         type="text"

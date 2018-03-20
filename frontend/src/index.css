@@ -3,3 +3,26 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+#selection_container{
+  margin-left: 35%;
+  width: 550px;
+  height: 2400px;
+}
+.sport_selection{
+  border: 2px solid black;
+  width: 200px;
+  height: 300px;
+  margin: 1% 0 0 1%;
+  float: left;
+}
+
+.sport_name{
+  text-align: center;
+}
+
+.skills{
+  margin-left: 16%
+}
+
+

@@ -12,7 +12,9 @@ class Registration extends Component {
     confirmInput: "",
     zipcodeInput: "",
     message: "",
-    registered: false
+    nextPressed: false,
+    registered: false,
+    alert: false
   };
 
   handleUsernameChange = e => {
@@ -46,12 +48,43 @@ class Registration extends Component {
   };
 
   handleZipCodeChange = e => {
-    if (typeof e.target.value === "number") {
+    const {zipcodeInput} = this.state
+    const userZip = Number(e.target.value)
+    if (!isNaN(userZip) && zipcodeInput.length <= 5) {
       this.setState({
         zipcodeInput: e.target.value
       });
     }
   };
+
+  handleNextButton = () => {
+    const {
+      usernameInput,
+      passwordInput,
+      confirmInput,
+      emailInput,
+      fullNameInput,
+      zipcodeInput
+    } = this.state;
+
+    if (
+      !usernameInput ||
+      !passwordInput ||
+      !confirmInput ||
+      !emailInput ||
+      !fullNameInput ||
+      !zipcodeInput
+    ){
+      this.setState({
+        nextPressed: true
+      })
+    }else{
+      this.setState({
+        message: "Please Fill Out The Require Fields"
+      })
+    }
+    
+  }
 
   submitForm = e => {
     e.preventDefault();
@@ -75,6 +108,7 @@ class Registration extends Component {
       this.setState({
         passwordInput: "",
         confirmInput: "",
+        alert: true,
         message: "Please complete all required fields"
       });
       return;
@@ -117,7 +151,6 @@ class Registration extends Component {
           passwordInput: "",
           confirmInput: "",
           emailInput: "",
-          usernameInput: "",
           message: "Error inserting user"
         });
       });
@@ -132,7 +165,9 @@ class Registration extends Component {
       confirmInput,
       message,
       registered,
-      zipcodeInput
+      zipcodeInput,
+      nextPressed,
+      alert
     } = this.state;
     const {
       submitForm,
@@ -142,7 +177,7 @@ class Registration extends Component {
     } = this;
     if (registered) {
       axios
-        .post("/users/login", {
+        .post("", {
           username: usernameInput,
           password: passwordInput
         })
@@ -158,8 +193,39 @@ class Registration extends Component {
         });
       return <Redirect to="/user" />;
     }
+
+    if(nextPressed){
+      this.setState({
+        nextPressed: false
+      })
+      return <Redirect to="/selection" />;
+    }
+
+    let color = 'none'
+    if((
+      emailInput || 
+      fullNameInput ||
+      usernameInput ||
+      passwordInput ||
+      confirmInput || 
+      zipcodeInput )
+      && alert){
+      
+        color =  'red'
+      
+    }else if(
+      emailInput & 
+      fullNameInput &
+      usernameInput &
+      passwordInput &
+      confirmInput & 
+      zipcodeInput){
+        color = 'green'
+    }
+
+    
     return (
-      <div>
+      <div className='parent'>
           <div class="login-container">
             <div class="login-box">
               <form onSubmit={submitForm}>
@@ -172,6 +238,7 @@ class Registration extends Component {
                     placeholder="Email"
                     value={emailInput}
                     onChange={handleEmailChange}
+                    style={{borderColor: color}}
                   />
                 </label>
                 <label>
@@ -181,6 +248,7 @@ class Registration extends Component {
                     placeholder="Full name"
                     value={fullNameInput}
                     onChange={handleFullNameChange}
+                    style={{borderColor: color}}
                   />
                 </label>
                 <label>
@@ -190,6 +258,7 @@ class Registration extends Component {
                     placeholder="Username"
                     value={usernameInput}
                     onChange={handleUsernameChange}
+                    style={{borderColor: color}}
                   />
                 </label>
                 <label>
@@ -199,6 +268,7 @@ class Registration extends Component {
                     placeholder="Password"
                     value={passwordInput}
                     onChange={this.handlePasswordChange}
+                    style={{borderColor: color}}
                   />
                 </label>
                 <label id="confirm">
@@ -208,6 +278,7 @@ class Registration extends Component {
                     placeholder="Confirm Password"
                     value={confirmInput}
                     onChange={this.handleConfirmChange}
+                    style={{borderColor: color}}
                   />
                 </label>
                 <label>
@@ -217,10 +288,12 @@ class Registration extends Component {
                     placeholder="Zipcode"
                     value={zipcodeInput}
                     onChange={this.handleZipCodeChange}
+                    style={{borderColor: color}}
                   />
                 </label>
                 <input type="submit" value="Sign Up" />
               </form>
+              <button onClick={this.handleNextButton}>Next</button>
               <p>{message}</p>
             </div>
             <div class="login-box">
