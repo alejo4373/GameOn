@@ -151,8 +151,7 @@ class Registration extends Component {
       message,
       registered,
       zipcodeInput,
-      nextPressed,
-      alert
+      nextPressed
     } = this.state;
 
     const {
@@ -272,24 +271,4 @@ export default Registration;
 //   return <Redirect to="/user" />;
 // }
 
-// let color = 'none'
-// if((
-//   emailInput ||
-//   fullNameInput ||
-//   usernameInput ||
-//   passwordInput ||
-//   confirmInput ||
-//   zipcodeInput )
-//   && alert){
 
-//     color =  'red'
-
-// }else if(
-//   emailInput &
-//   fullNameInput &
-//   usernameInput &
-//   passwordInput &
-//   confirmInput &
-//   zipcodeInput){
-//     color = 'green'
-// }

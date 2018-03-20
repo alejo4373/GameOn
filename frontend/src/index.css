@@ -25,4 +25,37 @@ body {
   margin-right: 33%
 }
 
+#profile_component{
+  border: 2px solid black;
+  margin: 10% 0 0 35%;
+  width: 400px;
+  height: 300px;
+}
+
+#profile_photo{
+  float: left;
+  margin: 2% 0 0 5%;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+}
+
+#username{
+  margin-left: 3%;
+  position: absolute;
+}
+
+#xp_header{
+  margin: 3% 0 0 5%;
+  position: absolute;
+}
+
+#user_selectedSports_container{
+  border: 2px solid black;
+  width: 200px;
+  height: auto;
+  position: absolute;
+  margin: 10%
+}
+
+
 
