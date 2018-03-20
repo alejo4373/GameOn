@@ -13,7 +13,7 @@ const getUserByUsername = (username, callback) => {
     });
 };
 
-const registerUser = (user, callback) => {
+const registerUser = (user, callback,req,res) => {
   const newUser = {
       userName: user.username,
       fullName: user.fullname,
@@ -25,13 +25,14 @@ const registerUser = (user, callback) => {
       sports: user.sports,
       zipcode: user.zipcode
   }
+  const sports = JSON.parse(newUser.sports)
+  console.log(sports)
   db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
           'RETURNING id', newUser)
   .then((user)=> {
     var user_id = user.id //Hardcoded
-    if(user.sports && user.sports.length) {
-      const sports = JSON.parse(newUser.sports)
+    if(sports && sports.length) {
       var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
       sports.forEach((sport, index) => {
         console.log(sport)
@@ -47,7 +48,6 @@ const registerUser = (user, callback) => {
         .then(() => callback(null))
         .catch((err) => callback(err))
     }
-    callback(null)
   })
   .catch(err => callback(err))
 }
