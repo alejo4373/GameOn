@@ -27,7 +27,7 @@ body {
 
 #profile_component{
   /* border: 2px solid black; */
-  margin: 8% 0 4% 32%;
+  margin: 8% 0 8% 32%;
   width: 600px;
   height: 200px;
 }
@@ -119,8 +119,3 @@ body {
   -webkit-border-radius: 60px;
 
 }
-
-
-
-
-
