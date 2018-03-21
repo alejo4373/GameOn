@@ -31,8 +31,12 @@ const registerUser = (user, callback,req,res) => {
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
           'RETURNING id', newUser)
   .then((user)=> {
-    var user_id = user.id //Hardcoded
-    if(sports && sports.length) {
+    var user_id = user.id 
+    //Check if the user selected some sports for each sport we in a hacky not sure if good way 
+    //concatenate a SQL statement string so that we insert that data in one INSERT statement at once
+    //if the user didn't picked any sport then skip this step altogether 
+    if(sports.length) {
+      //Base (header) for the SQL statement
       var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
       sports.forEach((sport, index) => {
         console.log(sport)
@@ -44,6 +48,7 @@ const registerUser = (user, callback,req,res) => {
       })
       SQLStatement += ';' 
 
+      //Feeding that SQL statement into the db instance of pg-promise
       db.none(SQLStatement)
         .then(() => callback(null))
         .catch((err) => callback(err))
