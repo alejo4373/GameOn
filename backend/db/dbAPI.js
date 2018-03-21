@@ -57,55 +57,6 @@ const registerUser = (user, callback) => {
   })
   .catch(err => callback(err))
 }
-//expecting an obj for our post
-const addPosts = (postObj, callback) => {
-  db.none('INSERT INTO posts(owner_id, imageurl) VALUES (${ownerId}, ${imageUrl})', postObj)
-  .then(() => callback(null))
-  .catch(err => callback(err))
-}
-
-// const follow = ()
-
-const getPosts = (username, callback) => {
-  db
-    .any(
-      "SELECT * FROM posts WHERE owner_id = (SELECT id FROM users WHERE username = ${username})",
-      {username:username}
-    )
-    .then(data => callback(null, data))
-    .catch(err => callback(err, false));
-};
-
-const postLikes = (likesObj, callback) => {
-  db
-  .none(
-    "INSERT INTO likesTable(post_id, liked_by) VALUES (${postId}, ${likedBy})", likesObj)
-  .then(() => callback(null))
-  .catch(err => callback(err))
-};
-
-const getLikes = (postId, callback) => {
-  db.any('SELECT liked_by FROM likesTable WHERE post_id =${postId}', {postId:postId})
-  .then(data => callback(null, data))
-  .catch(err => callback(err, false))
-}
-
-
-const getFeed = (username, callback) => {
-  db
-    .any(
-      "SELECT * FROM posts WHERE owner_id = ANY(SELECT follower_id FROM followinfo INNER JOIN users ON followinfo.owner_id = users.id WHERE users.username = ${username})",
-      {username:username}
-    )
-    .then(data => callback(null, data))
-    .catch(err => callback(err, false));
-};
-
-const addFollower = (ownerId, followerId, callback) => {
-  db.none('INSERT INTO followinfo (owner_id, follower_id) VALUES(${ownerId}, ${followerId})', {ownerId, followerId})
-    .then(() => callback(null))
-    .catch(err => callback(err, false))
-}
 
 /**
  * Retrieves user information relevant to their profile
