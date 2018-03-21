@@ -1,5 +1,5 @@
 const db = require("./index");
-const helpers = require('../auth/helper');
+const helpers = require('../auth/helpers');
 
 const getUserByUsername = (username, callback) => {
   db
@@ -13,7 +13,7 @@ const getUserByUsername = (username, callback) => {
     });
 };
 
-const registerUser = (user, callback) => {
+const registerUser = (user, callback,req,res) => {
   const newUser = {
       userName: user.username,
       fullName: user.fullname,
