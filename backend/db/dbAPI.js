@@ -1,5 +1,5 @@
 const db = require("./index");
-const helpers = require("../auth/helper");
+const helpers = require('../auth/helper');
 
 const getUserByUsername = (username, callback) => {
   db
