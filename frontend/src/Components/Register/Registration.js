@@ -151,8 +151,7 @@ class Registration extends Component {
       message,
       registered,
       zipcodeInput,
-      nextPressed,
-      alert
+      nextPressed
     } = this.state;
 
     const {
@@ -248,4 +247,6 @@ class Registration extends Component {
   }
 }
 
+
 export default Registration;
+

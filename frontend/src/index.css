@@ -25,4 +25,97 @@ body {
   margin-right: 33%
 }
 
+#profile_component{
+  /* border: 2px solid black; */
+  margin: 8% 0 8% 32%;
+  width: 600px;
+  height: 200px;
+}
 
+#profile_photo{
+  float: left;
+  margin: 2% 0 0 2%;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+}
+
+#edit_profile_button{
+  border: 1px solid gray;
+  font-size: 18px;
+  width: auto;
+  height: 28px;
+  position: absolute;
+  margin: 1.5% 0 0 13%;
+
+}
+
+#username{
+  margin-left: 3%;
+  position: absolute;
+}
+
+#xp_header{
+  margin: 3% 0 0 5%;
+  position: absolute;
+}
+
+#user_selectedSports_container{
+  position: absolute;
+  margin: 8% 0 0 13%;
+  
+}
+
+
+#event_container{
+  border: 2px solid black;
+  width: 400px;
+  height: 500px;
+  overflow-y: scroll;
+  position: absolute;
+}
+
+#upcoming_component{
+  position: absolute;
+  margin-left: 12%
+}
+.event_descriptions{
+  width: 200px;
+  height: auto;
+  position: absolute;
+  margin-left: 20%
+}
+
+.individual_event{
+  border: 1px solid black;
+  width: 400px;
+  height: 125px;
+  margin-bottom: 2%;
+}
+
+
+.host_img{
+  float: left;
+  margin: 1% 3% 0 3%;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+}
+
+.host_Name{
+  margin-left: 18%
+}
+
+#history_component{
+  position: absolute;
+  margin-left: 60%
+}
+
+.event_result{
+  font-size: 30px;
+  position: absolute;
+  margin: 3% 0 0 80%;
+  width: 40px;
+  text-align: center;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+
+}
