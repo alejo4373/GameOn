@@ -251,24 +251,3 @@ class Registration extends Component {
 }
 
 export default Registration;
-
-// if (registered) {
-//   axios
-//     .post("/login", {
-//       username: usernameInput,
-//       password: passwordInput
-//     })
-//     .then(res => {
-//       this.setState({
-//         message: "success"
-//       });
-//     })
-//     .catch(err => {
-//       this.setState({
-//         message: "username/password not found"
-//       });
-//     });
-//   return <Redirect to="/user" />;
-// }
-
-

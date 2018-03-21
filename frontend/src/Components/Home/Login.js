@@ -45,11 +45,11 @@ class Login extends React.Component {
    */
   getUser = () => {
     axios.get('')
-    .then(res => {
+      .then(res => {
         this.setState({
-            user: res.data.data[0]
+          user: res.data.data[0]
         })
-    })
+      })
   }
   /**
    * @func submitForm
@@ -86,7 +86,7 @@ class Login extends React.Component {
   render() {
     const { usernameInput, passwordInput, message, loggedIn, user } = this.state;
     const { submitForm } = this;
-    
+
     if (user) {
       return <Redirect to='/user' />;
     }
@@ -110,25 +110,25 @@ class Login extends React.Component {
                         />
                     </label>
 
-                    <label>
-                        <input
-                        type="password"
-                        name="username"
-                        placeholder='Password'
-                        value={passwordInput}
-                        onChange={this.handlePasswordChange}
-                        />
-                    </label>
+              <label>
+                <input
+                  type="password"
+                  name="username"
+                  placeholder='Password'
+                  value={passwordInput}
+                  onChange={this.handlePasswordChange}
+                />
+              </label>
 
-                    <input type="submit" value="Log In" />
-                    </form>
-                    <span>{message}</span>
-                </div>
-                <div class='login-box'>
-                Don't have an account? <Link to="/register">Sign Up</Link>
-                </div>
-            </div>
+              <input type="submit" value="Log In" />
+            </form>
+            <span>{message}</span>
+          </div>
+          <div class='login-box'>
+            Don't have an account? <Link to="/registration">Sign Up</Link>
+          </div>
         </div>
+      </div>
     );
   }
 }
