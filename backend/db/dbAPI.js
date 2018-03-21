@@ -137,11 +137,10 @@ const getAllUsers = (callback) => {
 }
 
 const updateUserInfo = (userInfo, callback) => {
-  db.none('UPDATE users SET username=${username} fullname=${fullname} ' +
-  'zip_code= ${zipcode} email=${email} WHERE id=${id}', userInfo)
-  .then(data => callback(null, data)
-  .catch(err => callback(err, false))
-  )
+  db.none('UPDATE users SET username=${username},fullname=${fullname},' +
+  'zip_code= ${zipcode},email=${email} WHERE id=${id}', userInfo)
+  .then(data => callback(null, data))
+  .catch(err => callback(err))
 }
 
 const addSport = (sport, callback) => {
