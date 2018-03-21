@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 //DashBoard Components
-import Profile from "./Profile";
-import Upcoming from "./Upcoming";
-import History from "./History";
+import Profile from "./Profile/Profile";
+import Upcoming from "./Profile/Upcoming";
+import History from "./Profile/History";
 class Dashboard extends Component {
   render() {
     return (
