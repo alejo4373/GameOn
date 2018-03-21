@@ -57,45 +57,6 @@ const registerUser = (user, callback) => {
   })
   .catch(err => callback(err))
 }
-//expecting an obj for our post
-const addPosts = (postObj, callback) => {
-  db.none('INSERT INTO posts(owner_id, imageurl) VALUES (${ownerId}, ${imageUrl})', postObj)
-  .then(() => callback(null))
-  .catch(err => callback(err))
-}
-
-
-
-const postLikes = (likesObj, callback) => {
-  db
-  .none(
-    "INSERT INTO likesTable(post_id, liked_by) VALUES (${postId}, ${likedBy})", likesObj)
-  .then(() => callback(null))
-  .catch(err => callback(err))
-};
-
-const getLikes = (postId, callback) => {
-  db.any('SELECT liked_by FROM likesTable WHERE post_id =${postId}', {postId:postId})
-  .then(data => callback(null, data))
-  .catch(err => callback(err, false))
-}
-
-
-const getFeed = (username, callback) => {
-  db
-    .any(
-      "SELECT * FROM posts WHERE owner_id = ANY(SELECT follower_id FROM followinfo INNER JOIN users ON followinfo.owner_id = users.id WHERE users.username = ${username})",
-      {username:username}
-    )
-    .then(data => callback(null, data))
-    .catch(err => callback(err, false));
-};
-
-const addFollower = (ownerId, followerId, callback) => {
-  db.none('INSERT INTO followinfo (owner_id, follower_id) VALUES(${ownerId}, ${followerId})', {ownerId, followerId})
-    .then(() => callback(null))
-    .catch(err => callback(err, false))
-}
 
 /**
  * Retrieves user information relevant to their profile
@@ -119,6 +80,7 @@ const getUserInfo = (userId, answer) => {
     .catch(err =>  answer(err, null))
 }
 
+
 /**
  * Retrieves all sports with their respective id
  * @param {Function} callback - Function that will be called with (err, data) as its arguments and is in charge of sending the response
@@ -128,11 +90,52 @@ const getAllSports = (callback) => {
     .any("SELECT * FROM sports")
     .then(sports => callback(null, sports))
     .catch(err => callback(err, false));
+
+const getAllUsers = (callback) => {
+  db.any('SELECT username, profile_pic, exp_point FROM users')
+  .then(data => callback(null, data)
+  .catch(err => callback(err))
+  )
+}
+
+const updateUserInfo = (userInfo, callback) => {
+  db.none('UPDATE users SET username=${username},fullname=${fullname},' +
+  'zip_code= ${zipcode},email=${email} WHERE id=${id}', userInfo)
+  .then(data => callback(null, data))
+  .catch(err => callback(err))
+}
+
+const addSport = (sport, callback) => {
+  console.log("sport", sport);
+  db
+    .none(
+      "INSERT INTO sports_proficiency(user_id, sport_id, proficiency) " +
+        "VALUES (${user_id}, ${sport_id}, ${proficiency})",
+      sport
+    )
+    .then(() => callback(null))
+    .catch(err => callback(err));
+};
+
+const deleteSport = (sport, callback) => {
+  db
+    .none(
+      "DELETE FROM sports_proficiency " +
+        "WHERE user_id = ${user_id} AND sport_id = ${sport_id}",
+      sport
+    )
+    .then(() => callback(null))
+    .catch(err => callback(err));
 };
 
 module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
-  getAllSports: getAllSports
+  getAllSports: getAllSports,
+  getAllUsers: getAllUsers,
+  updateUserInfo: updateUserInfo,
+  addSport: addSport,
+  deleteSport: deleteSport
 };
+

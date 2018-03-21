@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('../auth/passport')
-const dbAPI = require( '../db/dbAPI') 
+const dbAPI = require( '../db/dbAPI')
 const { loginRequired } = require('../auth/helpers')
 
 router.post('/signup', (req, res, next) => {
@@ -10,6 +10,7 @@ router.post('/signup', (req, res, next) => {
     if(err) {
       return next(err)
     }
+
     //Log in user automatically after sign up
     req.login(user, function(err) {
       if (err) { return next(err); }
