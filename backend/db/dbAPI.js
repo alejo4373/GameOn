@@ -13,7 +13,7 @@ const getUserByUsername = (username, callback) => {
     });
 };
 
-const registerUser = (user, callback,req,res) => {
+const registerUser = (user, callback) => {
   const newUser = {
       userName: user.username,
       fullName: user.fullname,
@@ -29,14 +29,14 @@ const registerUser = (user, callback,req,res) => {
   console.log(sports)
   db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
-          'RETURNING id', newUser)
+          'RETURNING id, username, fullname, profile_pic', newUser)
   .then((user)=> {
-    var user_id = user.id //Hardcoded
-    if(sports && sports.length) {
     //id assigned by the database to the newly created user
+    var user_id = user.id 
     //Check if the user selected some sports for each sport we in a hacky not sure if good way 
     //concatenate a SQL statement string so that we insert that data in one INSERT statement at once
     //if the user didn't picked any sport then skip this step altogether 
+    if(sports.length) {
       //Base (header) for the SQL statement
       var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
       sports.forEach((sport, index) => {
@@ -51,7 +51,7 @@ const registerUser = (user, callback,req,res) => {
 
       //Feeding that SQL statement into the db instance of pg-promise
       db.none(SQLStatement)
-        .then(() => callback(null))
+        .then(() => callback(null, user))
         .catch((err) => callback(err))
     }
   })
@@ -170,12 +170,6 @@ module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
-  addPosts: addPosts,
-  getPosts: getPosts,
-  postLikes: postLikes,
-  getLikes: getLikes,
-  getFeed: getFeed,
-  addFollower: addFollower,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
   addSport: addSport,

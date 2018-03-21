@@ -27,12 +27,9 @@ passport.use(
           id: user.id,
           username: user.username,
           fullname: user.fullname,
-          profilePicUrl: user.profile_pic,
-          numberOfPosts:user.number_of_posts,
-          numberOfFollowers: user.number_of_followers,
-          numberOfFollowing: user.number_of_following
+          profile_pic: user.profile_pic,
         }
-        console.log(user)
+        //console.log(user)
         return done(null, userWithoutPassword)
       })
     })
