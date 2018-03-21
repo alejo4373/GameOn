@@ -4,12 +4,12 @@ const helpers = require('../auth/helpers');
 const getUserByUsername = (username, callback) => {
   db
     .any(
-      "SELECT * FROM users WHERE username = ${username}", 
+      "SELECT * FROM users WHERE username = ${username}",
       {username: username}
     )
     .then(data => callback(null, data[0]))
     .catch(err => {
-      callback(err, false);
+      callback(err, false)
     });
 };
 
@@ -29,14 +29,14 @@ const registerUser = (user, callback,req,res) => {
   console.log(sports)
   db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
-          'RETURNING id, username, fullname, profile_pic', newUser)
+          'RETURNING id', newUser)
   .then((user)=> {
-    //id assigned by the database to the newly created user
     var user_id = user.id 
+    if(sports && sports.length) {
+    //id assigned by the database to the newly created user
     //Check if the user selected some sports for each sport we in a hacky not sure if good way 
     //concatenate a SQL statement string so that we insert that data in one INSERT statement at once
     //if the user didn't picked any sport then skip this step altogether 
-    if(sports.length) {
       //Base (header) for the SQL statement
       var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
       sports.forEach((sport, index) => {
@@ -51,7 +51,7 @@ const registerUser = (user, callback,req,res) => {
 
       //Feeding that SQL statement into the db instance of pg-promise
       db.none(SQLStatement)
-        .then(() => callback(null, user))
+        .then(() => callback(null))
         .catch((err) => callback(err))
     }
   })
