@@ -26,7 +26,7 @@ export default class SportTiles extends Component {
       "Basketball",
       "Volleyball"
     ],
-    style: ""
+    // style: ""
   };
 
   handleSelectionChanges = (e) => {
@@ -52,7 +52,7 @@ export default class SportTiles extends Component {
         <div id="sportsTile_Container">
           {sports.map(s => (
             <Grid
-              style={this.state.style}
+              // style={this.state.style}
               className="sport_selection"
               id={s}
               onClick={handleSelectionChanges}

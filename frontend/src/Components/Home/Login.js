@@ -95,40 +95,40 @@ class Login extends React.Component {
     }
 
     return (
-        <div className='parent'>
-            <div class='login-container' >
-                <div class='login-box'>
-                <h1 id='title'>GameOn</h1>
-                    <form onSubmit={submitForm}>
-                    <label>
-                        <input
-                        type="text"
-                        name="username"
-                        placeholder='Username or Email'
-                        value={usernameInput}
-                        onChange={this.handleUsernameChange}
-                        />
-                    </label>
-
-                    <label>
-                        <input
-                        type="password"
-                        name="username"
-                        placeholder='Password'
-                        value={passwordInput}
-                        onChange={this.handlePasswordChange}
-                        />
-                    </label>
-
-                    <input type="submit" value="Log In" />
-                    </form>
-                    <span>{message}</span>
-                </div>
-                <div class='login-box'>
-                Don't have an account? <Link to="/register">Sign Up</Link>
-                </div>
-            </div>
+      <div id='parent'>
+        <div class='login-container' >
+          <div class='login-box'>
+            <h1 id='title'>GameOn</h1>
+            <form onSubmit={this.submitForm}>
+              <label>
+                <input
+                  type="text"
+                  name="username"
+                  placeholder='Username or E-mail'
+                  value={usernameInput}
+                  onChange={this.handleUsernameChange}
+                />
+              </label>
+              <br/>
+              <label>
+                <input
+                  type="password"
+                  placeholder='Password'
+                  name="username"
+                  value={passwordInput}
+                  onChange={this.handlePasswordChange}
+                />
+              </label>
+              <br/>
+              <input type="submit" value="Log In" />
+            </form>
+            <span>{message}</span>
+          </div>
+          <div class='login-box'>
+            Don't have an account? <Link to="/register">Sign Up</Link>
+          </div>
         </div>
+      </div>
     );
   }
 }
