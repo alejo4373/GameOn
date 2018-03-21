@@ -105,18 +105,43 @@ const addFollower = (ownerId, followerId, callback) => {
     .then(() => callback(null))
     .catch(err => callback(err, false))
 }
+db.task('my-task', t => {
+  // t.ctx = task context object
+  
+  return t.one('SELECT id FROM Users WHERE name = $1', 'John')
+      .then(user => {
+          return t.any('SELECT * FROM Events WHERE userId = $1', user.id);
+      });
+})
+.then(data => {
+  // success
+  // data = as returned from the task's callback
+})
+.catch(error => {
+  // error
+});
 
 const getUserInfo = (userId, answer) => {
-  db.one('SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users' +
-         'WHERE id = $1', userId) 
-    .then(user => {
-      console.log(user)
-    })
+   db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
+           WHERE id = $1`, userId) 
+      .then(user => {
+        db.any(`SELECT sports.name, sports.id, proficiency from sports_proficiency 
+                INNER JOIN sports ON sports.id = sport_id
+                WHERE user_id = $1`, userId)
+          .then(sports => {
+            //Aggregating info from both queries into one object
+            var userInfo = {...user, sports:sports}
+            answer(null, userInfo)
+          })
+          .catch(err => answer(err, null))
+   })
+    .catch(err =>  answer(err, null))
 }
 
 module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
+  getUserInfo: getUserInfo,
   addPosts: addPosts,
   getPosts: getPosts,
   postLikes: postLikes,
