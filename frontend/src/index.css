@@ -26,17 +26,27 @@ body {
 }
 
 #profile_component{
-  border: 2px solid black;
-  margin: 10% 0 0 35%;
-  width: 400px;
-  height: 300px;
+  /* border: 2px solid black; */
+  margin: 8% 0 4% 32%;
+  width: 600px;
+  height: 200px;
 }
 
 #profile_photo{
   float: left;
-  margin: 2% 0 0 5%;
+  margin: 2% 0 0 2%;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
+}
+
+#edit_profile_button{
+  border: 1px solid gray;
+  font-size: 18px;
+  width: auto;
+  height: 28px;
+  position: absolute;
+  margin: 1.5% 0 0 13%;
+
 }
 
 #username{
@@ -50,12 +60,11 @@ body {
 }
 
 #user_selectedSports_container{
-  border: 2px solid black;
-  width: 200px;
-  height: auto;
   position: absolute;
-  margin: 10%
+  margin: 8% 0 0 13%;
+  
 }
+
 
 #event_container{
   border: 2px solid black;
@@ -110,6 +119,7 @@ body {
   -webkit-border-radius: 60px;
 
 }
+
 
 
 
