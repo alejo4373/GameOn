@@ -106,6 +106,14 @@ const addFollower = (ownerId, followerId, callback) => {
     .catch(err => callback(err, false))
 }
 
+const getUserInfo = (userId, answer) => {
+  db.one('SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users' +
+         'WHERE id = $1', userId) 
+    .then(user => {
+      console.log(user)
+    })
+}
+
 module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
