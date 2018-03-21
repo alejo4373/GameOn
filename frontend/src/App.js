@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, /*Link*/ Switch} from 'react-router-dom'
 import './App.css';
+
 import Home from './Components/Home/Home';
 import Login from './Components/Home/Login'
 import Registration from './Components/Register/Registration'

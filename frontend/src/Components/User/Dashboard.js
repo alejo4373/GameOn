@@ -1,19 +1,30 @@
 import React, { Component } from "react";
+
+//DashBoard Components
 import Profile from "./Profile";
+import Upcoming from "./Upcoming";
+import History from "./History";
 class Dashboard extends Component {
   render() {
     return (
       <div className="parent">
-        <div id='profile_component'>
-          <Profile />
-        </div>
+        {/*Navigation Bar*/}
 
-        <div id='upcoming_component'>
-        
-        </div>
+        {/*All Dashboard Components Goes Here*/}
+        <div id='dashboard_components'>
+          <div id="profile_component">
+            <Profile />
+          </div>
 
-        <div id='history_component'>
+          <div id="upcoming_component">
+            <h2 className="event_title">UPCOMING EVENTS</h2>
+            <Upcoming />
+          </div>
 
+          <div id="history_component">
+            <h2 className="event_title">PAST EVENTS</h2>
+            <History />
+          </div>
         </div>
       </div>
     );
