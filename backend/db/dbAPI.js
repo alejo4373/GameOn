@@ -129,6 +129,21 @@ const getUserInfo = (userId, answer) => {
     .catch(err =>  answer(err, null))
 }
 
+const getAllUsers = (callback) => {
+  db.any('SELECT username, profile_pic, exp_point FROM users')
+  .then(data => callback(null, data)
+  .catch(err => callback(err))
+  )
+}
+
+const updateUserInfo = (userInfo, callback) => {
+  db.none('UPDATE users SET username=${username} fullname=${fullname} ' +
+  'zip_code= ${zipcode} email=${email} WHERE id=${id}', userInfo)
+  .then(data => callback(null, data)
+  .catch(err => callback(err, false))
+  )
+}
+
 const addSport = (sport, callback) => {
   console.log("sport", sport);
   db
