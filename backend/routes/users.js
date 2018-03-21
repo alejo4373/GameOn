@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 const passport = require('../auth/passport')
-const dbAPI = require( '../db/dbAPI') 
+const dbAPI = require('../db/dbAPI') 
 const { loginRequired } = require('../auth/helpers')
 
 /* GET users listing. */
