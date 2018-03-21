@@ -13,7 +13,7 @@ const getUserByUsername = (username, callback) => {
     });
 };
 
-const registerUser = (user, callback,req,res) => {
+const registerUser = (user, callback) => {
   const newUser = {
       userName: user.username,
       fullName: user.fullname,
@@ -29,8 +29,9 @@ const registerUser = (user, callback,req,res) => {
   console.log(sports)
   db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
-          'RETURNING id', newUser)
+          'RETURNING id, username, fullname, profile_pic', newUser)
   .then((user)=> {
+    //id assigned by the database to the newly created user
     var user_id = user.id 
     //Check if the user selected some sports for each sport we in a hacky not sure if good way 
     //concatenate a SQL statement string so that we insert that data in one INSERT statement at once
@@ -50,7 +51,7 @@ const registerUser = (user, callback,req,res) => {
 
       //Feeding that SQL statement into the db instance of pg-promise
       db.none(SQLStatement)
-        .then(() => callback(null))
+        .then(() => callback(null, user))
         .catch((err) => callback(err))
     }
   })
@@ -105,21 +106,6 @@ const addFollower = (ownerId, followerId, callback) => {
     .then(() => callback(null))
     .catch(err => callback(err, false))
 }
-db.task('my-task', t => {
-  // t.ctx = task context object
-  
-  return t.one('SELECT id FROM Users WHERE name = $1', 'John')
-      .then(user => {
-          return t.any('SELECT * FROM Events WHERE userId = $1', user.id);
-      });
-})
-.then(data => {
-  // success
-  // data = as returned from the task's callback
-})
-.catch(error => {
-  // error
-});
 
 /**
  * Retrieves user information relevant to their profile
