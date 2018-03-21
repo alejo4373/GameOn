@@ -10,7 +10,7 @@ class Dashboard extends Component {
       <div className="parent">
         {/*Navigation Bar*/}
 
-        {/*All Dashboard Components Goes Here*/}
+        {/*All Dashboard Components Goes Here (NOT INCLUDING THE LINK COMPONENTS)*/}
         <div id='dashboard_components'>
           <div id="profile_component">
             <Profile />
