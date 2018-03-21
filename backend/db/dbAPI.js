@@ -64,17 +64,7 @@ const addPosts = (postObj, callback) => {
   .catch(err => callback(err))
 }
 
-// const follow = ()
 
-const getPosts = (username, callback) => {
-  db
-    .any(
-      "SELECT * FROM posts WHERE owner_id = (SELECT id FROM users WHERE username = ${username})",
-      {username:username}
-    )
-    .then(data => callback(null, data))
-    .catch(err => callback(err, false));
-};
 
 const postLikes = (likesObj, callback) => {
   db
@@ -129,14 +119,20 @@ const getUserInfo = (userId, answer) => {
     .catch(err =>  answer(err, null))
 }
 
+/**
+ * Retrieves all sports with their respective id
+ * @param {Function} callback - Function that will be called with (err, data) as its arguments and is in charge of sending the response
+ */
+const getAllSports = (callback) => {
+  db
+    .any("SELECT * FROM sports")
+    .then(sports => callback(null, sports))
+    .catch(err => callback(err, false));
+};
+
 module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
-  addPosts: addPosts,
-  getPosts: getPosts,
-  postLikes: postLikes,
-  getLikes: getLikes,
-  getFeed: getFeed,
-  addFollower: addFollower,
+  getAllSports: getAllSports
 };
