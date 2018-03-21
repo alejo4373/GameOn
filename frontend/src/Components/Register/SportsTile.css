@@ -1,0 +1,26 @@
+/* #Soccer #Football #Handball #Tennis #Basketball #Volleyball {
+    
+} */
+
+.next {
+    float: left;
+    margin-left: 40%;
+    margin-top: 10%;
+    width: 20%;
+    margin-bottom: 5%;
+}
+
+.sport_selection {
+    /* background-color: purple; */
+    width: 32%;
+}
+
+.sport_selection:hover {
+    border: 4px solid blue;
+}
+
+.sportsTile_Container {
+    background-color: blue;
+    border: 2px solid black;
+    height: 20px;
+}

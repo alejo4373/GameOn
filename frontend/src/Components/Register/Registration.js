@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 
+import Selection from "./Selection";
+
 class Registration extends Component {
   state = {
     emailInput: "",
@@ -12,7 +14,9 @@ class Registration extends Component {
     confirmInput: "",
     zipcodeInput: "",
     message: "",
-    registered: false
+    nextPressed: false,
+    registered: false,
+    alert: false
   };
 
   handleUsernameChange = e => {
@@ -46,15 +50,46 @@ class Registration extends Component {
   };
 
   handleZipCodeChange = e => {
-    if (typeof e.target.value === "number") {
+    const { zipcodeInput } = this.state;
+    const userZip = Number(e.target.value);
+    if (!isNaN(userZip) && zipcodeInput.length <= 5) {
       this.setState({
         zipcodeInput: e.target.value
       });
     }
   };
 
-  submitForm = e => {
-    e.preventDefault();
+  handleNextButton = () => {
+    const {
+      usernameInput,
+      passwordInput,
+      confirmInput,
+      emailInput,
+      fullNameInput,
+      zipcodeInput,
+      alert
+    } = this.state;
+
+    if (
+      !usernameInput ||
+      !passwordInput ||
+      !confirmInput ||
+      !emailInput ||
+      !fullNameInput ||
+      !zipcodeInput
+    ) {
+      this.setState({
+        nextPressed: true
+      });
+    } else {
+      this.setState({
+        message: "Please Fill Out The Require Fields"
+      });
+    }
+  };
+
+  submitForm = () => {
+    
     const {
       usernameInput,
       passwordInput,
@@ -64,6 +99,8 @@ class Registration extends Component {
       registered,
       zipcodeInput
     } = this.state;
+
+    
     if (
       !usernameInput ||
       !passwordInput ||
@@ -75,6 +112,7 @@ class Registration extends Component {
       this.setState({
         passwordInput: "",
         confirmInput: "",
+        alert: true,
         message: "Please complete all required fields"
       });
       return;
@@ -83,6 +121,7 @@ class Registration extends Component {
       this.setState({
         passwordInput: "",
         confirmInput: "",
+        alert: true,
         message: "Password length must be at least 8 characters"
       });
       return;
@@ -91,36 +130,15 @@ class Registration extends Component {
       this.setState({
         passwordInput: "",
         confirmInput: "",
+        alert: true,
         message: "Passwords do not match!"
       });
       return;
     }
-    axios
-      .post("", {
-        username: usernameInput,
-        password: passwordInput,
-        email: emailInput,
-        full_name: fullNameInput,
-        zipcode: zipcodeInput
-      })
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          registered: true,
-          message: `Welcome to the site ${this.state.usernameInput}`
-        });
-      })
-      .catch(err => {
-        console.log("error: ", err);
-        this.setState({
-          usernameInput: "",
-          passwordInput: "",
-          confirmInput: "",
-          emailInput: "",
-          usernameInput: "",
-          message: "Error inserting user"
-        });
-      });
+
+    this.setState({
+      nextPressed:true
+    })
   };
 
   render() {
@@ -132,37 +150,34 @@ class Registration extends Component {
       confirmInput,
       message,
       registered,
-      zipcodeInput
+      zipcodeInput,
+      nextPressed,
+      alert
     } = this.state;
+
     const {
       submitForm,
       handleEmailChange,
       handleFullNameChange,
       handleUsernameChange
     } = this;
-    if (registered) {
-      axios
-        .post("/users/login", {
-          username: usernameInput,
-          password: passwordInput
-        })
-        .then(res => {
-          this.setState({
-            message: "success"
-          });
-        })
-        .catch(err => {
-          this.setState({
-            message: "username/password not found"
-          });
-        });
-      return <Redirect to="/user" />;
-    }
+
+    console.log(nextPressed)
+
     return (
-      <div>
+      <div className="parent">
+        {nextPressed ? (
+            <Selection
+            emailInput={emailInput}
+            fullNameInput={fullNameInput}
+            usernameInput={usernameInput}
+            passwordInput={passwordInput}
+            zipcodeInput={zipcodeInput}
+          />
+        ) : (
           <div class="login-container">
             <div class="login-box">
-              <form onSubmit={submitForm}>
+              <form>
                 <h1 className="title">GameOn</h1>
                 <h2>Sign Up To Play, Compete, and Rank-Up</h2>
                 <label>
@@ -214,23 +229,23 @@ class Registration extends Component {
                   <input
                     type="text"
                     name="zip_code"
-                    placeholder="Zipcode"
+                  placeholder="Zipcode"
                     value={zipcodeInput}
                     onChange={this.handleZipCodeChange}
                   />
                 </label>
-                <input type="submit" value="Sign Up" />
-              </form>
+                
+              </form><button onClick={submitForm}>Next</button>
               <p>{message}</p>
             </div>
             <div class="login-box">
               Have an account? <Link to="/login">Log in</Link>
             </div>
           </div>
+        )}
       </div>
     );
   }
 }
-
 
 export default Registration;

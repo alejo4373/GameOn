@@ -97,7 +97,7 @@ export default class Login extends Component {
         }
 
         return (
-            <Grid>
+            <Grid bsClass="login_container">
                 <Jumbotron bsClass="LoginJumbotron">
                     <PageHeader>
                         Game On! <br /><small>Let's Play. Game On!</small>

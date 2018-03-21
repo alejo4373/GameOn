@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import { Col, Grid, Jumbotron, Form, Button, PageHeader, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
-
+import Selection from "./Selection";
 
 export default class Registration extends Component {
     state = {
@@ -15,7 +15,9 @@ export default class Registration extends Component {
         confirmInput: "",
         zipcodeInput: "",
         message: "",
-        registered: false
+        nextPressed: false,
+        registered: false,
+        alert: false
     };
 
     handleUsernameChange = e => {
@@ -49,15 +51,46 @@ export default class Registration extends Component {
     };
 
     handleZipCodeChange = e => {
-        if (typeof e.target.value === "number") {
+        const { zipcodeInput } = this.state;
+        const userZip = Number(e.target.value);
+        if (!isNaN(userZip) && zipcodeInput.length <= 5) {
             this.setState({
                 zipcodeInput: e.target.value
             });
         }
     };
 
-    submitForm = e => {
-        e.preventDefault();
+    handleNextButton = () => {
+        const {
+            usernameInput,
+            passwordInput,
+            confirmInput,
+            emailInput,
+            fullNameInput,
+            zipcodeInput,
+            alert
+        } = this.state;
+
+        if (
+            !usernameInput ||
+            !passwordInput ||
+            !confirmInput ||
+            !emailInput ||
+            !fullNameInput ||
+            !zipcodeInput
+        ) {
+            this.setState({
+                nextPressed: true
+            });
+        } else {
+            this.setState({
+                message: "Please Fill Out The Require Fields"
+            });
+        }
+    };
+
+    submitForm = () => {
+
         const {
             usernameInput,
             passwordInput,
@@ -67,6 +100,8 @@ export default class Registration extends Component {
             registered,
             zipcodeInput
         } = this.state;
+
+
         if (
             !usernameInput ||
             !passwordInput ||
@@ -78,6 +113,7 @@ export default class Registration extends Component {
             this.setState({
                 passwordInput: "",
                 confirmInput: "",
+                alert: true,
                 message: "Please complete all required fields"
             });
             return;
@@ -86,6 +122,7 @@ export default class Registration extends Component {
             this.setState({
                 passwordInput: "",
                 confirmInput: "",
+                alert: true,
                 message: "Password length must be at least 8 characters"
             });
             return;
@@ -94,37 +131,17 @@ export default class Registration extends Component {
             this.setState({
                 passwordInput: "",
                 confirmInput: "",
+                alert: true,
                 message: "Passwords do not match!"
             });
             return;
         }
-        axios
-            .post("", {
-                username: usernameInput,
-                password: passwordInput,
-                email: emailInput,
-                full_name: fullNameInput,
-                zipcode: zipcodeInput
-            })
-            .then(res => {
-                console.log(res.data);
-                this.setState({
-                    registered: true,
-                    message: `Welcome to the site ${this.state.usernameInput}`
-                });
-            })
-            .catch(err => {
-                console.log("error: ", err);
-                this.setState({
-                    usernameInput: "",
-                    passwordInput: "",
-                    confirmInput: "",
-                    emailInput: "",
-                    usernameInput: "",
-                    message: "Error inserting user"
-                });
-            });
+
+        this.setState({
+            nextPressed: true
+        })
     };
+
     render() {
         const {
             emailInput,
@@ -134,148 +151,150 @@ export default class Registration extends Component {
             confirmInput,
             message,
             registered,
-            zipcodeInput
+            zipcodeInput,
+            nextPressed,
+            alert
         } = this.state;
+
         const {
             submitForm,
             handleEmailChange,
             handleFullNameChange,
             handleUsernameChange
         } = this;
-        if (registered) {
-            axios
-                .post("/users/login", {
-                    username: usernameInput,
-                    password: passwordInput
-                })
-                .then(res => {
-                    this.setState({
-                        message: "success"
-                    });
-                })
-                .catch(err => {
-                    this.setState({
-                        message: "username/password not found"
-                    });
-                });
-            return <Redirect to="/user" />;
-        }
+
 
         return (
             <Grid>
-                <Jumbotron bsClass="RegistrationJumbotron">
-                    <PageHeader>
-                        Game On! <br /><small>Sign Up To Play, Compete, and Rank-Up</small>
-                    </PageHeader>
-                </Jumbotron>
+                {true ?
+                    (<Grid>
+                        <Selection
+                            emailInput={emailInput}
+                            fullNameInput={fullNameInput}
+                            usernameInput={usernameInput}
+                            passwordInput={passwordInput}
+                            zipcodeInput={zipcodeInput}
+                        />
+                    </Grid>
+                    ) :
 
-                <Form horizontal onSubmit={submitForm}>
-                    <FormGroup controlId="formControlsSelect">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Email
-                        </Col>
-                        <Col sm={10}>
-                            <FormControl
-                                type="text"
-                                name="Email"
-                                placeholder="Email"
-                                value={emailInput}
-                                onChange={handleEmailChange}
-                            >
-                            </FormControl>
-                        </Col>
-                    </FormGroup>
+                    (   <Grid>
+                        <Jumbotron bsClass="RegistrationJumbotron">
+                            <PageHeader>
+                                Game On! <br /><small>Sign Up To Play, Compete, and Rank-Up</small>
+                            </PageHeader>
+                        </Jumbotron>
 
-                    <FormGroup>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Full Name
-                        </Col>
-                        <Col sm={10}>
-                            <FormControl
-                                type="text"
-                                name="Full name"
-                                placeholder="Full name"
-                                value={fullNameInput}
-                                onChange={handleFullNameChange}
-                            >
-                            </FormControl>
-                        </Col>
-                    </FormGroup>
+                        <Form horizontal onSubmit={submitForm}>
+                            <FormGroup controlId="formControlsSelect">
+                                <Col componentClass={ControlLabel} sm={2}>
+                                    Email
+                                </Col>
+                                <Col sm={10}>
+                                    <FormControl
+                                        type="text"
+                                        name="Email"
+                                        placeholder="Email"
+                                        value={emailInput}
+                                        onChange={handleEmailChange}
+                                    >
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Username
-                        </Col>
-                        <Col sm={10}>
-                            <FormControl
-                                type="text"
-                                name="username"
-                                placeholder="Username"
-                                value={usernameInput}
-                                onChange={handleUsernameChange}
-                            >
-                            </FormControl>
-                        </Col>
-                    </FormGroup>
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={2}>
+                                    Full Name
+                                </Col>
+                                <Col sm={10}>
+                                    <FormControl
+                                        type="text"
+                                        name="Full name"
+                                        placeholder="Full name"
+                                        value={fullNameInput}
+                                        onChange={handleFullNameChange}
+                                    >
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Zipcode
-                        </Col>
-                        <Col sm={10}>
-                            <FormControl
-                                type="text"
-                                name="zip_code"
-                                placeholder="Zipcode"
-                                value={zipcodeInput}
-                                onChange={this.handleZipCodeChange}
-                            >
-                            </FormControl>
-                        </Col>
-                    </FormGroup>
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={2}>
+                                    Username
+                                </Col>
+                                <Col sm={10}>
+                                    <FormControl
+                                        type="text"
+                                        name="username"
+                                        placeholder="Username"
+                                        value={usernameInput}
+                                        onChange={handleUsernameChange}
+                                    >
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Password
-                        </Col>
-                        <Col sm={10}>
-                            <FormControl
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                value={passwordInput}
-                                onChange={this.handlePasswordChange}
-                            >
-                            </FormControl>
-                        </Col>
-                    </FormGroup>
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={2}>
+                                    Zipcode
+                                </Col>
+                                <Col sm={10}>
+                                    <FormControl
+                                        type="text"
+                                        name="zip_code"
+                                        placeholder="Zipcode"
+                                        value={zipcodeInput}
+                                        onChange={this.handleZipCodeChange}
+                                    >
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Col componentClass={ControlLabel} sm={2}>
-                            Confirm Password
-                        </Col>
-                        <Col sm={10}>
-                            <FormControl
-                                type="password"
-                                name="confirm-input"
-                                placeholder="Confirm Password"
-                                value={confirmInput}
-                                onChange={this.handleConfirmChange}
-                            >
-                            </FormControl>
-                        </Col>
-                    </FormGroup>
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={2}>
+                                    Password
+                                </Col>
+                                <Col sm={10}>
+                                    <FormControl
+                                        type="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        value={passwordInput}
+                                        onChange={this.handlePasswordChange}
+                                    >
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
 
-                    <Button
-                        id="loginSubmitButton"
-                        type="submit"
-                    >Sign Up</Button>
-                    <p>{message}</p>
-                    <p>Have an account? <br/>
-                        <Link to="/login">Log In</Link>
-                    </p>
-                </Form>
+                            <FormGroup>
+                                <Col componentClass={ControlLabel} sm={2}>
+                                    Confirm Password
+                                </Col>
+                                <Col sm={10}>
+                                    <FormControl
+                                        type="password"
+                                        name="confirm-input"
+                                        placeholder="Confirm Password"
+                                        value={confirmInput}
+                                        onChange={this.handleConfirmChange}
+                                    >
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
+                            
+                            <Button
+                                id="loginSubmitButton"
+                                type="submit"
+                            >Sign Up</Button>
+                            <p>{message}</p>
+                            <p>Have an account? <br />
+                                <Link to="/login">Log In</Link>
+                            </p>
+                        </Form>
+                        </Grid>
+                    )
+                }
             </Grid>
         )
-    }
+    };
 };

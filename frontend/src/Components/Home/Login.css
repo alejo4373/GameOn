@@ -1,3 +1,12 @@
+.login_container {
+      background-color: #c6e7ff;
+  /* background: url('/images/Field2.png')no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%; */
+}
 /*
     The Jumbotron holds the title and the slogan 
     ~Romie
@@ -11,7 +20,7 @@
     padding-bottom: 48px;
     margin-bottom: 30px;
     color: inherit;
-    background-color: #eee;
+    background-color: rgb(208, 224, 229);
     box-sizing: border-box;
     /* width: 100%; */
 }
