@@ -26,7 +26,6 @@ const registerUser = (user, callback,req,res) => {
       zipcode: user.zipcode
   }
   const sports = JSON.parse(newUser.sports)
-  console.log(sports)
   db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
           'RETURNING id', newUser)
@@ -51,63 +50,50 @@ const registerUser = (user, callback,req,res) => {
   })
   .catch(err => callback(err))
 }
-//expecting an obj for our post
-const addPosts = (postObj, callback) => {
-  db.none('INSERT INTO posts(owner_id, imageurl) VALUES (${ownerId}, ${imageUrl})', postObj)
-  .then(() => callback(null))
-  .catch(err => callback(err))
-}
 
-// const follow = ()
-
-const getPosts = (username, callback) => {
+const getAllUsers = (callback) => {
   db
     .any(
-      "SELECT * FROM posts WHERE owner_id = (SELECT id FROM users WHERE username = ${username})",
-      {username:username}
+      "SELECT username, profile_pic, exp_points from users"
     )
     .then(data => callback(null, data))
     .catch(err => callback(err, false));
 };
 
-const postLikes = (likesObj, callback) => {
-  db
-  .none(
-    "INSERT INTO likesTable(post_id, liked_by) VALUES (${postId}, ${likedBy})", likesObj)
-  .then(() => callback(null))
-  .catch(err => callback(err))
-};
-
-const getLikes = (postId, callback) => {
-  db.any('SELECT liked_by FROM likesTable WHERE post_id =${postId}', {postId:postId})
-  .then(data => callback(null, data))
-  .catch(err => callback(err, false))
-}
-
-
-const getFeed = (username, callback) => {
-  db
-    .any(
-      "SELECT * FROM posts WHERE owner_id = ANY(SELECT follower_id FROM followinfo INNER JOIN users ON followinfo.owner_id = users.id WHERE users.username = ${username})",
-      {username:username}
-    )
-    .then(data => callback(null, data))
-    .catch(err => callback(err, false));
-};
-
-const addFollower = (ownerId, followerId, callback) => {
-  db.none('INSERT INTO followinfo (owner_id, follower_id) VALUES(${ownerId}, ${followerId})', {ownerId, followerId})
+const updateUserInfo = (userInfo, callback) => {
+  db.one(
+    "UPDATE users SET username=${username},fullname=${fullname}, email=${email},zipcode=${zipcode}"+
+    ", profile_pic=${profilePic} WHERE id=${id}" +
+    " RETURNING id", userInfo
+  ).then(
+    db.none(SQLStatement)
     .then(() => callback(null))
-    .catch(err => callback(err, false))
+    .catch(err => callback(err))
+  )
 }
+
+const addSport = (sport, callback) => {
+  console.log('sport',sport)
+  db.none('INSERT INTO sports_proficiency(user_id, sport_id, proficiency) '+
+          'VALUES (${user_id}, ${sport_id}, ${proficiency})', sport)
+          .then(() => callback(null))
+          .catch(err => callback(err))
+}
+
+const deleteSport = (sport, callback) => {
+ db.none('DELETE FROM sports_proficiency '+ 
+         'WHERE user_id = ${user_id} AND sport_id = ${sport_id}', sport)
+         .then(() => callback(null))
+         .catch(err => callback(err))
+}
+
+
 
 module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
-  addPosts: addPosts,
-  getPosts: getPosts,
-  postLikes: postLikes,
-  getLikes: getLikes,
-  getFeed: getFeed,
-  addFollower: addFollower,
+  getAllUsers: getAllUsers,
+  updateUserInfo: updateUserInfo,
+  addSport: addSport,
+  deleteSport: deleteSport
 };
