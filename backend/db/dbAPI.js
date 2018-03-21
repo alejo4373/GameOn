@@ -121,6 +121,11 @@ db.task('my-task', t => {
   // error
 });
 
+/**
+ * Retrieves user information relevant to their profile
+ * @param {string} userId - The user id to grab the info from
+ * @param {Function} answer - Function that will be called with (err, data) as its arguments
+ */
 const getUserInfo = (userId, answer) => {
    db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
            WHERE id = $1`, userId) 
@@ -131,7 +136,7 @@ const getUserInfo = (userId, answer) => {
           .then(sports => {
             //Aggregating info from both queries into one object
             var userInfo = {...user, sports:sports}
-            answer(null, userInfo)
+            return answer(null, userInfo)
           })
           .catch(err => answer(err, null))
    })
