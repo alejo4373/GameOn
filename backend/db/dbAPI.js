@@ -31,7 +31,7 @@ const registerUser = (user, callback,req,res) => {
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
           'RETURNING id', newUser)
   .then((user)=> {
-    var user_id = user.id 
+    var user_id = user.id //Hardcoded
     if(sports && sports.length) {
     //id assigned by the database to the newly created user
     //Check if the user selected some sports for each sport we in a hacky not sure if good way 
