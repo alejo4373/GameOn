@@ -10,6 +10,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   dbAPI.getUserById(id, (err, user) => {
+  console.log(user)    
     done(err, user)
   })
 })

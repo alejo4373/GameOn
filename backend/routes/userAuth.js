@@ -12,7 +12,7 @@ router.post('/signup', (req, res, next) => {
     }
 
     //Log in user automatically after sign up
-    req.login(user, function(err) {
+    req.login(registeredUser, function(err) {
       if (err) { return next(err); }
       return res.json({
         user: registeredUser,
