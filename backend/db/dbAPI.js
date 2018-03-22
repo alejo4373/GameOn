@@ -90,6 +90,7 @@ const getAllSports = (callback) => {
     .any("SELECT * FROM sports")
     .then(sports => callback(null, sports))
     .catch(err => callback(err, false));
+}
 
 const getAllUsers = (callback) => {
   db.any('SELECT username, profile_pic, exp_point FROM users')
