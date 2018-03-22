@@ -13,7 +13,7 @@ init();
 passport.use(
   //Getting username and password from req.body
   new LocalStrategy(options, (username, password, done) => {
-    //console.log("trying to authenticate");
+    console.log("trying to authenticate");
     db
       .any("SELECT * FROM users WHERE username=$1", [username])
       .then(rows => {
