@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
-import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
+
+import UserInfo from './UserInfo'
 
 class Profile extends Component {
   state = {
     user: [],
-    loggedOut: false,
-    edit: false
+    edit: false,
+    enable: false,
   };
 
   getUserInfo = () => {
@@ -16,11 +16,12 @@ class Profile extends Component {
       .then(res => {
         console.log(res.data.user);
         this.setState({
-          user: [res.data.user]
+          user: res.data.user
         });
       })
       .catch(err => console.log("Failed To Fetch User:", err));
   };
+
 
   handleEditProfile = () => {
     this.setState({
@@ -28,81 +29,72 @@ class Profile extends Component {
     });
   };
 
-  handleLogOut = () => {
-    axios
-      .get("/logout")
-      .then(() => {
-        this.setState({
-          loggedOut: true
-        });
+  handleDisplayInfo = (e) => {
+    if(e.target.id === 'profile_personal_info'){
+      this.setState({
+        enable: false
       })
-      .catch(err => console.log("Error:", err));
-  };
+    }else if(e.target.id === 'profile_sport_info')
+    this.setState({
+      enable: true
+    })
+  }
 
+ 
   componentWillMount() {
     this.getUserInfo();
   }
 
   render() {
-    const { user, loggedOut, edit } = this.state;
-    const { handleEditProfile, handleLogOut } = this;
+    const { handleEditProfile, handleDisplayInfo } = this;
+    const { user, enable } = this.state;
 
-    if (edit) {
-      this.setState({
-        edit: false
-      });
-      return <Redirect to="/edit" />;
-    }
+    // if (edit) {
+    //   this.setState({
+    //     edit: false
+    //   });
+    //   return <Redirect to="/edit" />;
+    // }
 
-    if (loggedOut) {
-      this.setState({
-        loggedOut: false
-      });
-      return <Redirect to="/" />;
-    }
 
     return (
-      <div>
-        {user.map(u => {
-          return (
-            <div id="profile">
-              <div id="photo_container">
-                <img id="profile_photo" src={u.profile_pic} width="130px" />
-              </div>
-              <div id="profile_description">
-                <span id="username">
-                  <h3>{u.username}</h3>
-                </span>
-                <button id="edit_profile_button" onClick={handleEditProfile}>
-                  Edit Profile
-                </button>
-                <span id="xp_header">
-                  <h3>XP: {u.exp_points} pts</h3>
-                </span>
-                <div id="user_selectedSports_container">
-                  {u.sports.map(s => {
-                    return (
-                      <div className="user_selectedSports">
-                        <div className="sports_name_skills">
-                          Sport: {s.name.toUpperCase()} Skill: {s.id}
-                          <ProgressBar
-                            bsStyle="success"
-                            now={20}
-                            label={`${20}%`}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-        <button onClick={this.handleLogOut}>Log Off</button>
+      <div className="profile_parent">
+        <div id="profile_menu">
+          <div id='profile_header'>
+            <img src={user.profile_pic} id="profile_photo" />
+            <div id="profile_username">{user.username}</div>
+          </div>
+          <div id="profile_personal_info" 
+          onClick={handleDisplayInfo}
+          >
+          Personal Info
+          </div>
+          <div id="profile_sport_info" 
+          onClick={handleDisplayInfo}
+          >
+          Your Sports
+          </div>
+        </div>
+
+        <div id='profile_info'>
+        {
+        <UserInfo
+        id={user.id}
+        username ={user.username}
+        email = {user.email}
+        fullname = {user.fullname}
+        zipcode = {user.zip_code}
+        />}
+        </div>
       </div>
     );
   }
 }
 
 export default Profile;
+
+/**
+ * <button id="edit_Overview_button" onClick={handleEditProfile}>
+          Edit Profile
+        </button>
+ */

@@ -26,7 +26,7 @@ class Home extends React.Component {
        
         if (user) {
             console.log('User detected')
-            return <Redirect to='/user' />
+            return <Redirect to='/user/dashboard' />
         } else if (user === null) {
             return <Redirect to='/login' />
         }
