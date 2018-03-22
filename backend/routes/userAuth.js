@@ -39,7 +39,7 @@ router.get('/logout',loginRequired, (req, res, next) => {
   req.logout();
   res.status(200)
   res.json({
-    message: 'user has successfully logged out'
+    msg: 'user has successfully logged out'
   })
 })
 module.exports = router;
