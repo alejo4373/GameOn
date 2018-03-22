@@ -26,7 +26,7 @@ router.get('/all', loginRequired, (req, res, next) =>{
       next(err)
     }
     res.status(200).json({
-      message:'all users retrieved',
+      msg:'all users retrieved',
       data: data
     })
   })
@@ -35,11 +35,10 @@ router.get('/all', loginRequired, (req, res, next) =>{
 router.patch('/edit', loginRequired, (req, res, next) => {
  let user = req.body
   dbAPI.updateUserInfo(user, (err) => {
-    console.log('actually calling the function')
     if(err){return err}
     res.status(200)
     res.json({
-      message: 'user\'s infomation updates'
+      msg: 'User\'s information updates'
     })
   })
 })
@@ -51,7 +50,7 @@ router.delete('/sport/delete', loginRequired, (req, res, next) => {
     if(err){return err}
     res.status(200)
     res.json({
-      message: 'sport deleted'
+      msg: 'Sport deleted'
     })
   })
 })
@@ -63,7 +62,7 @@ router.post('/sport/add', loginRequired, (req, res, next) => {
     if(err){return err}
     res.status(200)
     res.json({
-      message: 'sport added'
+      msg: 'Sport added'
     })
   })
 })
