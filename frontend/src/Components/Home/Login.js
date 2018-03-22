@@ -36,6 +36,7 @@ class Login extends React.Component {
       passwordInput: e.target.value
     });
   };
+  
   /**
    * @func submitForm
    Submit/Post The Input to Database to retrieve User
@@ -65,9 +66,7 @@ class Login extends React.Component {
       });
 
   };
-  componentDidMount() {
-    this.getUser()
-  }
+  
   render() {
     const { usernameInput, passwordInput, message, loggedIn, user } = this.state;
     const { submitForm } = this;

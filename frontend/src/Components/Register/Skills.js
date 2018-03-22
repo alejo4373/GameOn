@@ -143,7 +143,7 @@ class Skills extends Component {
     const { handlePreviousButton, selectedSports } = this.props;
 
     if (submitted) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/dashboard" />;
     }
 
     console.log("userSkills:", sports_skills);
