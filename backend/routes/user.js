@@ -3,8 +3,6 @@ var router = express.Router();
 var dbAPI = require('../db/dbAPI')
 var { loginRequired } = require('../auth/helpers')
 
-
-/* GET users listing. */
 router.get('/getinfo/', loginRequired, function(req, res, next) {
   //Get the id for the logged in user traveling in the req.user
   userId = req.user.id  
@@ -39,30 +37,6 @@ router.patch('/edit', loginRequired, (req, res, next) => {
     res.status(200)
     res.json({
       msg: 'User\'s information updates'
-    })
-  })
-})
-
-router.delete('/sport/delete', loginRequired, (req, res, next) => {
-  let sport = req.body
-  console.log(sport)
-  dbAPI.deleteSport(sport, (err) => {
-    if(err){return err}
-    res.status(200)
-    res.json({
-      msg: 'Sport deleted'
-    })
-  })
-})
-
-router.post('/sport/add', loginRequired, (req, res, next) => {
-  let sport = req.body
-  console.log(sport)
-  dbAPI.addSport(sport, (err) => {
-    if(err){return err}
-    res.status(200)
-    res.json({
-      msg: 'Sport added'
     })
   })
 })
