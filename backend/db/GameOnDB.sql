@@ -25,11 +25,34 @@ CREATE TABLE sports_proficiency (
   proficiency INT NOT NULL
 );
 
+CREATE TABLE events (
+    id SERIAL PRIMARY KEY,
+    host_id VARCHAR NOT NULL,
+    --host_id VARCHAR NOT NULL REFERENCES users(id),
+    lat DOUBLE PRECISION NOT NULL,
+    long DOUBLE PRECISION NOT NULL,
+    start_ts BIGINT NOT NULL,
+    end_ts BIGINT NOT NULL,
+    event_pic VARCHAR,
+    invitees VARCHAR
+);
+
+CREATE TABLE invitations (
+    id SERIAL PRIMARY KEY,
+    event_id INT REFERENCES events(id) NOT NULL,
+    host_id INT NOT NULL,
+    -- invitee_id INT REFERENCES users(id) Should be this way but left out because we dont have users inserted and will give us an error
+    invitee_id INT NOT NULL 
+);
+
 INSERT INTO sports (name)
 VALUES ('basketball'),
        ('soccer'),
        ('volleyball'),
        ('tennis'),
-       ('handball'),
-       ('football')
+       ('handbal'),
+       ('football');
 
+INSERT INTO events (host_id, lat, long, start_ts, end_ts, event_pic)
+VALUES (1, 40.747387, -73.949494, 1521754233284, 1521755961187, '/images/event.png'),
+       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, '/images/event.png');

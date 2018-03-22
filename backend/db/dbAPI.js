@@ -129,6 +129,35 @@ const deleteSport = (sport, callback) => {
     .catch(err => callback(err));
 };
 
+const addEvent = (event, callback) => {
+  //How the event should look like coming from the frontend
+  // var event = {
+  //   host_id: 2,
+  //   lat: 40.747387,
+  //   long: -73.949494,
+  //   start_ts: 1521774233284,
+  //   end_ts: 1521775961187,
+  //   event_pic: '/images/event.png'
+  // }
+  db.one(
+      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, event_pic)' + 
+      'VALUES (${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${event_pic})' +
+      'RETURNING host_id, lat, long, start_ts, end_ts, event_pic',
+      event)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
+const inviteToEvent = (invitationInfo, callback) => {
+  db.one(
+    'INSERT INTO invitations (event_id, host_id, invitee_id)' +
+    'VALUES (${event_id}, ${host_id}, ${invitee_id})' +
+    'RETURNING event_id, host_id, invitee_id', 
+    invitationInfo)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
 module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
@@ -137,6 +166,10 @@ module.exports = {
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
   addSport: addSport,
-  deleteSport: deleteSport
+  deleteSport: deleteSport,
+
+  /*- Events Related */
+  addEvent: addEvent,
+  inviteToEvent: inviteToEvent
 };
 

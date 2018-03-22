@@ -11,6 +11,7 @@ const passport = require("passport");
 var user = require('./routes/user');
 var auth = require('./routes/userAuth');
 var sport = require('./routes/sport');
+var event = require('./routes/event');
 
 
 var app = express();
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', auth);
 app.use('/user', user);
 app.use('/sport', sport);
+app.use('/event', event);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
