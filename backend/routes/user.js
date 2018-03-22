@@ -35,8 +35,7 @@ router.get('/all', loginRequired, (req, res, next) =>{
 router.patch('/edit', loginRequired, (req, res, next) => {
  let user = req.body
   dbAPI.updateUserInfo(user, (err) => {
-    console.log('actually calling the function')
-    if(err){return err}
+    if(err){return next(err)}
     res.status(200)
     res.json({
       message: 'user\'s infomation updates'

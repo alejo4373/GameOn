@@ -78,6 +78,11 @@ class Overview extends Component {
                 </span>
                 <span id="xp_header">
                   <h3>XP: {u.exp_points} pts</h3>
+                 <ProgressBar
+                            bsStyle="success"
+                            now={u.exp_points}
+                            label={`${u.exp_points}`}
+                          /> 
                 </span>
               </div>
             </div>

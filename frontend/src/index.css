@@ -122,16 +122,18 @@ body {
 
 /* Profile Page Component */
 #profile_menu{
-  border: 2px solid black;
+  
   width: 200px;
-  height: 288px;
+  height: 300px;
+  position: absolute;
   margin: 10% 0 0 10%;
+
 }
 
 #profile_header{
   width:196px;
-  border: 1px solid orange;
   height:185px;
+  background-color: #FAFAFA
 }
 
 #profile_photo{
@@ -147,15 +149,38 @@ body {
 }
 
 #profile_personal_info, #profile_sport_info{
+  margin-top: 3%;
   text-align: center;
   padding-top: 12px;
   width: 196px;
-  border: 1px solid orange;
+  background-color: #FAFAFA;
   height: 50px;
 }
 
 #profile_personal_info:hover, 
-#profile_sport_info:hover{
+#profile_sport_info:hover,
+#Overview:hover,
+.individual_event:hover
+{
   background-color: lightsteelblue;
   cursor: pointer;
+}
+
+#profile_info_container{
+  width: 700px;
+  height: 300px;
+  margin: 10% 0 0 30%;
+  position: absolute;
+}
+
+#profile_form_container{
+  margin-top: 25%
+}
+.profile_forms{
+width: 700px;
+float: left;
+}
+
+#update_button{
+  float: left;
 }

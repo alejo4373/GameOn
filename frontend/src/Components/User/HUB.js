@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import Dashboard from "./Dashboard/Dashboard";
-import Profile from "./Profile/Profile"
+import { Redirect } from "react-router";
 
-class Test extends Component {
+
+import Dashboard from "./Dashboard/Dashboard";
+import Profile from "./Profile/Profile";
+
+class HUB extends Component {
   render() {
     return (
       <div>
@@ -12,14 +15,14 @@ class Test extends Component {
           <Link to="/user/dashboard">USER</Link>
         </nav>
 
-             {/*Components Goes HERE*/}
+        {/*Components Goes HERE*/}
         <Switch>
-          <Route  path="/user/dashboard" component={Dashboard} />
-          <Route  path="/user/profile" component={Profile} />
+          <Route path="/user/dashboard" component={Dashboard} />
+          <Route path="/user/profile" component={Profile} />
         </Switch>
       </div>
     );
   }
 }
 
-export default Test;
+export default HUB;

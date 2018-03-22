@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import UserInfo from './UserInfo'
+import ProfileSports from './ProfileSports'
+
 
 class Profile extends Component {
   state = {
     user: [],
-    edit: false,
     enable: false,
   };
 
@@ -23,11 +24,6 @@ class Profile extends Component {
   };
 
 
-  handleEditProfile = () => {
-    this.setState({
-      edit: true
-    });
-  };
 
   handleDisplayInfo = (e) => {
     if(e.target.id === 'profile_personal_info'){
@@ -49,14 +45,6 @@ class Profile extends Component {
     const { handleEditProfile, handleDisplayInfo } = this;
     const { user, enable } = this.state;
 
-    // if (edit) {
-    //   this.setState({
-    //     edit: false
-    //   });
-    //   return <Redirect to="/edit" />;
-    // }
-
-
     return (
       <div className="profile_parent">
         <div id="profile_menu">
@@ -76,14 +64,17 @@ class Profile extends Component {
           </div>
         </div>
 
-        <div id='profile_info'>
-        {
+        <div id='profile_info_container'>
+        {!enable?
         <UserInfo
         id={user.id}
         username ={user.username}
         email = {user.email}
         fullname = {user.fullname}
         zipcode = {user.zip_code}
+        /> : 
+        <ProfileSports
+        sports = {user.sports}
         />}
         </div>
       </div>

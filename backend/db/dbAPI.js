@@ -93,7 +93,7 @@ const getAllSports = (callback) => {
 }
 
 const getAllUsers = (callback) => {
-  db.any('SELECT username, profile_pic, exp_points FROM users')
+  db.any('SELECT username, profile_pic, exp_point FROM users ORDER BY exp_points DESC')
   .then(data => callback(null, data)
   .catch(err => callback(err))
   )
@@ -102,8 +102,15 @@ const getAllUsers = (callback) => {
 const updateUserInfo = (userInfo, callback) => {
   db.none('UPDATE users SET username=${username},fullname=${fullname},' +
   'zip_code= ${zipcode},email=${email} WHERE id=${id}', userInfo)
-  .then(data => callback(null, data))
+  .then(() => callback(null))
   .catch(err => callback(err))
+}
+
+const updateSport = (sports, callback) => {
+  const sport = JSON.parse(sports.sport)
+    db.none(`UPDATE sports_proficiency SET proficiency = ${sport.proficiency} WHERE user_id = ${sports.id} AND sport_id = ${sport.sport_id}`)
+    .then(() => callback(null))
+    .catch(err => callback(err))
 }
 
 const addSport = (sport, callback) => {
@@ -136,6 +143,7 @@ module.exports = {
   getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
+  updateSport: updateSport,
   addSport: addSport,
   deleteSport: deleteSport
 };
