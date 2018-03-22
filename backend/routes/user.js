@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dbAPI = require('../db/dbAPI')
-var { loginRequired } = require('../auth/helpers')
+var { loginRequired, editUsername } = require('../auth/helpers')
 
 
 /* GET users listing. */

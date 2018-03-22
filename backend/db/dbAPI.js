@@ -1,6 +1,18 @@
 const db = require("./index");
 const helpers = require('../auth/helpers');
 
+const getUserById = (id, callback) => {
+  db
+    .any(
+      "SELECT * FROM users WHERE id = ${id}",
+      {id: id}
+    )
+    .then(data => callback(null, data[0]))
+    .catch(err => {
+      callback(err, false)
+    });
+};
+
 const getUserByUsername = (username, callback) => {
   db
     .any(
@@ -64,6 +76,7 @@ const registerUser = (user, callback) => {
  * @param {Function} answer - Function that will be called with (err, data) as its arguments
  */
 const getUserInfo = (userId, answer) => {
+  console.log(userId)
    db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
            WHERE id = $1`, userId) 
       .then(user => {
@@ -137,7 +150,8 @@ const deleteSport = (sport, callback) => {
 };
 
 module.exports = {
-  getUserByUsername: getUserByUsername,
+  getUserById: getUserById,
+  getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
   getAllSports: getAllSports,
