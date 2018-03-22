@@ -80,6 +80,17 @@ const getUserInfo = (userId, answer) => {
     .catch(err =>  answer(err, null))
 }
 
+
+/**
+ * Retrieves all sports with their respective id
+ * @param {Function} callback - Function that will be called with (err, data) as its arguments and is in charge of sending the response
+ */
+const getAllSports = (callback) => {
+  db
+    .any("SELECT * FROM sports")
+    .then(sports => callback(null, sports))
+    .catch(err => callback(err, false));
+
 const getAllUsers = (callback) => {
   db.any('SELECT username, profile_pic, exp_point FROM users')
   .then(data => callback(null, data)
@@ -121,8 +132,10 @@ module.exports = {
   getUserByUsername: getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
+  getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
   addSport: addSport,
   deleteSport: deleteSport
 };
+
