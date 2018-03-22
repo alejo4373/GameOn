@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
-import { Redirect } from "react-router";
+
 import Skills from "./Skills";
 import SportTiles from "./SportTiles";
 
@@ -8,7 +7,7 @@ class Selection extends Component {
   state = {
     selectedSports: [],
     nextPressed: false,
-    color: 'none'
+    selected:[]
   };
 
   /*
@@ -16,12 +15,15 @@ class Selection extends Component {
   This will handle all the sports the user selects and set the state in comparison to the user's selection
   */
   handleSelectionChanges = e => {
-    const { selectedSports } = this.state;
-    const sport = e.target.id;
-    if (!selectedSports.includes(sport)) {
+    const { selectedSports, selected } = this.state;
+    const sport = e.target.name;
+    const id = e.target.id
+    console.log('sportselected:', sport)
+   
+    if (!selected.includes(sport) && sport !== undefined) {
       this.setState({
-        selectedSports: [...selectedSports, sport],
-        color: 'green'
+        selected: [...selected, sport],
+        selectedSports: [...selectedSports, {sport,id}],
       });
     }
   };

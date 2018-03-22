@@ -7,10 +7,10 @@ class Home extends React.Component {
     state = { user: undefined }
     getUser = () => {
         axios
-        .get()
+        .get('/user/getinfo')
         .then(res => {
             this.setState({
-                user: res.data.loggedin
+                user: res.data.user.username
             })
         }).catch(err => {
             this.setState({

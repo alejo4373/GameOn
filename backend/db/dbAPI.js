@@ -93,7 +93,7 @@ const getAllSports = (callback) => {
 }
 
 const getAllUsers = (callback) => {
-  db.any('SELECT username, profile_pic, exp_point FROM users')
+  db.any('SELECT username, profile_pic, exp_points FROM users')
   .then(data => callback(null, data)
   .catch(err => callback(err))
   )
