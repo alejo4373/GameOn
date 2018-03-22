@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dbAPI = require('../db/dbAPI')
+var { loginRequired } = require('../auth/helpers')
 
 router.get('/all', function(req, res, next) {
   dbAPI.getAllSports((err, sports) => {
