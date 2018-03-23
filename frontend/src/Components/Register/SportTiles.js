@@ -21,20 +21,22 @@ class SportTiles extends Component {
         <span className="sport_name">
           <h1>Select A Sport (Minimum 1 Selection)</h1>
         </span>
-        <div id="selection_container">
+
+        {/* <div id="selection_container"> */}
           {sports.map(s => (
             <div
               className="sport_selection"
               id={s}
               onClick={handleSelectionChanges}
             >
-              <span className="sport_name">
+              {/* <span className="sport_name"> */}
                 <h4>{s}</h4>
-              </span>
-              <img src={`/images/${s}.png`} width={"200px"} height={'200px'}id={s} alt="" />
+              {/* </span> */}
+              <img src={`/images/${s}.png`} width={"250px"} height={'200px'}id={s} alt="" />
             </div>
           ))}
-        </div>
+        {/* </div> */}
+      
         <button onClick={handleNextButton}>Next</button>
       </div>
     );
@@ -42,4 +44,18 @@ class SportTiles extends Component {
 }
 
 export default SportTiles;
+
+{/* <Grid>
+<Jumbotron bsClass="RegistrationJumbotron">
+  <PageHeader>
+    Game On! <br />
+    <small>Select A Sport (Minimum: 1 Selection)</small>
+  </PageHeader>
+</Jumbotron>
+<Row>
+  <Col xs={6} md={4}>
+    <Image src={`/images/${s}.png`} rounded />
+  </Col>
+</Row>
+</Grid> */}
 

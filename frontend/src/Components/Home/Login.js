@@ -113,19 +113,18 @@ class Login extends React.Component {
               <label>
                 <input
                   type="password"
-                  name="username"
                   placeholder='Password'
+                  name="username"
                   value={passwordInput}
                   onChange={this.handlePasswordChange}
                 />
               </label>
-
               <input type="submit" value="Log In" />
             </form>
             <span>{message}</span>
           </div>
           <div class='login-box'>
-            Don't have an account? <Link to="/registration">Sign Up</Link>
+            Don't have an account? <Link to="/register">Sign Up</Link>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Redirect } from "react-router";
 import Skills from "./Skills";
-import SportTiles from "./SportTiles";
+import SportTiles from "./SportsTiles.jsx";
 
 class Selection extends Component {
   state = {
@@ -24,6 +24,14 @@ class Selection extends Component {
         color: 'green'
       });
     }
+    
+    this.state.selectedSports.map(s => {
+      // if (sport === s ) {
+      //   console.log("blue")
+      // } 
+      console.log(s)
+    })
+    
   };
 
   /*

@@ -166,7 +166,6 @@ class Registration extends Component {
     return (
       <div className="parent">
         {nextPressed ? (
-          <div>
             <Selection
             emailInput={emailInput}
             fullNameInput={fullNameInput}
@@ -174,8 +173,6 @@ class Registration extends Component {
             passwordInput={passwordInput}
             zipcodeInput={zipcodeInput}
           />
-          </div>
-          
         ) : (
           <div class="login-container">
             <div class="login-box">
@@ -231,7 +228,7 @@ class Registration extends Component {
                   <input
                     type="text"
                     name="zip_code"
-                    placeholder="Zipcode"
+                  placeholder="Zipcode"
                     value={zipcodeInput}
                     onChange={this.handleZipCodeChange}
                   />
@@ -250,4 +247,7 @@ class Registration extends Component {
   }
 }
 
+
+
 export default Registration;
+

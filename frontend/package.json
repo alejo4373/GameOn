@@ -4,12 +4,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
-<<<<<<< HEAD
     "bootstrap": "^3.3.7",
-    "prop-types": "^15.6.1",
-=======
     "npm": "^5.7.1",
->>>>>>> f6e3860694215b4abda5704e83d276e212433e52
+    "prop-types": "^15.6.1",
     "proxy": "^0.2.4",
     "rc-slider": "^8.6.1",
     "react": "^16.2.0",
