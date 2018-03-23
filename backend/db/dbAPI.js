@@ -1,6 +1,18 @@
 const db = require("./index");
 const helpers = require('../auth/helpers');
 
+const getUserById = (id, callback) => {
+  db
+    .any(
+      "SELECT * FROM users WHERE id = ${id}",
+      {id: id}
+    )
+    .then(data => callback(null, data[0]))
+    .catch(err => {
+      callback(err, false)
+    });
+};
+
 const getUserByUsername = (username, callback) => {
   db
     .any(
@@ -64,6 +76,7 @@ const registerUser = (user, callback) => {
  * @param {Function} answer - Function that will be called with (err, data) as its arguments
  */
 const getUserInfo = (userId, answer) => {
+  console.log(userId)
    db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
            WHERE id = $1`, userId) 
       .then(user => {
@@ -102,8 +115,15 @@ const getAllUsers = (callback) => {
 const updateUserInfo = (userInfo, callback) => {
   db.none('UPDATE users SET username=${username},fullname=${fullname},' +
   'zip_code= ${zipcode},email=${email} WHERE id=${id}', userInfo)
-  .then(data => callback(null, data))
+  .then(() => callback(null))
   .catch(err => callback(err))
+}
+
+const updateSport = (sports, callback) => {
+  const sport = JSON.parse(sports.sport)
+    db.none(`UPDATE sports_proficiency SET proficiency = ${sport.proficiency} WHERE user_id = ${sports.id} AND sport_id = ${sport.sport_id}`)
+    .then(() => callback(null))
+    .catch(err => callback(err))
 }
 
 const addSport = (sport, callback) => {
@@ -177,12 +197,14 @@ const getEventInfo = (eventId, callback) => {
     .catch(err => callback(err));
 }
 module.exports = {
-  getUserByUsername: getUserByUsername,
+  getUserById: getUserById,
+  getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
   getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
+  updateSport: updateSport,
   addSport: addSport,
   deleteSport: deleteSport,
 
