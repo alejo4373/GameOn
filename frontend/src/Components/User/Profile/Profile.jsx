@@ -1,97 +1,91 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
-import {ProgressBar} from 'react-bootstrap'
 import axios from "axios";
+
+import UserInfo from './UserInfo'
+import ProfileSports from './ProfileSports'
+
 
 class Profile extends Component {
   state = {
-    user: [
-      {
-        username: "Kelvito911",
-        selectedSports: [
-          { name: "baseball", skill: "beginner", level: 21 },
-          { name: "soccer", skill: "expert", level: 98 },
-          { name: "basketball", skill: "intermediate", level: 45 }
-        ],
-        img:
-          "https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/26165178_168201540458708_1782741453897924448_n.jpg?_nc_cat=0&oh=bc42debdb113335eea9ec91827ac4f27&oe=5B4AA9EF",
-        exp_points: 820
-      }
-    ],
-
-    edit: false
+    user: [],
+    enable: false,
   };
 
-  handleEditProfile = () => {
-    this.setState({
-      edit: true
-    });
-  };
-
-  handleLogOut = () => {
+  getUserInfo = () => {
     axios
-      .get("/logout")
-      .then(() => {
+      .get("/user/getinfo")
+      .then(res => {
+        console.log(res.data.user);
         this.setState({
-          loggedIN: false
+          user: res.data.user
         });
       })
-      .catch(err => console.log("Error:", err));
+      .catch(err => console.log("Failed To Fetch User:", err));
   };
 
-  render() {
-    const { user, loggedIN, edit } = this.state;
-    const { handleEditProfile, handleLogOut } = this;
 
-    if (edit) {
+
+  handleDisplayInfo = (e) => {
+    if(e.target.id === 'profile_personal_info'){
       this.setState({
-        edit: false
-      });
-      return <Redirect to="/edit" />;
-    }
+        enable: false
+      })
+    }else if(e.target.id === 'profile_sport_info')
+    this.setState({
+      enable: true
+    })
+  }
+
+ 
+  componentWillMount() {
+    this.getUserInfo();
+  }
+
+  render() {
+    const { handleEditProfile, handleDisplayInfo } = this;
+    const { user, enable } = this.state;
 
     return (
-      <div>
-        {user.map(u => {
-          return (
-            <div id="profile">
-              <div id="photo_container">
-                <img id="profile_photo" src={u.img} width="130px" />
-              </div>
-              <div id="profile_description">
-                <span id="username">
-                  <h3>{u.username}</h3>
-                </span>
-                <button id="edit_profile_button" onClick={handleEditProfile}>
-                  Edit Profile
-                </button>
-                <span id="xp_header">
-                  <h3>XP: {u.exp_points} pts</h3>
-                </span>
-                <div id="user_selectedSports_container">
-                  {u.selectedSports.map(s => {
-                    return (
-                      <div className="user_selectedSports">
-                        <div className="sports_name_skills">
-                          Sport: {s.name.toUpperCase()} {' '}
-                          Skill: {s.skill}
-                        <ProgressBar 
-                        bsStyle="success"
-                        now={s.level} 
-                        label={`${s.level}%`} />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-        {/* <button onClick={this.handleLogOut}>Log Off</button> */}
+      <div className="profile_parent">
+        <div id="profile_menu">
+          <div id='profile_header'>
+            <img src={user.profile_pic} id="profile_photo" />
+            <div id="profile_username">{user.username}</div>
+          </div>
+          <div id="profile_personal_info" 
+          onClick={handleDisplayInfo}
+          >
+          Personal Info
+          </div>
+          <div id="profile_sport_info" 
+          onClick={handleDisplayInfo}
+          >
+          Your Sports
+          </div>
+        </div>
+
+        <div id='profile_info_container'>
+        {!enable?
+        <UserInfo
+        id={user.id}
+        username ={user.username}
+        email = {user.email}
+        fullname = {user.fullname}
+        zipcode = {user.zip_code}
+        /> : 
+        <ProfileSports
+        sports = {user.sports}
+        />}
+        </div>
       </div>
     );
   }
 }
 
 export default Profile;
+
+/**
+ * <button id="edit_Overview_button" onClick={handleEditProfile}>
+          Edit Profile
+        </button>
+ */

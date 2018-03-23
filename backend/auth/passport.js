@@ -5,11 +5,12 @@ const helpers = require('./helpers');
 
 //Session configuration
 passport.serializeUser((user, done) => {
-  done(null, user.username)
+  done(null, user.id)
 });
 
-passport.deserializeUser((username, done) => {
-  dbAPI.getUserByUsername(username, (err, user) => {
+passport.deserializeUser((id, done) => {
+  dbAPI.getUserById(id, (err, user) => {
+  console.log(user)    
     done(err, user)
   })
 })
@@ -27,12 +28,9 @@ passport.use(
           id: user.id,
           username: user.username,
           fullname: user.fullname,
-          profilePicUrl: user.profile_pic,
-          numberOfPosts:user.number_of_posts,
-          numberOfFollowers: user.number_of_followers,
-          numberOfFollowing: user.number_of_following
+          profile_pic: user.profile_pic,
         }
-        console.log(user)
+        //console.log(user)
         return done(null, userWithoutPassword)
       })
     })

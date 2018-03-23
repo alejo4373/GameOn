@@ -25,21 +25,21 @@ body {
   margin-right: 33%
 }
 
-#profile_component{
-  /* border: 2px solid black; */
-  margin: 8% 0 8% 32%;
+ #Overview{
+  border: 2px solid black;
+  margin: 8% 0 8% 28%;
   width: 600px;
   height: 200px;
 }
 
-#profile_photo{
+#Overview_photo{
   float: left;
   margin: 2% 0 0 2%;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
 }
 
-#edit_profile_button{
+#edit_Overview_button{
   border: 1px solid gray;
   font-size: 18px;
   width: auto;
@@ -118,4 +118,77 @@ body {
   -moz-border-radius: 60px;
   -webkit-border-radius: 60px;
 
+}
+
+/* Profile Page Component */
+#profile_menu{
+  
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  margin: 10% 0 0 10%;
+
+}
+
+#profile_header{
+  width:196px;
+  height:185px;
+  background-color: #FAFAFA
+}
+
+#profile_photo{
+  width:120px;
+  border: 2px solid black;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+  margin-top: 15%;
+  margin-left: 19%
+}
+#profile_username{
+  margin: 3% 0 0 42%
+}
+
+#profile_personal_info, #profile_sport_info{
+  margin-top: 3%;
+  text-align: center;
+  padding-top: 12px;
+  width: 196px;
+  background-color: #FAFAFA;
+  height: 50px;
+}
+
+#profile_personal_info:hover, 
+#profile_sport_info:hover,
+#Overview:hover,
+.individual_event:hover
+{
+  background-color: lightsteelblue;
+  cursor: pointer;
+}
+
+#profile_info_container{
+  width: 700px;
+  height: 300px;
+  margin: 10% 0 0 30%;
+  position: absolute;
+}
+
+#profile_form_container{
+  margin-top: 25%
+}
+.profile_forms{
+width: 700px;
+float: left;
+}
+
+#update_button{
+  float: left;
+}
+
+/* Map Page Components */
+
+#marker-event-photo{
+  width: 60px;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
 }
