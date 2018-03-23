@@ -1,10 +1,16 @@
 .login_container {
     background: url('/images/Field.png')no-repeat center center fixed; 
-    -webkit-background-size: cover;
+    /* -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    */
     height: 100vh;
+    /* opacity: 0.7; */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /*
@@ -16,8 +22,8 @@
     padding-right: 60px;
     padding-left: 60px;
     border-radius: 6px;
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 90px;
+    padding-bottom: 90px;
     margin-bottom: 30px;
     color: inherit;
     background-color: lightgrey;
@@ -43,10 +49,15 @@
 @media (min-width: 768px) {
     .container {
         width: 100vw;
-    
     }
 }
 
+@media (max-width: 360px) {
+    #login_title {
+        font-size: 100%;
+        /* background-color: yellow; */
+    }
+}
 /* 
     Adjusted the automatic styling for the <FormControl>
     to be centerd and responsive.
@@ -72,6 +83,39 @@
     margin-bottom: 1%;
 }
 
-/* .login_title {
+.pageHeader {
+    /* position: relative; */
+    top: -13.3em;
+}
 
-} */
+#login_title {
+    color: black;
+    font-size: 390%;
+    position: relative;
+    top: 70vh;
+}
+p {
+    font-size: 25px;
+    color: black;
+}
+
+#jumbo_container {
+    height: 30%;
+}
+.form-group {
+    width: 55%;
+    margin-left: 22%;
+}
+
+#form_container {
+    position: relative;
+    top: 80vh;
+}
+
+#letsPlay, #letsPlay:hover {
+    position: relative;
+    top: 75vh;
+    border: 2px solid white; 
+    -webkit-transition: -webkit-transform 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out;
+}
