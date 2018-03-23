@@ -36,21 +36,7 @@ class Login extends React.Component {
       passwordInput: e.target.value
     });
   };
-  /**
-   * @func getUser
-   Retrieve the user who has logged In and set the state to that user
-   This will be used to determine if the user has logged in to redirect them to their profile when the user
-   hasn't logged out
-   ~Kelvin
-   */
-  getUser = () => {
-    axios.get('')
-      .then(res => {
-        this.setState({
-          user: res.data.data[0]
-        })
-      })
-  }
+  
   /**
    * @func submitForm
    Submit/Post The Input to Database to retrieve User
@@ -80,36 +66,34 @@ class Login extends React.Component {
       });
 
   };
-  componentDidMount() {
-    this.getUser()
-  }
+  
   render() {
     const { usernameInput, passwordInput, message, loggedIn, user } = this.state;
     const { submitForm } = this;
 
     if (user) {
-      return <Redirect to='/user' />;
+      return <Redirect to='/user/dashboard' />;
     }
     if (loggedIn) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/dashboard" />;
     }
 
     return (
-      <div id='parent'>
-        <div class='login-container' >
-          <div class='login-box'>
-            <h1 id='title'>GameOn</h1>
-            <form onSubmit={this.submitForm}>
-              <label>
-                <input
-                  type="text"
-                  name="username"
-                  placeholder='Username or E-mail'
-                  value={usernameInput}
-                  onChange={this.handleUsernameChange}
-                />
-              </label>
-              <br/>
+        <div className='parent'>
+            <div class='login-container' >
+                <div class='login-box'>
+                <h1 id='title'>GameOn</h1>
+                    <form onSubmit={submitForm}>
+                    <label>
+                        <input
+                        type="text"
+                        name="username"
+                        placeholder='Username or Email'
+                        value={usernameInput}
+                        onChange={this.handleUsernameChange}
+                        />
+                    </label>
+
               <label>
                 <input
                   type="password"
@@ -119,7 +103,6 @@ class Login extends React.Component {
                   onChange={this.handlePasswordChange}
                 />
               </label>
-              <br/>
               <input type="submit" value="Log In" />
             </form>
             <span>{message}</span>

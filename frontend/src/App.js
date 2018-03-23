@@ -10,7 +10,7 @@ import Register from './Components/Register/Form.jsx'
 // import Login from './Components/Home/Login'
 // import Registration from './Components/Register/Registration'
 import Dashboard from './Components/User/Dashboard'
-
+import HUB from './Components/User/HUB'
 
 class App extends Component {
     render() {
@@ -20,7 +20,7 @@ class App extends Component {
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
-                    <Route exact path="/user" component={Dashboard}/>
+                    <Route  path="/user" component={HUB}/>
                 </Switch>
             // </div>
         )

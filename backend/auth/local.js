@@ -11,7 +11,7 @@ init();
 
 
 passport.use(
-  // getting username and password from req.body
+  //Getting username and password from req.body
   new LocalStrategy(options, (username, password, done) => {
     console.log("trying to authenticate");
     db

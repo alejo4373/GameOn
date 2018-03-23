@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
+import axios from "axios";
 
 import Selection from "./Selection";
 
@@ -16,7 +16,16 @@ class Registration extends Component {
     message: "",
     nextPressed: false,
     registered: false,
-    alert: false
+    alert: false,
+    loggedIN: false
+  };
+
+  checkedIfUserLoggedIn = () => {
+    axios.get("/logged").then(res => {
+      this.setState({
+        loggedIN: res.data.loggedin
+      });
+    });
   };
 
   handleUsernameChange = e => {
@@ -89,18 +98,15 @@ class Registration extends Component {
   };
 
   submitForm = () => {
-    
     const {
       usernameInput,
       passwordInput,
       confirmInput,
       emailInput,
       fullNameInput,
-      registered,
       zipcodeInput
     } = this.state;
 
-    
     if (
       !usernameInput ||
       !passwordInput ||
@@ -117,12 +123,12 @@ class Registration extends Component {
       });
       return;
     }
-    if (passwordInput.length <= 7) {
+    if (passwordInput.length < 5) {
       this.setState({
         passwordInput: "",
         confirmInput: "",
         alert: true,
-        message: "Password length must be at least 8 characters"
+        message: "Password length must be at least 5 characters"
       });
       return;
     }
@@ -137,9 +143,13 @@ class Registration extends Component {
     }
 
     this.setState({
-      nextPressed:true
-    })
+      nextPressed: true
+    });
   };
+
+  componentDidMount() {
+    this.checkedIfUserLoggedIn();
+  }
 
   render() {
     const {
@@ -149,9 +159,9 @@ class Registration extends Component {
       passwordInput,
       confirmInput,
       message,
-      registered,
       zipcodeInput,
-      nextPressed
+      nextPressed,
+      loggedIN
     } = this.state;
 
     const {
@@ -161,18 +171,20 @@ class Registration extends Component {
       handleUsernameChange
     } = this;
 
-    console.log(nextPressed)
+    if (loggedIN) {
+      return <Redirect to="/user" />;
+    }
 
     return (
       <div className="parent">
         {nextPressed ? (
             <Selection
-            emailInput={emailInput}
-            fullNameInput={fullNameInput}
-            usernameInput={usernameInput}
-            passwordInput={passwordInput}
-            zipcodeInput={zipcodeInput}
-          />
+              emailInput={emailInput}
+              fullNameInput={fullNameInput}
+              usernameInput={usernameInput}
+              passwordInput={passwordInput}
+              zipcodeInput={zipcodeInput}
+            />
         ) : (
           <div class="login-container">
             <div class="login-box">
@@ -233,8 +245,8 @@ class Registration extends Component {
                     onChange={this.handleZipCodeChange}
                   />
                 </label>
-                
-              </form><button onClick={submitForm}>Next</button>
+              </form>
+              <button onClick={submitForm}>Next</button>
               <p>{message}</p>
             </div>
             <div class="login-box">
@@ -247,6 +259,4 @@ class Registration extends Component {
   }
 }
 
-
 export default Registration;
-
