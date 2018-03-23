@@ -46,28 +46,5 @@ router.patch('/edit', loginRequired, (req, res, next) => {
   })
 })
 
-router.delete('/sport/delete', loginRequired, (req, res, next) => {
-  let sport = req.body
-  console.log(sport)
-  dbAPI.deleteSport(sport, (err) => {
-    if(err){return err}
-    res.status(200)
-    res.json({
-      msg: 'sport deleted'
-    })
-  })
-})
-
-router.post('/sport/add', loginRequired, (req, res, next) => {
-  let sport = req.body
-  console.log(sport)
-  dbAPI.addSport(sport, (err) => {
-    if(err){return err}
-    res.status(200)
-    res.json({
-      msg: 'User\'s information updates'
-    })
-  })
-})
 
 module.exports = router;

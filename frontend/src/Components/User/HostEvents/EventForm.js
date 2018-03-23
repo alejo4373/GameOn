@@ -13,6 +13,7 @@ export default class Event extends React.Component{
 
         this.state = {
             Name: '',
+            imgScr: null,
             Address: '',
             DateInfo: null,
             startTime: null,
@@ -33,25 +34,38 @@ export default class Event extends React.Component{
         })
     }
 
+    handleSelect = (e) => {
+        this.setState({
+            sport: e.target.value
+        })
+    }
+
     handleSubmit = () => {
         this.setState({
             submit: true
         })
     }
 
+    // handleImage = (e) => {
+    //     console.log('what we are passing', URL.createObjectURL(e.target.value))
+    //     this.setState({
+    //         imgScr: URL.createObjectURL(e.target.value)
+    //     })
+    // }
+
     // handleSubmit = () => {
-    //     const {Name, Address, DateInfo, startTime, endTime, Description, sport, lad, long} = this.state
+    //     const {Name, Address, DateInfo, startTime,imgScr, endTime, Description, sport, lad, long} = this.state
 
     //     axios.post('',
     //     {name:Name,
-    //     lad:lad,
-    //     long:long,
-    //     address:Address,
-    //     date: DateInfo,
-    //     start: startTime,
-    //     end: endTime,
+    //     lad:40.755603,
+    //     long:-73.984931,
+    //     location:Address,
+    //     start_ts: new Date(DateInfo+ ' ' + startTime).getTime(),
+    //     end_ts: new Date(DateInfo+ ' ' + startTime).getTime(),
     //     description:Description,
-    //     sport:sport
+    //     sport:sport,
+    //     event_pic:imgScr
     //  })
     //  .then(this.setState({
     //     Name: '',
@@ -69,13 +83,15 @@ export default class Event extends React.Component{
     //     axios.get('/sport/all')
     //     .then(sportNames => 
     //         this.setState({
-    //             sports:sportNames
+    //             sports:sportNames,
+    //             user_id: userID
     //         })
     //     )
     // }
 
     form =() => {
-        const { Name, Address, DateInfo, startTime, endTime, Description, sports } = this.state(
+        const { Name, Address, imgScr, DateInfo, startTime, endTime, Description, sports } = this.state
+        return(
         <div>
         <h1>Create An Event</h1>
 
@@ -83,8 +99,9 @@ export default class Event extends React.Component{
         
         <input
         type='file'
-        name='pic'
-        accept='image/*' 
+        name= 'text'
+        value= {imgScr}
+        onChange={this.handleChange}
         />
 
         <input
@@ -103,7 +120,7 @@ export default class Event extends React.Component{
 
         <input
         type='text'
-        name='Date'
+        name='DateInfo'
         value={DateInfo}
         placeholder='Date'
         onInput= {this.handleChange} />
@@ -122,9 +139,9 @@ export default class Event extends React.Component{
         placeholder='End'
         onInput= {this.handleChange} />
 
-        <select>{['sports', ...sports].map((sport,idx) => 
-            <option key={idx} onChange ={this.handleChange} 
-            name={sport} value={sport}>{sport}
+        <select onChange ={this.handleSelect} >{['sports', ...sports].map((sport,idx) => 
+            <option key={idx} 
+            value={sport}>{sport}
             </option>)}
         </select>
 
@@ -143,8 +160,10 @@ export default class Event extends React.Component{
     )}
     render(){
         const { submit } = this.state
-        const { Name, Address, DateInfo, startTime, endTime, Description, sport } = this.state
-        const event = {sport: sport, Name:Name, Address: Address, date:DateInfo, start:startTime, end: endTime, description: Description}
+        const { Name, Address, imgScr, DateInfo, startTime, endTime, Description, sport } = this.state
+        console.log(new Date(DateInfo+ ' ' + startTime).getTime())
+        console.log(imgScr)
+        const event = {sport: sport, Name:Name, date: DateInfo, img:imgScr, Address: Address, date:DateInfo, start:startTime, end: endTime, description: Description}
         return(
             <div>
                 {submit? <Events event={event}/> : this.form() }
@@ -152,3 +171,10 @@ export default class Event extends React.Component{
         )
     }
 }
+
+// {/* <input
+// type='file'
+// name='imgScr'
+// accept='image/*' 
+// onChange={this.handleImage}
+// /> */}

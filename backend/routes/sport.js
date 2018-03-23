@@ -40,4 +40,16 @@ router.post('/add', loginRequired, (req, res, next) => {
   })
 })
 
+router.patch('/edit', loginRequired, (req, res, next) => {
+  let sport = req.body
+  console.log('sports', sport)
+  dbAPI.updateSport(sport, (err) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      message: 'sport updated'
+    })
+  })
+})
+
 module.exports = router;
