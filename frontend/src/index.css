@@ -184,3 +184,11 @@ float: left;
 #update_button{
   float: left;
 }
+
+/* Map Page Components */
+
+#marker-event-photo{
+  width: 60px;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
+}
