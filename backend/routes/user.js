@@ -38,6 +38,30 @@ router.get('/all', loginRequired, (req, res, next) =>{
 router.patch('/edit', loginRequired, (req, res, next) => {
  let user = req.body
   dbAPI.updateUserInfo(user, (err) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      msg: 'user\'s infomation updates'
+    })
+  })
+})
+
+router.delete('/sport/delete', loginRequired, (req, res, next) => {
+  let sport = req.body
+  console.log(sport)
+  dbAPI.deleteSport(sport, (err) => {
+    if(err){return err}
+    res.status(200)
+    res.json({
+      msg: 'sport deleted'
+    })
+  })
+})
+
+router.post('/sport/add', loginRequired, (req, res, next) => {
+  let sport = req.body
+  console.log(sport)
+  dbAPI.addSport(sport, (err) => {
     if(err){return err}
     res.status(200)
     res.json({
