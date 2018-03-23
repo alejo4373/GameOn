@@ -192,3 +192,11 @@ float: left;
   -moz-border-radius: 60px;
   -webkit-border-radius: 60px;
 }
+
+
+.navbar{
+  top:0;
+  position: fixed;
+  z-index: 3;
+}
+

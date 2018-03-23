@@ -9,7 +9,7 @@ import Register from './Components/Register/Form.jsx'
 
 // import Login from './Components/Home/Login'
 // import Registration from './Components/Register/Registration'
-import Dashboard from './Components/User/Dashboard'
+
 import HUB from './Components/User/HUB'
 
 class App extends Component {

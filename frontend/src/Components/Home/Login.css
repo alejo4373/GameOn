@@ -1,14 +1,13 @@
 .login_container {
-      /* background-color: #c6e7ff; */
+      background-color: #c6e7ff;
    background: url('/images/Field.png')no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  /* height: 100%;  */
-  /* background-color:#cccccc; */
   height: 100vh;
   /* width:100vw; */
+  
 }
 /*
     The Jumbotron holds the title and the slogan 
@@ -83,3 +82,13 @@
 #form_container {
     /* background-color: olive; */
 }
+
+
+
+
+
+
+
+
+
+
