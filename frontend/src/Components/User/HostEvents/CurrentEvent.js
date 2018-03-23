@@ -10,21 +10,22 @@ export default class Events extends React.Component{
         }
     }
 
-    // joinEvent = () =>{
-    //     axios.post('',{
-    //         username:username,
-    //         eventId:eventId
-    //     })
-    // }
+    joinEvent = () =>{
+        axios.post('',{
+            username:username,
+            eventId:eventId
+        })
+    }
+    
     //need the event id or some sort of identification thing
-    // componentDidMount(){
-    //     axios.get('/event')
-    //     .then(event => this.setState({
-    //         event:event
-    //     })
-    //     .catch(err => console.log('failed to fetch the event', err))
-    // )
-    // }
+    componentDidMount(){
+        axios.get('/event')
+        .then(event => this.setState({
+            event:event
+        })
+        .catch(err => console.log('failed to fetch the event', err))
+    )
+    }
 
     render(){
         const { event } = this.state
