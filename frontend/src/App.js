@@ -15,14 +15,14 @@ import Dashboard from './Components/User/Dashboard'
 class App extends Component {
     render() {
         return (
-            <div id="globalContainer">
+            // <div id="globalContainer">
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/user" component={Dashboard}/>
                 </Switch>
-            </div>
+            // </div>
         )
     }
 }

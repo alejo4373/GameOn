@@ -1,35 +1,34 @@
 .login_container {
       /* background-color: #c6e7ff; */
-   /* background: url('/images/Field2.png')no-repeat center center fixed; 
+   background: url('/images/Field.png')no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; */
-  height: 100%; 
-  background-color:#cccccc;
+  background-size: cover;
+  /* height: 100%;  */
+  /* background-color:#cccccc; */
+  height: 100vh;
+  /* width:100vw; */
 }
 /*
     The Jumbotron holds the title and the slogan 
     ~Romie
 */
 .LoginJumbotron {
-    /* margin-top: 20px; */
+    margin-top: 20px;
     padding-right: 60px;
     padding-left: 60px;
-    /* border-radius: 6px; */
+    border-radius: 6px;
     padding-top: 48px;
     padding-bottom: 48px;
     margin-bottom: 30px;
     color: inherit;
-    /* background-color: rgb(208, 224, 229); */
+    background-color: lightgrey;
     box-sizing: border-box;
-    /* width: 100%; */
-    background: url('/images/Field.png')no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
     color: white;
+    width: 100%;
+    opacity: 0.5;
+    
 }
 
 #loginSubmitButton {
@@ -43,21 +42,12 @@
     it is also the <Grid> in the Login.jsx
     ~Romie
 */
-@media (min-width: 1200px) {
-    .container {
-        width: 1170px;
-    }
-}
-
-@media (min-width: 992px) {
-    .container {
-        width: 970px;
-    }
-}
 
 @media (min-width: 768px) {
     .container {
-        width: 750px;
+        /* width: 750px; */
+        width: 100vw;
+    
     }
 }
 

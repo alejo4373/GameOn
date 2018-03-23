@@ -97,11 +97,11 @@ export default class Login extends Component {
         }
 
         return (
-            <Grid bsClass="login_container">
+            <Grid className="login_container">
                 <div id="jumbo_container">
                 <Jumbotron bsClass="LoginJumbotron">
                     <PageHeader bsClass="pageHeader">
-                        Game On! <br /><small >Let's Play. Game On!</small>
+                        <h1 id="Login Title">Game On! <br /><small >Let's Play. Game On!</small></h1>
                     </PageHeader>
                 </Jumbotron>
                 </div>
