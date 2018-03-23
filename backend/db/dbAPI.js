@@ -164,21 +164,15 @@ const inviteToEvent = (invitationInfo, callback) => {
 const getEventInfo = (eventId, callback) => {
   db.one(
    `SELECT 
-      events.id as id,
-      events.host_id,
+      events.*,
       username AS host_username,
-      lat,
-      long,
-      start_ts,
-      end_ts,
-      event_pic,
       json_agg(invitations.invitee_id)
+   
     FROM events
     INNER JOIN users ON events.host_id = users.id 
     INNER JOIN invitations on events.id = invitations.event_id 
-    WHERE events.host_id = 1
-    GROUP BY (events.id, username);`,
-        invitationInfo)
+    WHERE events.id = ${1}
+    GROUP BY (events.id, username);`, eventId)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }

@@ -27,7 +27,7 @@ router.post('/invite', loginRequired, (req, res, next) => {
     invitee_id: req.body.invitee_id,
   }
 
-  dbAPI.inviteToEvent(invitationInfo, (err, invite) => {
+  dbAPI.joinEvent(joinInfo, (err, player) => {
     if(err) { return next(err) }
     res.status(200)
     res.json({

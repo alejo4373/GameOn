@@ -40,12 +40,12 @@ CREATE TABLE events (
     description VARCHAR
 );
 
-CREATE TABLE invitations (
+CREATE TABLE events_players (
     id SERIAL PRIMARY KEY,
     event_id INT REFERENCES events(id) NOT NULL,
     host_id INT NOT NULL,
     -- invitee_id INT REFERENCES users(id) Should be this way but left out because we dont have users inserted and will give us an error
-    invitee_id INT NOT NULL 
+    player_id INT NOT NULL 
 );
 
 INSERT INTO sports (name)
