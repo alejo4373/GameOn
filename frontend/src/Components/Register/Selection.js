@@ -24,6 +24,14 @@ class Selection extends Component {
         color: 'green'
       });
     }
+    
+    this.state.selectedSports.map(s => {
+      // if (sport === s ) {
+      //   console.log("blue")
+      // } 
+      console.log(s)
+    })
+    
   };
 
   /*

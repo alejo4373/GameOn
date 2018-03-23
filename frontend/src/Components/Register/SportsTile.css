@@ -20,7 +20,23 @@
 }
 
 .sportsTile_Container {
-    background-color: blue;
+    /* background-color:#cccccc; */
     border: 2px solid black;
     height: 20px;
+}
+
+#globalContainer {
+    background-color: #cccccc;
+}
+
+.RegistrationJumbotron {
+    background: url('/images/Field.png')no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.sport_selection {
+    background-color: white;
+    width: 32%;
 }

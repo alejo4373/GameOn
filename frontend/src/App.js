@@ -15,7 +15,7 @@ import Dashboard from './Components/User/Dashboard'
 class App extends Component {
     render() {
         return (
-            <div>
+            <div id="globalContainer">
                 <Switch>
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>

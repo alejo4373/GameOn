@@ -98,11 +98,14 @@ export default class Login extends Component {
 
         return (
             <Grid bsClass="login_container">
+                <div id="jumbo_container">
                 <Jumbotron bsClass="LoginJumbotron">
-                    <PageHeader>
-                        Game On! <br /><small>Let's Play. Game On!</small>
+                    <PageHeader bsClass="pageHeader">
+                        Game On! <br /><small >Let's Play. Game On!</small>
                     </PageHeader>
                 </Jumbotron>
+                </div>
+                <div id="form_container">
                 <form onSubmit={this.submitForm}>
                     <FormGroup controlId="formControlsSelect" >
                         <FormControl 
@@ -134,6 +137,7 @@ export default class Login extends Component {
                         <Link to="/register">Sign Up</Link>
                         </p>
                 </form>
+                </div>
             </Grid>
         )
     }
