@@ -149,6 +149,59 @@ const deleteSport = (sport, callback) => {
     .catch(err => callback(err));
 };
 
+const addEvent = (event, callback) => {
+  //How the event should look like coming from the frontend
+  // var event = {
+  //   host_id: 2,
+  //   lat: 40.747387,
+  //   long: -73.949494,
+  //   start_ts: 1521774233284,
+  //   end_ts: 1521775961187,
+  //   event_pic: '/images/event.png'
+  // }
+  console.log(event)
+  db.one(
+                       //(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)
+      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)' + 
+      'VALUES(${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${name},' +
+      '${location}, ${sport_id}, ${event_pic}, ${description})'+
+      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description',
+      event)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
+const inviteToEvent = (invitationInfo, callback) => {
+  db.one(
+    'INSERT INTO invitations (event_id, host_id, invitee_id)' +
+    'VALUES (${event_id}, ${host_id}, ${invitee_id})' +
+    'RETURNING event_id, host_id, invitee_id', 
+    invitationInfo)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
+const getEventInfo = (eventId, callback) => {
+  db.one(
+   `SELECT 
+      events.id as id,
+      events.host_id,
+      username AS host_username,
+      lat,
+      long,
+      start_ts,
+      end_ts,
+      event_pic,
+      json_agg(invitations.invitee_id)
+    FROM events
+    INNER JOIN users ON events.host_id = users.id 
+    INNER JOIN invitations on events.id = invitations.event_id 
+    WHERE events.host_id = 1
+    GROUP BY (events.id, username);`,
+        invitationInfo)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
@@ -159,6 +212,11 @@ module.exports = {
   updateUserInfo: updateUserInfo,
   updateSport: updateSport,
   addSport: addSport,
-  deleteSport: deleteSport
+  deleteSport: deleteSport,
+
+  /*- Events Related */
+  addEvent: addEvent,
+  inviteToEvent: inviteToEvent,
+  getEventInfo: getEventInfo
 };
 
