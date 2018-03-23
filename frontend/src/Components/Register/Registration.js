@@ -123,12 +123,12 @@ class Registration extends Component {
       });
       return;
     }
-    if (passwordInput.length <= 7) {
+    if (passwordInput.length < 5) {
       this.setState({
         passwordInput: "",
         confirmInput: "",
         alert: true,
-        message: "Password length must be at least 8 characters"
+        message: "Password length must be at least 5 characters"
       });
       return;
     }
