@@ -101,7 +101,7 @@ export default class Login extends Component {
                 <div id="jumbo_container">
                 <Jumbotron bsClass="LoginJumbotron">
                     <PageHeader bsClass="pageHeader">
-                        <h1 id="Login Title">Game On! <br /><small >Let's Play. Game On!</small></h1>
+                        <h1 id="login_title">Game On! <br /><small >Let's Play. Game On!</small></h1>
                     </PageHeader>
                 </Jumbotron>
                 </div>
