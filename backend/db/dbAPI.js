@@ -197,6 +197,19 @@ const joinEvent = (joinReq, callback) => {
     .catch(err => callback(err));
 }
 
+const leaveEvent = (leaveReq, callback) => {
+  db.any(
+    //Had to switch to from '' to `` (string literal) and from ${} to $// 
+    //as the = (character) give me errors when concatenating with + and ${} gave problems when used  
+    //with string literals
+    `DELETE FROM players_events
+    WHERE event_id = $/event_id/ AND player_id = $/player_id/`, 
+
+    leaveReq)
+    .then(() => callback(null))
+    .catch(err => callback(err));
+}
+
 const getEventInfo = (eventId, callback) => {
   console.log('eventId:', eventId)
   db.one(
@@ -226,7 +239,8 @@ module.exports = {
 
   /*- Events Related */
   addEvent: addEvent,
+  getEventInfo: getEventInfo,
   joinEvent: joinEvent,
-  getEventInfo: getEventInfo
+  leaveEvent: leaveEvent
 };
 

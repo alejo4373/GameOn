@@ -37,6 +37,22 @@ router.post('/join', loginRequired, (req, res, next) => {
   })
 })
 
+router.delete('/leave', loginRequired, (req, res, next) => {
+  const leaveReq = {
+    event_id: req.body.event_id,
+    player_id: req.user.id //Currently logged in user
+  }
+
+  dbAPI.leaveEvent(leaveReq, (err, leaveRes) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      leaveRes: leaveRes,
+      msg: 'You have left this event'
+    })
+  })
+})
+
 router.get('/info/:eventId', loginRequired, (req, res, next) => {
   const { eventId } = req.params 
   dbAPI.getEventInfo(eventId, (err, event) => {
