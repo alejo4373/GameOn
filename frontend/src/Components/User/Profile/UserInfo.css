@@ -1,0 +1,22 @@
+.userinfo_grid{
+    margin-top: 17%
+}
+
+#profile_username{
+    margin-top: 3%
+}
+
+#profile_photo{
+    width:120px;
+    border: 2px solid black;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+    margin-top: 15%;
+  }
+
+  #profile_info_container{
+    width: 700px;
+    height: 300px;
+    margin: 10% 0 0 25%;
+    position: absolute;
+  }

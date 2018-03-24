@@ -143,17 +143,6 @@ body {
   background-color: #FAFAFA
 }
 
-#profile_photo{
-  width:120px;
-  border: 2px solid black;
-  -moz-border-radius: 60px;
-  -webkit-border-radius: 60px;
-  margin-top: 15%;
-  margin-left: 19%
-}
-#profile_username{
-  margin: 3% 0 0 42%
-}
 
 #profile_personal_info, #profile_sport_info{
   margin-top: 3%;
@@ -173,19 +162,9 @@ body {
   cursor: pointer;
 }
 
-#profile_info_container{
-  width: 700px;
-  height: 300px;
-  margin: 10% 0 0 30%;
-  position: absolute;
-}
 
 #profile_form_container{
   margin-top: 25%
-}
-.profile_forms{
-width: 700px;
-float: left;
 }
 
 #update_button{
@@ -205,5 +184,17 @@ float: left;
   top:0;
   position: fixed;
   z-index: 3;
+}
+
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+
+#formControlsFile{
+  margin-left: 35%;
 }
 

@@ -114,7 +114,7 @@ const getAllUsers = (callback) => {
 
 const updateUserInfo = (userInfo, callback) => {
   db.none('UPDATE users SET username=${username},fullname=${fullname},' +
-  'zip_code= ${zipcode},email=${email} WHERE id=${id}', userInfo)
+  'zip_code= ${zipcode},email=${email}, profile_pic=${picture} WHERE id=${id}', userInfo)
   .then(() => callback(null))
   .catch(err => callback(err))
 }
