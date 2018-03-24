@@ -40,10 +40,9 @@ CREATE TABLE events (
     description VARCHAR
 );
 
-CREATE TABLE events_players (
+CREATE TABLE players_events (
     id SERIAL PRIMARY KEY,
     event_id INT REFERENCES events(id) NOT NULL,
-    host_id INT NOT NULL,
     -- invitee_id INT REFERENCES users(id) Should be this way but left out because we dont have users inserted and will give us an error
     player_id INT NOT NULL 
 );
@@ -56,7 +55,30 @@ VALUES ('basketball'),
        ('handbal'),
        ('football');
 
+INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)
+VALUES('Alejandro Franco', 'alejo4373', 'alejandro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+      ('Martin Ramirez', 'maito2018', 'maitoawesome@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+      ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50)
+      ;
+
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)
 VALUES (1, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, '/images/event.png', '6x6 bring hydration'),
        (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Basketball with Matt', 'Romeos Park', 1, '/images/event.png', '5x5 rain or shine')
        ;
+
+INSERT INTO players_events(event_id, player_id)
+VALUES(1, 2),
+      (1, 3),
+      (1, 1)
+      ;
+
+CREATE FUNCTION concat_lower_or_upper(a text, b text, uppercase boolean DEFAULT false)
+RETURNS text
+AS
+$$
+ SELECT CASE
+        WHEN $3 THEN UPPER($1 || ' ' || $2)
+        ELSE LOWER($1 || ' ' || $2)
+        END;
+$$
+LANGUAGE SQL IMMUTABLE STRICT;

@@ -20,10 +20,9 @@ router.post('/add', loginRequired, (req, res, next) => {
   })
 })
 
-router.post('/invite', loginRequired, (req, res, next) => {
+router.post('/join', loginRequired, (req, res, next) => {
   const invitationInfo = {
     event_id: req.body.event_id,
-    host_id: req.user.id, //currently logged in user
     invitee_id: req.body.invitee_id,
   }
 
@@ -33,6 +32,18 @@ router.post('/invite', loginRequired, (req, res, next) => {
     res.json({
       invite: invite,
       msg: 'Invitation added'
+    })
+  })
+})
+
+router.get('/info/:eventId', loginRequired, (req, res, next) => {
+  const { eventId } = req.params 
+  dbAPI.getEventInfo(eventId, (err, event) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      event: event,
+      msg: 'Event retrieved'
     })
   })
 })
