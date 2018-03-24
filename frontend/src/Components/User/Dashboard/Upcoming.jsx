@@ -84,38 +84,37 @@ class Upcoming extends Component {
     const { event } = this.state;
     console.log(event);
     return (
-      <div id="event_container">
-      <Panel defaultExpanded>
+      <Panel defaultExpanded id='event-panel'>
         <Panel.Heading>
           <Panel.Title toggle>Upcoming Events</Panel.Title>
         </Panel.Heading>
         <Panel.Collapse>
           {/* <Panel.Body>Some default panel content here.</Panel.Body> */}
-
-          <ListGroup>
-            {event.map(e => {
-              return (
-                <div className="individual_event">
-                  <img className="host_img" src={e.host_img} width={"50px"} />
-                  <span className="host_Name">{e.host}</span>
-                  <div className="event_descriptions">
-                    <span className="event_date">Date: {e.date}</span>
-                    <br />
-                    <span className="event_time">Time: {e.time}</span>
-                    <br />
-                    <span className="event_location">
-                      Location: {e.location}
-                    </span>
-                    <br />
-                    <span>Sport: {e.sport}</span>
+          <div id="event_container">
+            <ListGroup>
+              {event.map(e => {
+                return (
+                  <div className="individual_event">
+                    <img className="host_img" src={e.host_img} width={"50px"} />
+                    <span className="host_Name">{e.host}</span>
+                    <div className="event_descriptions">
+                      <span className="event_date">Date: {e.date}</span>
+                      <br />
+                      <span className="event_time">Time: {e.time}</span>
+                      <br />
+                      <span className="event_location">
+                        Location: {e.location}
+                      </span>
+                      <br />
+                      <span>Sport: {e.sport}</span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </ListGroup>
+                );
+              })}
+            </ListGroup>
+          </div>
         </Panel.Collapse>
       </Panel>
-      </div>
     );
   }
 }

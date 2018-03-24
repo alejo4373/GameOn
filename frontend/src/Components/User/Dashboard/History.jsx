@@ -47,76 +47,48 @@ class History extends Component {
     const { event } = this.state;
     console.log(event);
     return (
-      <div id="event_container">
-      <Panel defaultExpanded>
+      <Panel defaultExpanded id="event-panel">
         <Panel.Heading>
           <Panel.Title toggle>History</Panel.Title>
         </Panel.Heading>
         <Panel.Collapse>
-          {/* <Panel.Body>Some default panel content here.</Panel.Body> */}
+          <div id="event_container">
+            {/* <Panel.Body>Some default panel content here.</Panel.Body> */}
 
-          <ListGroup>
-            {event.map(e => {
-              return (
-                <div className="individual_event">
-                  <img className="host_img" src={e.host_img} width={"50px"} />
-                  <span className="host_Name">{e.host}</span>
-                  <div className="event_descriptions">
-                    <span className="event_location">
-                      Location: {e.location}
-                    </span>
-                    <br />
-                    <span>Sport: {e.sport}</span> <br />
-                    <span className="xp_gain">
-                      XP Gained: {e.xp_gained} pts
-                    </span>
-                    <br />
+            <ListGroup>
+              {event.map(e => {
+                return (
+                  <div className="individual_event">
+                    <img className="host_img" src={e.host_img} width={"50px"} />
+                    <span className="host_Name">{e.host}</span>
+                    <div className="event_descriptions">
+                      <span className="event_location">
+                        Location: {e.location}
+                      </span>
+                      <br />
+                      <span>Sport: {e.sport}</span> <br />
+                      <span className="xp_gain">
+                        XP Gained: {e.xp_gained} pts
+                      </span>
+                      <br />
+                    </div>
+                    <div
+                      className="event_result"
+                      style={{
+                        backgroundColor: e.results === "w" ? "green" : "red"
+                      }}
+                    >
+                      {e.results.toUpperCase()}
+                    </div>
                   </div>
-                  <div
-                    className="event_result"
-                    style={{
-                      backgroundColor: e.results === "w" ? "green" : "red"
-                    }}
-                  >
-                    {e.results.toUpperCase()}
-                  </div>
-                </div>
-              );
-            })}
-          </ListGroup>
+                );
+              })}
+            </ListGroup>
+          </div>
         </Panel.Collapse>
       </Panel>
-      </div>
     );
   }
 }
 
 export default History;
-
-/* 
-
-return (
-  <div id="event_container">
-    {event.map(e => {
-      return (
-        <div className="individual_event">
-          <img className="host_img" src={e.host_img} width={"50px"} />
-          <span className="host_Name">{e.host}</span>
-          <div className="event_descriptions">
-            <span className="event_location">Location: {e.location}</span>
-            <br />
-            <span>Sport: {e.sport}</span> <br />
-            <span className="xp_gain">XP Gained: {e.xp_gained} pts</span>
-            <br />
-          </div>
-          <div className="event_result" style={{
-              backgroundColor: e.results === "w"?"green":"red"
-          }}>{e.results.toUpperCase()}</div>
-        </div>
-      );
-    })}
-  </div>
-);
-
-
-*/

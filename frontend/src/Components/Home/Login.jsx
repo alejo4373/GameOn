@@ -94,7 +94,7 @@ export default class Login extends Component {
 
     return (
       <div>
-        <Carousel controls={false} interval={4000}>
+        <Carousel controls={false} interval={4000} indicators={false}>
           <Carousel.Item>
             <img src="/images/soccer-background.jpg" />
           </Carousel.Item>

@@ -2,12 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
-//Bootstrap Elements ~Kelvin
-import "rc-slider/assets/index.css";
-import "rc-tooltip/assets/bootstrap.css";
-import ReactDOM from "react-dom";
-import Tooltip from "rc-tooltip";
-import Slider from "rc-slider";
 import {
   Col,
   Grid,
@@ -22,17 +16,19 @@ import {
   Row,
   Well
 } from "react-bootstrap";
+import "rc-slider/assets/index.css";
+import "rc-tooltip/assets/bootstrap.css";
+import Tooltip from "rc-tooltip";
+import Slider from "rc-slider";
 
-const createSliderWithTooltip = Slider.createSliderWithTooltip;
-const Range = createSliderWithTooltip(Slider.Range);
 const Handle = Slider.Handle;
 
 class Skills extends Component {
   constructor() {
     super();
     this.state = {
-      skillValue: 0,
-      userSkill: "",
+      skillValue: [],
+      sports_skills: [],
       submitted: false
     };
   }
@@ -45,6 +41,9 @@ class Skills extends Component {
       passwordInput,
       zipcodeInput
     } = this.props;
+
+    const { sports_skills } = this.state;
+
     axios
       .post("/signup", {
         username: usernameInput,
@@ -52,7 +51,7 @@ class Skills extends Component {
         email: emailInput,
         fullname: fullNameInput,
         zipcode: zipcodeInput,
-        sports: JSON.stringify([{ sport_id: "2", proficiency: "2" }])
+        sports: JSON.stringify(sports_skills)
       })
       .then(res => {
         console.log(res.data);
@@ -94,34 +93,73 @@ class Skills extends Component {
     );
   };
 
-  setSkills = props => {
-    const { userSkill } = this.state;
-
-    if (props === 1) {
-      this.setState({
-        userSkill: "Beginner"
-      });
-    } else if (props === 2) {
-      this.setState({
-        userSkill: "Intermediate"
-      });
-    } else if (props === 3) {
-      this.setState({
-        userSkill: "Expert"
-      });
+  setSkills = (value, sport) => {
+    const { sports_skills, skillValue } = this.state;
+    const id = sport.id;
+    if (value === 1) {
+      if (!skillValue.includes(id)) {
+        this.setState({
+          skillValue: [...skillValue, id],
+          sports_skills: [
+            ...sports_skills,
+            { sport_id: id, proficiency: value }
+          ]
+        });
+      } else {
+        sports_skills.forEach(s => {
+          if (s.sport_id === id) {
+            s.proficiency = value;
+            return;
+          }
+        });
+      }
+    } else if (value === 2) {
+      if (!skillValue.includes(id)) {
+        this.setState({
+          skillValue: [...skillValue, id],
+          sports_skills: [
+            ...sports_skills,
+            { sport_id: id, proficiency: value }
+          ]
+        });
+      } else {
+          sports_skills.forEach(s => {
+            if (s.sport_id === id) {
+              s.proficiency = value;
+              return;
+            }
+          });
+      }
+    } else if (value === 3) {
+      if (!skillValue.includes(id)) {
+        this.setState({
+          skillValue: [...skillValue, id],
+          sports_skills: [
+            ...sports_skills,
+            { sport_id: id, proficiency: value }
+          ]
+        });
+      } else {
+          sports_skills.forEach(s => {
+            if (s.sport_id === id) {
+              s.proficiency = value;
+              return;
+            }
+          }); 
+      }
     }
   };
 
   render() {
-    const { sportSelected, sliderValue, userSkill, submitted } = this.state;
+    const {  sports_skills, submitted } = this.state;
 
     const { handlePreviousButton, selectedSports } = this.props;
 
     if (submitted) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/dashboard" />;
     }
 
-    console.log("userSkills:", userSkill);
+    console.log("userSkills:", sports_skills);
 
     const wrapperStyle = { width: 500, margin: 50 };
     return (
@@ -130,7 +168,7 @@ class Skills extends Component {
           {selectedSports.map(s => {
             return (
               <div style={wrapperStyle}>
-                <span>{s}</span>
+                <span>{s.name}</span>
                 <Slider
                   defaultValue={0}
                   min={1}
