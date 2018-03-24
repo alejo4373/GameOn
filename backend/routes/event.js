@@ -21,17 +21,17 @@ router.post('/add', loginRequired, (req, res, next) => {
 })
 
 router.post('/join', loginRequired, (req, res, next) => {
-  const invitationInfo = {
+  const joinReq = {
     event_id: req.body.event_id,
-    invitee_id: req.body.invitee_id,
+    player_id: req.user.id //Currently logged in user
   }
 
-  dbAPI.joinEvent(joinInfo, (err, player) => {
+  dbAPI.joinEvent(joinReq, (err, joinRes) => {
     if(err) { return next(err) }
     res.status(200)
     res.json({
-      invite: invite,
-      msg: 'Invitation added'
+      joinRes: joinRes,
+      msg: 'You have successfully joined this event'
     })
   })
 })

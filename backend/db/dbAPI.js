@@ -171,12 +171,12 @@ const addEvent = (event, callback) => {
     .catch(err => callback(err));
 }
 
-const inviteToEvent = (invitationInfo, callback) => {
+const joinEvent = (joinReq, callback) => {
   db.one(
-    'INSERT INTO invitations (event_id, host_id, invitee_id)' +
-    'VALUES (${event_id}, ${host_id}, ${invitee_id})' +
-    'RETURNING event_id, host_id, invitee_id', 
-    invitationInfo)
+    'INSERT INTO  players_events(event_id, player_id)' +
+    'VALUES (${event_id}, ${player_id})' +
+    'RETURNING event_id, player_id', 
+    joinReq)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
@@ -210,7 +210,7 @@ module.exports = {
 
   /*- Events Related */
   addEvent: addEvent,
-  inviteToEvent: inviteToEvent,
+  joinEvent: joinEvent,
   getEventInfo: getEventInfo
 };
 

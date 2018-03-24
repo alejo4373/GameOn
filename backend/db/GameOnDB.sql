@@ -43,8 +43,8 @@ CREATE TABLE events (
 CREATE TABLE players_events (
     id SERIAL PRIMARY KEY,
     event_id INT REFERENCES events(id) NOT NULL,
-    -- invitee_id INT REFERENCES users(id) Should be this way but left out because we dont have users inserted and will give us an error
-    player_id INT NOT NULL 
+    player_id INT REFERENCES users(id) NOT NULL,
+    unique(event_id, player_id) --so that a user cannot join twice to the same event
 );
 
 INSERT INTO sports (name)
