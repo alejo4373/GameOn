@@ -8,6 +8,7 @@ router.post('/add', loginRequired, (req, res, next) => {
   const event = {
     ...req.body,
     host_id: req.user.id, //currently logged in user
+    host_username: req.user.username
   }
 
   dbAPI.addEvent(event, (err, createdEvent) => {

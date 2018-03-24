@@ -159,15 +159,31 @@ const addEvent = (event, callback) => {
   //   end_ts: 1521775961187,
   //   event_pic: '/images/event.png'
   // }
-  console.log(event)
   db.one(
-                       //(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)
       'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)' + 
       'VALUES(${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${name},' +
       '${location}, ${sport_id}, ${event_pic}, ${description})'+
-      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description',
+      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description', 
       event)
-    .then((data) => callback(null, data))
+    .then((insertedEvent) => {
+      //Once the event has been created we want the host itself to be joined to the event 
+      //(even tho it seems odious) here we do soo
+      console.log('event ====>', insertedEvent)
+      db.any(
+        'INSERT INTO players_events(event_id, player_id) VALUES(${id}, ${host_id})', 
+        insertedEvent) 
+        .then(() => {
+          const newlyCreatedEvent = {
+            ...insertedEvent,
+            //The following 2 lines are being sent back to keep the data consistent when getting info
+            //about an event either when is newly created or when requested with id by client
+            players_usernames: [event.host_username], 
+            players_ids: [event.host_id]
+          }
+          callback(null, newlyCreatedEvent)
+        })
+       .catch(err => callback(err));
+    })
     .catch(err => callback(err));
 }
 
@@ -187,7 +203,7 @@ const getEventInfo = (eventId, callback) => {
     `SELECT 
       events.*,
       json_agg(users.username) AS players_usernames,
-      json_agg(users.id) AS players_id
+      json_agg(users.id) AS players_ids
     FROM users
     INNER JOIN players_events ON players_events.player_id = users.id
     INNER JOIN events ON events.id = players_events.event_id
