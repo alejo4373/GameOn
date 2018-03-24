@@ -69,7 +69,8 @@ VALUES (1, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Soccer at the p
 INSERT INTO players_events(event_id, player_id)
 VALUES(1, 2),
       (1, 3),
-      (1, 1)
+      (1, 1),
+      (2, 2) 
       ;
 
 CREATE FUNCTION concat_lower_or_upper(a text, b text, uppercase boolean DEFAULT false)
