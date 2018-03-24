@@ -166,7 +166,7 @@ export default class Registration extends Component {
 
         return (
             <Grid>
-                {true ?
+                {nextPressed ?
                     (<Grid>
                         <Selection
                             emailInput={emailInput}

@@ -1,13 +1,12 @@
 .login_container {
-      background-color: #c6e7ff;
+      /* background-color: #c6e7ff;
    background: url('/images/Field.png')no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 100vh;
+  height: 100vh; */
   /* width:100vw; */
-  
 }
 /*
     The Jumbotron holds the title and the slogan 
@@ -83,6 +82,23 @@
     /* background-color: olive; */
 }
 
+
+.carousel{
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.carousel-inner>.next {
+    margin: 0;
+    bottom: 0;
+}
 
 
 
