@@ -21,6 +21,25 @@ router.post('/add', loginRequired, (req, res, next) => {
   })
 })
 
+//Should we delete the event from database or simply add a status
+//active|canceled|finished in the db and just flip that value 
+//for now it is DELETEing the record
+router.delete('/delete', loginRequired, (req, res, next) => {
+  const deleteReq = {
+    event_id: req.body.event_id,
+    host_id: req.user.id //Currently logged in user
+  }
+
+  dbAPI.deleteEvent(deleteReq, (err, data) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      event_id: req.body.event_id,
+      msg: 'You deleted this event'
+    })
+  })
+})
+
 router.post('/join', loginRequired, (req, res, next) => {
   const joinReq = {
     event_id: req.body.event_id,

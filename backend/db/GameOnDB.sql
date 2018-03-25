@@ -42,8 +42,8 @@ CREATE TABLE events (
 
 CREATE TABLE players_events (
     id SERIAL PRIMARY KEY,
-    event_id INT REFERENCES events(id) NOT NULL,
-    player_id INT REFERENCES users(id) NOT NULL,
+    event_id INT REFERENCES events(id) ON DELETE CASCADE NOT NULL, --CASCADE so that when deleting an event we automatically delete records in this table too
+    player_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
     unique(event_id, player_id) --so that a user cannot join twice to the same event
 );
 
@@ -72,14 +72,3 @@ VALUES(1, 2),
       (1, 1),
       (2, 2) 
       ;
-
-CREATE FUNCTION concat_lower_or_upper(a text, b text, uppercase boolean DEFAULT false)
-RETURNS text
-AS
-$$
- SELECT CASE
-        WHEN $3 THEN UPPER($1 || ' ' || $2)
-        ELSE LOWER($1 || ' ' || $2)
-        END;
-$$
-LANGUAGE SQL IMMUTABLE STRICT;

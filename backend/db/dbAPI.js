@@ -187,6 +187,12 @@ const addEvent = (event, callback) => {
     .catch(err => callback(err));
 }
 
+const deleteEvent = (deleteReq, callback) => {
+  db.any('DELETE FROM events WHERE id = ${event_id} AND host_id = ${host_id}', deleteReq)
+    .then(() => callback(null))
+    .catch(err => callback(err));
+}
+
 const joinEvent = (joinReq, callback) => {
   db.one(
     'INSERT INTO  players_events(event_id, player_id)' +
@@ -241,6 +247,7 @@ module.exports = {
   addEvent: addEvent,
   getEventInfo: getEventInfo,
   joinEvent: joinEvent,
-  leaveEvent: leaveEvent
+  leaveEvent: leaveEvent,
+  deleteEvent, deleteEvent
 };
 
