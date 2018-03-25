@@ -223,6 +223,19 @@ const getEventInfo = (eventId, callback) => {
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
+
+const getEventsInRadius = (locationRange, callback) => {
+  db.any(
+    `SELECT 
+      events.*
+    FROM events
+    WHERE lat BETWEEN $/minLat/ AND $/maxLat/
+    AND long BETWEEN $/minLon/ AND $/maxLon/`
+    , locationRange)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
@@ -237,6 +250,7 @@ module.exports = {
   /*- Events Related */
   addEvent: addEvent,
   getEventInfo: getEventInfo,
+  getEventsInRadius: getEventsInRadius,
   joinEvent: joinEvent,
   leaveEvent: leaveEvent,
   deleteEvent, deleteEvent

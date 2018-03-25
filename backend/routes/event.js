@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbAPI = require('../db/dbAPI')
 var { loginRequired } = require('../auth/helpers')
-
+var geo = require('../db/GeoLocation.js')
 
 router.post('/add', loginRequired, (req, res, next) => {
   const event = {
@@ -83,5 +83,25 @@ router.get('/info/:eventId', loginRequired, (req, res, next) => {
     })
   })
 })
+
+router.get('/radius', loginRequired, (req, res, next) => {
+  const { radius, lat, long } = req.query 
+  //using helper library to get range of lat and long for the given
+  //radius
+  const locationRange = geo.buildLocationRange(
+    Number.parseFloat(lat),
+    Number.parseFloat(long),
+    Number(radius)
+  )
+  dbAPI.getEventsInRadius(locationRange, (err, events) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      events: events,
+      msg: 'Events retrieved'
+    })
+  })
+})
+
 
 module.exports = router;
