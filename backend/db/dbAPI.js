@@ -50,13 +50,13 @@ const registerUser = (user, callback) => {
     //if the user didn't picked any sport then skip this step altogether 
     if(sports.length) {
       //Base (header) for the SQL statement
-      var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
+      var SQLStatement = 'INSERT INTO users_sports(user_id, sport_id)'
       sports.forEach((sport, index) => {
         console.log(sport)
         if(index === 0) {
-          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency})` 
+          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id})` 
         } else {
-          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id}, ${sport.proficiency})`
+          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id})`
         }
       })
       SQLStatement += ';' 
@@ -80,7 +80,7 @@ const getUserInfo = (userId, answer) => {
    db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
            WHERE id = $1`, userId) 
       .then(user => {
-        db.any(`SELECT sports.name, sports.id, proficiency from sports_proficiency 
+        db.any(`SELECT sports.name, sports.id from users_sports 
                 INNER JOIN sports ON sports.id = sport_id
                 WHERE user_id = $1`, userId)
           .then(sports => {
@@ -119,31 +119,23 @@ const updateUserInfo = (userInfo, callback) => {
   .catch(err => callback(err))
 }
 
-const updateSport = (sports, callback) => {
-  const sport = JSON.parse(sports.sport)
-    db.none(`UPDATE sports_proficiency SET proficiency = ${sport.proficiency} WHERE user_id = ${sports.id} AND sport_id = ${sport.sport_id}`)
-    .then(() => callback(null))
-    .catch(err => callback(err))
-}
-
-const addSport = (sport, callback) => {
-  console.log("sport", sport);
+const addSport = (user_id, sport_id, callback) => {
   db
     .none(
-      "INSERT INTO sports_proficiency(user_id, sport_id, proficiency) " +
-        "VALUES (${user_id}, ${sport_id}, ${proficiency})",
-      sport
+      "INSERT INTO users_sports(user_id, sport_id) " +
+        "VALUES ($1, $2)",
+      [user_id, sport_id]
     )
     .then(() => callback(null))
     .catch(err => callback(err));
 };
 
-const deleteSport = (sport, callback) => {
+const deleteSport = (user_id, sport_id, callback) => {
   db
     .none(
-      "DELETE FROM sports_proficiency " +
-        "WHERE user_id = ${user_id} AND sport_id = ${sport_id}",
-      sport
+      `DELETE FROM users_sports
+        WHERE user_id = $1 AND sport_id = $2`,
+     [user_id, sport_id]
     )
     .then(() => callback(null))
     .catch(err => callback(err));
@@ -239,7 +231,6 @@ module.exports = {
   getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
-  updateSport: updateSport,
   addSport: addSport,
   deleteSport: deleteSport,
 

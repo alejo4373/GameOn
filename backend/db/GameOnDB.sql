@@ -19,10 +19,9 @@ CREATE TABLE sports (
     name VARCHAR
 );
 
-CREATE TABLE sports_proficiency (
-  user_id INT REFERENCES users(id),
-  sport_id INT REFERENCES sports(id),
-  proficiency INT NOT NULL
+CREATE TABLE users_sports(
+  user_id INT REFERENCES users(id) NOT NULL,
+  sport_id INT REFERENCES sports(id) NOT NULL
 );
 
 CREATE TABLE events (
@@ -59,6 +58,11 @@ INSERT INTO users (fullname, username, email, password_digest, zip_code, profile
 VALUES('Alejandro Franco', 'alejo4373', 'alejandro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Martin Ramirez', 'maito2018', 'maitoawesome@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50)
+      ;
+
+INSERT INTO users_sports (sport_id, user_id)
+VALUES(1, 1),
+      (2, 1)
       ;
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)
