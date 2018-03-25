@@ -1,6 +1,6 @@
-html, #root{
+/* html{
   background-color: #E6E6E6;
-}
+} */
 
 body {
   margin: 0;
@@ -16,7 +16,7 @@ body {
 .sport_selection{
   border: 2px solid black;
   width: 200px;
-  height: 300px;
+  height: 200px;
   margin: 1% 0 0 1%;
   float: left;
 }
@@ -198,3 +198,23 @@ body {
   margin-left: 35%;
 }
 
+
+.profile_sport{
+  float: left;
+}
+
+#profile-sport-container{
+  margin-left: 18%;
+  width: 35em;
+  /* border: 2px solid black */
+}
+
+.add-sport-button.container{
+  margin-left: 33%;
+  float: left;
+  width: 32%;
+}
+
+#add-button:hover {
+  border: 15px solid white;
+}

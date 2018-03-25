@@ -18,16 +18,16 @@ import {
   HelpBlock
 } from "react-bootstrap";
 
-function FieldGroup({ id, label, help, ...props }) {
-  console.log("FieldGroupProps:", props)
-  return (
-    <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl {...props} />
-      {help && <HelpBlock>{help}</HelpBlock>}
-    </FormGroup>
-  );
-}
+// function FieldGroup({ id, label, help, ...props }) {
+//   console.log("FieldGroupProps:", props)
+//   return (
+//     <FormGroup controlId={id}>
+//       <ControlLabel>{label}</ControlLabel>
+//       <FormControl {...props} />
+//       {help && <HelpBlock>{help}</HelpBlock>}
+//     </FormGroup>
+//   );
+// }
 
 class Profile extends Component {
   state = {
@@ -69,7 +69,10 @@ class Profile extends Component {
 
   submitProfilePicture = () => {
     const { user, photo } = this.state;
-    if (photo) {
+
+    var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+
+    if (regex.test(photo)) {
       axios
         .patch("/user/edit", {
           id: user.id,
@@ -77,19 +80,26 @@ class Profile extends Component {
           email: user.email,
           fullname: user.fullname,
           zipcode: user.zip_code,
-          profile_pic: user.profile_pic?photo:user.profile_pic
+          picture: user.profile_pic ? photo : user.profile_pic
         })
         .then(() => {
           this.setState({
             show: false,
-            message: ""
+            message: "",
+            photo:''
           });
         })
         .catch(err => console.log("Failed To Fetch User:", err));
     } else {
       this.setState({
-        message: "Wrong Input"
+        message: "Wrong Input Please Enter A URL",
+        photo:''
       });
+      setTimeout(() => {
+        this.setState({
+          message: ""
+        });
+      }, 1500);
     }
   };
 
@@ -124,12 +134,12 @@ class Profile extends Component {
                   bsSize={"lg"}
                 />
               </FormGroup>
-              <FieldGroup
+              {/* <FieldGroup
                 id="formControlsFile"
                 type="file"
                 label="File"
-                onChange={(e) => console.log(e.target.files)}
-              />
+                onChange={(e) =>this.setState({ photo: e.target.files.file})}
+              /> */}
               {message}
             </Form>
           </Modal.Body>
