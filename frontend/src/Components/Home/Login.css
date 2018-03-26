@@ -11,6 +11,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: -2;
 }
 
 /*
@@ -93,6 +94,7 @@
     font-size: 390%;
     position: relative;
     top: 70vh;
+    /* z-index: inherit; */
 }
 p {
     font-size: 25px;
@@ -116,6 +118,6 @@ p {
     position: relative;
     top: 75vh;
     border: 2px solid white; 
-    -webkit-transition: -webkit-transform 0.6s ease-in-out;
-    transition: transform 0.6s ease-in-out;
+    /* -webkit-transition: -webkit-transform 0.6s ease-in-out;
+    transition: transform 0.6s ease-in-out; */
 }
