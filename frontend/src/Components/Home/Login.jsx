@@ -94,12 +94,11 @@ export default class Login extends Component {
 
     return (
       <div className="login_container">
-        <div className="pageHeader">
-          <h1 id="login_title">
-            <strong>Game On!</strong> <br />
-          </h1>
-        </div>
-        <Carousel controls={false} interval={4000} indicators={false}>
+        <div className="pageHeader" />
+        <h1 id="login_title">
+          <strong>Game On!</strong> <br />
+        </h1>
+        <Carousel controls={false} interval={1000} indicators={false}>
           <Carousel.Item>
             <img src="/images/soccer-background.png" />
           </Carousel.Item>
@@ -114,9 +113,7 @@ export default class Login extends Component {
           <h2>Let's Play</h2>
         </a>
         <div id="form_container">
-          <p>
-            Log In
-          </p>
+          <p>Log In</p>
           <div id="form_div">
             <form onSubmit={this.submitForm}>
               <input
@@ -134,10 +131,13 @@ export default class Login extends Component {
                 value={passwordInput}
                 onChange={this.handlePasswordChange}
               />
-              <br/>
-              <input id="loginSubmitButton" type="submit" value="Submit"></input>
+              <br />
+              <input id="loginSubmitButton" type="submit" value="Submit" />
               <p>
-                Don't have an account? <Link id="signup" to="/register">Sign Up</Link>
+                Don't have an account?{" "}
+                <Link id="signup" to="/register">
+                  Sign Up
+                </Link>
               </p>
             </form>
           </div>
