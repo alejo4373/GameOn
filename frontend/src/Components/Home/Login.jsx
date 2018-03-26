@@ -93,36 +93,33 @@ export default class Login extends Component {
     }
 
     return (
-      <div>
+      <div className="login_container">
+        <div className="pageHeader">
+          <h1 id="login_title">
+            <strong>Game On!</strong> <br />
+          </h1>
+        </div>
         <Carousel controls={false} interval={4000} indicators={false}>
           <Carousel.Item>
-            <img src="/images/soccer-background.jpg" />
+            <img src="/images/soccer-background.png" />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/football-stadium-background.jpg" />
+            <img src="/images/football-background.png" />
           </Carousel.Item>
           <Carousel.Item>
             <img src="/images/basketball-background.jpg" />
           </Carousel.Item>
         </Carousel>
-        <Grid className="login_container">
-        <div id="jumbo_container">
-          {/* <Jumbotron bsClass="LoginJumbotron" /> */}
-          <div className="pageHeader">
-            <h1 id="login_title">
-              <strong>Game On!</strong> <br />
-            </h1>
-              <Button type="submit" id="letsPlay"><a href="#form_container">Let's Play</a></Button>
-          </div>
-        </div>
+        <a id="lets_play_link" href="#form_container">
+          <h2>Let's Play</h2>
+        </a>
         <div id="form_container">
           <p>
-            Have an account? <br /> Log In
+            Log In
           </p>
-          <form onSubmit={this.submitForm}>
-            <FormGroup controlId="formControlsSelect">
-              <FormControl
-                bsSize="large"
+          <div id="form_div">
+            <form onSubmit={this.submitForm}>
+              <input
                 type="input"
                 placeholder="Username or E-mail"
                 name="username"
@@ -130,26 +127,21 @@ export default class Login extends Component {
                 onChange={this.handleUsernameChange}
               />
               <br />
-              <FormControl
-                bsSize="large"
+              <input
                 type="password"
                 placeholder="Password"
                 name="username"
                 value={passwordInput}
                 onChange={this.handlePasswordChange}
               />
-            </FormGroup>
-            <Button id="loginSubmitButton" type="submit">
-              Submit
-            </Button>
-            <p id="or">OR</p>
-            <p>
-              Don't have an account? <br />
-              <Link to="/register">Sign Up</Link>
-            </p>
-          </form>
+              <br/>
+              <input id="loginSubmitButton" type="submit" value="Submit"></input>
+              <p>
+                Don't have an account? <Link id="signup" to="/register">Sign Up</Link>
+              </p>
+            </form>
+          </div>
         </div>
-      </Grid>
       </div>
     );
   }
