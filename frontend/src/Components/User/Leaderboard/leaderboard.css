@@ -1,0 +1,12 @@
+#leaderboard_parent{
+    margin-top: 15%;
+}
+
+.leaderboard-profile-pic-container{
+    position: absolute;
+    float: left;
+}
+
+.leaderboard-individual-player{
+    height: 70px;
+}
