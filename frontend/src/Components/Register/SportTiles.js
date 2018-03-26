@@ -10,7 +10,7 @@ class SportTiles extends Component {
 
   getAllSports = () => {
     axios
-    .get('/sports/all')
+    .get('/sport/all')
     .then(res => {
       console.log("Sports:", res)
       this.setState({
