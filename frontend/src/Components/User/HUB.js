@@ -6,6 +6,7 @@ import { Redirect } from "react-router";
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
 import Events from "./HostEvents/EventForm";
+import CurrentEvent from "./HostEvents/CurrentEvent"
 
 class HUB extends Component {
   render() {
@@ -21,6 +22,7 @@ class HUB extends Component {
           <Route path="/user/dashboard" component={Dashboard} />
           <Route path="/user/profile" component={Profile} />
           <Route path="/user/event" component={Events} />
+          <Route path="/user/events/:id" component={CurrentEvent} />
         </Switch>
       </div>
     );
