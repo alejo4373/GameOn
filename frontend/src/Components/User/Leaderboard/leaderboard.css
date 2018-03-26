@@ -1,5 +1,14 @@
+#leaderboard-body{
+    width: 100%;
+    height: 100%;
+    background-color: #213238;
+    position: absolute;
+}
 #leaderboard_parent{
-    margin-top: 15%;
+    margin-top: 10%;
+    max-width: 1000px; 
+    margin-left: 12%;
+    overflow-y: scroll;
 }
 
 .leaderboard-profile-pic-container{
@@ -9,4 +18,19 @@
 
 .leaderboard-individual-player{
     height: 70px;
+}
+
+#leaderboard_header{
+    height: 50px;
+}
+
+#leaderboard_header > div{
+    float: left;
+    padding-right: 45%
+}
+
+@media (max-width: 600px){
+    #leaderboard_parent{
+        margin-top: 20%;
+    }
 }

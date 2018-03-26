@@ -10,7 +10,7 @@ import History from "./History";
 class Dashboard extends Component {
   render() {
     return (
-      <div className="parent">
+      <div className="dashboard-parent">
       
         {/*All Dashboard Components Goes Here (NOT INCLUDING THE LINK COMPONENTS)*/}
         <div id="dashboard_components">

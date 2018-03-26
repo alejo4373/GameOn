@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import './leaderboard.css'
+import "./leaderboard.css";
 import axios from "axios";
-import {
-    ListGroup,
-    ListGroupItem,
-} from 'react-bootstrap'
-
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 class Leaderboard extends Component {
   state = {
@@ -28,49 +24,47 @@ class Leaderboard extends Component {
   }
   render() {
     const { players } = this.state;
-    console.log("Leaderboard-player:", players)
+    console.log("Leaderboard-player:", players);
     return (
-      <div id="leaderboard_parent">
-        <span>LEADERBOARD</span>
-        <ListGroup id="leaderboard_container">
-          <ListGroupItem id="leaderboard_header">
-            <span>Player</span>
-            {/* <span>Medal</span>
-                        <span>Rank</span> */}
-            <span>Score</span>
-            {/* <span>Wins</span>
-                        <span>Losses</span>    */}
-          </ListGroupItem>
-        {players.map(p => {
-          return(
-          <ListGroupItem className="leaderboard-individual-player">
-            <div
-              className="leaderboard-profile-pic-container"
-            >
-              {
-                <img
-                  className="leaderboard-profile-pic"
-                  src={p.profile_pic}
-                  width ={'50px'}
-                />
-              }
-            </div>
-            <div className='leaderboard-username-container'>
-                {p.username}
-            </div>
-        
-            <div className='leaderboards-player-points'>
-                {p.exp_points}
-            </div>
-          </ListGroupItem>
-        )})}
-        </ListGroup>
+      <div id='leaderboard-body'>
+        <div id="leaderboard_parent">
+          <h2 style={{color: "white"}} id=''>LEADERBOARD</h2>
+          <ListGroup id="leaderboard_container">
+            <ListGroupItem id="leaderboard_header">
+              <div>Player</div>
+              {/* <div>Medal</div>
+                        <div>Rank</div> */}
+              <div>Score</div>
+              {/* <div>Wins</div>
+                        <div>Losses</div>    */}
+            </ListGroupItem>
+            {players.map(p => {
+              return (
+                <ListGroupItem className="leaderboard-individual-player">
+                  <div className="leaderboard-profile-pic-container">
+                    {
+                      <img
+                        className="leaderboard-profile-pic"
+                        src={p.profile_pic}
+                        width={"50px"}
+                      />
+                    }
+                  </div>
+                  <div className="leaderboard-username-container">
+                    {p.username}
+                  </div>
+
+                  <div className="leaderboards-player-points">
+                    {p.exp_points}
+                  </div>
+                </ListGroupItem>
+              );
+            })}
+          </ListGroup>
+        </div>
       </div>
     );
   }
 }
 
 export default Leaderboard;
-
-
-
