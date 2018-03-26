@@ -93,6 +93,19 @@ const getUserInfo = (userId, answer) => {
     .catch(err =>  answer(err, null))
 }
 
+/**
+ * Retrieves all sports that a particular user has associated to them
+ * @param {id} userId - Id for the user you want to retrieve the sports from
+ * @param {Function} callback - Function that will be called with (err, data) as its arguments and is in charge of sending the response
+ */
+const getSportsForUser = (userId, callback) => {
+  db.any(`SELECT id, name FROM users_sports 
+          INNER JOIN sports ON users_sports.sport_id = sports.id
+          WHERE user_id = $1`,
+         userId)
+    .then(sports => callback(null, sports))
+    .catch(err => callback(err))
+}
 
 /**
  * Retrieves all sports with their respective id
@@ -241,6 +254,7 @@ module.exports = {
   getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
+  getSportsForUser: getSportsForUser,
   getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
