@@ -34,7 +34,6 @@ router.get('/all', loginRequired, (req, res, next) =>{
     })
   })
 })
-
 router.patch('/edit', loginRequired, (req, res, next) => {
  let user = req.body
   dbAPI.updateUserInfo(user, (err) => {
@@ -45,6 +44,19 @@ router.patch('/edit', loginRequired, (req, res, next) => {
     })
   })
 })
+
+router.get('/sports', loginRequired, (req, res, next) => {
+ let userId = req.user.id
+  dbAPI.getSportsForUser(userId, (err, sports) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      sports: sports,
+      msg: 'All sports for user retrieved'
+    })
+  })
+})
+
 
 
 module.exports = router;

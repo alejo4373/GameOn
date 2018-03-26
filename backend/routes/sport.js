@@ -16,26 +16,30 @@ router.get('/all', function(req, res, next) {
   })
 });
 
-router.delete('/delete', loginRequired, (req, res, next) => {
-  let sport = req.body
-  console.log(sport)
-  dbAPI.deleteSport(sport, (err) => {
-    if(err){return err}
+//Required change so that a logged in user cannot change another user' sports
+router.post('/add', loginRequired, (req, res, next) => {
+  const user_id = req.user.id
+  const sport_id = req.body.sport_id
+  console.log('Add:', user_id, '--', sport_id)
+  dbAPI.addSport(user_id, sport_id, (err) => {
+    if(err){return next(err)}
     res.status(200)
     res.json({
-      msg: 'Sport deleted'
+      msg: 'Sport added'
     })
   })
 })
 
-router.post('/add', loginRequired, (req, res, next) => {
-  let sport = req.body
-  console.log(sport)
-  dbAPI.addSport(sport, (err) => {
-    if(err){return err}
+//Same as above
+router.delete('/delete', loginRequired, (req, res, next) => {
+  const user_id = req.user.id
+  const sport_id = req.body.sport_id
+  console.log(user_id, '--', sport_id)
+  dbAPI.deleteSport(user_id, sport_id, (err) => {
+    if(err){return next(err)}
     res.status(200)
     res.json({
-      msg: 'Sport added'
+      msg: 'Sport deleted'
     })
   })
 })

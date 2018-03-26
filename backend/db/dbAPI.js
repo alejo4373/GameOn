@@ -50,13 +50,13 @@ const registerUser = (user, callback) => {
     //if the user didn't picked any sport then skip this step altogether 
     if(sports.length) {
       //Base (header) for the SQL statement
-      var SQLStatement = 'INSERT INTO sports_proficiency (user_id, sport_id, proficiency)'
+      var SQLStatement = 'INSERT INTO users_sports(user_id, sport_id)'
       sports.forEach((sport, index) => {
         console.log(sport)
         if(index === 0) {
-          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id}, ${sport.proficiency})` 
+          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id})` 
         } else {
-          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id}, ${sport.proficiency})`
+          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id})`
         }
       })
       SQLStatement += ';' 
@@ -80,7 +80,7 @@ const getUserInfo = (userId, answer) => {
    db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
            WHERE id = $1`, userId) 
       .then(user => {
-        db.any(`SELECT sports.name, sports.id, proficiency from sports_proficiency 
+        db.any(`SELECT sports.name, sports.id from users_sports 
                 INNER JOIN sports ON sports.id = sport_id
                 WHERE user_id = $1`, userId)
           .then(sports => {
@@ -93,6 +93,19 @@ const getUserInfo = (userId, answer) => {
     .catch(err =>  answer(err, null))
 }
 
+/**
+ * Retrieves all sports that a particular user has associated to them
+ * @param {id} userId - Id for the user you want to retrieve the sports from
+ * @param {Function} callback - Function that will be called with (err, data) as its arguments and is in charge of sending the response
+ */
+const getSportsForUser = (userId, callback) => {
+  db.any(`SELECT id, name FROM users_sports 
+          INNER JOIN sports ON users_sports.sport_id = sports.id
+          WHERE user_id = $1`,
+         userId)
+    .then(sports => callback(null, sports))
+    .catch(err => callback(err))
+}
 
 /**
  * Retrieves all sports with their respective id
@@ -119,31 +132,23 @@ const updateUserInfo = (userInfo, callback) => {
   .catch(err => callback(err))
 }
 
-const updateSport = (sports, callback) => {
-  const sport = JSON.parse(sports.sport)
-    db.none(`UPDATE sports_proficiency SET proficiency = ${sport.proficiency} WHERE user_id = ${sports.id} AND sport_id = ${sport.sport_id}`)
-    .then(() => callback(null))
-    .catch(err => callback(err))
-}
-
-const addSport = (sport, callback) => {
-  console.log("sport", sport);
+const addSport = (user_id, sport_id, callback) => {
   db
     .none(
-      "INSERT INTO sports_proficiency(user_id, sport_id, proficiency) " +
-        "VALUES (${user_id}, ${sport_id}, ${proficiency})",
-      sport
+      "INSERT INTO users_sports(user_id, sport_id) " +
+        "VALUES ($1, $2)",
+      [user_id, sport_id]
     )
     .then(() => callback(null))
     .catch(err => callback(err));
 };
 
-const deleteSport = (sport, callback) => {
+const deleteSport = (user_id, sport_id, callback) => {
   db
     .none(
-      "DELETE FROM sports_proficiency " +
-        "WHERE user_id = ${user_id} AND sport_id = ${sport_id}",
-      sport
+      `DELETE FROM users_sports
+        WHERE user_id = $1 AND sport_id = $2`,
+     [user_id, sport_id]
     )
     .then(() => callback(null))
     .catch(err => callback(err));
@@ -159,58 +164,109 @@ const addEvent = (event, callback) => {
   //   end_ts: 1521775961187,
   //   event_pic: '/images/event.png'
   // }
-  console.log(event)
   db.one(
-                       //(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)
       'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)' + 
       'VALUES(${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${name},' +
       '${location}, ${sport_id}, ${event_pic}, ${description})'+
-      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description',
+      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description', 
       event)
+    .then((insertedEvent) => {
+      //Once the event has been created we want the host itself to be joined to the event 
+      //(even tho it seems odious) here we do soo
+      console.log('event ====>', insertedEvent)
+      db.any(
+        'INSERT INTO players_events(event_id, player_id) VALUES(${id}, ${host_id})', 
+        insertedEvent) 
+        .then(() => {
+          const newlyCreatedEvent = {
+            ...insertedEvent,
+            //The following 2 lines are being sent back to keep the data consistent when getting info
+            //about an event either when is newly created or when requested with id by client
+            players_usernames: [event.host_username], 
+            players_ids: [event.host_id]
+          }
+          callback(null, newlyCreatedEvent)
+        })
+       .catch(err => callback(err));
+    })
+    .catch(err => callback(err));
+}
+
+const deleteEvent = (deleteReq, callback) => {
+  db.any('DELETE FROM events WHERE id = ${event_id} AND host_id = ${host_id}', deleteReq)
+    .then(() => callback(null))
+    .catch(err => callback(err));
+}
+
+const joinEvent = (joinReq, callback) => {
+  db.one(
+    'INSERT INTO  players_events(event_id, player_id)' +
+    'VALUES (${event_id}, ${player_id})' +
+    'RETURNING event_id, player_id', 
+    joinReq)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
 
-const inviteToEvent = (invitationInfo, callback) => {
-  db.one(
-    'INSERT INTO invitations (event_id, host_id, invitee_id)' +
-    'VALUES (${event_id}, ${host_id}, ${invitee_id})' +
-    'RETURNING event_id, host_id, invitee_id', 
-    invitationInfo)
-    .then((data) => callback(null, data))
+const leaveEvent = (leaveReq, callback) => {
+  db.any(
+    //Had to switch to from '' to `` (string literal) and from ${} to $// 
+    //as the = (character) give me errors when concatenating with + and ${} gave problems when used  
+    //with string literals
+    `DELETE FROM players_events
+    WHERE event_id = $/event_id/ AND player_id = $/player_id/`, 
+
+    leaveReq)
+    .then(() => callback(null))
     .catch(err => callback(err));
 }
 
 const getEventInfo = (eventId, callback) => {
+  console.log('eventId:', eventId)
   db.one(
-   `SELECT 
+    `SELECT 
       events.*,
-      username AS host_username,
-      json_agg(invitations.invitee_id)
-   
-    FROM events
-    INNER JOIN users ON events.host_id = users.id 
-    INNER JOIN invitations on events.id = invitations.event_id 
-    WHERE events.id = ${1}
-    GROUP BY (events.id, username);`, eventId)
+      json_agg(users.username) AS players_usernames,
+      json_agg(users.id) AS players_ids
+    FROM users
+    INNER JOIN players_events ON players_events.player_id = users.id
+    INNER JOIN events ON events.id = players_events.event_id
+    WHERE players_events.event_id = $1
+    GROUP BY(events.id)`, eventId)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
+
+const getEventsInRadius = (locationRange, callback) => {
+  db.any(
+    `SELECT 
+      events.*
+    FROM events
+    WHERE lat BETWEEN $/minLat/ AND $/maxLat/
+    AND long BETWEEN $/minLon/ AND $/maxLon/`
+    , locationRange)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
+  getSportsForUser: getSportsForUser,
   getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
-  updateSport: updateSport,
   addSport: addSport,
   deleteSport: deleteSport,
 
   /*- Events Related */
   addEvent: addEvent,
-  inviteToEvent: inviteToEvent,
-  getEventInfo: getEventInfo
+  getEventInfo: getEventInfo,
+  getEventsInRadius: getEventsInRadius,
+  joinEvent: joinEvent,
+  leaveEvent: leaveEvent,
+  deleteEvent, deleteEvent
 };
 
