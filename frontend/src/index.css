@@ -1,3 +1,7 @@
+/* html{
+  background-color: #E6E6E6;
+} */
+
 body {
   margin: 0;
   padding: 0;
@@ -12,7 +16,7 @@ body {
 .sport_selection{
   border: 2px solid black;
   width: 200px;
-  height: 300px;
+  height: 200px;
   margin: 1% 0 0 1%;
   float: left;
 }
@@ -65,9 +69,12 @@ body {
   
 }
 
+#event-panel{
+  width: 400px;
+}
+
 
 #event_container{
-  border: 2px solid black;
   width: 400px;
   height: 500px;
   overflow-y: scroll;
@@ -136,17 +143,6 @@ body {
   background-color: #FAFAFA
 }
 
-#profile_photo{
-  width:120px;
-  border: 2px solid black;
-  -moz-border-radius: 60px;
-  -webkit-border-radius: 60px;
-  margin-top: 15%;
-  margin-left: 19%
-}
-#profile_username{
-  margin: 3% 0 0 42%
-}
 
 #profile_personal_info, #profile_sport_info{
   margin-top: 3%;
@@ -166,19 +162,9 @@ body {
   cursor: pointer;
 }
 
-#profile_info_container{
-  width: 700px;
-  height: 300px;
-  margin: 10% 0 0 30%;
-  position: absolute;
-}
 
 #profile_form_container{
   margin-top: 25%
-}
-.profile_forms{
-width: 700px;
-float: left;
 }
 
 #update_button{
@@ -191,4 +177,44 @@ float: left;
   width: 60px;
   -moz-border-radius: 60px;
   -webkit-border-radius: 60px;
+}
+
+
+.navbar{
+  top:0;
+  position: fixed;
+  z-index: 3;
+}
+
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+
+#formControlsFile{
+  margin-left: 35%;
+}
+
+
+.profile_sport{
+  float: left;
+}
+
+#profile-sport-container{
+  margin-left: 18%;
+  width: 35em;
+  /* border: 2px solid black */
+}
+
+.add-sport-button.container{
+  margin-left: 33%;
+  float: left;
+  width: 32%;
+}
+
+#add-button:hover {
+  border: 15px solid white;
 }

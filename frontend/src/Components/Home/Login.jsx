@@ -8,7 +8,8 @@ import {
   PageHeader,
   FormGroup,
   ControlLabel,
-  FormControl
+  FormControl,
+  Carousel
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -24,10 +25,10 @@ export default class Login extends Component {
   };
 
   /**
-        * @func handleUserNameChange
-        Handles the users value and Set the State to that value
+       * @func handleUserNameChange
+       Handles the users value and Set the State to that value
        ~Kelvin
-    */
+       */
 
   handleUsernameChange = e => {
     this.setState({
@@ -38,7 +39,7 @@ export default class Login extends Component {
        * @func handlePasswordChange
        Handles the users value/password and Set the State to that value
        ~Kelvin
-    */
+       */
 
   handlePasswordChange = e => {
     this.setState({
@@ -46,31 +47,17 @@ export default class Login extends Component {
     });
   };
   /**
-       * @func getUser
-       Retrieve the user who has logged In and set the state to that user
-       This will be used to determine if the user has logged in to redirect them to their profile when the user
-       hasn't logged out
-       ~Kelvin
-    */
-  getUser = () => {
-    axios.get("").then(res => {
-      this.setState({
-        user: res.data.data[0]
-      });
-    });
-  };
-  /**
        * @func submitForm
        Submit/Post The Input to Database to retrieve User
        ~Kelvin
-    */
+       */
 
   submitForm = e => {
     e.preventDefault();
     const { usernameInput, passwordInput } = this.state;
 
     axios
-      .post("", {
+      .post("/login", {
         username: usernameInput,
         password: passwordInput
       })
@@ -88,10 +75,6 @@ export default class Login extends Component {
       });
   };
 
-  componentDidMount() {
-    this.getUser();
-  }
-
   render() {
     const {
       usernameInput,
@@ -103,14 +86,26 @@ export default class Login extends Component {
     const { submitForm } = this;
 
     if (user) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/dashboard" />;
     }
     if (loggedIn) {
-      return <Redirect to="/user" />;
+      return <Redirect to="/user/dashboard" />;
     }
 
     return (
-      <Grid className="login_container">
+      <div>
+        <Carousel controls={false} interval={4000} indicators={false}>
+          <Carousel.Item>
+            <img src="/images/soccer-background.jpg" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src="/images/football-stadium-background.jpg" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src="/images/basketball-background.jpg" />
+          </Carousel.Item>
+        </Carousel>
+        <Grid className="login_container">
         <div id="jumbo_container">
           {/* <Jumbotron bsClass="LoginJumbotron" /> */}
           <div className="pageHeader">
@@ -155,6 +150,7 @@ export default class Login extends Component {
           </form>
         </div>
       </Grid>
+      </div>
     );
   }
 }

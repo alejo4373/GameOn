@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Skills from "./Skills";
+import Skills from "./Skills.js";
 import SportTiles from "./SportsTiles.jsx";
 
 class Selection extends Component {
@@ -18,7 +18,7 @@ class Selection extends Component {
     const { selectedSports, selected } = this.state;
     const sport = e.target.name;
     const id = e.target.id
-    console.log('sportselected:', sport)
+    console.log('sportselected:', id)
    
     if (!selected.includes(sport) && sport !== undefined) {
       this.setState({

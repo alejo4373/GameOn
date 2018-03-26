@@ -15,6 +15,8 @@ import {
   FormControl,
   Image
 } from "react-bootstrap";
+
+
 import Selection from "./Selection";
 
 export default class Registration extends Component {
@@ -100,7 +102,8 @@ export default class Registration extends Component {
     }
   };
 
-  submitForm = () => {
+  submitForm = e => {
+    e.preventDefault();
     const {
       usernameInput,
       passwordInput,
@@ -127,12 +130,12 @@ export default class Registration extends Component {
       });
       return;
     }
-    if (passwordInput.length <= 7) {
+    if (passwordInput.length <= 4) {
       this.setState({
         passwordInput: "",
         confirmInput: "",
         alert: true,
-        message: "Password length must be at least 8 characters"
+        message: "Password length must be at least 5 characters"
       });
       return;
     }
@@ -173,10 +176,9 @@ export default class Registration extends Component {
     } = this;
 
     return (
-      <div className="registration_container">
-        <PageHeader><Image src="/images/tennisracket.png" className="header-image"/></PageHeader>
+      <Grid>
         {nextPressed ? (
-          <Grid bsClass="selection_container">
+          <Grid>
             <Selection
               emailInput={emailInput}
               fullNameInput={fullNameInput}
@@ -186,14 +188,14 @@ export default class Registration extends Component {
             />
           </Grid>
         ) : (
-          <Grid bsClass="registration_inner_container">
-            <div id="title_container">
-              <h1>
-                {" "}
+          <Grid>
+            <Jumbotron bsClass="RegistrationJumbotron">
+              <PageHeader>
                 Game On! <br />
-              </h1>
-              <h2>Sign Up To Play, Compete, and Rank-Up</h2>
-            </div>
+                <small>Sign Up To Play, Compete, and Rank-Up</small>
+              </PageHeader>
+            </Jumbotron>
+
             <Form horizontal onSubmit={submitForm}>
               <FormGroup controlId="formControlsSelect">
                 <Col componentClass={ControlLabel} sm={2}>
@@ -201,7 +203,7 @@ export default class Registration extends Component {
                 </Col>
                 <Col sm={10}>
                   <FormControl
-                    type="text"
+                    type="email"
                     name="Email"
                     placeholder="Email"
                     value={emailInput}
@@ -296,7 +298,7 @@ export default class Registration extends Component {
             </Form>
           </Grid>
         )}
-      </div>
+      </Grid>
     );
   }
 }
