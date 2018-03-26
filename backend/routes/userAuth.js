@@ -8,6 +8,15 @@ router.post('/signup', (req, res, next) => {
   var user = req.body
   dbAPI.registerUser(user, (err, registeredUser) => {
     if(err) {
+      if(err.code === '23505') {
+        return (
+          res.status(403)
+             .json({
+                user: null, 
+                msg: 'This username isn\'t available. Please try another.'
+             }) 
+        )
+      }
       return next(err)
     }
 
