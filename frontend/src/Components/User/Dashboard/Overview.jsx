@@ -7,7 +7,7 @@ class Overview extends Component {
   state = {
     user: [],
     loggedOut: false,
-    profileClicked: false,
+    profileClicked: false
   };
 
   getUserInfo = () => {
@@ -22,7 +22,6 @@ class Overview extends Component {
       .catch(err => console.log("Failed To Fetch User:", err));
   };
 
-
   handleLogOut = () => {
     axios
       .get("/logout")
@@ -34,12 +33,11 @@ class Overview extends Component {
       .catch(err => console.log("Error:", err));
   };
 
-
   redirectToUserProfile = () => {
-      this.setState({
-        profileClicked: true
-      })
-  }
+    this.setState({
+      profileClicked: true
+    });
+  };
 
   componentWillMount() {
     this.getUserInfo();
@@ -49,7 +47,6 @@ class Overview extends Component {
     const { user, loggedOut, profileClicked } = this.state;
     const { handleLogOut, redirectToUserProfile } = this;
 
-
     if (loggedOut) {
       this.setState({
         loggedOut: false
@@ -57,11 +54,11 @@ class Overview extends Component {
       return <Redirect to="/" />;
     }
 
-    if(profileClicked){
+    if (profileClicked) {
       this.setState({
         profileClicked: false
-      })
-      return <Redirect to="/user/profile" />
+      });
+      return <Redirect to="/user/profile" />;
     }
 
     return (
@@ -78,11 +75,11 @@ class Overview extends Component {
                 </span>
                 <span id="xp_header">
                   <h3>XP: {u.exp_points} pts</h3>
-                 <ProgressBar
-                            bsStyle="success"
-                            now={u.exp_points}
-                            label={`${u.exp_points}`}
-                          /> 
+                  <ProgressBar
+                    bsStyle="success"
+                    now={u.exp_points}
+                    label={`${u.exp_points}`}
+                  />
                 </span>
               </div>
             </div>
@@ -95,8 +92,6 @@ class Overview extends Component {
 }
 
 export default Overview;
-
-
 
 /**
  * <div id="user_selectedSports_container">

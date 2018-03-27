@@ -1,0 +1,17 @@
+#banner {
+    /* background: url('/images/tennisracket.png')no-repeat center center fixed; 
+    height: 100vh;
+    background-attachment: fixed;
+    background-position: center; */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* position: fixed; */
+    /* height: 200px; */
+}
+
+.header-image {
+    width: 100%;
+    margin-top: -2em;
+    margin-bottom: 2em;
+}
+

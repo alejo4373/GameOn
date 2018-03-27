@@ -1,5 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
+import './UserInfo.css'
+import {
+  Col,
+  Grid,
+  Jumbotron,
+  Form,
+  Button,
+  PageHeader,
+  FormGroup,
+  ControlLabel,
+  FormControl
+} from "react-bootstrap";
+
 
 export default class UserInfo extends Component {
   constructor() {
@@ -87,53 +100,87 @@ export default class UserInfo extends Component {
       handleUsernameChange
     } = this;
     return (
-      <div>
-          <div id='users_stats'>
+      <Grid bsClass='userinfo_grid'>
+            <Form horizontal onSubmit={editUserInfo}>
+              <FormGroup controlId="formControlsSelect">
+                <Col componentClass={ControlLabel} sm={2}>
+                  Email:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="email"
+                    name="Email"
+                    placeholder={email}
+                    value={profile_email}
+                    onChange={handleEmailChange}
+                  />
+                </Col>
+              </FormGroup>
 
-          </div>
-        <div id='profile_form_container'>
-          <form>
-            <label className='profile_forms'>
-             Name: <input
-                type="text"
-                name="Full name"
-                placeholder={fullname}
-                value={profile_fullname}
-                onChange={handleFullNameChange}
-              />
-            </label>
-            <label className='profile_forms' >
-            Username:  <input
-                type="text"
-                name="username"
-                placeholder={username}
-                value={profile_username}
-                onChange={handleUsernameChange}
-              />
-            </label>
-            <label className='profile_forms'>
-             Email: <input
-                type="text"
-                name="Email"
-                placeholder={email}
-                value={profile_email}
-                onChange={handleEmailChange}
-              />
-            </label>
-            <label className='profile_forms'>
-            ZipCode  <input
-                type="text"
-                name="zip_code"
-                placeholder={zipcode}
-                value={profile_zipcode}
-                onChange={handleZipCodeChange}
-              />
-            </label>
-          </form>
-          <button id='update_button' onClick={editUserInfo}>Update</button>
-          <div>{message}</div>
-        </div>
-      </div>
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Full Name:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="text"
+                    name="Full name"
+                    placeholder={fullname}
+                    value={profile_fullname}
+                    onChange={handleFullNameChange}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Username:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="text"
+                    name="username"
+                    placeholder={username}
+                    value={profile_username}
+                    onChange={handleUsernameChange}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Zipcode:
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="text"
+                    name="zip_code"
+                    placeholder={zipcode}
+                    value={profile_zipcode}
+                    onChange={this.handleZipCodeChange}
+                  />
+                </Col>
+              </FormGroup>
+              <Button id="loginSubmitButton" type="submit">
+                Update
+              </Button>
+
+              {/* <FormGroup>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Password
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={this.handlePasswordChange}
+                  />
+                </Col>
+              </FormGroup> */}
+        </Form>
+      </Grid>
     );
   }
 }

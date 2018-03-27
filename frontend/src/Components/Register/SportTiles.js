@@ -32,7 +32,8 @@ class SportTiles extends Component {
         <span className="sport_name">
           <h1>Select A Sport (Minimum 1 Selection)</h1>
         </span>
-        <div id="selection_container">
+
+        {/* <div id="selection_container"> */}
           {sports.map(s => (
             <div
               className="sport_selection"
@@ -46,7 +47,8 @@ class SportTiles extends Component {
               <img src={`/images/${s.name}.png`} width={"200px"} height={'200px'} name={s.name} id={s.id} alt="" />
             </div>
           ))}
-        </div>
+        {/* </div> */}
+      
         <button onClick={handleNextButton}>Next</button>
       </div>
     );
@@ -54,4 +56,18 @@ class SportTiles extends Component {
 }
 
 export default SportTiles;
+
+{/* <Grid>
+<Jumbotron bsClass="RegistrationJumbotron">
+  <PageHeader>
+    Game On! <br />
+    <small>Select A Sport (Minimum: 1 Selection)</small>
+  </PageHeader>
+</Jumbotron>
+<Row>
+  <Col xs={6} md={4}>
+    <Image src={`/images/${s}.png`} rounded />
+  </Col>
+</Row>
+</Grid> */}
 
