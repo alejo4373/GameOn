@@ -34,7 +34,7 @@ CREATE TABLE events (
     end_ts BIGINT NOT NULL,
     name VARCHAR NOT NULL,
     location VARCHAR NOT NULL,
-    sport_id VARCHAR NOT NULL,
+    sport_id INT NOT NULL,
     event_pic VARCHAR,
     description VARCHAR
 );

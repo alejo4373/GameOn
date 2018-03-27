@@ -227,12 +227,14 @@ const getEventInfo = (eventId, callback) => {
     `SELECT 
       events.*,
       json_agg(users.username) AS players_usernames,
-      json_agg(users.id) AS players_ids
+      json_agg(users.id) AS players_ids,
+      sports.name as sport_name
     FROM users
     INNER JOIN players_events ON players_events.player_id = users.id
     INNER JOIN events ON events.id = players_events.event_id
+    INNER JOIN sports ON sports.id = events.sport_id
     WHERE players_events.event_id = $1
-    GROUP BY(events.id)`, eventId)
+    GROUP BY(events.id, sports.name)`, eventId)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
