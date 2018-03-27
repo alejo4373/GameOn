@@ -8,6 +8,15 @@ router.post('/signup', (req, res, next) => {
   var user = req.body
   dbAPI.registerUser(user, (err, registeredUser) => {
     if(err) {
+      if(err.code === '23505') {
+        return (
+          res.status(403)
+             .json({
+                user: null, 
+                msg: 'This username isn\'t available. Please try another.'
+             }) 
+        )
+      }
       return next(err)
     }
 
@@ -22,13 +31,32 @@ router.post('/signup', (req, res, next) => {
   })
 })
 
-router.post('/login', passport.authenticate('local'), (req, res, next) => { 
-  res.status(200)
-  res.json({
-    user: req.user,
-    msg: `Welcome ${req.user.username}! You have logged in` 
-  })
-});
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if(err) { return next(err); }
+    if(!user) { 
+      return res.status(401)
+         .json({
+           user: null, 
+           msg: 'Invalid username. Please check your username and try again'
+         }) 
+    }
+    //Else we have the user and there were no errors
+    //lets try to log him in
+    req.login(user, (err) => {
+      if(err) { 
+        return next(err) 
+      }
+      //Else auth successful
+      res.status(200)
+      res.json({
+        user: req.user,
+        msg: `Welcome ${req.user.username}! You have logged in` 
+      })
+    })
+  })(req, res, next)
+})
+ 
 
 router.get('/logged', loginRequired, (req, res, next) =>{
   res.status(200)
