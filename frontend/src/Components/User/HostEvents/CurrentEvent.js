@@ -7,8 +7,10 @@ export default class Events extends React.Component{
         super()
 
         this.state = {
-            event: null,
+            currentEvent: null,
             joined: false,
+            teams: [],
+            click:false,
             msg:''
         }
     }
@@ -25,33 +27,29 @@ export default class Events extends React.Component{
         })
     }
 
-    handleToggle = () => {
+    listTeam = () => {
+        //will have to check if number of participants has reached the number of participant
+        //get request to check how many players are currently in a team
+        //need the max amount of players in the team
+        //might not iterate through everything
+
+        const team = {'Team_A': 2, 'Team_B': 3, 'Team_C': 1}
+        let game = []
+        for(var prop in team){
+            if(team[prop] < 3){
+                //show it in the pop up
+                console.log('getting my team list', this.state.teams)
+                 game.push(team[prop])
+            }
+        }
         this.setState({
-            joined: !this.state.joined
+            teams: game,
+            click: true
         })
     }
 
-
-    form = () => {
-        const { event, joined } = this.state
-        const date = new Date(Number(event.start_ts))
-        const end = new Date(Number(event.end_ts))
-        return(
-            <div>
-               <h3>Name <span>{event.name}</span></h3>
-               <h3>Sport <span>{event.sport_id}</span></h3>
-               <h3>Location <span>{event.location}</span></h3>
-               <h3>Date <span>{date.toDateString()}</span></h3>
-               <h3>Start Time <span>{date.toTimeString()}</span></h3>
-               <h3>End Time <span>{end.toTimeString()}</span></h3>
-               <h3>Organizer <span>{event.players_usernames[0]}</span></h3>
-               <h3>Description <span>{event.description}</span></h3>
-               { joined?  <button onClick = {this.leaveEvent} >Leave</button> : <button onClick = {this.joinEvent} >Join</button>  }
-        </div>
-        )
-    }
-
-    joinEvent = () =>{
+    chooseTeam = () => {
+        //Send post request to the backend
         const { event } = this.state
         axios.post('/event/join',{
             event_id:event.id
@@ -61,10 +59,9 @@ export default class Events extends React.Component{
             msg:'Congratulations! You have been added to the event',
             joined:true
        })
-   })
-        .catch(err => console.log('error fetching the event', err))
+       .catch(err => console.log('error fetching the event', err))
+    })
     }
-
 
     leaveEvent = () => {
         const { event } = this.state
@@ -78,6 +75,27 @@ export default class Events extends React.Component{
         )
         .catch(err => {
             console.log('error leaving the group', err)})
+    }
+
+    form = () => {
+        const { event, joined, teams, click } = this.state
+        const date = new Date(Number(event.start_ts))
+        const end = new Date(Number(event.end_ts))
+        console.log('from the forms',this.state.teams)
+        return(
+            <div>
+               <h3>Name <span>{event.name}</span></h3>
+               <h3>Sport <span>{event.sport_id}</span></h3>
+               <h3>Location <span>{event.location}</span></h3>
+               <h3>Date <span>{date.toDateString()}</span></h3>
+               <h3>Start Time <span>{date.toTimeString()}</span></h3>
+               <h3>End Time <span>{end.toTimeString()}</span></h3>
+               <h3>Organizer <span>{event.players_usernames[0]}</span></h3>
+               <h3>Description <span>{event.description}</span></h3>
+               { joined?  <button onClick = {this.leaveEvent} >Leave</button> : <button onClick = {this.listTeam} >Join</button>  }
+               {click? teams.map(elem => <button onClick = {this.chooseTeam} >{ elem } X { elem }</button>): ''}
+        </div>
+        )
     }
 
     render(){
