@@ -47,6 +47,7 @@ router.post('/join', loginRequired, (req, res, next) => {
   }
 
   dbAPI.joinEvent(joinReq, (err, joinRes) => {
+    console.log('working on this end')
     if(err) { return next(err) }
     res.status(200)
     res.json({

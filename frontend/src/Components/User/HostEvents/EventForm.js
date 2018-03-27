@@ -1,13 +1,10 @@
 import React from "react";
 import axios from "axios";
 import moment from 'moment';
+import "./time.css"
 import InputMoment from 'input-moment';
 
 import Events from "./CreatedEvent";
-
-// const Form = () => {
-
-// }
 
 export default class Event extends React.Component {
   constructor() {
@@ -19,6 +16,8 @@ export default class Event extends React.Component {
       imgScr: null,
       sportIDs: '',
       Address: "",
+      start:false,
+      end: false,
       DateInfo: null,
       startTime: null,
       endTime: null,
@@ -44,18 +43,36 @@ export default class Event extends React.Component {
   }
 
   handleSelect = e => {
-    console.log('what i am selecting', e.target.value)
     this.setState({
       sport_id: e.target.value
     });
   };
-  // handleImage = e => {
-  //   console.log(URL);
-  //   console.log("what we are passing", e.target.value);
-  //   //   this.setState({
-  //   //       imgScr: URL.createObjectURL(e.target.result)
-  //   //   })
-  // };
+
+  handleStartTime = () => {
+    this.setState({
+      startTime: this.state.m.format('llll'),
+      start:false
+    })
+  }
+
+  handleEndTime = () => {
+    this.setState({
+      endTime: this.state.m.format('llll'),
+      end: false
+    })
+  }
+
+  handleStart = () => {
+    this.setState({
+      start: !this.state.start
+    })
+  }
+
+  handleEnd = () => {
+    this.setState({
+      end: !this.state.end
+    })
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -66,8 +83,8 @@ export default class Event extends React.Component {
       lat:40.755603,
       long:-73.984931,
       location:Address,
-      start_ts: new Date(DateInfo+ ' ' + startTime).getTime(),
-      end_ts: new Date(DateInfo+ ' ' + startTime).getTime(),
+      start_ts: new Date(startTime).getTime(),
+      end_ts: new Date(endTime).getTime(),
       description:Description,
       sport_id:sport_id,
       event_pic:imgScr
@@ -79,21 +96,9 @@ export default class Event extends React.Component {
      event_id:res.data.event.id
    })
    })
-  //  .then(this.setState({
-  //     Name: '',
-  //     Address: '',
-  //     DateInfo: null,
-  //     startTime: null,
-  //     endTime: null,
-  //     Description: '',
-  //     sport_id:'',
-  //     event_pic:'',
-  //     submit:true
-  //  }))
   }
 
   componentDidMount() {
-    //will get the user's sports names
     axios.get("/user/sports").then(res => {
       console.log(res.data)
       const names = res.data.sports.map(sport => sport.name)
@@ -114,8 +119,11 @@ export default class Event extends React.Component {
       startTime,
       endTime,
       Description,
-      sports
+      sports,
+      start,
+      end
     } = this.state;
+
     return (
       <div>
         <h1>Create An Event</h1>
@@ -144,29 +152,36 @@ export default class Event extends React.Component {
             onInput={this.handleChange}
           />
 
-          <input
-            type="text"
-            name="DateInfo"
-            value={DateInfo}
-            placeholder="Date"
-            onInput={this.handleChange}
+          <button onClick= {this.handleStart}>Start Time</button>
+          <div className="input">
+            <input type="text" value={this.state.startTime} readOnly />
+          </div>
+          {start? 
+          <InputMoment
+            name = 'startTime'
+            moment={this.state.m}
+            onChange={this.handleMoment}
+            minStep={5}
+            onSave={this.handleStartTime}
           />
+          : ''
+          }
 
-          <input
-            type="time"
-            name="startTime"
-            value={startTime}
-            placeholder="Start"
-            onInput={this.handleChange}
-          />
+          <button onClick= {this.handleEnd}>End Time</button>
+         
+          <div className="input">
+            <input type="text" value={this.state.endTime} readOnly />
+          </div>
 
-          <input
-            type="time"
-            name="endTime"
-            value={endTime}
-            placeholder="End"
-            onInput={this.handleChange}
-          />
+          {end? 
+          <InputMoment
+            name = 'endTime'
+            moment={this.state.m}
+            onChange={this.handleMoment}
+            minStep={5}
+            onSave={this.handleEndTime}
+          /> : ''
+          }
 
           <select onChange={this.handleSelect}>
             {["", ...sports].map((sport, idx) => (
@@ -222,17 +237,7 @@ export default class Event extends React.Component {
       event_id: event_id
     };
 
-    console.log(event)
     return <div>{submit ? <Events event={event} /> : this.form()}</div>;
   }
 }
-
-// {
-//   <input
-//     type="file"
-//     name="imgScr"
-//     accept="image/*"
-//     onChange={this.handleImage}
-//   />;
-// }
 

@@ -30,9 +30,9 @@ export default class Events extends React.Component{
                    <h3>Name <span>{event.Name}</span></h3>
                    <h3>Sport <span>{event.sport}</span></h3>
                    <h3>Location <span>{event.Address}</span></h3>
-                   <h3>Date <span>{event.date}</span></h3>
-                   <h3>Start Time <span>{event.start}</span></h3>
-                   <h3>End Time <span>{event.end}</span></h3>
+                   <h3>Date <span>{event.start.substring(0, event.start.length - 7)}</span></h3>
+                   <h3>Start Time <span>{event.start.substring(event.end.length - 7)}</span></h3>
+                   <h3>End Time <span>{event.end.substring(event.end.length - 7)}</span></h3>
                    <h3>Organizer <span>{event.players[0]}</span></h3>
                    <h3>Description <span>{event.description}</span></h3>
    
