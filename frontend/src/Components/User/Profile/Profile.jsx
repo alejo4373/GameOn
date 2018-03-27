@@ -18,16 +18,16 @@ import {
   HelpBlock
 } from "react-bootstrap";
 
-// function FieldGroup({ id, label, help, ...props }) {
-//   console.log("FieldGroupProps:", props)
-//   return (
-//     <FormGroup controlId={id}>
-//       <ControlLabel>{label}</ControlLabel>
-//       <FormControl {...props} />
-//       {help && <HelpBlock>{help}</HelpBlock>}
-//     </FormGroup>
-//   );
-// }
+function FieldGroup({ id, label, help, ...props }) {
+  console.log("FieldGroupProps:", props)
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
 
 class Profile extends Component {
   state = {
@@ -117,7 +117,7 @@ class Profile extends Component {
     const { user, enable, show, photo, message } = this.state;
 
     return (
-      <div>
+        <div className="profile_parent">
         <Modal show={show} aria-labelledby="contained-modal-title">
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title">Upload Photo</Modal.Title>
@@ -134,12 +134,12 @@ class Profile extends Component {
                   bsSize={"lg"}
                 />
               </FormGroup>
-              {/* <FieldGroup
+              <FieldGroup
                 id="formControlsFile"
                 type="file"
                 label="File"
                 onChange={(e) =>this.setState({ photo: e.target.files.file})}
-              /> */}
+              />
               {message}
             </Form>
           </Modal.Body>
@@ -150,7 +150,6 @@ class Profile extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <div className="profile_parent">
           <div id="profile_menu">
             <div id="profile_header">
               <img
@@ -182,7 +181,6 @@ class Profile extends Component {
             )}
           </div>
         </div>
-      </div>
     );
   }
 }
