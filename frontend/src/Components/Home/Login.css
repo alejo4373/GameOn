@@ -1,27 +1,71 @@
-.login_container {
-  height: 100vh;
- overflow-y: hidden;
-}
-/*
-    The Jumbotron holds the title and the slogan 
-    ~Romie
-*/
-.LoginJumbotron {
-    margin-top: 20px;
-    padding-right: 60px;
-    padding-left: 60px;
-    border-radius: 6px;
-    padding-top: 48px;
-    padding-bottom: 48px;
-    margin-bottom: 30px;
-    color: inherit;
-    background-color: lightgrey;
-    box-sizing: border-box;
-    color: white;
+.pageHeader {
+    position: fixed;
+    background-color: #2f2e2e;
     width: 100%;
+    padding: 1%;
+    z-index: 1;
     opacity: 0.5;
-    
+    height: 70px;
 }
+
+#login_title {
+    color: White;
+    font-size: 40px;
+    margin: 0;
+    position: fixed;
+    width: 100%;
+    padding: 1%;
+    z-index: 1;
+}
+
+.carousel{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-inner>.next {
+    margin: 0;
+    bottom: 0;
+}
+
+#lets_play_link {
+    /* background-color: crimson; */
+    margin: 0;
+    position: relative;
+    top: -40vh;
+    color: White;
+    font-size: 40px;
+    margin: 0;
+}
+
+#form_container {
+    position: relative;
+    /* margin-top: 10%; */
+    margin-bottom: 10%;
+}
+
+input[type=input], input[type=password]{
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    /* width: 50%; */
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 
 #loginSubmitButton {
     padding-right: 5%;
@@ -29,69 +73,19 @@
     margin-bottom: 1%;
 }
 
-/*
-    The @media is for the container that everything is in,
-    it is also the <Grid> in the Login.jsx
-    ~Romie
-*/
 
-@media (min-width: 768px) {
-    .container {
-        /* width: 750px; */
-        width: 100vw;
-      
-    }
+h2 {
+    color: white;
+    border: 2px solid white;
+    width: 15%;
+    margin-left: 43%;
+}
+p {
+    font-size: 25px;
+    color: black;
 }
 
-/* 
-    Adjusted the automatic styling for the <FormControl>
-    to be centerd and responsive.
-    ~Romie
-*/ 
-.input-lg {
-    height: 46px;
-    padding: 10px 16px;
+#signup {
     font-size: 18px;
-    line-height: 1.3333333;
-    border-radius: 6px;
-    text-align: center;
-    width: 75%;
-    margin-left: 13%;
-}
-
-/*
-    Minor styling for the OR in "Submit OR Register"
-    ~Romie
-*/
-#or {
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
-#jumbo_container {
-    /* background-color: orangered; */
-}
-
-#form_container {
-    /* background-color: olive; */
-}
-
-
-.carousel{
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;
-    position: absolute;
-    z-index: -1;
-    overflow: hidden;
-}
-
-
-.carousel-inner>.next {
-    margin: 0;
-    bottom: 0;
-}
+} 
 

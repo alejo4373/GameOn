@@ -7,6 +7,7 @@ import {
   Button,
   PageHeader,
   FormGroup,
+  ControlLabel,
   FormControl,
   Carousel
 } from "react-bootstrap";
@@ -45,7 +46,6 @@ export default class Login extends Component {
       passwordInput: e.target.value
     });
   };
-
   /**
        * @func submitForm
        Submit/Post The Input to Database to retrieve User
@@ -93,61 +93,55 @@ export default class Login extends Component {
     }
 
     return (
-      <div>
-        <Carousel controls={false} interval={4000} indicators={false}>
+      <div className="login_container">
+        <div className="pageHeader" />
+        <h1 id="login_title">
+          <strong>Game On!</strong> <br />
+        </h1>
+        <Carousel controls={false} interval={1000} indicators={false}>
           <Carousel.Item>
-            <img src="/images/soccer-background.jpg" />
+            <img src="/images/soccer-background.png" />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/football-stadium-background.jpg" />
+            <img src="/images/football-background.png" />
           </Carousel.Item>
           <Carousel.Item>
             <img src="/images/basketball-background.jpg" />
           </Carousel.Item>
         </Carousel>
-        <Grid className="login_container">
-          <div id="jumbo_container">
-            <Jumbotron bsClass="LoginJumbotron">
-              <PageHeader bsClass="pageHeader">
-                <h1 id="Login Title">
-                  Game On! <br />
-                  <small>Let's Play. Game On!</small>
-                </h1>
-              </PageHeader>
-            </Jumbotron>
-          </div>
-          <div id="form_container">
+        <a id="lets_play_link" href="#form_container">
+          <h2>Let's Play</h2>
+        </a>
+        <div id="form_container">
+          <p>Log In</p>
+          <div id="form_div">
             <form onSubmit={this.submitForm}>
-              <FormGroup controlId="formControlsSelect">
-                <FormControl
-                  bsSize="large"
-                  type="input"
-                  placeholder="Username or E-mail"
-                  name="username"
-                  value={usernameInput}
-                  onChange={this.handleUsernameChange}
-                />
-                <br />
-                <FormControl
-                  bsSize="large"
-                  type="password"
-                  placeholder="Password"
-                  name="username"
-                  value={passwordInput}
-                  onChange={this.handlePasswordChange}
-                />
-              </FormGroup>
-              <Button id="loginSubmitButton" type="submit">
-                Submit
-              </Button>
-              <p id="or">OR</p>
+              <input
+                type="input"
+                placeholder="Username or E-mail"
+                name="username"
+                value={usernameInput}
+                onChange={this.handleUsernameChange}
+              />
+              <br />
+              <input
+                type="password"
+                placeholder="Password"
+                name="username"
+                value={passwordInput}
+                onChange={this.handlePasswordChange}
+              />
+              <br />
+              <input id="loginSubmitButton" type="submit" value="Submit" />
               <p>
-                Don't have an account? <br />
-                <Link to="/register">Sign Up</Link>
+                Don't have an account?{" "}
+                <Link id="signup" to="/register">
+                  Sign Up
+                </Link>
               </p>
             </form>
           </div>
-        </Grid>
+        </div>
       </div>
     );
   }

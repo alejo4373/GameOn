@@ -12,8 +12,10 @@ import {
   PageHeader,
   FormGroup,
   ControlLabel,
-  FormControl
+  FormControl,
+  Image
 } from "react-bootstrap";
+
 
 import Selection from "./Selection";
 
