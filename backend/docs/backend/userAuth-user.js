@@ -65,7 +65,7 @@ res.data = {
 }
 
 /*GET ALL SPORTS */
-//URL: http://localhost:3100/sports/all
+//URL: http://localhost:3100/sport/all
 //REQUEST: GET 
 //SEND: NOTHING  
 // ==> Server returns
