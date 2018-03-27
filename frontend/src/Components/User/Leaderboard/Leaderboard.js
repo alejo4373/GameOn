@@ -93,9 +93,9 @@ class Leaderboard extends Component {
               </ListGroup>
             </div>
           </Tab>
-          <Tab eventKey={3} title="Tab 3" disabled>
+          {/* <Tab eventKey={3} title="Tab 3" disabled>
             Tab 3 content
-          </Tab>
+          </Tab> */}
         </Tabs>
       </div>
     );
