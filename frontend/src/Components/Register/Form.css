@@ -1,12 +1,17 @@
-.RegistrationJumbotron {
-    margin-top: 20px;
-    padding-right: 60px;
-    padding-left: 60px;
-    border-radius: 6px;
-    padding-top: 48px;
-    padding-bottom: 48px;
-    margin-bottom: 30px;
-    color: inherit;
-    box-sizing: border-box;
-    /* width: 100%; */
+#banner {
+    /* background: url('/images/tennisracket.png')no-repeat center center fixed; 
+    height: 100vh;
+    background-attachment: fixed;
+    background-position: center; */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* position: fixed; */
+    /* height: 200px; */
 }
+
+.header-image {
+    width: 100%;
+    margin-top: -2em;
+    margin-bottom: 2em;
+}
+

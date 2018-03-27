@@ -7,6 +7,8 @@ import { Navbar, NavDropdown, Nav, NavItem, MenuItem } from "react-bootstrap";
 
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
+import Events from "./HostEvents/EventForm";
+import CurrentEvent from "./HostEvents/CurrentEvent"
 import Map from "./Map/Map";
 import Leaderboard from "./Leaderboard/Leaderboard"
 
@@ -71,6 +73,8 @@ class HUB extends Component {
             <Route path="/user/profile" component={Profile} />
             <Route path="/user/map" component={Map} />
             <Route path="/user/leaderboard" component={Leaderboard} />
+            <Route path="/user/event" component={Events} />
+            <Route path="/user/events/:id" component={CurrentEvent} />
           </Switch>
         </div>
       </div>
