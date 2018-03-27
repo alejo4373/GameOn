@@ -1,0 +1,97 @@
+.login_container {
+  height: 100vh;
+ overflow-y: hidden;
+}
+/*
+    The Jumbotron holds the title and the slogan 
+    ~Romie
+*/
+.LoginJumbotron {
+    margin-top: 20px;
+    padding-right: 60px;
+    padding-left: 60px;
+    border-radius: 6px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    margin-bottom: 30px;
+    color: inherit;
+    background-color: lightgrey;
+    box-sizing: border-box;
+    color: white;
+    width: 100%;
+    opacity: 0.5;
+    
+}
+
+#loginSubmitButton {
+    padding-right: 5%;
+    padding-left: 5%;
+    margin-bottom: 1%;
+}
+
+/*
+    The @media is for the container that everything is in,
+    it is also the <Grid> in the Login.jsx
+    ~Romie
+*/
+
+@media (min-width: 768px) {
+    .container {
+        /* width: 750px; */
+        width: 100vw;
+      
+    }
+}
+
+/* 
+    Adjusted the automatic styling for the <FormControl>
+    to be centerd and responsive.
+    ~Romie
+*/ 
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    text-align: center;
+    width: 75%;
+    margin-left: 13%;
+}
+
+/*
+    Minor styling for the OR in "Submit OR Register"
+    ~Romie
+*/
+#or {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+#jumbo_container {
+    /* background-color: orangered; */
+}
+
+#form_container {
+    /* background-color: olive; */
+}
+
+
+.carousel{
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+}
+
+
+.carousel-inner>.next {
+    margin: 0;
+    bottom: 0;
+}
+

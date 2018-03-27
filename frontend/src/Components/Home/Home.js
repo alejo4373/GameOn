@@ -6,10 +6,11 @@ import axios from 'axios';
 class Home extends React.Component {
     state = { user: undefined }
     getUser = () => {
-        axios.get('')
+        axios
+        .get('/user/getinfo')
         .then(res => {
             this.setState({
-                user: res.data.data[0]
+                user: res.data.user.username
             })
         }).catch(err => {
             this.setState({
@@ -22,15 +23,15 @@ class Home extends React.Component {
     }
     render() {
         const { user } = this.state
-        console.log({state: this.state})
+       
         if (user) {
             console.log('User detected')
-            return <Redirect to='/user' />
+            return <Redirect to='/user/dashboard' />
         } else if (user === null) {
             return <Redirect to='/login' />
         }
         return (
-            <load>loading...</load>
+            <span>loading...</span>
         )
     }
 }
