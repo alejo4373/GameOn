@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import Skills from "./Skills";
-import SportTiles from "./SportTiles";
+import Skills from "./Skills.js";
+import SportTiles from "./SportsTiles.jsx";
 
 class Selection extends Component {
   state = {
@@ -18,7 +18,7 @@ class Selection extends Component {
     const { selectedSports, selected } = this.state;
     const sport = e.target.name;
     const id = e.target.id
-    console.log('sportselected:', sport)
+    console.log('sportselected:', id)
    
     if (!selected.includes(sport) && sport !== undefined) {
       this.setState({
@@ -26,6 +26,14 @@ class Selection extends Component {
         selectedSports: [...selectedSports, {sport,id}],
       });
     }
+    
+    this.state.selectedSports.map(s => {
+      // if (sport === s ) {
+      //   console.log("blue")
+      // } 
+      console.log(s)
+    })
+    
   };
 
   /*
