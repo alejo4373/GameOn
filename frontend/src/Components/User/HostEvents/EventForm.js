@@ -28,7 +28,9 @@ export default class Event extends React.Component {
       submit: false,
       event_id: null,
       players: '',
-      sports: []
+      sports: [],
+      gameCombo: null,
+      team: {'basketball': [1,5], 'tennis': [1,2], 'handball':[1,3], 'soccer': [7,11], 'football': [6, 11], 'volleyball':[4,6]}
     };
   }
 
@@ -42,7 +44,15 @@ export default class Event extends React.Component {
     this.setState({ m })
   }
 
+
+  //Will have to change this to receive the sport name not sport_id
+  //Get request to get possible combinations possible
   handleSelect = e => {
+    // axios.get('', {sport_id: e.target.value})
+    // .then(res => this.setState({
+    //   gameCombo: res.data,
+    //   sport_id: e.target.value
+    // }))
     this.setState({
       sport_id: e.target.value
     });
@@ -62,15 +72,10 @@ export default class Event extends React.Component {
     })
   }
 
-  handleStart = () => {
+  handleToggle = (e) => {
+    let name = e.target.name
     this.setState({
-      start: !this.state.start
-    })
-  }
-
-  handleEnd = () => {
-    this.setState({
-      end: !this.state.end
+      [e.target.name]: !this.state.name
     })
   }
 
@@ -121,7 +126,8 @@ export default class Event extends React.Component {
       Description,
       sports,
       start,
-      end
+      end,
+      team
     } = this.state;
 
     return (
@@ -152,7 +158,7 @@ export default class Event extends React.Component {
             onInput={this.handleChange}
           />
 
-          <button onClick= {this.handleStart}>Start Time</button>
+          <button name= 'start' onClick= {this.handleToggle}>Start Time</button>
           <div className="input">
             <input type="text" value={this.state.startTime} readOnly />
           </div>
@@ -167,7 +173,7 @@ export default class Event extends React.Component {
           : ''
           }
 
-          <button onClick= {this.handleEnd}>End Time</button>
+          <button name = 'end' onClick= {this.handleToggle}>End Time</button>
          
           <div className="input">
             <input type="text" value={this.state.endTime} readOnly />
@@ -190,6 +196,14 @@ export default class Event extends React.Component {
               </option>
             ))}
           </select>
+
+          <select class="team"><option>Team</option></select>
+
+          {/* <select>
+            {for(var i = team.sport_id[1][0]; i > team.sport_id[1][1]; i++ ){ 
+            return(<option> {elem} X {elem} </option>)
+          }}
+          </select> */}
 
           <input
             type="textarea"
