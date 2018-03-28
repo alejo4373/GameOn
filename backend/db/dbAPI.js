@@ -242,7 +242,8 @@ const getEventInfo = (eventId, callback) => {
     .catch(err => callback(err));
 }
 
-const getEventsInRadius = (locationRange, callback) => {
+const getAllEventsInRadius = (latLongRange, callback) => {
+  console.log('calling getAllEventsInRadius')
   db.any(
     `SELECT 
       events.*,
@@ -251,7 +252,21 @@ const getEventsInRadius = (locationRange, callback) => {
     INNER JOIN sports ON events.sport_id = sports.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
     AND long BETWEEN $/minLon/ AND $/maxLon/`
-    , locationRange)
+    , latLongRange)
+    .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
+const getEventsForSportInRadius = (latLongRange, sport_id, callback) => {
+  db.any(
+    `SELECT 
+      events.*,
+      sports.name AS sport_name
+    FROM events
+    INNER JOIN sports ON events.sport_id = sports.id
+    WHERE lat BETWEEN $/minLat/ AND $/maxLat/
+    AND long BETWEEN $/minLon/ AND $/maxLon/ AND events.sport_id = $/sport_id/`
+    , {...latLongRange, sport_id})
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
@@ -279,7 +294,8 @@ module.exports = {
   /*- Events Related */
   addEvent: addEvent,
   getEventInfo: getEventInfo,
-  getEventsInRadius: getEventsInRadius,
+  getAllEventsInRadius: getAllEventsInRadius,
+  getEventsForSportInRadius: getEventsForSportInRadius,
   joinEvent: joinEvent,
   leaveEvent: leaveEvent,
   deleteEvent, deleteEvent
