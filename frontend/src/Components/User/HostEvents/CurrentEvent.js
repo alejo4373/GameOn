@@ -12,11 +12,11 @@ const Team = props => {
       </Modal.Header>
 
       <Modal.Body>
-        <button value="A" onClick={selectTeam}>
+        <button class='popup A' value="A" onClick={selectTeam}>
           Team A
         </button>
         <br />
-        <button value="B" onClick={selectTeam}>
+        <button class='popup B' value="B" onClick={selectTeam}>
           Team B
         </button>
       </Modal.Body>
