@@ -25,7 +25,7 @@ export default class SportTiles extends Component {
 
   getAllSports = () => {
     axios
-    .get('/sports/all')
+    .get('/sport/all')
     .then(res => {
       this.setState({
         sports: res.data.sports
