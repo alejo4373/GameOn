@@ -155,36 +155,23 @@ const deleteSport = (user_id, sport_id, callback) => {
 };
 
 const addEvent = (event, callback) => {
-  //How the event should look like coming from the frontend
-  // var event = {
-  //   host_id: 2,
-  //   lat: 40.747387,
-  //   long: -73.949494,
-  //   start_ts: 1521774233284,
-  //   end_ts: 1521775961187,
-  //   event_pic: '/images/event.png'
-  // }
   db.one(
-      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)' + 
+      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_format_id, event_pic, description)' + 
       'VALUES(${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${name},' +
-      '${location}, ${sport_id}, ${event_pic}, ${description})'+
+      '${location}, ${sport_id}, ${sport_format_id}, ${event_pic}, ${description})'+
       'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description', 
       event)
     .then((insertedEvent) => {
       //Once the event has been created we want the host itself to be joined to the event 
-      //we also want the host to be part of team A and of course the match judge for team A
+      //we also want the host to be part of team A and of course to be the match judge for team A
       //(even tho it seems obvious) here we do so
       console.log('event ====>', insertedEvent)
       db.any(
-        'INSERT INTO players_events(event_id, player_id, team, match_judge) VALUES(${id}, ${host_id}, ${team}, ${match_judge})', 
+        "INSERT INTO players_events(event_id, player_id, team, match_judge) VALUES(${id}, ${host_id}, 'A', TRUE)", 
         insertedEvent) 
         .then(() => {
           const newlyCreatedEvent = {
             ...insertedEvent,
-            //The following 2 lines are being sent back to keep the data consistent when getting info
-            //about an event either when is newly created or when requested with id by client
-            players_usernames: [event.host_username], 
-            players_ids: [event.host_id]
           }
           callback(null, newlyCreatedEvent)
         })
@@ -226,20 +213,32 @@ const getEventInfo = (eventId, callback) => {
   console.log('eventId:', eventId)
   db.one(
     `SELECT 
-    events.*,
-    json_agg(users.username) AS players_usernames,
-    json_agg(users.id) AS players_ids,
-    sports.name as sport_name,
-    sports_format.description as sport_format
-  FROM users
-  INNER JOIN players_events ON players_events.player_id = users.id
-  INNER JOIN events ON events.id = players_events.event_id
-  INNER JOIN sports ON sports.id = events.sport_id
-  INNER JOIN sports_format ON sports_format.id = events.sport_format_id
-  WHERE players_events.event_id = $1
-  GROUP BY(events.id, sports.name, sports_format.description)`,
-  eventId)
-    .then((data) => callback(null, data))
+      events.*,
+      sports.name as sport_name,
+      sports_format.description as sport_format
+    FROM events
+    INNER JOIN sports ON sports.id = events.sport_id
+    INNER JOIN sports_format ON sports_format.id = events.sport_format_id
+    WHERE events.id = $1;`, eventId)
+    .then((event) => {
+      db.any(
+        `SELECT 
+          users.id,
+          users.username,
+          players_events.team,
+          players_events.match_judge
+        FROM users
+        JOIN players_events ON users.id = players_events.player_id
+        WHERE players_events.event_id = $1`, eventId)
+        .then(players => {
+          const eventInfo = {
+            ...event,
+            players: players
+          }
+          callback(null, eventInfo)
+        })
+        .then(err => callback(err))
+    })
     .catch(err => callback(err));
 }
 
