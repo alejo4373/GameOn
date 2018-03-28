@@ -43,6 +43,7 @@ router.delete('/delete', loginRequired, (req, res, next) => {
 router.post('/join', loginRequired, (req, res, next) => {
   const joinReq = {
     event_id: req.body.event_id,
+    team: req.body.team,
     player_id: req.user.id //Currently logged in user
   }
 

@@ -173,7 +173,7 @@ const addEvent = (event, callback) => {
     .then((insertedEvent) => {
       //Once the event has been created we want the host itself to be joined to the event 
       //we also want the host to be part of team A and of course the match judge for team A
-      //(even tho it seems obvious) here we do soo
+      //(even tho it seems obvious) here we do so
       console.log('event ====>', insertedEvent)
       db.any(
         'INSERT INTO players_events(event_id, player_id, team, match_judge) VALUES(${id}, ${host_id}, ${team}, ${match_judge})', 
@@ -201,9 +201,9 @@ const deleteEvent = (deleteReq, callback) => {
 
 const joinEvent = (joinReq, callback) => {
   db.one(
-    'INSERT INTO  players_events(event_id, player_id)' +
-    'VALUES (${event_id}, ${player_id})' +
-    'RETURNING event_id, player_id', 
+    'INSERT INTO  players_events(event_id, player_id, team)' +
+    'VALUES (${event_id}, ${player_id},  ${team})' +
+    'RETURNING event_id, player_id, team', 
     joinReq)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
@@ -236,7 +236,7 @@ const getEventInfo = (eventId, callback) => {
   INNER JOIN events ON events.id = players_events.event_id
   INNER JOIN sports ON sports.id = events.sport_id
   INNER JOIN sports_format ON sports_format.id = events.sport_format_id
-  WHERE players_events.event_id = 1
+  WHERE players_events.event_id = $1
   GROUP BY(events.id, sports.name, sports_format.description)`,
   eventId)
     .then((data) => callback(null, data))
