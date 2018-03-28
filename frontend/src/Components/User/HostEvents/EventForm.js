@@ -48,14 +48,9 @@ export default class Event extends React.Component {
   //Will have to change this to receive the sport name not sport_id
   //Get request to get possible combinations possible
   handleSelect = e => {
-    // axios.get('', {sport_id: e.target.value})
-    // .then(res => this.setState({
-    //   gameCombo: res.data,
-    //   sport_id: e.target.value
-    // }))
-    this.setState({
-      sport_id: e.target.value
-    });
+    const id = e.target.value
+    axios.get(`/sport/formats/${id}`)
+    .then(res => console.log(res))
   };
 
   handleStartTime = () => {

@@ -130,9 +130,9 @@ export default class Events extends React.Component {
     const end = new Date(Number(event.end_ts));
 
     return (
-      <div>
+      <div className='eventpage'>
         <h3>Name: {event.name}</h3>
-        <h3>Sport: {event.sport_id}</h3>
+        <h3>Sport: {event.sport_name.charAt(0).toUpperCase() + event.sport_name.slice(1)}</h3>
         <h3>Location: {event.location}</h3>
         <h3>Date: {date.toDateString()}</h3>
         <h3>Start Time: {date.toTimeString()}</h3>
