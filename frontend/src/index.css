@@ -1,9 +1,10 @@
 
 
 body {
-  margin: 0;
+  /* margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: sans-serif; */
+  background-color: bisque;
 }
 
 #selection_container{
@@ -29,9 +30,10 @@ body {
 
  #Overview{
   border: 2px solid black;
-  margin: 8% 0 8% 28%;
+  margin: 10% 0 8% 28%;
   width: 600px;
   height: 200px;
+  position: absolute;
 }
 
 #Overview_photo{
@@ -68,7 +70,10 @@ body {
 }
 
 #event-panel{
-  width: 400px;
+  width: 380px;
+  margin-top: 5%;
+  z-index:  1;
+  position: absolute;
 }
 
 
@@ -81,7 +86,11 @@ body {
 
 #upcoming_component{
   position: absolute;
-  margin-left: 12%
+  /* top: 0;
+  bottom: 0; */
+  float: left;
+  height: 50px;
+  z-index: -3;
 }
 .event_descriptions{
   width: 200px;
@@ -92,7 +101,7 @@ body {
 
 .individual_event{
   border: 1px solid black;
-  width: 400px;
+  width: 375px;
   height: 125px;
   margin-bottom: 2%;
 }
@@ -111,7 +120,8 @@ body {
 
 #history_component{
   position: absolute;
-  margin-left: 60%
+  margin-left: 60%;
+  max-height: 50px;
 }
 
 .event_result{
@@ -126,6 +136,7 @@ body {
 }
 
 /* Profile Page Component */
+
 #profile_menu{
   
   width: 200px;
@@ -223,6 +234,27 @@ width: 300px;
 }
 
 
+
+#past-event-panel{
+  margin: 10% 0 0 35%;
+  width: 400px;
+}
+
+.container{
+  min-width: 100vw
+}
+
+#autocomplete-form{
+  width: 200px;
+  margin-left: 42%
+}
+
+#google-map{
+  width: 300px;
+}
+
+
+
 @media (max-width: 668px) {
     .userinfo_grid{
         width: 100vw;
@@ -238,11 +270,245 @@ width: 300px;
       margin: 10% 0 0 25%;
       position: absolute;
   }
-}
+  #selection_container{
+    margin-left: 35%;
+    width: 550px;
+    height: 2400px;
+  }
+  .sport_selection{
+    border: 2px solid black;
+    width: 200px;
+    height: 200px;
+    margin: 1% 0 0 1%;
+    float: left;
+  }
+  
+  .sport_name{
+    text-align: center;
+  }
+  
+  .skills{
+    margin-right: 33%
+  }
+  
+   #Overview{
+    border: 2px solid black;
+    margin: 15% 0 0 0;
+    width: 350px;
+    height: 200px;
+    position: absolute;
+  }
+  
+  #Overview_photo{
+    float: left;
+    margin: 2% 0 0 2%;
+    width: 100px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+  }
 
-/* .dashboard-parent{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: #213238;
-} */
+  
+
+
+  
+  #edit_Overview_button{
+    border: 1px solid gray;
+    font-size: 18px;
+    width: auto;
+    height: 28px;
+    position: absolute;
+    margin: 1.5% 0 0 13%;
+  
+  }
+  
+  #username{
+    margin-left: 1%;
+    position: absolute;
+  }
+
+  #username > h3 {
+    font-size: 12px;
+  }
+  
+  #xp_header{
+    margin: 3% 0 0 5%;
+    position: absolute;
+  }
+  
+  #user_selectedSports_container{
+    position: absolute;
+    margin: 8% 0 0 13%;
+    
+  }
+  
+  #event-panel{
+    width: 100px;
+    margin-top: 300%;
+    display: block
+  }
+  
+  
+  #event_container{
+    width: 400px;
+    height: 500px;
+    overflow-y: scroll;
+    position: absolute;
+  }
+  
+  #upcoming_component{
+    position: absolute;
+    margin-left: 3%
+  }
+  .event_descriptions{
+    width: 200px;
+    height: auto;
+    position: absolute;
+    margin-left: 20%
+  }
+  
+  .individual_event{
+    border: 1px solid black;
+    width: 300px;
+    height: 125px;
+    margin-bottom: 2%;
+  }
+
+  .individual_event > div{
+    width: 100px;
+  }
+  
+  .individual_event > div > span{
+    font-size: 8px;
+  }
+  .list-group{
+    width: 100px;
+  }
+  
+  
+  .host_img{
+    float: left;
+    margin: 1% 3% 0 3%;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+  }
+  
+  .host_Name{
+    margin-left: 18%
+  }
+  
+  #history_component{
+    position: absolute;
+    margin-left: 60%
+  }
+  
+ .event_result{ 
+    font-size: 12px;
+    position: absolute;
+    margin: 3% 0 0 50%; 
+    text-align: center;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+  
+  }
+  
+  /* Profile Page Component */
+ 
+ 
+  #profile_menu{
+    
+    width: 200px;
+    height: 300px;
+    position: absolute;
+    margin: 10% 0 0 10%;
+  
+  }
+  
+  #profile_header{
+    width:196px;
+    height:185px;
+    background-color: #FAFAFA;
+    cursor: pointer;
+  }
+  
+  
+  #profile_personal_info, #profile_sport_info{
+    margin-top: 3%;
+    text-align: center;
+    padding-top: 12px;
+    width: 196px;
+    background-color: #FAFAFA;
+    height: 50px;
+  }
+  
+  #profile_personal_info:hover, 
+  #profile_sport_info:hover,
+  #Overview:hover,
+  .individual_event:hover
+  {
+    background-color: lightsteelblue;
+    cursor: pointer;
+  }
+  
+  
+  #profile_form_container{
+    margin-top: 25%
+  }
+  
+  #update_button{
+    float: left;
+  }
+  
+  /* Map Page Components */
+  
+  #marker-event-photo{
+    width: 60px;
+    -moz-border-radius: 60px;
+    -webkit-border-radius: 60px;
+  }
+  
+  
+  .navbar{
+    top:0;
+    position: fixed;
+    z-index: 3;
+  }
+  
+  
+  .modal-container {
+    position: relative;
+  }
+  .modal-container .modal, .modal-container .modal-backdrop {
+    position: absolute;
+  }
+  
+  #formControlsFile{
+    margin-left: 35%;
+  }
+  
+  #profile_info_container{
+  width: 300px;
+  }
+  
+  
+  .profile_sport{
+    float: left;
+  }
+  
+  #profile-sport-container{
+    margin-left: 18%;
+    width: 35em;
+    /* border: 2px solid black */
+  }
+  
+  .add-sport-button.container{
+    margin-left: 33%;
+    float: left;
+    width: 32%;
+  }
+  
+  #add-button:hover {
+    border: 15px solid white;
+  }
+  
+ 
+}

@@ -165,10 +165,10 @@ const addEvent = (event, callback) => {
   //   event_pic: '/images/event.png'
   // }
   db.one(
-      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)' + 
+      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_name, event_pic, description)' + 
       'VALUES(${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${name},' +
-      '${location}, ${sport_id}, ${event_pic}, ${description})'+
-      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description', 
+      '${location}, ${sport_id}, ${sport_name}, ${event_pic}, ${description})'+
+      'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_name, event_pic, description', 
       event)
     .then((insertedEvent) => {
       //Once the event has been created we want the host itself to be joined to the event 

@@ -19,28 +19,29 @@ import "./SportsTile.css";
 
 export default class SportTiles extends Component {
   state = {
-    sports: []
+    allSports: []
   };
 
 
   getAllSports = () => {
     axios
-    .get('/sports/all')
+    .get('/sport/all')
     .then(res => {
-      this.setState({
-        sports: res.data.sports
-      })
+        this.setState({
+          allSports: res.data.sports
+        })
     })
     .catch(err => console.log("Error Getting All Sports:", err))
   }
 
+  
   componentWillMount(){
    this.getAllSports()
   }
 
   render() {
     const { handleSelectionChanges, handleNextButton } = this.props;
-    const { sports } = this.state;
+    const { allSports } = this.state;
     return (
       <Grid>
         <Jumbotron bsClass="RegistrationJumbotron">
@@ -50,7 +51,7 @@ export default class SportTiles extends Component {
           </PageHeader>
         </Jumbotron>
         <div id="sportsTile_Container">
-          {sports.map(s => (
+          {allSports.map(s => (
             <Grid
               // style={this.state.style}
               className="sport_selection"

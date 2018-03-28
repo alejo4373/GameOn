@@ -110,10 +110,10 @@ export default class Login extends Component {
           </Carousel.Item>
         </Carousel>
         <a id="lets_play_link" href="#form_container">
-          <h2>Let's Play</h2>
+          <h2 id='signin-button'>Let's Play</h2>
         </a>
         <div id="form_container">
-          <p>Log In</p>
+          <p id='login-title'>Log In</p>
           <div id="form_div">
             <form onSubmit={this.submitForm}>
               <input
@@ -133,7 +133,7 @@ export default class Login extends Component {
               />
               <br />
               <input id="loginSubmitButton" type="submit" value="Submit" />
-              <p>
+              <p id='signup-link'>
                 Don't have an account?{" "}
                 <Link id="signup" to="/register">
                   Sign Up

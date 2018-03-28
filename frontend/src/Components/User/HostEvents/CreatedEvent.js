@@ -23,6 +23,7 @@ export default class Events extends React.Component{
 
     form = () => {
         const { event } = this.state
+        console.log(event)
        return (
         <div>
                    <img src={event.img} alt='event' width='150px'/>

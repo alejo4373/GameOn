@@ -11,6 +11,8 @@ import Events from "./HostEvents/EventForm";
 import CurrentEvent from "./HostEvents/CurrentEvent"
 import Map from "./Map/Map";
 import Leaderboard from "./Leaderboard/Leaderboard"
+import History from "./History";
+
 
 class HUB extends Component {
   state = { loggedOut: false };
@@ -46,15 +48,15 @@ class HUB extends Component {
                   title="Events"
                   id="basic-nav-dropdown"
                 >
-                  <MenuItem eventKey={3.1}>Host</MenuItem>
-                  <MenuItem eventKey={3.2}>Another action</MenuItem>
+                  <MenuItem eventKey={3.1}><Link to='/user/event'>Host Event</Link></MenuItem>
+                  <MenuItem eventKey={3.2}><Link to='/user/history' >Past Events</Link></MenuItem>
                   <MenuItem eventKey={3.3}>Something else here</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey={3.3}>Separated link</MenuItem>
                 </NavDropdown>
               </Nav>
               <Nav pullRight>
-                <NavItem eventKey={1} href="#">
+                <NavItem eventKey={1} href="/user/profile">
                   Settings
                 </NavItem>
                 <NavItem>
@@ -75,6 +77,7 @@ class HUB extends Component {
             <Route path="/user/leaderboard" component={Leaderboard} />
             <Route path="/user/event" component={Events} />
             <Route path="/user/events/:id" component={CurrentEvent} />
+            <Route path="/user/history" component={History} />
           </Switch>
         </div>
       </div>
