@@ -172,10 +172,11 @@ const addEvent = (event, callback) => {
       event)
     .then((insertedEvent) => {
       //Once the event has been created we want the host itself to be joined to the event 
-      //(even tho it seems odious) here we do soo
+      //we also want the host to be part of team A and of course the match judge for team A
+      //(even tho it seems obvious) here we do soo
       console.log('event ====>', insertedEvent)
       db.any(
-        'INSERT INTO players_events(event_id, player_id) VALUES(${id}, ${host_id})', 
+        'INSERT INTO players_events(event_id, player_id, team, match_judge) VALUES(${id}, ${host_id}, ${team}, ${match_judge})', 
         insertedEvent) 
         .then(() => {
           const newlyCreatedEvent = {
@@ -225,16 +226,19 @@ const getEventInfo = (eventId, callback) => {
   console.log('eventId:', eventId)
   db.one(
     `SELECT 
-      events.*,
-      json_agg(users.username) AS players_usernames,
-      json_agg(users.id) AS players_ids,
-      sports.name as sport_name
-    FROM users
-    INNER JOIN players_events ON players_events.player_id = users.id
-    INNER JOIN events ON events.id = players_events.event_id
-    INNER JOIN sports ON sports.id = events.sport_id
-    WHERE players_events.event_id = $1
-    GROUP BY(events.id, sports.name)`, eventId)
+    events.*,
+    json_agg(users.username) AS players_usernames,
+    json_agg(users.id) AS players_ids,
+    sports.name as sport_name,
+    sports_format.description as sport_format
+  FROM users
+  INNER JOIN players_events ON players_events.player_id = users.id
+  INNER JOIN events ON events.id = players_events.event_id
+  INNER JOIN sports ON sports.id = events.sport_id
+  INNER JOIN sports_format ON sports_format.id = events.sport_format_id
+  WHERE players_events.event_id = 1
+  GROUP BY(events.id, sports.name, sports_format.description)`,
+  eventId)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
@@ -242,8 +246,10 @@ const getEventInfo = (eventId, callback) => {
 const getEventsInRadius = (locationRange, callback) => {
   db.any(
     `SELECT 
-      events.*
+      events.*,
+      sports.name AS sport_name
     FROM events
+    INNER JOIN sports ON events.sport_id = sports.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
     AND long BETWEEN $/minLon/ AND $/maxLon/`
     , locationRange)
