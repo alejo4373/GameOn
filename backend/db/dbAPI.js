@@ -256,17 +256,25 @@ const getEventsInRadius = (locationRange, callback) => {
     .catch(err => callback(err));
 }
 
+const getSportFormats = (sport_id, callback) => {
+  db.any(`SELECT sports_format.*, name FROM sports_format JOIN sports ON sports_format.sport_id = sports.id WHERE sport_id = $1`, sport_id)
+    .then((formats) => callback(null, formats))
+    .catch(err => callback(err));
+}
+
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
   getSportsForUser: getSportsForUser,
-  getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
+  /*- Sports Related */
   addSport: addSport,
   deleteSport: deleteSport,
+  getAllSports: getAllSports,
+  getSportFormats: getSportFormats,
 
   /*- Events Related */
   addEvent: addEvent,
