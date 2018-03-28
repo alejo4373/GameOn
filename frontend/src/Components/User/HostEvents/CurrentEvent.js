@@ -50,6 +50,7 @@ export default class Events extends React.Component{
 
     chooseTeam = () => {
         //Send post request to the backend
+        //propbably send the team the user choose
         const { event } = this.state
         axios.post('/event/join',{
             event_id:event.id
