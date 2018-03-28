@@ -46,7 +46,7 @@ CREATE TABLE players_events (
     event_id INT REFERENCES events(id) ON DELETE CASCADE NOT NULL, --CASCADE so that when deleting an event we automatically delete records in this table too
     player_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
     team team_type NOT NULL,
-    match_judge BOOLEAN NOT NULL,
+    match_judge BOOLEAN DEFAULT FALSE, 
     unique(event_id, player_id) --so that a user cannot join twice to the same event
 );
 
