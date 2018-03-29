@@ -14,7 +14,6 @@ export default class Event extends React.Component {
       Name: "",
       m: moment(),
       imgScr: null,
-      sportIDs: "",
       Address: "",
       start: false,
       end: false,
