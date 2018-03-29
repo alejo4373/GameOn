@@ -94,9 +94,16 @@ input[id=login-submit] {
 }
 
 
-#homePage-queston {
-    color: black;
+#signin-button {
+    color: white;
+    border: 2px solid white;
+    width: 15%;
+    margin-left: 43%;
 }
+/* p {
+    font-size: 25px;
+    color: black;
+} */
 
 #signup {
     font-size: 18px;

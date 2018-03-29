@@ -47,7 +47,7 @@ class History extends Component {
     const { event } = this.state;
     console.log(event);
     return (
-      <Panel defaultExpanded id="event-panel">
+      <Panel defaultExpanded id="past-event-panel">
         <Panel.Heading>
           <Panel.Title toggle>History</Panel.Title>
         </Panel.Heading>

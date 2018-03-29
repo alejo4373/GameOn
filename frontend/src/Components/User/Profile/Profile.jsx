@@ -171,6 +171,7 @@ class Profile extends Component {
                 email={user.email}
                 fullname={user.fullname}
                 zipcode={user.zip_code}
+                picture={user.profile_pic}
               />
             ) : (
               <ProfileSports sports={user.sports} />

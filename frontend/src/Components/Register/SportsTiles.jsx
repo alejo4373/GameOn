@@ -5,8 +5,7 @@ import "./SportsTile.css";
 
 export default class SportTiles extends Component {
   state = {
-    sports: [],
-    style: ""
+    allSports: []
   };
 
   getAllSports = () => {
@@ -15,7 +14,7 @@ export default class SportTiles extends Component {
     .get('/sport/all')
     .then(res => {
       this.setState({
-        sports: res.data.sports
+        allSports: res.data.sports
       })
    }).catch(err => console.log("Error Getting All Sports:", err));
   }
@@ -25,8 +24,7 @@ export default class SportTiles extends Component {
 
   render() {
     const { handleNextButton, handleSelectionChanges } = this.props;
-    const { sports } = this.state;
-    console.log("sports:", sports);
+    const {  allSports } = this.state;
     return (
       <div id="sportsTile-container">
         <div className="pageHeader" />
@@ -46,7 +44,7 @@ export default class SportTiles extends Component {
         <p>(Minimum: 1 Selection)</p>
 
         <div id="container-for-all-images">
-          {sports.map(s => (
+          { allSports.map(s => (
             <div
               name={s.name}
               id="individual-image-container"
