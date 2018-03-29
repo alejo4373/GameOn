@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
 
@@ -67,7 +67,7 @@ class Overview extends Component {
           return (
             <div id="Overview" onClick={redirectToUserProfile}>
               <div id="photo_container">
-                <img id="Overview_photo" src={u.profile_pic} width="130px" />
+                <img id="Overview_photo" src={u.profile_pic} width="130px" alt=""/>
               </div>
               <div id="Overview_description">
                 <span id="username">
