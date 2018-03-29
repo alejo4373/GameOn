@@ -3,8 +3,6 @@ import React, { Component } from "react";
 
 //DashBoard Components
 import Overview from "./Overview";
-import Upcoming from "./Upcoming";
-import History from "./History";
 
 
 class Dashboard extends Component {
@@ -16,16 +14,6 @@ class Dashboard extends Component {
         <div id="dashboard_components">
           <div id="Overview_component">
             <Overview />
-          </div>
-
-          <div id="upcoming_component">
-            <h2 className="event_title">UPCOMING EVENTS</h2>
-            <Upcoming />
-          </div>
-
-          <div id="history_component">
-            <h2 className="event_title">PAST EVENTS</h2>
-            <History />
           </div>
         </div>
       </div>
