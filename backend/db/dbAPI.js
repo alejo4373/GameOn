@@ -215,7 +215,8 @@ const getEventInfo = (eventId, callback) => {
     `SELECT 
       events.*,
       sports.name as sport_name,
-      sports_format.description as sport_format
+      sports_format.description as sport_format,
+      sports_format.num_players
     FROM events
     INNER JOIN sports ON sports.id = events.sport_id
     INNER JOIN sports_format ON sports_format.id = events.sport_format_id
