@@ -115,9 +115,9 @@ VALUES(1, 1),
       ;
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_format_id, event_pic, description)
-VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', '6x6 bring hydration'),
-       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/event.png', '5x5 rain or shine'),
-       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/event.png', 'rain or shine')
+VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', 'Bring hydration'),
+       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/event.png', 'Rain or shine'),
+       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/event.png', 'Rain or shine')
        ;
 
 INSERT INTO players_events(event_id, player_id, team, match_judge)
