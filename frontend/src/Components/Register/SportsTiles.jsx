@@ -11,11 +11,11 @@ export default class SportTiles extends Component {
 
   getAllSports = () => {
     axios
-      .get("/sport/all")
-      .then(res => {
-        this.setState({
-          sports: res.data.sports
-        });
+
+    .get('/sport/all')
+    .then(res => {
+      this.setState({
+        sports: res.data.sports
       })
       .catch(err => console.log("Error Getting All Sports:", err));
   };

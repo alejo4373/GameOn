@@ -28,7 +28,11 @@ export default class Event extends React.Component {
       submit: false,
       event_id: null,
       players: '',
-      sports: []
+      sports: [],
+      gameCombo: [],
+      format_id: '',
+      sport_id:'',
+      event:''
     };
   }
 
@@ -42,11 +46,25 @@ export default class Event extends React.Component {
     this.setState({ m })
   }
 
+
+  //Will have to change this to receive the sport name not sport_id
+  //Get request to get possible combinations possible
   handleSelect = e => {
-    this.setState({
-      sport_id: e.target.value
-    });
+    const id = e.target.value
+    axios.get(`/sport/formats/${id}`)
+    .then(res => {
+      // const gameFormats = res.data.formats.map(elem => elem.description)
+      this.setState({
+      gameCombo: res.data.formats,
+      sport_id: Number(id)
+    })})
   };
+
+  handleFormat = (e) => {
+    this.setState({
+      format_id: e.target.value
+    })
+  }
 
   handleStartTime = () => {
     this.setState({
@@ -62,21 +80,27 @@ export default class Event extends React.Component {
     })
   }
 
-  handleStart = () => {
+  handleToggle = (e) => {
+    let name = e.target.name
     this.setState({
-      start: !this.state.start
+      [e.target.name]: !this.state.name
     })
   }
 
-  handleEnd = () => {
-    this.setState({
-      end: !this.state.end
-    })
+  loadPage = (id) => {
+    axios.get(`/event/info/${id}`)
+    .then(res =>
+      this.setState({
+        event: res.data,
+        submit: true
+      })
+    )
+    .catch(err => console.log(err))
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-      const {Name, Address, DateInfo, startTime,imgScr, endTime, Description, sport_id, lat, long} = this.state
+      const {Name, Address, DateInfo, startTime,imgScr, endTime, Description, sport_id, lat, long, format_id} = this.state
 
       axios.post('/event/add',
       {name:Name,
@@ -87,15 +111,12 @@ export default class Event extends React.Component {
       end_ts: new Date(endTime).getTime(),
       description:Description,
       sport_id:sport_id,
+      sport_format_id: format_id,
       event_pic:imgScr
    })
-   .then(res => {
-    this.setState({
-     submit:true,
-     players:res.data.event.players_usernames,
-     event_id:res.data.event.id
-   })
-   })
+   .then(res => 
+     this.loadPage(res.data.event.id))
+  .catch(err => console.log(err))
   }
 
   componentDidMount() {
@@ -107,7 +128,8 @@ export default class Event extends React.Component {
         sports: names,
         sportIDs: id
       });
-    });
+    })
+    .catch(err => console.log(err));
   }
 
   form = () => {
@@ -121,7 +143,9 @@ export default class Event extends React.Component {
       Description,
       sports,
       start,
-      end
+      end,
+      team,
+      gameCombo
     } = this.state;
 
     return (
@@ -152,7 +176,7 @@ export default class Event extends React.Component {
             onInput={this.handleChange}
           />
 
-          <button onClick= {this.handleStart}>Start Time</button>
+          <button name= 'start' onClick= {this.handleToggle}>Start Time</button>
           <div className="input">
             <input type="text" value={this.state.startTime} readOnly />
           </div>
@@ -167,7 +191,7 @@ export default class Event extends React.Component {
           : ''
           }
 
-          <button onClick= {this.handleEnd}>End Time</button>
+          <button name = 'end' onClick= {this.handleToggle}>End Time</button>
          
           <div className="input">
             <input type="text" value={this.state.endTime} readOnly />
@@ -190,6 +214,8 @@ export default class Event extends React.Component {
               </option>
             ))}
           </select>
+          
+          <select class="team" onChange= {this.handleFormat}>{['', ...gameCombo].map(game=> <option value={ game.id }>{ game.description }</option>)}</select>
 
           <input
             type="textarea"
@@ -205,38 +231,7 @@ export default class Event extends React.Component {
     );
   };
   render() {
-    const { submit, sports } = this.state;
-    
-    const {
-      Name,
-      Address,
-      imgScr,
-      DateInfo,
-      startTime,
-      endTime,
-      Description,
-      sport_id,
-      sportIDs,
-      players,
-      event_id
-    } = this.state;
-
-    const sport = sports[sportIDs.indexOf(Number(sport_id))]
-
-    const event = {
-      sport: sport,
-      Name: Name,
-      date: DateInfo,
-      img: imgScr,
-      Address: Address,
-      date: DateInfo,
-      start: startTime,
-      end: endTime,
-      description: Description,
-      players:players,
-      event_id: event_id
-    };
-
+    const { submit, sports, event } = this.state;
     return <div>{submit ? <Events event={event} /> : this.form()}</div>;
   }
 }

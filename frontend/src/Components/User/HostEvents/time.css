@@ -207,3 +207,29 @@
     border-radius: 3px;
   }
   
+  .popup{
+    width:80%;
+    height: 40px;
+    background-color:#546e7a;
+    border-radius: 15px;
+    margin-top: 15px;
+  }
+  .popup:hover{
+    border-color: #b2ebf2
+    
+  }
+  .popup:focus{
+    background-color: #bdbdbd
+  }
+
+  .modal-content{
+    width: 80%;
+  }
+
+  .modal-body{
+    height: 150px;
+  }
+
+  .eventpage{
+    margin-top: 100px;
+  }

@@ -56,4 +56,16 @@ router.patch('/edit', loginRequired, (req, res, next) => {
   })
 })
 
+router.get('/formats/:sport_id', loginRequired, (req, res, next) => {
+  const { sport_id } = req.params
+  dbAPI.getSportFormats(sport_id, (err, formats) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      formats: formats,
+      message: 'Formats for sport'
+    })
+  })
+})
+
 module.exports = router;

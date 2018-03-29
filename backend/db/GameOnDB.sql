@@ -34,16 +34,27 @@ CREATE TABLE events (
     end_ts BIGINT NOT NULL,
     name VARCHAR NOT NULL,
     location VARCHAR NOT NULL,
-    sport_id VARCHAR NOT NULL,
+    sport_id INT NOT NULL,
+    sport_format_id INT NOT NULL,
     event_pic VARCHAR,
     description VARCHAR
 );
 
+CREATE TYPE team_type AS ENUM ('A', 'B'); --So that a team can only be A or B
 CREATE TABLE players_events (
     id SERIAL PRIMARY KEY,
     event_id INT REFERENCES events(id) ON DELETE CASCADE NOT NULL, --CASCADE so that when deleting an event we automatically delete records in this table too
     player_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+    team team_type NOT NULL,
+    match_judge BOOLEAN DEFAULT FALSE, 
     unique(event_id, player_id) --so that a user cannot join twice to the same event
+);
+
+CREATE TABLE sports_format (
+    id SERIAL PRIMARY KEY,
+    sport_id INT REFERENCES sports(id),
+    description VARCHAR,
+    num_players VARCHAR
 );
 
 INSERT INTO sports (name)
@@ -51,8 +62,46 @@ VALUES ('basketball'),
        ('soccer'),
        ('volleyball'),
        ('tennis'),
-       ('handbal'),
+       ('handball'),
        ('football');
+
+INSERT INTO sports_format (sport_id, description, num_players)
+       --┌basketball
+VALUES ('1', '1x1', 1),
+       ('1', '2x2', 4),
+       ('1', '3x3', 6),
+       ('1', '4x4', 8),
+       ('1', '5x5', 10),
+       --┌Soccer
+       ('2', '3x3', 6),
+       ('2', '4x4', 8),
+       ('2', '5x5', 10),
+       ('2', '6x6', 12),
+       ('2', '7x7', 14),
+       ('2', '8x8', 16),
+       ('2', '9x9', 18),
+       ('2', '10x10', 20),
+       ('2', '11x11', 21),
+       --┌Volleyball
+       ('3', '3x3', 6),
+       ('3', '4x4', 8),
+       ('3', '5x5', 10),
+       ('3', '6x6', 12),
+       --┌Tennis
+       ('4', '1x1', 2),
+       ('4', '2x2', 4),
+       --┌Handball
+       ('5', '1x1', 2),
+       ('5', '2x2', 4),
+       ('5', '3x3', 6),
+      --┌Football
+       ('6', '6x6', 12),
+       ('6', '7x7', 14),
+       ('6', '8x8', 16),
+       ('6', '9x9', 18),
+       ('6', '10x10', 20),
+       ('6', '11x11', 21)
+       ;
 
 INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)
 VALUES('Alejandro Franco', 'alejo4373', 'alejandro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
@@ -65,15 +114,15 @@ VALUES(1, 1),
       (2, 1)
       ;
 
-INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)
-VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, '/images/event.png', '6x6 bring hydration'),
-       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Basketball with Matt', 'Romeos Park', 1, '/images/event.png', '5x5 rain or shine'),
-       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 'Baseball at City Field', 'City Field', 4, '/images/event.png', 'rain or shine')
+INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_format_id, event_pic, description)
+VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', '6x6 bring hydration'),
+       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/event.png', '5x5 rain or shine'),
+       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/event.png', 'rain or shine')
        ;
 
-INSERT INTO players_events(event_id, player_id)
-VALUES(1, 2),
-      (1, 3),
-      (1, 1),
-      (2, 2) 
+INSERT INTO players_events(event_id, player_id, team, match_judge)
+VALUES(1, 2, 'A', TRUE),
+      (1, 3, 'A', FALSE),
+      (1, 1, 'B', TRUE),
+      (2, 2, 'A', TRUE) 
       ;
