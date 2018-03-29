@@ -5,7 +5,8 @@ import "./SportsTile.css";
 
 export default class SportTiles extends Component {
   state = {
-    sports: []
+    sports: [],
+    style: ""
   };
 
   getAllSports = () => {
@@ -24,18 +25,34 @@ export default class SportTiles extends Component {
   }
 
   render() {
-    const { handleNextButton } = this.props;
+    const { handleNextButton, handleSelectionChanges } = this.props;
     const { sports } = this.state;
     console.log("sports:", sports);
     return (
       <div id="sportsTile-container">
+        <div className="pageHeader" />
+        <h1 id="login_title">
+          <strong>Game On!</strong> <br />
+        </h1>
+
+        <div id="image-containter">
+          <img
+            id="form-image"
+            src="/images/form-page-basketball-background.jpg"
+            align="left"
+          />
+        </div>
+
         <p id="select-sport-title"> Select A Sport </p>
         <p>(Minimum: 1 Selection)</p>
 
         <div id="container-for-all-images">
           {sports.map(s => (
-            <div id="image_container">
-              {console.log(s.name, s)}
+            <div
+              name={s.name}
+              id="individual-image-container"
+              onClick={handleSelectionChanges}
+            >
               <img
                 src={`/images/${s.name}.jpg`}
                 width="100%"
@@ -44,7 +61,9 @@ export default class SportTiles extends Component {
                 name={s.name}
                 alt=""
               />
-              <div id="sportsName-container"><h4 id="sportsName">{s.name}</h4></div>
+              <div id="sportsName-container">
+                <h4 id="sportsName">{s.name}</h4>
+              </div>
             </div>
           ))}
         </div>
@@ -57,7 +76,6 @@ export default class SportTiles extends Component {
             onClick={handleNextButton}
           />
         </form>
-
       </div>
     );
   }

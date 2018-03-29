@@ -164,18 +164,7 @@ export default class Registration extends Component {
 
     return (
       <div>
-        <div className="pageHeader" />
-        <h1 id="login_title">
-          <strong>Game On!</strong> <br />
-        </h1>
-        <div id="image-containter">
-          <img
-            id="form-image"
-            src="/images/form-page-basketball-background.jpg"
-            align="left"
-          />
-        
-        { true ? (
+        { nextPressed ? (
           <div>
             <Selection
               emailInput={emailInput}
@@ -187,6 +176,18 @@ export default class Registration extends Component {
           </div>
         ) : (
           <div id="container">
+            <div className="pageHeader" />
+            <h1 id="login_title">
+              <strong>Game On!</strong> <br />
+            </h1>
+            <div id="image-containter">
+              <img
+                id="form-image"
+                src="/images/form-page-basketball-background.jpg"
+                align="left"
+              />
+            </div>
+
             <div id="signup-form-container">
               <p id="signup-title">
                 <strong>Sign Up To Play, Compete, and Rank-Up</strong>
@@ -268,7 +269,6 @@ export default class Registration extends Component {
             </div>
           </div>
         )}
-        </div>
       </div>
     );
   }

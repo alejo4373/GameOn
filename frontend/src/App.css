@@ -3,6 +3,7 @@ html, body {
 }
 body {
   text-align: center;
+  width: 100%;
 }
 
 .login-container {

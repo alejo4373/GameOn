@@ -26,7 +26,7 @@ class HUB extends Component {
     return (
       <div>
         <div>
-          <Navbar inverse collapseOnSelect>
+          <Navbar inverse collapseOnSelect fixedTop>
             <Navbar.Header>
               <Navbar.Brand>
                 <Link to="/user/dashboard">GameOn</Link>
