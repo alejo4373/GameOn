@@ -17,9 +17,8 @@ export default class SportTiles extends Component {
       this.setState({
         sports: res.data.sports
       })
-      .catch(err => console.log("Error Getting All Sports:", err));
-  };
-
+   }).catch(err => console.log("Error Getting All Sports:", err));
+  }
   componentWillMount() {
     this.getAllSports();
   }
