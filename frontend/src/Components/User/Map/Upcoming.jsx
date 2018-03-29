@@ -81,8 +81,8 @@ class Upcoming extends Component {
     ]
   };
   render() {
-    const { event } = this.state;
-    console.log(event);
+    const { events } = this.props;
+    console.log(events);
     return (
       <Panel defaultExpanded id='event-panel'>
         <Panel.Heading>
@@ -92,21 +92,21 @@ class Upcoming extends Component {
           {/* <Panel.Body>Some default panel content here.</Panel.Body> */}
           <div id="event_container">
             <ListGroup>
-              {event.map(e => {
+              {events.map(e => {
                 return (
                   <div className="individual_event">
-                    <img className="host_img" src={e.host_img} width={"50px"} />
-                    <span className="host_Name">{e.host}</span>
+                    <img className="host_img" src={e.event_pic} width={"50px"} />
+                    <span className="host_Name">{e.name}</span>
                     <div className="event_descriptions">
-                      <span className="event_date">Date: {e.date}</span>
+                      <span className="event_date">Date: {e.end_ts}</span>
                       <br />
-                      <span className="event_time">Time: {e.time}</span>
+                      <span className="event_time">Time: {e.start_ts}</span>
                       <br />
                       <span className="event_location">
                         Location: {e.location}
                       </span>
                       <br />
-                      <span>Sport: {e.sport}</span>
+                      <span>Sport: {e.sport_name}</span>
                     </div>
                   </div>
                 );

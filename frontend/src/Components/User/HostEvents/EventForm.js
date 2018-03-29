@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
+
 import moment from "moment";
 import "./time.css";
+import "./Events.css";
 import InputMoment from "input-moment";
-
 import Events from "./CreatedEvent";
 
 export default class Event extends React.Component {
@@ -13,29 +14,31 @@ export default class Event extends React.Component {
     this.state = {
       Name: "",
       m: moment(),
-      imgScr: null,
+      imgScr: "",
       Address: "",
       start: false,
       end: false,
-      DateInfo: null,
-      startTime: null,
-      endTime: null,
+      DateInfo: "",
+      startTime: "",
+      endTime: "",
       Description: "",
-      sport: null,
-      lat: null,
-      long: null,
+      sport: "",
+      lat: "",
+      long: "",
       submit: false,
-      event_id: null,
+      event_id: "",
       players: "",
       sports: [],
       gameFormat: [],
       format_id: "",
       sport_id: "",
-      event: ""
+      event: "",
+      searchResponses: []
     };
   }
 
   handleChange = e => {
+    const { Address } = this.state;
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -74,7 +77,6 @@ export default class Event extends React.Component {
       end: false
     });
   };
-
   handleToggle = e => {
     let name = e.target.name;
     this.setState({
@@ -105,29 +107,59 @@ export default class Event extends React.Component {
       endTime,
       Description,
       sport_id,
+      sportName,
       lat,
       long,
+      searchResponses,
       format_id
     } = this.state;
 
     axios
-      .post("/event/add", {
-        name: Name,
-        lat: 40.755603,
-        long: -73.984931,
-        location: Address,
-        start_ts: new Date(startTime).getTime(),
-        end_ts: new Date(endTime).getTime(),
-        description: Description,
-        sport_id: sport_id,
-        sport_format_id: format_id,
-        event_pic: imgScr
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${Address}&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
+      )
+      .then(res => {
+        console.log("Response API", res);
+        axios
+          .post("/event/add", {
+            name: Name,
+            lat: res.data.results[0].geometry.location.lat,
+            long: res.data.results[0].geometry.location.lng,
+            location: Address,
+            start_ts: new Date(startTime).getTime(),
+            end_ts: new Date(endTime).getTime(),
+            description: Description,
+            sport_id: sport_id,
+            sport_format_id: format_id,
+            event_pic: imgScr
+          })
+          .then(res => {
+            this.loadPage(res.data.event.id);
+          })
+          .catch(err => console.log("Error Adding Event:", err));
       })
-      .then(res => this.loadPage(res.data.event.id))
-      .catch(err => console.log(err));
+      .catch(error => console.error("Error", error));
   };
 
-  componentDidMount() {
+  onChange = e => {
+    const { Address } = this.state;
+    this.setState({
+      Address: e.target.value
+    });
+    axios
+      .get(
+        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
+          e.target.value
+        }&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
+      )
+      .then(res => {
+        this.setState({
+          searchResponses: res.data.predictions
+        });
+      });
+  };
+
+  componentWillMount() {
     axios
       .get("/user/sports")
       .then(res => {
@@ -152,38 +184,75 @@ export default class Event extends React.Component {
       start,
       end,
       team,
-      gameFormat
+gameFormat,
+      searchResponses
     } = this.state;
 
+    console.log("Response:", searchResponses);
     return (
-      <div>
-        <h1>Create An Event</h1>
+      <div id="event-form">
+        <h1 id="event-title">Create An Event</h1>
 
         <form onSubmit={this.handleSubmit}>
           {
             <input
+              required
               type="text"
-              name="text"
+              name="imgScr"
               value={imgScr}
               onChange={this.handleChange}
             />
           }
 
           <input
+            required
             type="text"
             name="Name"
             value={Name}
             placeholder="Event name"
             onInput={this.handleChange}
           />
+          <div id="autocomplete-form">
+            <input
+              required
+              type="text"
+              name="Address"
+              placeholder="Address"
+              value={Address}
+              onChange={this.onChange}
+              onFocus={Address}
+            />
+            {searchResponses.length ? (
+              <div id="address-response-container">
+                {searchResponses.map(res => {
+                  return (
+                    <div
+                      id="address-container"
+                      onClick={() =>
+                        this.setState({
+                          Address: res.description,
+                          searchResponses: []
+                        })
+                      }
+                    >
+                      {res.description}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
 
-          <input
+          {/* <input
+            required 
             type="text"
             name="Address"
             value={Address}
             placeholder="Address"
             onInput={this.handleChange}
-          />
+          /> */}
 
           <button name="start" onClick={this.handleToggle}>
             Start Time
@@ -238,6 +307,7 @@ export default class Event extends React.Component {
           </select>
 
           <input
+            required
             type="textarea"
             name="Description"
             value={Description}

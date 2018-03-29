@@ -54,6 +54,7 @@ export default class UserInfo extends Component {
   };
 
   editUserInfo = () => {
+   
     const {
       profile_username,
       profile_email,
@@ -61,14 +62,20 @@ export default class UserInfo extends Component {
       profile_zipcode
     } = this.state;
 
-    const { username, email, fullname, zipcode, id } = this.props;
+    const { username, email, fullname, zipcode, id, picture } = this.props;
+    console.log({username, email, fullname, zipcode, id})
+    console.log({ profile_username,
+      profile_email,
+      profile_fullname,
+      profile_zipcode})
     axios
       .patch("/user/edit", {
         id: id,
         username: profile_username ? profile_username : username,
         email: profile_email ? profile_email : email,
         fullname: profile_fullname ? profile_fullname : fullname,
-        zipcode: profile_zipcode ? profile_zipcode : zipcode
+        zipcode: profile_zipcode ? profile_zipcode : zipcode,
+        picture: picture
       })
       .then(res => {
         this.setState({
