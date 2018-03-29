@@ -26,7 +26,8 @@ export default class Events extends React.Component {
       this.setState({
         event: res.data.event
       });
-    });
+    })
+    .catch(err => console.log('err retrieving the event info', err));
   }
 
   joinEvent = () => {
@@ -38,9 +39,10 @@ export default class Events extends React.Component {
       })
       .then(res => {
         this.setState({
-          msg: "Congratulations! You have been added to the event"
-        }).catch(err => console.log("error fetching the event", err));
-      });
+          msg: "Congratulations! You have been added to the event",
+          show: false
+        });
+      }).catch(err => console.log("error fetching the event", err));
   };
 
   leaveEvent = () => {
@@ -77,6 +79,7 @@ export default class Events extends React.Component {
   form = () => {
     const { event, joined, teams, click, show, msg } = this.state;
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
+    console.log('showing state', show)
     return (
       <div className='eventpage'>
         <Template event = { event }/>

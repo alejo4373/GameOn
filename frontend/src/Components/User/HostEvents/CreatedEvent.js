@@ -18,7 +18,8 @@ export default class Events extends React.Component {
       this.setState({
         delete: true
       })
-    );
+    )
+    .catch(err => console.log('err deleting the event', err));
   };
 
   form = () => {
