@@ -237,7 +237,7 @@ const getEventInfo = (eventId, callback) => {
           }
           callback(null, eventInfo)
         })
-        .then(err => callback(err))
+        .catch(err => callback(err))
     })
     .catch(err => callback(err));
 }
