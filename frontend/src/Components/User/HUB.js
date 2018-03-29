@@ -75,8 +75,8 @@ class HUB extends Component {
             <Route path="/user/profile" component={Profile} />
             <Route path="/user/map" component={Map} />
             <Route path="/user/leaderboard" component={Leaderboard} />
-            <Route path="/user/event" component={Events} />
-            <Route path="/user/events/:id" component={CurrentEvent} />
+            <Route exact path="/user/event" component={Events} />
+            <Route path="/user/event/:id" component={CurrentEvent} />
             <Route path="/user/history" component={History} />
           </Switch>
         </div>

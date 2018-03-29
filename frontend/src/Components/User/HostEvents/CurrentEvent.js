@@ -1,91 +1,101 @@
-import React from 'react';
-import axios from 'axios';
-import moment from 'moment';
+import React from "react";
+import axios from "axios";
+import moment from "moment";
+import { Modal, Button } from "react-bootstrap";
+import Template from "./EventTemplate";
+import Team from "./TeamSelector"
 
-export default class Events extends React.Component{
-    constructor(){
-        super()
+export default class Events extends React.Component {
+  constructor() {
+    super();
 
-        this.state = {
-            event: null,
-            joined: false,
-            msg:''
-        }
-    }
-    
-    componentDidMount(){
-        console.log('starting and then going to get the data')
-        const id = this.props.match.params.id
-        axios.get(`/event/info/${id}`)
-        .then(res => {
-            console.log('data receiving',res.data.event)
-            this.setState({
-                event: res.data.event
-            })
-        })
-    }
+    this.state = {
+      currentEvent: null,
+      teams: [],
+      team:'',
+      click: false,
+      show: false,
+      msg: ""
+    };
+  }
 
-    handleToggle = () => {
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    axios.get(`/event/info/${id}`).then(res => {
+      console.log("data receiving", res.data.event);
+      this.setState({
+        event: res.data.event
+      });
+    })
+    .catch(err => console.log('err retrieving the event info', err));
+  }
+
+  joinEvent = () => {
+    const { event, team } = this.state;
+    axios
+      .post("/event/join", {
+        event_id: event.id,
+        team: team
+      })
+      .then(res => {
         this.setState({
-            joined: !this.state.joined
+          msg: "Congratulations! You have been added to the event",
+          show: false
+        });
+      }).catch(err => console.log("error fetching the event", err));
+  };
+
+  leaveEvent = () => {
+    const { event } = this.state;
+    axios
+      .delete("/event/leave", {
+        event_id: event.id
+      })
+      .then(
+        this.setState({
+          joined: false,
+          show: false
         })
-    }
+      )
+      .catch(err => {
+        console.log("error leaving the group", err);
+      });
+  };
 
+  handleClose = () => {
+    this.setState({ show: false });
+  };
 
-    form = () => {
-        const { event, joined } = this.state
-        const date = new Date(Number(event.start_ts))
-        const end = new Date(Number(event.end_ts))
-        return(
-            <div>
-               <h3>Name <span>{event.name}</span></h3>
-               <h3>Sport <span>{event.sport_id}</span></h3>
-               <h3>Location <span>{event.location}</span></h3>
-               <h3>Date <span>{date.toDateString()}</span></h3>
-               <h3>Start Time <span>{date.toTimeString()}</span></h3>
-               <h3>End Time <span>{end.toTimeString()}</span></h3>
-               <h3>Organizer <span>{event.players_usernames[0]}</span></h3>
-               <h3>Description <span>{event.description}</span></h3>
-               { joined?  <button onClick = {this.leaveEvent} >Leave</button> : <button onClick = {this.joinEvent} >Join</button>  }
-        </div>
-        )
-    }
+  handleShow = () => {
+    this.setState({ show: true });
+  };
 
-    joinEvent = () =>{
-        const { event } = this.state
-        axios.post('/event/join',{
-            event_id:event.id
-        })
-        .then(res => {
-         this.setState({
-            msg:'Congratulations! You have been added to the event',
-            joined:true
-       })
-   })
-        .catch(err => console.log('error fetching the event', err))
-    }
+  selectTeam = (e) => {
+      this.setState({
+          team:e.target.value
+      })
+  }
 
+  form = () => {
+    const { event, joined, teams, click, show, msg } = this.state;
+    const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
+    console.log('showing state', show)
+    return (
+      <div className='eventpage'>
+        <Template event = { event }/>
+        {show ? (
+          <button onClick={leaveEvent}>Leave</button>
+        ) : (
+          <button onClick={handleShow}>Join</button>
+        )}
+        { msg }
+        <Team show={show} handleClose={handleClose} selectTeam= {selectTeam} joinEvent={joinEvent}/>
+      </div>
+    );
+  };
 
-    leaveEvent = () => {
-        const { event } = this.state
-        axios.delete('/event/leave',{
-            event_id:event.id
-        })
-        .then(
-            this.setState({
-                joined:false
-            })
-        )
-        .catch(err => {
-            console.log('error leaving the group', err)})
-    }
-
-    render(){
-        const { event } = this.state
-        return(
-            <div>
-                {event ? this.form() : ''}
-            </div>
-        )
-    }
+  render() {
+    const { event } = this.state;
+    return <div>{event ? this.form() : ""}</div>;
+  }
 }

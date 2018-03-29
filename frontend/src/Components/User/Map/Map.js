@@ -50,8 +50,9 @@ export class MapContainer extends Component {
       selectedEvents: {},
       hostedEvents: [],
       userCurrentLocation: "",
-      allSports: [{name: 'All'}],
-      miles: 5
+      allSports: [{name: 'All', id: null}],
+      miles: 5,
+      sportID: ''
     };
   }
 
@@ -100,7 +101,7 @@ export class MapContainer extends Component {
     }
   };
 
-  getUserCurrentLocation = (callback, miles = this.state.miles) => {
+  getUserCurrentLocation = (callback, miles = this.state.miles, id) => {
     var options = {
       enableHighAccuracy: true,
       timeout: 500,
@@ -109,22 +110,23 @@ export class MapContainer extends Component {
 
     function error(err) {
       console.log("error", err);
-      callback(40.6619451, -73.8946182, miles);
+      callback(40.7128, -73.935242, miles, id);
       //40.6619451,-73.8946182
     }
     function showPosition(position) {
       if (position) {
-        callback(position.coords.latitude, position.coords.longitude, miles);
+        callback(position.coords.latitude, position.coords.longitude, miles, id);
       }
     }
 
     navigator.geolocation.getCurrentPosition(showPosition, error, options);
   };
 
-  getAllHostedEvents = (latitude, longitude, miles) => {
-    console.log(miles);
+  getAllHostedEvents = (latitude, longitude, miles, id) => {
+    console.log(id);
+
     axios
-      .get(`/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}`)
+      .get(`/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${id!==undefined?id:''}`)
       .then(res => {
         console.log("HostData:", res.data);
         this.setState({
@@ -132,6 +134,25 @@ export class MapContainer extends Component {
         });
       });
   };
+
+  handleSportSelector = (e) => {
+    const {miles} = this.state
+
+    let id = e.target.value
+
+    this.setState({
+      sportID: id
+    })
+
+    console.log("SportsID", id)
+    if(id === 'All'){
+      id=''
+     return this.getUserCurrentLocation(this.getAllHostedEvents, miles, id )
+    }else{
+     return  this.getUserCurrentLocation(this.getAllHostedEvents, miles, id )
+    }
+    
+  }
 
   componentWillMount() {
     this.getUserCurrentLocation(this.getAllHostedEvents);
@@ -164,15 +185,15 @@ export class MapContainer extends Component {
                 max={8}
                 handle={this.handle}
                 onChange={props =>
-                  this.getUserCurrentLocation(this.getAllHostedEvents, props)
+                  this.getUserCurrentLocation(this.getAllHostedEvents, props, this.state.sportID)
                 }
               />
             </div>
            <div style={{position: 'absolute', marginLeft: 20}}>Select A Sport:</div> 
-              <FormControl componentClass="select" placeholder="select" bsClass="formControlsSelect">
+              <FormControl componentClass="select" placeholder="select" bsClass="formControlsSelect"  onChange={this.handleSportSelector}>
               {allSports.map(s => {
                 return (
-                  <option id={s.id} value={s.name}>{s.name}</option>
+                  <option value={s.id}>{s.name}</option>
                 )
               })}
                
@@ -204,6 +225,7 @@ export class MapContainer extends Component {
                     description={e.description}
                     position={{ lat: e.lat, lng: e.long }}
                     onClick={this.onMarkerClick}
+                    profile_pic={e.profile_pic}
                     icon={{
                       url: `/images/${e.sport_name}-marker.png`
                     }}
