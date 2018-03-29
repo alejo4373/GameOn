@@ -15,8 +15,6 @@ export default class Event extends React.Component {
       Name: "",
       m: moment(),
       imgScr: "",
-      sportIDs: "",
-      sportName: "",
       Address: "",
       start: false,
       end: false,
@@ -31,7 +29,7 @@ export default class Event extends React.Component {
       event_id: "",
       players: "",
       sports: [],
-      gameCombo: [],
+      gameFormat: [],
       format_id: "",
       sport_id: "",
       event: "",
@@ -50,21 +48,17 @@ export default class Event extends React.Component {
     this.setState({ m });
   };
 
-  //Will have to change this to receive the sport name not sport_id
-  //Get request to get possible combinations possible
-  handleSelect = e => {
+  handleSportSelect = e => {
     const id = e.target.value;
-    console.log(id)
     axios.get(`/sport/formats/${id}`).then(res => {
-      // const gameFormats = res.data.formats.map(elem => elem.description)
       this.setState({
-        gameCombo: res.data.formats,
+        gameFormat: res.data.formats,
         sport_id: Number(id)
       });
     });
   };
 
-  handleFormat = e => {
+  handleSportFormat = e => {
     this.setState({
       format_id: e.target.value
     });
@@ -93,12 +87,12 @@ export default class Event extends React.Component {
   loadPage = id => {
     axios
       .get(`/event/info/${id}`)
-      .then(res => {
+      .then(res =>
         this.setState({
           event: res.data,
           submit: true
-        });
-      })
+        })
+      )
       .catch(err => console.log(err));
   };
 
@@ -170,11 +164,8 @@ export default class Event extends React.Component {
       .get("/user/sports")
       .then(res => {
         console.log(res.data);
-        const names = res.data.sports.map(sport => sport.name);
-        const id = res.data.sports.map(sport => sport.id);
         this.setState({
-          sports: names,
-          sportIDs: id
+          sports: res.data.sports
         });
       })
       .catch(err => console.log(err));
@@ -193,7 +184,7 @@ export default class Event extends React.Component {
       start,
       end,
       team,
-      gameCombo,
+gameFormat,
       searchResponses
     } = this.state;
 
@@ -301,20 +292,16 @@ export default class Event extends React.Component {
             ""
           )}
 
-          <select required onChange={this.handleSelect}>
+          <select onChange={this.handleSportSelect}>
             {["", ...sports].map((sport, idx) => (
-              <option
-                key={idx}
-                value={sport ? this.state.sportIDs[idx - 1] : ""}
-                // value={sport ? sport : ""}
-              >
-                {sport}
+              <option key={idx} value={sport.id}>
+                {sport.name}
               </option>
-            ))}
+            ))}wq
           </select>
 
-          <select class="team" onChange={this.handleFormat}>
-            {["", ...gameCombo].map(game => (
+          <select class="team" onChange={this.handleSportFormat}>
+            {["", ...gameFormat].map(game => (
               <option value={game.id}>{game.description}</option>
             ))}
           </select>
@@ -334,7 +321,7 @@ export default class Event extends React.Component {
     );
   };
   render() {
-    const { submit, sports, event } = this.state;
+    const { submit, event } = this.state;
     return <div>{submit ? <Events event={event} /> : this.form()}</div>;
   }
 }

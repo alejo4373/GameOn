@@ -3,7 +3,8 @@ import axios from "axios";
 import moment from "moment";
 import { Modal, Button } from "react-bootstrap";
 import Template from "./EventTemplate";
-import Team from "./TeamSelector"
+import Team from "./TeamSelector";
+import Timer from "moment-timer";
 
 export default class Events extends React.Component {
   constructor() {
@@ -15,7 +16,10 @@ export default class Events extends React.Component {
       team:'',
       click: false,
       show: false,
-      msg: ""
+      msg: '',
+      time:'',
+      m:moment().hour(0).minutes(0).second(0),
+      startTime: '',
     };
   }
 
@@ -76,9 +80,24 @@ export default class Events extends React.Component {
       })
   }
 
+  startTime = () => {
+    this.setState({
+      startGame:this.state.m
+    })
+  }
+
+  endTime = () => {
+    this.setState({
+      endGame: this.state.m
+    })
+  }
+
   form = () => {
     const { event, joined, teams, click, show, msg } = this.state;
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
+    const teamA = event.players.filter(player => player.team === 'A')
+    const teamB = event.players.filter(player => player.team === 'B')
+
     console.log('showing state', show)
     return (
       <div className='eventpage'>
@@ -88,7 +107,13 @@ export default class Events extends React.Component {
         ) : (
           <button onClick={handleShow}>Join</button>
         )}
-        { msg }
+        <h3>Team A</h3>
+        {teamA.map(player => <li>{player.username}</li>)}
+        <h3>Team B</h3>
+        {teamB.map(player => <li>{player.username}</li>)}
+
+        <button>Start Game</button>
+
         <Team show={show} handleClose={handleClose} selectTeam= {selectTeam} joinEvent={joinEvent}/>
       </div>
     );
