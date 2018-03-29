@@ -106,13 +106,11 @@ VALUES ('1', '1x1', 1),
 INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)
 VALUES('Alejandro Franco', 'alejo4373', 'alejandro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Martin Ramirez', 'maito2018', 'maitoawesome@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
-      ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50)
-      ;
+      ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50);
 
 INSERT INTO users_sports (sport_id, user_id)
 VALUES(1, 1),
-      (2, 1)
-      ;
+      (2, 1);
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_format_id, event_pic, description)
 VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', '6x6 bring hydration'),
