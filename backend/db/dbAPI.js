@@ -155,35 +155,23 @@ const deleteSport = (user_id, sport_id, callback) => {
 };
 
 const addEvent = (event, callback) => {
-  //How the event should look like coming from the frontend
-  // var event = {
-  //   host_id: 2,
-  //   lat: 40.747387,
-  //   long: -73.949494,
-  //   start_ts: 1521774233284,
-  //   end_ts: 1521775961187,
-  //   event_pic: '/images/event.png'
-  // }
   db.one(
-      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description)' + 
+      'INSERT INTO events(host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_format_id, event_pic, description)' + 
       'VALUES(${host_id}, ${lat}, ${long}, ${start_ts}, ${end_ts}, ${name},' +
-      '${location}, ${sport_id}, ${event_pic}, ${description})'+
+      '${location}, ${sport_id}, ${sport_format_id}, ${event_pic}, ${description})'+
       'RETURNING id, host_id, lat, long, start_ts, end_ts, name, location, sport_id, event_pic, description', 
       event)
     .then((insertedEvent) => {
       //Once the event has been created we want the host itself to be joined to the event 
-      //(even tho it seems odious) here we do soo
+      //we also want the host to be part of team A and of course to be the match judge for team A
+      //(even tho it seems obvious) here we do so
       console.log('event ====>', insertedEvent)
       db.any(
-        'INSERT INTO players_events(event_id, player_id) VALUES(${id}, ${host_id})', 
+        "INSERT INTO players_events(event_id, player_id, team, match_judge) VALUES(${id}, ${host_id}, 'A', TRUE)", 
         insertedEvent) 
         .then(() => {
           const newlyCreatedEvent = {
             ...insertedEvent,
-            //The following 2 lines are being sent back to keep the data consistent when getting info
-            //about an event either when is newly created or when requested with id by client
-            players_usernames: [event.host_username], 
-            players_ids: [event.host_id]
           }
           callback(null, newlyCreatedEvent)
         })
@@ -200,9 +188,9 @@ const deleteEvent = (deleteReq, callback) => {
 
 const joinEvent = (joinReq, callback) => {
   db.one(
-    'INSERT INTO  players_events(event_id, player_id)' +
-    'VALUES (${event_id}, ${player_id})' +
-    'RETURNING event_id, player_id', 
+    'INSERT INTO  players_events(event_id, player_id, team)' +
+    'VALUES (${event_id}, ${player_id},  ${team})' +
+    'RETURNING event_id, player_id, team', 
     joinReq)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
@@ -226,26 +214,66 @@ const getEventInfo = (eventId, callback) => {
   db.one(
     `SELECT 
       events.*,
-      json_agg(users.username) AS players_usernames,
-      json_agg(users.id) AS players_ids
-    FROM users
-    INNER JOIN players_events ON players_events.player_id = users.id
-    INNER JOIN events ON events.id = players_events.event_id
-    WHERE players_events.event_id = $1
-    GROUP BY(events.id)`, eventId)
+      sports.name as sport_name,
+      sports_format.description as sport_format
+    FROM events
+    INNER JOIN sports ON sports.id = events.sport_id
+    INNER JOIN sports_format ON sports_format.id = events.sport_format_id
+    WHERE events.id = $1;`, eventId)
+    .then((event) => {
+      db.any(
+        `SELECT 
+          users.id,
+          users.username,
+          players_events.team,
+          players_events.match_judge
+        FROM users
+        JOIN players_events ON users.id = players_events.player_id
+        WHERE players_events.event_id = $1`, eventId)
+        .then(players => {
+          const eventInfo = {
+            ...event,
+            players: players
+          }
+          callback(null, eventInfo)
+        })
+        .then(err => callback(err))
+    })
+    .catch(err => callback(err));
+}
+
+const getAllEventsInRadius = (latLongRange, callback) => {
+  console.log('calling getAllEventsInRadius')
+  db.any(
+    `SELECT 
+      events.*,
+      sports.name AS sport_name
+    FROM events
+    INNER JOIN sports ON events.sport_id = sports.id
+    WHERE lat BETWEEN $/minLat/ AND $/maxLat/
+    AND long BETWEEN $/minLon/ AND $/maxLon/`
+    , latLongRange)
     .then((data) => callback(null, data))
     .catch(err => callback(err));
 }
 
-const getEventsInRadius = (locationRange, callback) => {
+const getEventsForSportInRadius = (latLongRange, sport_id, callback) => {
   db.any(
     `SELECT 
-      events.*
+      events.*,
+      sports.name AS sport_name
     FROM events
+    INNER JOIN sports ON events.sport_id = sports.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
-    AND long BETWEEN $/minLon/ AND $/maxLon/`
-    , locationRange)
+    AND long BETWEEN $/minLon/ AND $/maxLon/ AND events.sport_id = $/sport_id/`
+    , {...latLongRange, sport_id})
     .then((data) => callback(null, data))
+    .catch(err => callback(err));
+}
+
+const getSportFormats = (sport_id, callback) => {
+  db.any(`SELECT sports_format.*, name FROM sports_format JOIN sports ON sports_format.sport_id = sports.id WHERE sport_id = $1`, sport_id)
+    .then((formats) => callback(null, formats))
     .catch(err => callback(err));
 }
 
@@ -255,16 +283,19 @@ module.exports = {
   registerUser: registerUser,
   getUserInfo: getUserInfo,
   getSportsForUser: getSportsForUser,
-  getAllSports: getAllSports,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
+  /*- Sports Related */
   addSport: addSport,
   deleteSport: deleteSport,
+  getAllSports: getAllSports,
+  getSportFormats: getSportFormats,
 
   /*- Events Related */
   addEvent: addEvent,
   getEventInfo: getEventInfo,
-  getEventsInRadius: getEventsInRadius,
+  getAllEventsInRadius: getAllEventsInRadius,
+  getEventsForSportInRadius: getEventsForSportInRadius,
   joinEvent: joinEvent,
   leaveEvent: leaveEvent,
   deleteEvent, deleteEvent
