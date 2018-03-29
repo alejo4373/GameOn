@@ -3,7 +3,8 @@ import axios from "axios";
 import moment from "moment";
 import { Modal, Button } from "react-bootstrap";
 import Template from "./EventTemplate";
-import Team from "./TeamSelector"
+import Team from "./TeamSelector";
+import Timer from "moment-timer";
 
 export default class Events extends React.Component {
   constructor() {
