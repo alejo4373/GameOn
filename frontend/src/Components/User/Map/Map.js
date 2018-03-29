@@ -50,9 +50,9 @@ export class MapContainer extends Component {
       selectedEvents: {},
       hostedEvents: [],
       userCurrentLocation: "",
-      allSports: [{name: 'All', id: null}],
+      allSports: [{ name: "All", id: "" }],
       miles: 5,
-      sportID: ''
+      sportID: ""
     };
   }
 
@@ -73,16 +73,19 @@ export class MapContainer extends Component {
     );
   };
 
- getAllSports = () => {
-   const {allSports} = this.state
-   axios
-   .get('/sport/all')
-   .then(res => {
-     this.setState({
-       allSports: allSports.concat(res.data.sports)
-     })
-   }).catch(err => {console.log("Error Retrieving Sports:", err)})
- }
+  getAllSports = () => {
+    const { allSports } = this.state;
+    axios
+      .get("/sport/all")
+      .then(res => {
+        this.setState({
+          allSports: allSports.concat(res.data.sports)
+        });
+      })
+      .catch(err => {
+        console.log("Error Retrieving Sports:", err);
+      });
+  };
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -115,7 +118,12 @@ export class MapContainer extends Component {
     }
     function showPosition(position) {
       if (position) {
-        callback(position.coords.latitude, position.coords.longitude, miles, id);
+        callback(
+          position.coords.latitude,
+          position.coords.longitude,
+          miles,
+          id
+        );
       }
     }
 
@@ -126,7 +134,11 @@ export class MapContainer extends Component {
     console.log(id);
 
     axios
-      .get(`/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${id!==undefined?id:''}`)
+      .get(
+        `/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${
+          id !== undefined ? id : ""
+        }`
+      )
       .then(res => {
         console.log("HostData:", res.data);
         this.setState({
@@ -135,33 +147,27 @@ export class MapContainer extends Component {
       });
   };
 
-  handleSportSelector = (e) => {
-    const {miles} = this.state
+  handleSportSelector = e => {
+    const { miles } = this.state;
 
-    let id = e.target.value
+    let id = e.target.value;
 
     this.setState({
       sportID: id
-    })
+    });
 
-    console.log("SportsID", id)
-    if(id === 'All'){
-      id=''
-     return this.getUserCurrentLocation(this.getAllHostedEvents, miles, id )
-    }else{
-     return  this.getUserCurrentLocation(this.getAllHostedEvents, miles, id )
-    }
-    
-  }
+    console.log("SportsID", id);
+    this.getUserCurrentLocation(this.getAllHostedEvents, miles, id);
+  };
 
   componentWillMount() {
     this.getUserCurrentLocation(this.getAllHostedEvents);
-    this.getAllSports()
+    this.getAllSports();
   }
 
   render() {
     const { hostedEvents, selectedEvents, allSports, miles } = this.state;
-    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40, };
+    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
     return (
       <div>
         <div id="map-tabs">
@@ -169,8 +175,8 @@ export class MapContainer extends Component {
             <Tab eventKey={1} title="Upcoming Events">
               <Upcoming events={hostedEvents} />
             </Tab>
-            <Tab eventKey={2} title="Host Event" >
-            <HostEvents />
+            <Tab eventKey={2} title="Host Event">
+              <HostEvents />
             </Tab>
           </Tabs>
         </div>
@@ -185,20 +191,27 @@ export class MapContainer extends Component {
                 max={8}
                 handle={this.handle}
                 onChange={props =>
-                  this.getUserCurrentLocation(this.getAllHostedEvents, props, this.state.sportID)
+                  this.getUserCurrentLocation(
+                    this.getAllHostedEvents,
+                    props,
+                    this.state.sportID
+                  )
                 }
               />
             </div>
-           <div style={{position: 'absolute', marginLeft: 20}}>Select A Sport:</div> 
-              <FormControl componentClass="select" placeholder="select" bsClass="formControlsSelect"  onChange={this.handleSportSelector}>
+            <div style={{ position: "absolute", marginLeft: 20 }}>
+              Select A Sport:
+            </div>
+            <FormControl
+              componentClass="select"
+              placeholder="select"
+              bsClass="formControlsSelect"
+              onChange={this.handleSportSelector}
+            >
               {allSports.map(s => {
-                return (
-                  <option value={s.id}>{s.name}</option>
-                )
+                return <option value={s.id}>{s.name}</option>;
               })}
-               
-              </FormControl>
-         
+            </FormControl>
           </div>
           <Map
             google={this.props.google}
