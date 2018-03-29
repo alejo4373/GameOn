@@ -175,7 +175,7 @@ export default class Registration extends Component {
             align="left"
           />
         
-        { nextPressed ? (
+        { true ? (
           <div>
             <Selection
               emailInput={emailInput}
