@@ -87,7 +87,8 @@ router.get('/info/:eventId', loginRequired, (req, res, next) => {
 })
 
 router.get('/radius', loginRequired, (req, res, next) => {
-  const { radius, lat, long } = req.query 
+  const { radius, lat, long, sport_id } = req.query 
+  console.log('sport_id', sport_id)
   //using helper library to get range of lat and long for the given
   //radius
   const locationRange = geo.buildLocationRange(
@@ -95,14 +96,20 @@ router.get('/radius', loginRequired, (req, res, next) => {
     Number.parseFloat(long),
     Number(radius)
   )
-  dbAPI.getEventsInRadius(locationRange, (err, events) => {
+
+  const callback = (err, events) =>{
     if(err) { return next(err) }
     res.status(200)
     res.json({
       events: events,
       msg: 'Events retrieved'
     })
-  })
+  }
+
+  if(!sport_id){
+   return dbAPI.getAllEventsInRadius(locationRange, callback)
+  }
+  dbAPI.getEventsForSportInRadius(locationRange, sport_id, callback)
 })
 
 
