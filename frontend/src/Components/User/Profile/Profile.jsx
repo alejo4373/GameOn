@@ -7,11 +7,7 @@ import ProfileSports from "./ProfileSports";
 import {
   Modal,
   Button,
-  Col,
-  Grid,
-  Jumbotron,
   Form,
-  PageHeader,
   FormGroup,
   ControlLabel,
   FormControl,

@@ -26,14 +26,6 @@ class Selection extends Component {
         selectedSports: [...selectedSports, {sport,id}],
       });
     }
-    
-    this.state.selectedSports.map(s => {
-      // if (sport === s ) {
-      //   console.log("blue")
-      // } 
-      console.log(s)
-    })
-    
   };
 
   /*
@@ -76,7 +68,7 @@ class Selection extends Component {
       zipcodeInput
     } = this.props
 
-    console.log(selectedSports);
+    // console.log(selectedSports);
 
     return (
       <div>

@@ -30,22 +30,45 @@
 }
 
 #lets_play_link {
-    /* background-color: crimson; */
     margin: 0;
     position: relative;
     top: -40vh;
     color: White;
-    font-size: 40px;
+    font-size: 45px;
     margin: 0;
+    text-decoration: none;
+}
+
+#login-subtitle {
+
+}
+
+#arrow {
+    /* border: 2px red solid; */
+    position: relative;
+    top: -2vh;
 }
 
 #form_container {
     position: relative;
-    /* margin-top: 10%; */
-    margin-bottom: 10%;
+    top: -10vh;
 }
 
-input[type=input], input[type=password]{
+#home_form_container {
+    position: fixed;
+    margin-left: 30px;
+    margin-top: 10%;
+    top: 12vh;
+    width: 45%;
+    background-color: #6d6a6a7a;
+}
+
+#login {
+    font-size: 25px;
+    color: block;
+}
+
+input[id=login-input], input[id=login-password]{
     width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -55,7 +78,7 @@ input[type=input], input[type=password]{
     box-sizing: border-box;
 }
 
-input[type=submit] {
+input[id=login-submit] {
     /* width: 50%; */
     background-color: #4CAF50;
     color: white;
@@ -66,11 +89,8 @@ input[type=submit] {
     cursor: pointer;
 }
 
+#homePage-question {
 
-#loginSubmitButton {
-    padding-right: 5%;
-    padding-left: 5%;
-    margin-bottom: 1%;
 }
 
 
@@ -88,4 +108,3 @@ input[type=submit] {
 #signup {
     font-size: 18px;
 } 
-
