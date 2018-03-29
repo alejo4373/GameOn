@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-
 import moment from "moment";
 import "./time.css";
 import "./Events.css";
@@ -16,23 +14,24 @@ export default class Event extends React.Component {
     this.state = {
       Name: "",
       m: moment(),
-      imgScr: '',
+      imgScr: "",
       sportIDs: "",
       sportName: "",
       Address: "",
       start: false,
       end: false,
-      DateInfo: null,
-      startTime: null,
-      endTime: null,
+      DateInfo: "",
+      startTime: "",
+      endTime: "",
       Description: "",
-      sport: null,
-      lat: null,
-      long: null,
+      sport: "",
+      lat: "",
+      long: "",
       submit: false,
-      event_id: null,
+      event_id: "",
       players: "",
-      sports: []
+      sports: [],
+      searchResponses: []
     };
   }
 
@@ -41,27 +40,6 @@ export default class Event extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    if (e.target.name === "Description" && Address) {
-      // axios
-      //   .get(
-      //     `https://maps.googleapis.com/maps/api/geocode/json?address=${Address}&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
-      //   )
-      //   .then(res => {
-      //     console.log("EventForm:", res);
-      //     console.log(
-      //       "Lat:",
-      //       res.data.results[0].geometry.location.lat,
-      //       "Lng:",
-      //       res.data.results[0].geometry.location.lng
-      //     );
-      //     this.setState({
-      //       lat: res.data.results[0].geometry.location.lat,
-      //       long: res.data.results[0].geometry.location.lng
-      //     });
-      //   })
-      //   .catch(err => console.log(err));
-
-    }
   };
 
   handleMoment = m => {
@@ -115,39 +93,57 @@ export default class Event extends React.Component {
       sport_id,
       sportName,
       lat,
-      long
+      long,
+      searchResponses
     } = this.state;
 
-    geocodeByAddress(Address)
-      .then(results => getLatLng(results[0]))
-      .then(res => {
-        axios
-        .post("/event/add", {
-          name: Name,
-          lat: res.lat,
-          long: res.lng,
-          location: Address,
-          start_ts: new Date(startTime).getTime(),
-          end_ts: new Date(endTime).getTime(),
-          description: Description,
-          sport_id: sport_id,
-          sport_name: sportName,
-          event_pic: imgScr
-        })
-        .then(res => {
-          this.setState({
-            submit: true,
-            players: res.data.event.players_usernames,
-            event_id: res.data.event.id
-          });
-        })
-        .catch(err => console.log("Error Adding Event:", err));
+    axios
+    .get(`https://maps.googleapis.com/maps/api/geocode/json?address=${Address}&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`)
+    .then(res => {
+      console.log("Response API", res)
+      axios
+          .post("/event/add", {
+            name: Name,
+            lat: res.data.results[0].geometry.location.lat,
+            long: res.data.results[0].geometry.location.lng,
+            location: Address,
+            start_ts: new Date(startTime).getTime(),
+            end_ts: new Date(endTime).getTime(),
+            description: Description,
+            sport_id: sport_id,
+            sport_name: sportName,
+            event_pic: imgScr
+          })
+          .then(res => {
+            this.setState({
+              submit: true,
+              players: res.data.event.players_usernames,
+              event_id: res.data.event.id
+            });
+          })
+          .catch(err => console.log("Error Adding Event:", err));
       })
-      .catch(error => console.error('Error', error))
-  
-  };
+      .catch(error => console.error("Error", error));
+      
+    }
 
- onChange = (Address) => {this.setState({ Address })}
+  onChange = e => {
+    const { Address } = this.state;
+    this.setState({
+      Address: e.target.value
+    });
+    axios
+      .get(
+        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
+          e.target.value
+        }&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
+      )
+      .then(res => {
+        this.setState({
+          searchResponses: res.data.predictions
+        });
+      });
+  };
 
   componentWillMount() {
     axios.get("/user/sports").then(res => {
@@ -172,14 +168,11 @@ export default class Event extends React.Component {
       Description,
       sports,
       start,
-      end
+      end,
+      searchResponses
     } = this.state;
 
-    const inputProps = {
-      value: Address,
-      onChange: this.onChange,
-    }
-
+    console.log("Response:", searchResponses);
     return (
       <div id="event-form">
         <h1 id="event-title">Create An Event</h1>
@@ -187,7 +180,7 @@ export default class Event extends React.Component {
         <form onSubmit={this.handleSubmit}>
           {
             <input
-              required 
+              required
               type="text"
               name="imgScr"
               value={imgScr}
@@ -196,21 +189,44 @@ export default class Event extends React.Component {
           }
 
           <input
-            required 
+            required
             type="text"
             name="Name"
             value={Name}
             placeholder="Event name"
             onInput={this.handleChange}
           />
-          <div id='autocomplete-form'>
-            <PlacesAutocomplete 
-            required 
-            type="text"
-            name="Address"
-            placeholder="Address"
-            inputProps={inputProps} 
-           />
+          <div id="autocomplete-form">
+            <input
+              required
+              type="text"
+              name="Address"
+              placeholder="Address"
+              value={Address}
+              onChange={this.onChange}
+              onFocus={Address}
+            />
+            {searchResponses.length ? (
+              <div id="address-response-container">
+                {searchResponses.map(r => {
+                  return (
+                    <div
+                      id="address-container"
+                      onClick={() =>
+                        this.setState({
+                          Address: r.description,
+                          searchResponses: []
+                        })
+                      }
+                    >
+                      {r.description}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           {/* <input
@@ -269,7 +285,7 @@ export default class Event extends React.Component {
           </select>
 
           <input
-            required 
+            required
             type="textarea"
             name="Description"
             value={Description}

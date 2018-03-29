@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { Redirect } from "react-router";
+
 import {
   Map,
   InfoWindow,
@@ -6,13 +9,37 @@ import {
   GoogleApiWrapper,
   google
 } from "google-maps-react";
-import axios from "axios";
-import { Redirect } from "react-router";
+import {
+  Tabs,
+  Tab,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  HelpBlock,
+  Checkbox
+} from "react-bootstrap";
+
+//Bootstrap Elements ~Kelvin
+import "rc-slider/assets/index.css";
+import "rc-tooltip/assets/bootstrap.css";
+import Tooltip from "rc-tooltip";
+import Slider from "rc-slider";
 
 import Profile from "../Profile/Profile";
 import Upcoming from "./Upcoming";
+import HostEvents from "../HostEvents/EventForm";
 
-var userPosition = [];
+const Handle = Slider.Handle;
+
+function FieldGroup({ id, label, help, ...props }) {
+  return (
+    <FormGroup controlId={id}>
+      <ControlLabel>{label}</ControlLabel>
+      <FormControl {...props} />
+      {help && <HelpBlock>{help}</HelpBlock>}
+    </FormGroup>
+  );
+}
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -23,9 +50,38 @@ export class MapContainer extends Component {
       selectedEvents: {},
       hostedEvents: [],
       userCurrentLocation: "",
-      allSports: []
+      allSports: [{name: 'All'}],
+      miles: 5
     };
   }
+
+  handle = props => {
+    const { value, dragging, index, ...restProps } = props;
+
+    return (
+      <Tooltip
+        prefixCls="rc-slider-tooltip"
+        overlay={value}
+        visible={dragging}
+        placement="top"
+        key={index}
+        show={value}
+      >
+        <Handle value={value} {...restProps} />
+      </Tooltip>
+    );
+  };
+
+ getAllSports = () => {
+   const {allSports} = this.state
+   axios
+   .get('/sport/all')
+   .then(res => {
+     this.setState({
+       allSports: allSports.concat(res.data.sports)
+     })
+   }).catch(err => {console.log("Error Retrieving Sports:", err)})
+ }
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -44,60 +100,99 @@ export class MapContainer extends Component {
     }
   };
 
-  getUserCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition(showPosition);
+  getUserCurrentLocation = (callback, miles = this.state.miles) => {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 500,
+      maximumAge: 0
+    };
 
+    function error(err) {
+      console.log("error", err);
+      callback(40.6619451, -73.8946182, miles);
+      //40.6619451,-73.8946182
+    }
     function showPosition(position) {
       if (position) {
-        console.log(position);
-        userPosition.longitude = position.coords.longitude;
-        userPosition.latitude = position.coords.latitude;
+        callback(position.coords.latitude, position.coords.longitude, miles);
       }
     }
+
+    navigator.geolocation.getCurrentPosition(showPosition, error, options);
   };
 
-  getAllHostedEvents = userPosition => {
-    if (userPosition.latitude) {
-      axios
-        .get(
-          `/event/radius?lat=${userPosition.latitude}&long=${
-            userPosition.longitude
-          }&radius=${10}`
-        )
-        .then(res => {
-          console.log("HostData:", res.data);
-          this.setState({
-            hostedEvents: res.data.events
-          });
+  getAllHostedEvents = (latitude, longitude, miles) => {
+    console.log(miles);
+    axios
+      .get(`/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}`)
+      .then(res => {
+        console.log("HostData:", res.data);
+        this.setState({
+          hostedEvents: res.data.events
         });
-    }
+      });
   };
 
   componentWillMount() {
-    this.getUserCurrentLocation();
-    setTimeout(() => {
-      this.getAllHostedEvents(userPosition);
-    }, 3500);
+    this.getUserCurrentLocation(this.getAllHostedEvents);
+    this.getAllSports()
   }
 
   render() {
-    const { hostedEvents, selectedEvents, allSports } = this.state;
-
+    const { hostedEvents, selectedEvents, allSports, miles } = this.state;
+    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40, };
     return (
       <div>
-       
-            <Upcoming events={hostedEvents} />
-         
+        <div id="map-tabs">
+          <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+            <Tab eventKey={1} title="Upcoming Events">
+              <Upcoming events={hostedEvents} />
+            </Tab>
+            <Tab eventKey={2} title="Host Event" >
+            <HostEvents />
+            </Tab>
+          </Tabs>
+        </div>
+
         <div id="google-map">
+          <div id="map-filter">
+            <div style={wrapperStyle}>
+              Select Miles
+              <Slider
+                defaultValue={miles}
+                min={1}
+                max={8}
+                handle={this.handle}
+                onChange={props =>
+                  this.getUserCurrentLocation(this.getAllHostedEvents, props)
+                }
+              />
+            </div>
+           <div style={{position: 'absolute', marginLeft: 20}}>Select A Sport:</div> 
+              <FormControl componentClass="select" placeholder="select" bsClass="formControlsSelect">
+              {allSports.map(s => {
+                return (
+                  <option id={s.id} value={s.name}>{s.name}</option>
+                )
+              })}
+               
+              </FormControl>
+         
+          </div>
           <Map
             google={this.props.google}
             initialCenter={{
-              lat: userPosition.latitude ? userPosition.latitude : 40.7128,
-              lng: userPosition.longitude ? userPosition.longitude : -73.935242
+              lat: 40.7128,
+              lng: -73.935242
             }}
             zoom={12}
             onClick={this.onMapClicked}
-            style={{width: '900px', marginLeft: "30%",}}
+            style={{
+              width: "900px",
+              marginLeft: "30%",
+              height: "675px",
+              marginTop: "4%"
+            }}
           >
             {hostedEvents.length
               ? hostedEvents.map(e => (
@@ -175,5 +270,3 @@ export default GoogleApiWrapper({
  * Google API To Convert Addresses into Coordinates
  * https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
  */
-
-
