@@ -1,22 +1,9 @@
 import React, { Component } from "react";
 import "./Form.css";
-import axios from "axios";
+// import axios from "axios";
 import { Link } from "react-router-dom";
-import { Redirect } from "react-router";
-import {
-  Col,
-  Grid,
-  Jumbotron,
-  Form,
-  Button,
-  PageHeader,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Image
-} from "react-bootstrap";
-
-
+// import { Redirect } from "react-router";
+import { Carousel } from "react-bootstrap";
 import Selection from "./Selection";
 
 export default class Registration extends Component {
@@ -176,9 +163,20 @@ export default class Registration extends Component {
     } = this;
 
     return (
-      <Grid>
-        {nextPressed ? (
-          <Grid>
+      <div>
+        <div className="pageHeader" />
+        <h1 id="login_title">
+          <strong>Game On!</strong> <br />
+        </h1>
+        <div id="image-containter">
+          <img
+            id="form-image"
+            src="/images/form-page-basketball-background.jpg"
+            align="left"
+          />
+        
+        { nextPressed ? (
+          <div>
             <Selection
               emailInput={emailInput}
               fullNameInput={fullNameInput}
@@ -186,119 +184,92 @@ export default class Registration extends Component {
               passwordInput={passwordInput}
               zipcodeInput={zipcodeInput}
             />
-          </Grid>
+          </div>
         ) : (
-          <Grid>
-            <Jumbotron bsClass="RegistrationJumbotron">
-              <PageHeader>
-                Game On! <br />
-                <small>Sign Up To Play, Compete, and Rank-Up</small>
-              </PageHeader>
-            </Jumbotron>
-
-            <Form horizontal onSubmit={submitForm}>
-              <FormGroup controlId="formControlsSelect">
-                <Col componentClass={ControlLabel} sm={2}>
-                  Email
-                </Col>
-                <Col sm={10}>
-                  <FormControl
+          <div id="container">
+            <div id="signup-form-container">
+              <p id="signup-title">
+                <strong>Sign Up To Play, Compete, and Rank-Up</strong>
+              </p>
+              <div id="form-container">
+                <form onSubmit={submitForm}>
+                  <input
+                    class="input"
+                    id="login-input"
                     type="email"
                     name="Email"
                     placeholder="Email"
                     value={emailInput}
                     onChange={handleEmailChange}
                   />
-                </Col>
-              </FormGroup>
-
-              <FormGroup>
-                <Col componentClass={ControlLabel} sm={2}>
-                  Full Name
-                </Col>
-                <Col sm={10}>
-                  <FormControl
+                  <br />
+                  <input
+                    class="input"
+                    id="login-input"
                     type="text"
                     name="Full name"
                     placeholder="Full name"
                     value={fullNameInput}
                     onChange={handleFullNameChange}
                   />
-                </Col>
-              </FormGroup>
-
-              <FormGroup>
-                <Col componentClass={ControlLabel} sm={2}>
-                  Username
-                </Col>
-                <Col sm={10}>
-                  <FormControl
+                  <br />
+                  <input
+                    class="input"
+                    id="login-input"
                     type="text"
                     name="username"
                     placeholder="Username"
                     value={usernameInput}
                     onChange={handleUsernameChange}
                   />
-                </Col>
-              </FormGroup>
-
-              <FormGroup>
-                <Col componentClass={ControlLabel} sm={2}>
-                  Zipcode
-                </Col>
-                <Col sm={10}>
-                  <FormControl
+                  <br />
+                  <input
+                    class="input"
+                    id="login-input"
                     type="text"
                     name="zip_code"
                     placeholder="Zipcode"
                     value={zipcodeInput}
                     onChange={this.handleZipCodeChange}
                   />
-                </Col>
-              </FormGroup>
-
-              <FormGroup>
-                <Col componentClass={ControlLabel} sm={2}>
-                  Password
-                </Col>
-                <Col sm={10}>
-                  <FormControl
+                  <br />
+                  <input
+                    class="input"
+                    id="login-password"
                     type="password"
                     name="password"
                     placeholder="Password"
                     value={passwordInput}
                     onChange={this.handlePasswordChange}
                   />
-                </Col>
-              </FormGroup>
-
-              <FormGroup>
-                <Col componentClass={ControlLabel} sm={2}>
-                  Confirm Password
-                </Col>
-                <Col sm={10}>
-                  <FormControl
+                  <br />
+                  <input
+                    class="input"
+                    id="login-password"
                     type="password"
                     name="confirm-input"
                     placeholder="Confirm Password"
                     value={confirmInput}
                     onChange={this.handleConfirmChange}
                   />
-                </Col>
-              </FormGroup>
-
-              <Button id="loginSubmitButton" type="submit">
-                Sign Up
-              </Button>
-              <p>{message}</p>
-              <p>
-                Have an account? <br />
-                <Link to="/login">Log In</Link>
-              </p>
-            </Form>
-          </Grid>
+                  <br />
+                  <input
+                    class="input"
+                    id="login-submit"
+                    type="submit"
+                    value="Sign Up"
+                  />
+                  <p>{message}</p>
+                  <p id="question">
+                    Have an account? <Link to="/login">Log In</Link>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
         )}
-      </Grid>
+        </div>
+      </div>
     );
   }
 }

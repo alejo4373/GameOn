@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import "./Login.css";
-import {
-  Grid,
-  Jumbotron,
-  Form,
-  Button,
-  PageHeader,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Carousel
-} from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Redirect } from "react-router";
@@ -98,25 +88,36 @@ export default class Login extends Component {
         <h1 id="login_title">
           <strong>Game On!</strong> <br />
         </h1>
-        <Carousel controls={false} interval={1000} indicators={false}>
+        <Carousel
+          controls={false}
+          interval={4000}
+          indicators={false}
+          pauseOnHover={false}
+        >
           <Carousel.Item>
-            <img src="/images/soccer-background.png" />
+            <img
+              src="/images/soccer-background.png"
+              height="100%"
+              width="100%"
+            />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/football-background.png" />
+            <img src="/images/football-background.png" height="100%" />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/basketball-background.jpg" />
+            <img src="/images/basketball-for-slide-show.jpg" height="100%" />
           </Carousel.Item>
         </Carousel>
         <a id="lets_play_link" href="#form_container">
-          <h2>Let's Play</h2>
+          <h2 id="login-subtitle">Let's Play</h2>
+          <img id="arrow" src="/images/homePage-arrow.png" alt="" />
         </a>
         <div id="form_container">
-          <p>Log In</p>
+          <p id="login">Log In</p>
           <div id="form_div">
             <form onSubmit={this.submitForm}>
               <input
+                id="login-input"
                 type="input"
                 placeholder="Username or E-mail"
                 name="username"
@@ -125,6 +126,7 @@ export default class Login extends Component {
               />
               <br />
               <input
+                id="login-password"
                 type="password"
                 placeholder="Password"
                 name="username"
@@ -132,8 +134,8 @@ export default class Login extends Component {
                 onChange={this.handlePasswordChange}
               />
               <br />
-              <input id="loginSubmitButton" type="submit" value="Submit" />
-              <p>
+              <input id="login-submit" type="submit" value="Submit" />
+              <p id="homPage-question">
                 Don't have an account?{" "}
                 <Link id="signup" to="/register">
                   Sign Up

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Panel, Alert, ListGroup, ListGroupItem } from "react-bootstrap";
+// import axios from "axios";
+import { Panel, ListGroup } from "react-bootstrap";
 
 class Upcoming extends Component {
   state = {
@@ -95,7 +95,7 @@ class Upcoming extends Component {
               {event.map(e => {
                 return (
                   <div className="individual_event">
-                    <img className="host_img" src={e.host_img} width={"50px"} />
+                    <img className="host_img" src={e.host_img} width={"50px"} alt=""/>
                     <span className="host_Name">{e.host}</span>
                     <div className="event_descriptions">
                       <span className="event_date">Date: {e.date}</span>

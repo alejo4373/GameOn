@@ -1,84 +1,64 @@
 import React, { Component } from "react";
-import axios from 'axios'
-import {
-  Col,
-  Grid,
-  Jumbotron,
-  Form,
-  Button,
-  PageHeader,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  Image,
-  Row,
-  Well
-} from "react-bootstrap";
+import axios from "axios";
+import { Carousel } from "react-bootstrap";
 import "./SportsTile.css";
-
 
 export default class SportTiles extends Component {
   state = {
     sports: []
   };
 
-
   getAllSports = () => {
     axios
-    .get('/sports/all')
-    .then(res => {
-      this.setState({
-        sports: res.data.sports
+      .get("/sport/all")
+      .then(res => {
+        this.setState({
+          sports: res.data.sports
+        });
       })
-    })
-    .catch(err => console.log("Error Getting All Sports:", err))
-  }
+      .catch(err => console.log("Error Getting All Sports:", err));
+  };
 
-  componentWillMount(){
-   this.getAllSports()
+  componentWillMount() {
+    this.getAllSports();
   }
 
   render() {
-    const { handleSelectionChanges, handleNextButton } = this.props;
+    const { handleNextButton } = this.props;
     const { sports } = this.state;
+    console.log("sports:", sports);
     return (
-      <Grid>
-        <Jumbotron bsClass="RegistrationJumbotron">
-          <PageHeader>
-            Game On! <br />
-            <small>Select A Sport (Minimum: 1 Selection)</small>
-          </PageHeader>
-        </Jumbotron>
-        <div id="sportsTile_Container">
+      <div id="sportsTile-container">
+        <p id="select-sport-title"> Select A Sport </p>
+        <p>(Minimum: 1 Selection)</p>
+
+        <div id="container-for-all-images">
           {sports.map(s => (
-            <Grid
-              // style={this.state.style}
-              className="sport_selection"
-              name={s.name}
-              id={s.id}
-              onClick={handleSelectionChanges}
-            >
-              <h4>{s.name}</h4>
-              <Row>
-                <Col xs={6} md={4}>
-                  <Image
-                    src={`/images/${s.name}.png`}
-                    width={"200px"}
-                    height={"200px"}
-                    id={s.id}
-                    name={s.name}
-                    alt=""
-                    circle
-                  />
-                </Col>
-              </Row>
-            </Grid>
+            <div id="image_container">
+              {console.log(s.name, s)}
+              <img
+                src={`/images/${s.name}.jpg`}
+                width="100%"
+                height="100%"
+                id={s.id}
+                name={s.name}
+                alt=""
+              />
+              <div id="sportsName-container"><h4 id="sportsName">{s.name}</h4></div>
+            </div>
           ))}
         </div>
-        <Button type="submit" bsClass="next" onClick={handleNextButton}>
-          Next
-        </Button>
-      </Grid>
+        <form>
+          <input
+            className="input"
+            id="sportsTile-submit"
+            type="submit"
+            value="Next"
+            onClick={handleNextButton}
+          />
+        </form>
+
+      </div>
     );
   }
 }

@@ -47,6 +47,7 @@ class Leaderboard extends Component {
                         className="leaderboard-profile-pic"
                         src={p.profile_pic}
                         width={"50px"}
+                        alt=""
                       />
                     }
                   </div>
