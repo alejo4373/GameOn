@@ -24,7 +24,7 @@ class Upcoming extends Component {
                         width={"50px"}
                         alt=''
                       />
-                      <span className="host_Name">{e.name}</span>
+                      <div className="host_Name">{e.name}</div>
                       <div className="event_descriptions" id={e.id}>
                         <span className="event_date">Date: {e.end_ts}</span>
                         <br />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./Dashboard.css"
 
 //DashBoard Components
 import Overview from "./Overview";

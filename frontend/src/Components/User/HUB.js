@@ -44,17 +44,6 @@ class HUB extends Component {
                 <NavItem eventKey={2} href="#">
                   <Link to="/user/leaderboard">Leaderboard</Link>
                 </NavItem>
-                <NavDropdown
-                  eventKey={3}
-                  title="Events"
-                  id="basic-nav-dropdown"
-                >
-                  <MenuItem eventKey={3.1}><Link to='/user/event'>Host Event</Link></MenuItem>
-                  <MenuItem eventKey={3.2}><Link to='/user/history' >Past Events</Link></MenuItem>
-                  <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                  <MenuItem divider />
-                  <MenuItem eventKey={3.3}>Separated link</MenuItem>
-                </NavDropdown>
               </Nav>
               <Nav pullRight>
                 <NavItem eventKey={1} href="/user/profile">

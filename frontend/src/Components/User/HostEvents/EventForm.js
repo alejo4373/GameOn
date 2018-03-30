@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
 
 import moment from "moment";
 import "./time.css";
@@ -94,6 +95,10 @@ export default class Event extends React.Component {
       .catch(err => console.log(err));
   };
 
+  handleClose = () => {
+    this.setState({ start: false, end: false });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const {
@@ -181,16 +186,17 @@ export default class Event extends React.Component {
         <h1 id="event-title">Create An Event</h1>
 
         <form onSubmit={this.handleSubmit}>
-          {
-            <input
-              required
-              type="text"
-              name="imgScr"
-              value={imgScr}
-              onChange={this.handleChange}
-            />
-          }
-
+          Upload A Photo: <br />
+          <input
+            required
+            type="text"
+            name="imgScr"
+            value={imgScr}
+            onChange={this.handleChange}
+            style={{color: 'black'}}
+          />{" "}
+          <br />
+          Name You're Event: <br />
           <input
             required
             type="text"
@@ -198,7 +204,10 @@ export default class Event extends React.Component {
             value={Name}
             placeholder="Event name"
             onInput={this.handleChange}
-          />
+            style={{color: 'black'}}
+          />{" "}
+          <br />
+          Enter Address: <br />
           <div id="autocomplete-form">
             <input
               required
@@ -208,9 +217,12 @@ export default class Event extends React.Component {
               value={Address}
               onChange={this.onChange}
               onFocus={Address}
+              style={{color: 'black'}}
             />
             {searchResponses.length ? (
-              <div id="address-response-container">
+              <div id="address-response-container"
+              style={{color: 'black'}}
+              >
                 {searchResponses.map(res => {
                   return (
                     <div
@@ -231,78 +243,96 @@ export default class Event extends React.Component {
               ""
             )}
           </div>
-
-          {/* <input
-            required 
-            type="text"
-            name="Address"
-            value={Address}
-            placeholder="Address"
-            onInput={this.handleChange}
-          /> */}
-
-          <button name="start" onClick={this.handleToggle}>
+          Enter Starting Time: <br />
+          <button
+            style={{ color: "Green" }}
+            name="start"
+            onClick={this.handleToggle}
+          >
             Start Time
           </button>
           <div className="input">
-            <input type="text" value={this.state.startTime} readOnly />
+            <input type="text" value={this.state.startTime} readOnly style={{color: 'black'}} />
           </div>
-          {start ? (
-            <InputMoment
-              name="startTime"
-              moment={this.state.m}
-              onChange={this.handleMoment}
-              minStep={5}
-              onSave={this.handleStartTime}
-            />
-          ) : (
-            ""
-          )}
-
-          <button name="end" onClick={this.handleToggle}>
+          <Modal show={start} onHide={this.handleClose} >
+            <Modal.Body
+            style={{  height: "450px"}}
+            >
+              <InputMoment
+                name="startTime"
+                moment={this.state.m}
+                onChange={this.handleMoment}
+                minStep={5}
+                onSave={this.handleStartTime}
+                style={{  marginLeft: "5%" }}
+              />
+            </Modal.Body>
+          </Modal>
+          Enter Ending Time: <br />
+          <button
+            style={{ color: "Green" }}
+            name="end"
+            onClick={this.handleToggle}
+          >
             End Time
           </button>
-
           <div className="input">
-            <input type="text" value={this.state.endTime} readOnly />
+            <input type="text" style={{color: 'black'}} value={this.state.endTime} readOnly />
           </div>
-
-          {end ? (
-            <InputMoment
-              name="endTime"
-              moment={this.state.m}
-              onChange={this.handleMoment}
-              minStep={5}
-              onSave={this.handleEndTime}
-            />
-          ) : (
-            ""
-          )}
-
-          <select onChange={this.handleSportSelect}>
+          <Modal show={end} onHide={this.handleClose} >
+            <Modal.Body
+            style={{  height: "450px"}}
+            >
+              <InputMoment
+                name="startTime"
+                moment={this.state.m}
+                onChange={this.handleMoment}
+                minStep={5}
+                onSave={this.handleEndTime}
+                style={{  marginLeft: "5%" }}
+              />
+            </Modal.Body>
+          </Modal>
+          Select A Sport:{" "}
+          <select
+            style={{ backgroundColor: "#41CFFD" }}
+            onChange={this.handleSportSelect}
+          >
             {["", ...sports].map((sport, idx) => (
               <option key={idx} value={sport.id}>
                 {sport.name}
               </option>
-            ))}wq
-          </select>
-
-          <select class="team" onChange={this.handleSportFormat}>
+            ))}
+          </select>{" "}
+          <br />
+          Choose Team Dynamic:{" "}
+          <select
+            style={{ backgroundColor: "#41CFFD" }}
+            class="team"
+            onChange={this.handleSportFormat}
+          >
             {["", ...gameFormat].map(game => (
               <option value={game.id}>{game.description}</option>
             ))}
-          </select>
-
-          <input
-            required
+          </select>{" "}
+          <br />
+          Describe You're Game <br />
+          <textarea
+            rows="6"
+            cols="50"
             type="textarea"
             name="Description"
             value={Description}
             placeholder="Description"
             onInput={this.handleChange}
+            style={{color: 'black'}}
+          />{" "}
+          <br />
+          <input
+            type="submit"
+            value="Create event"
+            style={{ backgroundColor: "red" }}
           />
-
-          <input type="submit" value="Create event" />
         </form>
       </div>
     );

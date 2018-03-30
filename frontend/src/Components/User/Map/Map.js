@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import "./Map.css";
 
 import {
   Map,
@@ -16,7 +16,7 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  HelpBlock,
+  HelpBlock
 } from "react-bootstrap";
 
 //Bootstrap Elements ~Kelvin
@@ -24,7 +24,6 @@ import "rc-slider/assets/index.css";
 import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
 import Slider from "rc-slider";
-
 
 import Upcoming from "./Upcoming";
 import HostEvents from "../HostEvents/EventForm";
@@ -59,7 +58,6 @@ export class MapContainer extends Component {
 
   handle = props => {
     const { value, dragging, index, ...restProps } = props;
-
     return (
       <Tooltip
         prefixCls="rc-slider-tooltip"
@@ -134,6 +132,10 @@ export class MapContainer extends Component {
   getAllHostedEvents = (latitude, longitude, miles, id) => {
     console.log(id);
 
+    this.setState({
+      miles: miles
+    });
+
     axios
       .get(
         `/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${
@@ -175,7 +177,9 @@ export class MapContainer extends Component {
               <Upcoming events={hostedEvents} />
             </Tab>
             <Tab eventKey={2} title="Host Event">
-              <HostEvents />
+              <div id="hostevent-component">
+                <HostEvents />
+              </div>
             </Tab>
           </Tabs>
         </div>
@@ -184,6 +188,11 @@ export class MapContainer extends Component {
           <div id="map-filter">
             <div style={wrapperStyle}>
               Select Miles
+              <span
+                style={{ width: "20px", height: "10px", position: "absolute" }}
+              >
+                {miles}
+              </span>
               <Slider
                 defaultValue={miles}
                 min={1}
@@ -249,14 +258,26 @@ export class MapContainer extends Component {
             <InfoWindow
               marker={this.state.activeMarker}
               visible={this.state.showingInfoWindow}
+              
             >
-              <div style={{ width: "300px", height: "150px" }}>
+              <div
+                id="individual-event-card"
+                style={{
+                  width: "300px",
+                  height: "150px",
+                  backgroundColor: '#FAFAFA'
+                }}
+              >
                 <div
                   id="marker-event-header"
                   style={{ width: "300px", height: "150px" }}
                 >
-                  <img src={"/images/user.png"} id="marker-event-photo" alt=''/>
-                  <span id="marker-event-username">{selectedEvents.name}</span>
+                  <img
+                    src={"/images/user.png"}
+                    id="marker-event-photo"
+                    alt=""
+                  />
+                  <div id="marker-event-username">{selectedEvents.name}</div>
                   <div id="marker-event-sport-name">
                     {selectedEvents.sport
                       ? selectedEvents.sport.toUpperCase()
