@@ -297,7 +297,7 @@ gameFormat,
               <option key={idx} value={sport.id}>
                 {sport.name}
               </option>
-            ))}wq
+            ))}
           </select>
 
           <select class="team" onChange={this.handleSportFormat}>
