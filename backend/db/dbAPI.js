@@ -307,12 +307,29 @@ const endEvent = (endInfo, callback) => {
     .catch(err => callback(err));
 }
 
+const getEventsUserHosts = (userId, callback) => {
+  db.any(
+    `SELECT 
+      events.*,
+      users.username AS host_username,
+      sports.name AS sport_name,
+      sports_format.description AS sport_format_description
+    FROM events
+    JOIN sports ON events.sport_id = sports.id
+    JOIN sports_format ON events.sport_format_id = sports_format.id
+    JOIN users ON events.host_id = users.id
+    WHERE events.host_id = $1`, userId)
+    .then(events => callback(null, events))
+    .catch(err => callback(err))
+}
+
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
   getSportsForUser: getSportsForUser,
+  getEventsUserHosts: getEventsUserHosts,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
   /*- Sports Related */
