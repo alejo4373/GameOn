@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 import axios from "axios";
 
 import { Navbar, NavDropdown, Nav, NavItem, MenuItem } from "react-bootstrap";
@@ -28,7 +28,7 @@ class HUB extends Component {
     return (
       <div>
         <div>
-          <Navbar inverse collapseOnSelect>
+          <Navbar inverse collapseOnSelect fixedTop>
             <Navbar.Header>
               <Navbar.Brand>
                 <Link to="/user/dashboard">GameOn</Link>
