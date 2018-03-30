@@ -31,7 +31,7 @@ export default class Event extends React.Component {
           <h3><i class="fas fa-user"></i> {event.players[0].username}</h3>
           </div>
           <div className="info">
-          <h3>Description <h4>{event.description}</h4></h3>
+          <h3>Description <h4 class="decription">{event.description}</h4></h3>
           <h3>
             Sport
             <h4>
