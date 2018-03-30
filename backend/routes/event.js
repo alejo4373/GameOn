@@ -112,5 +112,33 @@ router.get('/radius', loginRequired, (req, res, next) => {
   dbAPI.getEventsForSportInRadius(locationRange, sport_id, callback)
 })
 
+router.patch('/start/:eventId', loginRequired, (req, res, next) => {
+  const startInfo = {
+    event_id: req.params.eventId,
+    actual_start_ts: Number(req.body.actual_start_ts)
+  }
+   dbAPI.startEvent(startInfo, (err, event) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      event: event,
+      msg: 'Event started'
+    })
+  }) 
+})
 
+router.patch('/end/:eventId', loginRequired, (req, res, next) => {
+  const endInfo = {
+    event_id: req.params.eventId,
+    actual_end_ts: Number(req.body.actual_end_ts)
+  }
+   dbAPI.endEvent(endInfo, (err, event) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      event: event,
+      msg: 'Event ended'
+    })
+  }) 
+})
 module.exports = router;
