@@ -59,7 +59,6 @@ export default class Events extends React.Component {
       })
       .then(
         this.setState({
-          joined: false,
           show: false
         })
       )
@@ -110,8 +109,8 @@ export default class Events extends React.Component {
     console.log(event)
     return (
       <div className='eventpage'>
-        {time}
         <Template event = { event }/>
+        {time}
         {show ? (
           <button onClick={leaveEvent}>Leave</button>
         ) : (

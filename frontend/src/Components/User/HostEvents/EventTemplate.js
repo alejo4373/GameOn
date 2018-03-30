@@ -12,8 +12,8 @@ export default class Event extends React.Component{
         const end = new Date(Number(event.end_ts));
         return (
           <div>
-            <img src={event.img} alt="event" width="150px" />
-      
+            <img class = "eventpic" src={event.event_pic} alt="" width="150px" />
+            <div class= "details"> 
             <h3>Name: {event.name}</h3>
             <h3>
               Sport:{" "}
@@ -25,6 +25,7 @@ export default class Event extends React.Component{
             <h3>End Time: {end.toTimeString()}</h3>
             <h3>Organizer: {event.players[0].username}</h3>
             <h3>Description: {event.description}</h3>
+            </div>
           </div>
         );
     }

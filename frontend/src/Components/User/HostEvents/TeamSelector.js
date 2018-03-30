@@ -26,7 +26,7 @@ export default class Team extends React.Component{
       
             <Modal.Footer>
               <Button onClick={handleClose}>Close</Button>
-              <Button bsStyle="primary">GameOn</Button>
+              <Button onClick={joinEvent} bsStyle="primary">GameOn</Button>
             </Modal.Footer>
           </Modal>
         );
