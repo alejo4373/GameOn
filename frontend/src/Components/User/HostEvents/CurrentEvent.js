@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import moment from "moment";
-import { Modal, Button } from "react-bootstrap";
 import Template from "./EventTemplate";
 import Team from "./TeamSelector";
 
@@ -106,8 +105,8 @@ export default class Events extends React.Component {
   }
 
   form = () => {
-    const { event, joined, teams, click, show, msg, gameTime, time, started } = this.state;
-    const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent, startTime, endTime } = this;
+    const { event,show } = this.state;
+    const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
     const teamA = event.players.filter(player => player.team === 'A')
     const teamB = event.players.filter(player => player.team === 'B')
     console.log(event)

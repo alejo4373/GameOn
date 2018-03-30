@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./Dashboard.css"
 
 //DashBoard Components
 import Overview from "./Overview";
@@ -11,8 +11,8 @@ class Dashboard extends Component {
       <div className="dashboard-parent">
       
         {/*All Dashboard Components Goes Here (NOT INCLUDING THE LINK COMPONENTS)*/}
-        <div id="dashboard_components">
-          <div id="Overview_component">
+        <div id="dashboard_components" >
+          <div id="Overview_component" >
             <Overview />
           </div>
         </div>
