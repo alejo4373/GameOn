@@ -180,9 +180,12 @@ const addEvent = (event, callback) => {
     .catch(err => callback(err));
 }
 
-const deleteEvent = (deleteReq, callback) => {
-  db.any('DELETE FROM events WHERE id = ${event_id} AND host_id = ${host_id}', deleteReq)
-    .then(() => callback(null))
+const cancelEvent = (eventId, callback) => {
+  db.one(
+    `UPDATE events SET cancelled = TRUE 
+     WHERE id = $1
+     RETURNING id AS event_id, cancelled`, eventId)
+    .then((event) => callback(null, event))
     .catch(err => callback(err));
 }
 
@@ -285,6 +288,25 @@ const getSportFormats = (sport_id, callback) => {
     .catch(err => callback(err));
 }
 
+const startEvent = (startInfo, callback) => {
+  db.one(
+    `UPDATE events SET actual_start_ts = $/actual_start_ts/ 
+     WHERE id = $/event_id/
+     RETURNING id AS event_id, actual_start_ts`, startInfo)
+    .then((event) => callback(null, event))
+    .catch(err => callback(err));
+}
+
+const endEvent = (endInfo, callback) => {
+  console.log(endInfo)
+  db.one(
+    `UPDATE events SET actual_end_ts = $/actual_end_ts/ 
+     WHERE id = $/event_id/
+     RETURNING id AS event_id, actual_end_ts`, endInfo)
+    .then((event) => callback(null, event))
+    .catch(err => callback(err));
+}
+
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
@@ -306,6 +328,8 @@ module.exports = {
   getEventsForSportInRadius: getEventsForSportInRadius,
   joinEvent: joinEvent,
   leaveEvent: leaveEvent,
-  deleteEvent, deleteEvent
+  cancelEvent: cancelEvent,
+  startEvent: startEvent,
+  endEvent: endEvent
 };
 
