@@ -58,7 +58,12 @@ router.get('/sports', loginRequired, (req, res, next) => {
 })
 
 router.get('/events', loginRequired, (req, res, next) => {
- let userId = req.user.id
+  var userId = req.query.user_id
+  //If we dont request a particular userId in the query
+  if(!userId) {
+    //Get the id for the logged in user traveling in the req.user
+    userId = req.user.id  
+  }
   dbAPI.getEventsUserHosts(userId, (err, events) => {
     if(err){return next(err)}
     res.status(200)
