@@ -180,9 +180,12 @@ const addEvent = (event, callback) => {
     .catch(err => callback(err));
 }
 
-const deleteEvent = (deleteReq, callback) => {
-  db.any('DELETE FROM events WHERE id = ${event_id} AND host_id = ${host_id}', deleteReq)
-    .then(() => callback(null))
+const cancelEvent = (eventId, callback) => {
+  db.one(
+    `UPDATE events SET cancelled = TRUE 
+     WHERE id = $1
+     RETURNING id AS event_id, cancelled`, eventId)
+    .then((event) => callback(null, event))
     .catch(err => callback(err));
 }
 
@@ -325,7 +328,7 @@ module.exports = {
   getEventsForSportInRadius: getEventsForSportInRadius,
   joinEvent: joinEvent,
   leaveEvent: leaveEvent,
-  deleteEvent: deleteEvent,
+  cancelEvent: cancelEvent,
   startEvent: startEvent,
   endEvent: endEvent
 };

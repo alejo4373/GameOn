@@ -141,4 +141,16 @@ router.patch('/end/:eventId', loginRequired, (req, res, next) => {
     })
   }) 
 })
+
+router.patch('/cancel/:eventId', loginRequired, (req, res, next) => {
+  const { eventId } = req.params
+   dbAPI.cancelEvent(eventId, (err, event) => {
+    if(err) { return next(err) }
+    res.status(200)
+    res.json({
+      event: event,
+      msg: 'Event ended'
+    })
+  }) 
+})
 module.exports = router;
