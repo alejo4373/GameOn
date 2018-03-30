@@ -4,7 +4,6 @@ import moment from "moment";
 import { Modal, Button } from "react-bootstrap";
 import Template from "./EventTemplate";
 import Team from "./TeamSelector";
-import Timer from "moment-timer";
 
 export default class Events extends React.Component {
   constructor() {
@@ -17,9 +16,12 @@ export default class Events extends React.Component {
       click: false,
       show: false,
       msg: '',
-      time:'',
-      m:moment().hour(0).minutes(0).second(0),
+      time:0,
+      m:moment(),
       startTime: '',
+      playTime: '',
+      started: true,
+      timer: ''
     };
   }
 
@@ -80,27 +82,35 @@ export default class Events extends React.Component {
       })
   }
 
+  //event/start
+  //event/id
+  //and start time
   startTime = () => {
     this.setState({
-      startGame:this.state.m
+      timer: setInterval(this.timing, 1000)
     })
   }
 
-  endTime = () => {
-    this.setState({
-      endGame: this.state.m
-    })
+
+  timing = (t) => {
+    var t = new Date().toLocaleTimeString()
+    console.log('my time',t)
+   this.setState({ time: t})
+  }
+
+  stop = () => {
+    clearInterval(this.state.timer)
   }
 
   form = () => {
-    const { event, joined, teams, click, show, msg } = this.state;
-    const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
+    const { event, joined, teams, click, show, msg, gameTime, time, started } = this.state;
+    const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent, startTime, endTime } = this;
     const teamA = event.players.filter(player => player.team === 'A')
     const teamB = event.players.filter(player => player.team === 'B')
-
-    console.log('showing state', show)
+    console.log(event)
     return (
       <div className='eventpage'>
+        {time}
         <Template event = { event }/>
         {show ? (
           <button onClick={leaveEvent}>Leave</button>
@@ -112,7 +122,10 @@ export default class Events extends React.Component {
         <h3>Team B</h3>
         {teamB.map(player => <li>{player.username}</li>)}
 
-        <button>Start Game</button>
+        <button onClick = {this.startTime}>Start Game</button>
+
+        <button onClick = {this.stop}>End Game</button>
+        <h2>{gameTime}</h2>
 
         <Team show={show} handleClose={handleClose} selectTeam= {selectTeam} joinEvent={joinEvent}/>
       </div>
@@ -120,7 +133,9 @@ export default class Events extends React.Component {
   };
 
   render() {
-    const { event } = this.state;
-    return <div>{event ? this.form() : ""}</div>;
+    const { event, m } = this.state;
+    // console.log('what i am getting for my game time',gameTime)
+    return <div>
+      <div>{event ? this.form() : ""}</div></div>;
   }
 }
