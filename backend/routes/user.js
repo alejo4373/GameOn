@@ -57,6 +57,16 @@ router.get('/sports', loginRequired, (req, res, next) => {
   })
 })
 
-
+router.get('/events', loginRequired, (req, res, next) => {
+ let userId = req.user.id
+  dbAPI.getEventsUserHosts(userId, (err, events) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      events: events,
+      msg: 'All events hosted by user retrieved'
+    })
+  })
+})
 
 module.exports = router;
