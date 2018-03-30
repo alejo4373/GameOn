@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Redirect } from "react-router";
+
 
 import {
   Map,
   InfoWindow,
   Marker,
   GoogleApiWrapper,
+  // eslint-disable-next-line
   google
 } from "google-maps-react";
 import {
@@ -16,7 +17,6 @@ import {
   ControlLabel,
   FormControl,
   HelpBlock,
-  Checkbox
 } from "react-bootstrap";
 
 //Bootstrap Elements ~Kelvin
@@ -25,12 +25,13 @@ import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
 import Slider from "rc-slider";
 
-import Profile from "../Profile/Profile";
+
 import Upcoming from "./Upcoming";
 import HostEvents from "../HostEvents/EventForm";
 
 const Handle = Slider.Handle;
 
+// eslint-disable-next-line
 function FieldGroup({ id, label, help, ...props }) {
   return (
     <FormGroup controlId={id}>
@@ -155,8 +156,6 @@ export class MapContainer extends Component {
     this.setState({
       sportID: id
     });
-
-    console.log("SportsID", id);
     this.getUserCurrentLocation(this.getAllHostedEvents, miles, id);
   };
 
@@ -234,6 +233,7 @@ export class MapContainer extends Component {
                     title={e.name}
                     name={e.name}
                     sport={e.sport_name}
+                    id={e.id}
                     location={e.location}
                     description={e.description}
                     position={{ lat: e.lat, lng: e.long }}
@@ -255,7 +255,7 @@ export class MapContainer extends Component {
                   id="marker-event-header"
                   style={{ width: "300px", height: "150px" }}
                 >
-                  <img src={"/images/user.png"} id="marker-event-photo" />
+                  <img src={"/images/user.png"} id="marker-event-photo" alt=''/>
                   <span id="marker-event-username">{selectedEvents.name}</span>
                   <div id="marker-event-sport-name">
                     {selectedEvents.sport
@@ -265,7 +265,9 @@ export class MapContainer extends Component {
                   <div>Address: {selectedEvents.location}</div>
                   <div>Description: {selectedEvents.description}</div>
                   <button>GameOn!</button>
-                  <button>More Info</button>
+                  <button>
+                    <a href={`/user/event/${selectedEvents.id}`}>More Info</a>
+                  </button>
                 </div>
               </div>
             </InfoWindow>

@@ -45,12 +45,12 @@ class Leaderboard extends Component {
                   return (
                     <div id={`player-${i}`}>
                      <h5 style={{color: 'white'}}>{p.username}</h5> 
-                      <img id={`player-${i}-pic`} src={p.profile_pic} width={'75px'}/>
+                      <img id={`player-${i}-pic`} src={p.profile_pic} width={'75px'} alt=''/>
                      <h5 style={{color: 'white'}}>{p.exp_points}</h5>
                     </div>
                   );
                 })}
-                <img src="/images/leaderboard-rank-2.png" id='leaderboard-rank-pic' />
+                <img src="/images/leaderboard-rank-2.png" id='leaderboard-rank-pic' alt='' />
               </div>
             </Tab>
           )}
@@ -77,6 +77,7 @@ class Leaderboard extends Component {
                             className="leaderboard-profile-pic"
                             src={p.profile_pic}
                             width={"50px"}
+                            alt=''
                           />
                         }
                       </div>

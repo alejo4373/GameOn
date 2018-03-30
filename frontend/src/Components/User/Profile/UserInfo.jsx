@@ -4,10 +4,8 @@ import './UserInfo.css'
 import {
   Col,
   Grid,
-  Jumbotron,
   Form,
   Button,
-  PageHeader,
   FormGroup,
   ControlLabel,
   FormControl
@@ -96,13 +94,13 @@ export default class UserInfo extends Component {
       profile_email,
       profile_fullname,
       profile_zipcode,
-      message
     } = this.state;
 
     const {
       editUserInfo,
       handleEmailChange,
       handleFullNameChange,
+      // eslint-disable-next-line 
       handleZipCodeChange,
       handleUsernameChange
     } = this;

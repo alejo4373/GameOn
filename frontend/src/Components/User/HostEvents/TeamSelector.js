@@ -2,12 +2,14 @@ import { Modal, Button } from "react-bootstrap";
 import React from "react";
 
 export default class Team extends React.Component{
-    constructor(props){
-        super(props)
-    }
 
     render(){
-        const { show, handleClose, selectTeam, joinEvent } = this.props;
+        const { show, 
+          handleClose, 
+          selectTeam, 
+          // eslint-disable-next-line
+          joinEvent 
+        } = this.props;
         return (
           <Modal show={show} onHide={handleClose}>
             <Modal.Header>

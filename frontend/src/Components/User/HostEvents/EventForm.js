@@ -38,7 +38,6 @@ export default class Event extends React.Component {
   }
 
   handleChange = e => {
-    const { Address } = this.state;
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -78,7 +77,6 @@ export default class Event extends React.Component {
     });
   };
   handleToggle = e => {
-    let name = e.target.name;
     this.setState({
       [e.target.name]: !this.state.name
     });
@@ -101,16 +99,11 @@ export default class Event extends React.Component {
     const {
       Name,
       Address,
-      DateInfo,
       startTime,
       imgScr,
       endTime,
       Description,
       sport_id,
-      sportName,
-      lat,
-      long,
-      searchResponses,
       format_id
     } = this.state;
 
@@ -142,7 +135,6 @@ export default class Event extends React.Component {
   };
 
   onChange = e => {
-    const { Address } = this.state;
     this.setState({
       Address: e.target.value
     });
@@ -176,19 +168,14 @@ export default class Event extends React.Component {
       Name,
       Address,
       imgScr,
-      DateInfo,
-      startTime,
-      endTime,
       Description,
       sports,
       start,
       end,
-      team,
-gameFormat,
+      gameFormat,
       searchResponses
     } = this.state;
 
-    console.log("Response:", searchResponses);
     return (
       <div id="event-form">
         <h1 id="event-title">Create An Event</h1>

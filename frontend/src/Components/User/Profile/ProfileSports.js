@@ -2,16 +2,8 @@ import React, { Component } from "react";
 import {
   Col,
   Grid,
-  Jumbotron,
-  Form,
-  Button,
-  PageHeader,
-  FormGroup,
-  ControlLabel,
-  FormControl,
   Image,
-  Row,
-  Well
+  Row
 } from "react-bootstrap";
 
 export default class ProfileSports extends Component {
