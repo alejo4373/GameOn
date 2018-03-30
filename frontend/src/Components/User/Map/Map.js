@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Redirect } from "react-router";
+import "./Map.css";
 
 import {
   Map,
   InfoWindow,
   Marker,
   GoogleApiWrapper,
+  // eslint-disable-next-line
   google
 } from "google-maps-react";
 import {
@@ -15,8 +16,7 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  HelpBlock,
-  Checkbox
+  HelpBlock
 } from "react-bootstrap";
 
 //Bootstrap Elements ~Kelvin
@@ -25,12 +25,12 @@ import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
 import Slider from "rc-slider";
 
-import Profile from "../Profile/Profile";
 import Upcoming from "./Upcoming";
 import HostEvents from "../HostEvents/EventForm";
 
 const Handle = Slider.Handle;
 
+// eslint-disable-next-line
 function FieldGroup({ id, label, help, ...props }) {
   return (
     <FormGroup controlId={id}>
@@ -50,15 +50,14 @@ export class MapContainer extends Component {
       selectedEvents: {},
       hostedEvents: [],
       userCurrentLocation: "",
-      allSports: [{name: 'All', id: null}],
+      allSports: [{ name: "All", id: "" }],
       miles: 5,
-      sportID: ''
+      sportID: ""
     };
   }
 
   handle = props => {
     const { value, dragging, index, ...restProps } = props;
-
     return (
       <Tooltip
         prefixCls="rc-slider-tooltip"
@@ -73,16 +72,19 @@ export class MapContainer extends Component {
     );
   };
 
- getAllSports = () => {
-   const {allSports} = this.state
-   axios
-   .get('/sport/all')
-   .then(res => {
-     this.setState({
-       allSports: allSports.concat(res.data.sports)
-     })
-   }).catch(err => {console.log("Error Retrieving Sports:", err)})
- }
+  getAllSports = () => {
+    const { allSports } = this.state;
+    axios
+      .get("/sport/all")
+      .then(res => {
+        this.setState({
+          allSports: allSports.concat(res.data.sports)
+        });
+      })
+      .catch(err => {
+        console.log("Error Retrieving Sports:", err);
+      });
+  };
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -115,7 +117,12 @@ export class MapContainer extends Component {
     }
     function showPosition(position) {
       if (position) {
-        callback(position.coords.latitude, position.coords.longitude, miles, id);
+        callback(
+          position.coords.latitude,
+          position.coords.longitude,
+          miles,
+          id
+        );
       }
     }
 
@@ -125,8 +132,16 @@ export class MapContainer extends Component {
   getAllHostedEvents = (latitude, longitude, miles, id) => {
     console.log(id);
 
+    this.setState({
+      miles: miles
+    });
+
     axios
-      .get(`/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${id!==undefined?id:''}`)
+      .get(
+        `/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${
+          id !== undefined ? id : ""
+        }`
+      )
       .then(res => {
         console.log("HostData:", res.data);
         this.setState({
@@ -135,33 +150,25 @@ export class MapContainer extends Component {
       });
   };
 
-  handleSportSelector = (e) => {
-    const {miles} = this.state
+  handleSportSelector = e => {
+    const { miles } = this.state;
 
-    let id = e.target.value
+    let id = e.target.value;
 
     this.setState({
       sportID: id
-    })
-
-    console.log("SportsID", id)
-    if(id === 'All'){
-      id=''
-     return this.getUserCurrentLocation(this.getAllHostedEvents, miles, id )
-    }else{
-     return  this.getUserCurrentLocation(this.getAllHostedEvents, miles, id )
-    }
-    
-  }
+    });
+    this.getUserCurrentLocation(this.getAllHostedEvents, miles, id);
+  };
 
   componentWillMount() {
     this.getUserCurrentLocation(this.getAllHostedEvents);
-    this.getAllSports()
+    this.getAllSports();
   }
 
   render() {
     const { hostedEvents, selectedEvents, allSports, miles } = this.state;
-    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40, };
+    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
     return (
       <div>
         <div id="map-tabs">
@@ -169,8 +176,10 @@ export class MapContainer extends Component {
             <Tab eventKey={1} title="Upcoming Events">
               <Upcoming events={hostedEvents} />
             </Tab>
-            <Tab eventKey={2} title="Host Event" >
-            <HostEvents />
+            <Tab eventKey={2} title="Host Event">
+              <div id="hostevent-component">
+                <HostEvents />
+              </div>
             </Tab>
           </Tabs>
         </div>
@@ -179,26 +188,38 @@ export class MapContainer extends Component {
           <div id="map-filter">
             <div style={wrapperStyle}>
               Select Miles
+              <span
+                style={{ width: "20px", height: "10px", position: "absolute" }}
+              >
+                {miles}
+              </span>
               <Slider
                 defaultValue={miles}
                 min={1}
                 max={8}
                 handle={this.handle}
                 onChange={props =>
-                  this.getUserCurrentLocation(this.getAllHostedEvents, props, this.state.sportID)
+                  this.getUserCurrentLocation(
+                    this.getAllHostedEvents,
+                    props,
+                    this.state.sportID
+                  )
                 }
               />
             </div>
-           <div style={{position: 'absolute', marginLeft: 20}}>Select A Sport:</div> 
-              <FormControl componentClass="select" placeholder="select" bsClass="formControlsSelect"  onChange={this.handleSportSelector}>
+            <div style={{ position: "absolute", marginLeft: 20 }}>
+              Select A Sport:
+            </div>
+            <FormControl
+              componentClass="select"
+              placeholder="select"
+              bsClass="formControlsSelect"
+              onChange={this.handleSportSelector}
+            >
               {allSports.map(s => {
-                return (
-                  <option value={s.id}>{s.name}</option>
-                )
+                return <option value={s.id}>{s.name}</option>;
               })}
-               
-              </FormControl>
-         
+            </FormControl>
           </div>
           <Map
             google={this.props.google}
@@ -221,6 +242,7 @@ export class MapContainer extends Component {
                     title={e.name}
                     name={e.name}
                     sport={e.sport_name}
+                    id={e.id}
                     location={e.location}
                     description={e.description}
                     position={{ lat: e.lat, lng: e.long }}
@@ -236,14 +258,26 @@ export class MapContainer extends Component {
             <InfoWindow
               marker={this.state.activeMarker}
               visible={this.state.showingInfoWindow}
+              
             >
-              <div style={{ width: "300px", height: "150px" }}>
+              <div
+                id="individual-event-card"
+                style={{
+                  width: "300px",
+                  height: "150px",
+                  backgroundColor: '#FAFAFA'
+                }}
+              >
                 <div
                   id="marker-event-header"
                   style={{ width: "300px", height: "150px" }}
                 >
-                  <img src={"/images/user.png"} id="marker-event-photo" />
-                  <span id="marker-event-username">{selectedEvents.name}</span>
+                  <img
+                    src={"/images/user.png"}
+                    id="marker-event-photo"
+                    alt=""
+                  />
+                  <div id="marker-event-username">{selectedEvents.name}</div>
                   <div id="marker-event-sport-name">
                     {selectedEvents.sport
                       ? selectedEvents.sport.toUpperCase()
@@ -252,7 +286,9 @@ export class MapContainer extends Component {
                   <div>Address: {selectedEvents.location}</div>
                   <div>Description: {selectedEvents.description}</div>
                   <button>GameOn!</button>
-                  <button>More Info</button>
+                  <button>
+                    <a href={`/user/event/${selectedEvents.id}`}>More Info</a>
+                  </button>
                 </div>
               </div>
             </InfoWindow>

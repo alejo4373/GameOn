@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class Event extends React.Component{
-    constructor(props){
-        super(props)
-    }
-
     render(){
         const event = this.props.event
         const date = new Date(Number(event.start_ts));

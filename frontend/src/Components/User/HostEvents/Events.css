@@ -1,15 +1,6 @@
 
 #event-form{
-margin-top: 15%;
-}
-
-.eventpic{
-    width:100%;
-    height: auto;
-    margin-top:0px;
-    position: fixed;
-    z-index: -1
-}
-.details{
-    /* z-index: 1 */
+margin-top:6%;
+margin-left: 1.3%;
+color: azure;
 }
