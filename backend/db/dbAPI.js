@@ -215,7 +215,8 @@ const getEventInfo = (eventId, callback) => {
     `SELECT 
       events.*,
       sports.name as sport_name,
-      sports_format.description as sport_format
+      sports_format.description as sport_format,
+      sports_format.num_players
     FROM events
     INNER JOIN sports ON sports.id = events.sport_id
     INNER JOIN sports_format ON sports_format.id = events.sport_format_id
@@ -237,19 +238,22 @@ const getEventInfo = (eventId, callback) => {
           }
           callback(null, eventInfo)
         })
-        .then(err => callback(err))
+        .catch(err => callback(err))
     })
     .catch(err => callback(err));
 }
 
 const getAllEventsInRadius = (latLongRange, callback) => {
-  console.log('calling getAllEventsInRadius')
   db.any(
     `SELECT 
       events.*,
-      sports.name AS sport_name
+      users.username AS host_username,
+      sports.name AS sport_name,
+      sports_format.description AS sport_format_description
     FROM events
-    INNER JOIN sports ON events.sport_id = sports.id
+    JOIN sports ON events.sport_id = sports.id
+    JOIN sports_format ON events.sport_format_id = sports_format.id
+    JOIN users ON events.host_id = users.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
     AND long BETWEEN $/minLon/ AND $/maxLon/`
     , latLongRange)
@@ -261,9 +265,13 @@ const getEventsForSportInRadius = (latLongRange, sport_id, callback) => {
   db.any(
     `SELECT 
       events.*,
-      sports.name AS sport_name
+      users.username AS host_username,
+      sports.name AS sport_name,
+      sports_format.description AS sport_format_description
     FROM events
-    INNER JOIN sports ON events.sport_id = sports.id
+    JOIN sports ON events.sport_id = sports.id
+    JOIN sports_format ON events.sport_format_id = sports_format.id
+    JOIN users ON events.host_id = users.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
     AND long BETWEEN $/minLon/ AND $/maxLon/ AND events.sport_id = $/sport_id/`
     , {...latLongRange, sport_id})
