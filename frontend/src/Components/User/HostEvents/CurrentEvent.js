@@ -101,7 +101,7 @@ export default class Events extends React.Component {
   }
 
   form = () => {
-    const { event,show } = this.state;
+    const { event,show, time, gameTime } = this.state;
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
     const teamA = event.players.filter(player => player.team === 'A')
     const teamB = event.players.filter(player => player.team === 'B')

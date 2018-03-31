@@ -3,6 +3,7 @@ import React from "react";
 export default class Event extends React.Component{
     render(){
         const event = this.props.event
+        console.log(event)
         const date = new Date(Number(event.start_ts));
         console.log(date.toTimeString)
         const end = new Date(Number(event.end_ts));
