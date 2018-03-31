@@ -24,6 +24,9 @@ export default class Events extends React.Component {
 
   form = () => {
     const { event } = this.state;
+    const date = new Date(Number(event.start_ts));
+    console.log('what i am getting for time',date.toTimeString())
+    const end = new Date(Number(event.end_ts));
     return (
       <div className='eventpage'>
         <Template event = { event }/>
