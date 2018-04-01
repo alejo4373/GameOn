@@ -8,11 +8,12 @@ import { Navbar, NavDropdown, Nav, NavItem, MenuItem } from "react-bootstrap";
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
 import Events from "./HostEvents/EventForm";
-import CurrentEvent from "./HostEvents/CurrentEvent"
+import CurrentEvent from "./HostEvents/CurrentEvent";
 import Map from "./Map/Map";
-import Leaderboard from "./Leaderboard/Leaderboard"
+import Leaderboard from "./Leaderboard/Leaderboard";
 import History from "./History";
-import Survey from "./HostEvents/Survey"
+import Survey from "./HostEvents/Survey";
+import MyEvents from "./HostEvents/CreatedEvent";
 
 
 class HUB extends Component {
@@ -66,7 +67,8 @@ class HUB extends Component {
             <Route path="/user/map" component={Map} />
             <Route path="/user/leaderboard" component={Leaderboard} />
             <Route exact path="/user/event" component={Events} />
-            <Route path="/user/event/:id" component={CurrentEvent} />
+            <Route exact path="/user/event/:id" component={CurrentEvent} />
+            <Route path="/user/event/myevents/:id" component={MyEvents}/>
             <Route path="/user/history" component={History} />
             <Route path='/user/survey' component={Survey} />
           </Switch>
