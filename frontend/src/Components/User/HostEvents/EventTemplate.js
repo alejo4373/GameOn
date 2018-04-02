@@ -11,17 +11,17 @@ export default class Event extends React.Component{
           <div>
             <img class = "eventpic" src={event.event_pic} alt="" width="150px" />
             <div class= "details"> 
-            <h3>Name: {event.name}</h3>
-            <h3>
+            <h4>Name: {event.name}</h4>
+            <h4>
               Sport:{" "}
               {event.sport_name.charAt(0).toUpperCase() + event.sport_name.slice(1)}
-            </h3>
-            <h3>Location: {event.location}</h3>
-            <h3>Date: {date.toDateString()}</h3>
-            <h3>Start Time: {date.toTimeString()}</h3>
-            <h3>End Time: {end.toTimeString()}</h3>
-            <h3>Organizer: {event.players[0].username}</h3>
-            <h3>Description: {event.description}</h3>
+            </h4>
+            <h4>Location: {event.location}</h4>
+            <h4>Date: {date.toDateString()}</h4>
+            <h4>Start Time: {date.toTimeString()}</h4>
+            <h4>End Time: {end.toTimeString()}</h4>
+            <h4>Organizer: {event.players[0].username}</h4>
+            <h4>Description: {event.description}</h4>
             </div>
           </div>
         );
