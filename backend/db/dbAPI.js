@@ -297,14 +297,54 @@ const startEvent = (startInfo, callback) => {
     .catch(err => callback(err));
 }
 
-const endEvent = (endInfo, callback) => {
-  console.log(endInfo)
-  db.one(
-    `UPDATE events SET actual_end_ts = $/actual_end_ts/ 
-     WHERE id = $/event_id/
-     RETURNING id AS event_id, actual_end_ts`, endInfo)
-    .then((event) => callback(null, event))
-    .catch(err => callback(err));
+const endEventAndAwardPoints = (endInfo, callback) => {
+    const winners = endInfo.winner_team_members
+    const losers = endInfo.loser_team_members
+  db.tx(t => {
+    //q1 updates the event setting the actual start and end timestamps and the winner team
+    const q1 = t.none(
+      `UPDATE events SET actual_end_ts = $/actual_end_ts/, winner_team = $/winner_team/ 
+       WHERE id = $/event_id/`,
+       endInfo
+      )
+
+    //Building one sql statement to update multiple winner users exp_point at once
+    if(winners.length) {
+      //Base (header) for the SQL statement
+      var SQLWinnersStatement = 'UPDATE users SET exp_points = exp_points + 100 WHERE id ='
+      winners.forEach((winner, index) => {
+        if(index === 0) {
+          SQLWinnersStatement  =  SQLWinnersStatement + '\n' + winner.id
+        } else {
+          SQLWinnersStatement = SQLWinnersStatement + '\n' + `OR id = ${winner.id}`
+        }
+      })
+        SQLWinnersStatement += ';' 
+      //q2 updates the exp_points for the winners
+      const q2 = t.none(SQLWinnersStatement)
+    }
+
+    //Building one sql statement to update multiple loser users exp_point at once
+    if(losers.length) {
+      //Base (header) for the SQL statement
+      var SQLLosersStatement = 'UPDATE users SET exp_points = exp_points + 50 WHERE id ='
+      losers.forEach((loser, index) => {
+        if(index === 0) {
+          SQLLosersStatement  =  SQLLosersStatement + '\n' + loser.id
+        } else {
+          SQLLosersStatement = SQLLosersStatement + '\n' + `OR id = ${loser.id}`
+        }
+      })
+        SQLLosersStatement += ';' 
+      //q2 updates the exp_points for the winners
+      const q2 = t.none(SQLLosersStatement)
+      return t.batch([q1, q2])
+    }
+  })
+  .then(event => {
+    callback(null, {...event, msg: 'points awarded'})
+  })
+  .catch(err => callback(err));
 }
 
 const getEventsUserHosts = (userId, callback) => {
@@ -321,6 +361,10 @@ const getEventsUserHosts = (userId, callback) => {
     WHERE events.host_id = $1`, userId)
     .then(events => callback(null, events))
     .catch(err => callback(err))
+}
+
+const awardPoints = (winnerTeam, loserTeam) => {
+  db
 }
 
 module.exports = {
@@ -347,6 +391,6 @@ module.exports = {
   leaveEvent: leaveEvent,
   cancelEvent: cancelEvent,
   startEvent: startEvent,
-  endEvent: endEvent
+  endEventAndAwardPoints: endEventAndAwardPoints
 };
 
