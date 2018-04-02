@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Modal, Button } from "react-bootstrap";
+import { Redirect, Route } from "react-router-dom";
 
 import moment from "moment";
 import "./time.css";
@@ -34,7 +35,8 @@ export default class Event extends React.Component {
       format_id: "",
       sport_id: "",
       event: "",
-      searchResponses: []
+      searchResponses: [],
+      event_id:""
     };
   }
 
@@ -132,7 +134,11 @@ export default class Event extends React.Component {
             event_pic: imgScr
           })
           .then(res => {
-            this.loadPage(res.data.event.id);
+            console.log('data i am getting after adding an event',res.data)
+            this.setState({
+              event_id:res.data.event.id,
+              submit:true
+            })
           })
           .catch(err => console.log("Error Adding Event:", err));
       })
@@ -338,7 +344,11 @@ export default class Event extends React.Component {
     );
   };
   render() {
-    const { submit, event } = this.state;
-    return <div>{submit ? <Events event={event} /> : this.form()}</div>;
+    const { submit, event, event_id } = this.state;
+    console.log('the event id is',event_id)
+    const url = `/user/event/myevents/${event_id}`
+    return <div>
+      {submit ? <Redirect to={url} /> : this.form()}
+      </div>;
   }
 }

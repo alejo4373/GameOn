@@ -15,11 +15,11 @@ export default class Events extends React.Component {
       click: false,
       show: false,
       msg: '',
-      time:0,
+      time:'',
       m:moment(),
       startTime: '',
       playTime: '',
-      started: true,
+      started: false,
       timer: ''
     };
   }
@@ -85,7 +85,8 @@ export default class Events extends React.Component {
   //and start time
   startTime = () => {
     this.setState({
-      timer: setInterval(this.timing, 1000)
+      timer: setInterval(this.timing, 1000),
+      started:true
     })
   }
 
@@ -98,32 +99,47 @@ export default class Events extends React.Component {
 
   stop = () => {
     clearInterval(this.state.timer)
+    this.setState({
+      started:false
+    })
   }
 
   form = () => {
-    const { event,show, time, gameTime } = this.state;
+    const { event,show, time, started } = this.state;
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
     const teamA = event.players.filter(player => player.team === 'A')
     const teamB = event.players.filter(player => player.team === 'B')
     console.log(event)
     return (
       <div className='eventpage'>
-        <Template event = { event }/>
-        {time}
-        {show ? (
-          <button onClick={leaveEvent}>Leave</button>
+        <div className="event_header" style={{backgroundImage: `url(${event.event_pic})`}}>
+          <h3 className="title">{event.name}</h3>
+          </div>
+          <div className="join">
+          {show ? (
+          <button className="click" onClick={leaveEvent}>Leave</button>
         ) : (
-          <button onClick={handleShow}>Join</button>
+          <button className="click" onClick={handleShow}>Join</button>
         )}
-        <h3>Team A</h3>
-        {teamA.map(player => <li>{player.username}</li>)}
-        <h3>Team B</h3>
-        {teamB.map(player => <li>{player.username}</li>)}
-
-        <button onClick = {this.startTime}>Start Game</button>
-
-        <button onClick = {this.stop}>End Game</button>
-        <h2>{gameTime}</h2>
+        </div>
+        <Template event = { event }/>
+        <div className="teams">
+        <div className="verse_header">
+        <div className="game_header_left">Team A</div>
+        <h1 className="verse">VS</h1>
+        <div className="game_header_right">Team B</div>
+        </div>
+        <div className="team_players">
+        <ul>
+        <div className="A">{teamA.map(player => <li>{player.username}</li>)}</div>
+        </ul>
+        <ul>
+        <div className="B">{teamB.map(player => <li>{player.username}</li>)}</div>
+        </ul>
+        </div>
+        {time}
+        {started?<button className="time" onClick = {this.stop}>End Game</button>: <button className="time" onClick = {this.startTime}>Start Game</button> }
+        </div>
 
         <Team show={show} handleClose={handleClose} selectTeam= {selectTeam} joinEvent={joinEvent}/>
       </div>
