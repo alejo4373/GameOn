@@ -265,7 +265,8 @@ export class MapContainer extends Component {
                 style={{
                   width: "300px",
                   height: "150px",
-                  backgroundColor: '#FAFAFA'
+                  backgroundColor: '#FAFAFA',
+                  color: 'black'
                 }}
               >
                 <div

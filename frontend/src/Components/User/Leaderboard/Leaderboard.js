@@ -53,7 +53,6 @@ class Leaderboard extends Component {
                 <img src="/images/leaderboard-rank-2.png" id='leaderboard-rank-pic' alt='' />
               </div>
             </Tab>
-          )}
           <Tab eventKey={2} title="All">
             <div id="leaderboard_parent">
               <h2 style={{ color: "white" }} id="">
@@ -62,11 +61,9 @@ class Leaderboard extends Component {
               <ListGroup id="leaderboard_container">
                 <ListGroupItem id="leaderboard_header">
                   <div>Player</div>
-                  {/* <div>Medal</div>
-                        <div>Rank</div> */}
+               
                   <div>Score</div>
-                  {/* <div>Wins</div>
-                        <div>Losses</div>    */}
+                 
                 </ListGroupItem>
                 {players.map(p => {
                   return (

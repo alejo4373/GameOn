@@ -20,6 +20,7 @@
     float: left;
     height: 100vh;
     width: 60%;
+    color: #2f2e2e
 }
 
 input[id=login-input], input[id=login-password]{
