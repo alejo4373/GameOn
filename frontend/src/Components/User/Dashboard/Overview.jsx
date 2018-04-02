@@ -62,10 +62,9 @@ class Overview extends Component {
 
     return (
       <div>
-        {user.map(u => {
+        {user.map((u, i) => {
           return (
-            <div id="Overview">
-              <div className="header">
+            <div key={i} id="Overview">
               <div id="photo_container">
                 <img
                   id="Overview_photo"
