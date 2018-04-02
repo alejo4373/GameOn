@@ -2,12 +2,14 @@ import { Modal, Button } from "react-bootstrap";
 import React from "react";
 
 export default class Team extends React.Component{
-    constructor(props){
-        super(props)
-    }
 
     render(){
-        const { show, handleClose, selectTeam, joinEvent } = this.props;
+        const { show, 
+          handleClose, 
+          selectTeam, 
+          // eslint-disable-next-line
+          joinEvent 
+        } = this.props;
         return (
           <Modal show={show} onHide={handleClose}>
             <Modal.Header>
@@ -26,7 +28,7 @@ export default class Team extends React.Component{
       
             <Modal.Footer>
               <Button onClick={handleClose}>Close</Button>
-              <Button bsStyle="primary">GameOn</Button>
+              <Button onClick={joinEvent} bsStyle="primary">GameOn</Button>
             </Modal.Footer>
           </Modal>
         );

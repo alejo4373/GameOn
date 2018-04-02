@@ -73,6 +73,7 @@ export default class Login extends Component {
       loggedIn,
       user
     } = this.state;
+    // eslint-disable-next-line
     const { submitForm } = this;
 
     if (user) {
@@ -145,6 +146,7 @@ export default class Login extends Component {
             </form>
           </div>
         </div>
+        {message}
       </div>
     );
   }

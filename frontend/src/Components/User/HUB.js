@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
 // import { Redirect } from "react-router";
 import axios from "axios";
 
-import { Navbar, NavDropdown, Nav, NavItem, MenuItem } from "react-bootstrap";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
+import './HUB.css'
 
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
 import Events from "./HostEvents/EventForm";
-import CurrentEvent from "./HostEvents/CurrentEvent"
+import CurrentEvent from "./HostEvents/CurrentEvent";
 import Map from "./Map/Map";
-import Leaderboard from "./Leaderboard/Leaderboard"
+import Leaderboard from "./Leaderboard/Leaderboard";
 import History from "./History";
+import Survey from "./HostEvents/Survey";
+import MyEvents from "./HostEvents/CreatedEvent";
 
 
 class HUB extends Component {
@@ -31,39 +35,28 @@ class HUB extends Component {
           <Navbar inverse collapseOnSelect >
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to="/user/dashboard">GameOn</Link>
+                <Link to="/user/dashboard"><h2 id="app-Name">GameOn</h2></Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav>
-                <NavItem eventKey={1} href="#">
-                  <Link to="/user/map">Map</Link>
-                </NavItem>
-                <NavItem eventKey={2} href="#">
-                  <Link to="/user/leaderboard">Leaderboard</Link>
-                </NavItem>
-                <NavDropdown
-                  eventKey={3}
-                  title="Events"
-                  id="basic-nav-dropdown"
-                >
-                  <MenuItem eventKey={3.1}><Link to='/user/event'>Host Event</Link></MenuItem>
-                  <MenuItem eventKey={3.2}><Link to='/user/history' >Past Events</Link></MenuItem>
-                  <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                  <MenuItem divider />
-                  <MenuItem eventKey={3.3}>Separated link</MenuItem>
-                </NavDropdown>
+                <LinkContainer to="/user/map">
+                  <NavItem eventKey={3}>Map</NavItem>
+                </LinkContainer>
+
+                <LinkContainer to="/user/leaderboard">
+                  <NavItem eventKey={2}> Leaderboard </NavItem>
+                </LinkContainer>
               </Nav>
+
               <Nav pullRight>
-                <NavItem eventKey={1} href="/user/profile">
-                  Settings
-                </NavItem>
-                <NavItem>
-                  <Link to="/login" onClick={handleLogOut}>
-                    Logout
-                  </Link>
-                </NavItem>
+                <LinkContainer to="/user/profile">
+                  <NavItem eventKey={1}> Settings </NavItem>
+                </LinkContainer>
+                <LinkContainer to="/login">
+                  <NavItem onClick={handleLogOut}> Logout </NavItem>
+                </LinkContainer>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
@@ -76,8 +69,10 @@ class HUB extends Component {
             <Route path="/user/map" component={Map} />
             <Route path="/user/leaderboard" component={Leaderboard} />
             <Route exact path="/user/event" component={Events} />
-            <Route path="/user/event/:id" component={CurrentEvent} />
+            <Route exact path="/user/event/:id" component={CurrentEvent} />
+            <Route path="/user/event/myevents/:id" component={MyEvents}/>
             <Route path="/user/history" component={History} />
+            <Route path='/user/survey' component={Survey} />
           </Switch>
         </div>
       </div>

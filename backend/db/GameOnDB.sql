@@ -24,6 +24,7 @@ CREATE TABLE users_sports(
   sport_id INT REFERENCES sports(id) NOT NULL
 );
 
+CREATE TYPE team_type AS ENUM ('A', 'B'); --So that a team can only be A or B
 CREATE TABLE events (
     id SERIAL PRIMARY KEY,
     host_id INT NOT NULL,
@@ -32,15 +33,18 @@ CREATE TABLE events (
     long DOUBLE PRECISION NOT NULL,
     start_ts BIGINT NOT NULL,
     end_ts BIGINT NOT NULL,
+    actual_start_ts BIGINT,
+    actual_end_ts BIGINT,
     name VARCHAR NOT NULL,
     location VARCHAR NOT NULL,
     sport_id INT NOT NULL,
     sport_format_id INT NOT NULL,
     event_pic VARCHAR,
-    description VARCHAR
+    description VARCHAR,
+    cancelled BOOLEAN,
+    winner_team team_type
 );
 
-CREATE TYPE team_type AS ENUM ('A', 'B'); --So that a team can only be A or B
 CREATE TABLE players_events (
     id SERIAL PRIMARY KEY,
     event_id INT REFERENCES events(id) ON DELETE CASCADE NOT NULL, --CASCADE so that when deleting an event we automatically delete records in this table too
@@ -112,15 +116,15 @@ INSERT INTO users_sports (sport_id, user_id)
 VALUES(1, 1),
       (2, 1);
 
-INSERT INTO events (host_id, lat, long, start_ts, end_ts, name, location, sport_id, sport_format_id, event_pic, description)
-VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', '6x6 bring hydration'),
-       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/event.png', '5x5 rain or shine'),
-       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/event.png', 'rain or shine')
+INSERT INTO events (host_id, lat, long, start_ts, end_ts, actual_start_ts, actual_end_ts, name, location, sport_id, sport_format_id, event_pic, description, cancelled)
+VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', 'Bring hydration', FALSE),
+       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/event.png', 'Rain or shine', FALSE),
+       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/event.png', 'Rain or shine', FALSE)
        ;
 
 INSERT INTO players_events(event_id, player_id, team, match_judge)
-VALUES(1, 2, 'A', TRUE),
-      (1, 3, 'A', FALSE),
-      (1, 1, 'B', TRUE),
+VALUES(1, 2, 'A', FALSE),
+      (1, 3, 'B', TRUE),
+      (1, 1, 'A', TRUE),
       (2, 2, 'A', TRUE) 
       ;

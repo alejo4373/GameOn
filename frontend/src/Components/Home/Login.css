@@ -15,6 +15,10 @@
     height: 70px;
 }
 
+.login_container{
+    background-color: white;
+}
+
 #login_title {
     color: #dbdbdb;
     font-size: 310%;
@@ -153,13 +157,13 @@ input[id=login-submit] {
         padding: 1%;
         z-index: 1;
         opacity: 0.5;
-        height: 7%;
+        height: 10%;
     }
 
     #login_title {
         color: White;
-        font-size: 200%;
-        margin: 0;
+        font-size: 300%;
+        margin-top: 2%;
         position: fixed;
         width: 100%;
         padding: 1%;

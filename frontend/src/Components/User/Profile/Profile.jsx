@@ -65,7 +65,7 @@ class Profile extends Component {
 
   submitProfilePicture = () => {
     const { user, photo } = this.state;
-
+    // eslint-disable-next-line
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
 
     if (regex.test(photo)) {
@@ -105,7 +105,6 @@ class Profile extends Component {
 
   render() {
     const {
-      handleEditProfile,
       handleDisplayInfo,
       handleURLChange,
       submitProfilePicture
@@ -152,6 +151,7 @@ class Profile extends Component {
                 src={user.profile_pic}
                 id="profile_photo"
                 onClick={() => this.setState({ show: true })}
+                alt=''
               />
               <div id="profile_username">{user.username}</div>
             </div>
