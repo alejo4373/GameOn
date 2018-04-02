@@ -1,9 +1,19 @@
+* {
+  /* box-sizing: border-box; */
+  /* border: 2px solid green; */
+}
+
 html, body {
-  height: 100%;
+  /* height: 100%; */
 }
 body {
   text-align: center;
   width: 100%;
+  /* border: 2px solid yellow; */
+}
+
+html {
+  /* border: 2px solid green; */
 }
 
 .login-container {
