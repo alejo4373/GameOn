@@ -40,6 +40,7 @@ export default class Event extends React.Component {
             </h4>
           </h3>
           </div>
+
           </div>
         </div>
       </div>

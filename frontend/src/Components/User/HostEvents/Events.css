@@ -130,3 +130,17 @@ ul{
 .decription{
   width:60%;
 }
+
+.eventpage{
+    color: white;
+    height: 100vh;
+}
+
+.eventpage > button{
+    color: blue
+}
+
+
+.modal-body > button {
+    color: white
+}
