@@ -324,7 +324,7 @@ export default class Event extends React.Component {
           Describe You're Game <br />
           <textarea
             rows="6"
-            cols="50"
+            cols="40"
             type="textarea"
             name="Description"
             value={Description}
