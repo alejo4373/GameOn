@@ -1,3 +1,10 @@
+.login_container {
+    /* border: 4px solid salmon; */
+    height: 100%;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+}
+
 .pageHeader {
     position: fixed;
     background-color: #2f2e2e;
@@ -14,8 +21,8 @@
 }
 
 #login_title {
-    color: White;
-    font-size: 40px;
+    color: #dbdbdb;
+    font-size: 310%;
     margin: 0;
     position: fixed;
     width: 100%;
@@ -24,36 +31,47 @@
 }
 
 .carousel{
-    height: 100%;
+    height: 100vh;
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
+    /* position: fixed; */
 }
 
 .carousel-inner>.next {
     margin: 0;
     bottom: 0;
 }
+#link-div {
 
+}
 #lets_play_link {
     margin: 0;
     position: relative;
-    top: -40vh;
+    top: -15vh;
     color: White;
-    font-size: 45px;
     margin: 0;
     text-decoration: none;
+    font-size: 70px;
 }
 
+#login-subtitle {
+    position: fixed;
+    z-index: 1;
+
+}
 
 #arrow {
     /* border: 2px red solid; */
     position: relative;
     top: -2vh;
+    border: mediumvioletred 2px solid;
 }
 
 #form_container {
-    position: relative;
+    position: fixed;
     top: -10vh;
+    border: purple 2px solid;
+    float: inherit;
 }
 
 #home_form_container {
@@ -63,11 +81,12 @@
     top: 12vh;
     width: 45%;
     background-color: #6d6a6a7a;
+    float: left;
 }
 
 #login {
     font-size: 25px;
-    color: block;
+    color: white;
 }
 
 input[id=login-input], input[id=login-password]{
@@ -92,7 +111,8 @@ input[id=login-submit] {
 }
 
 #homePage-question {
-
+    font-size: 15px;
+    color: #dbdbdb;
 }
 
 
@@ -102,11 +122,85 @@ input[id=login-submit] {
     width: 15%;
     margin-left: 43%;
 }
-/* p {
-    font-size: 25px;
-    color: black;
-} */
 
 #signup {
-    font-size: 18px;
+    font-size: 15px;
 } 
+
+
+@media only screen 
+  and (max-width: 480px)
+  {
+    .login_container {
+        background: url("https://images.unsplash.com/photo-1518063319789-7217e6706b04?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c81c34c2973c3947d4afb6c26d179a35&auto=format&fit=crop&w=634&q=80") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 100vh;
+    }
+    .carousel{
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        display: none
+    }
+    
+    .carousel-inner>.next {
+        margin: 0;
+        bottom: 0;
+    }
+
+    .pageHeader {
+        position: fixed;
+        background-color: #2f2e2e;
+        width: 100%;
+        padding: 1%;
+        z-index: 1;
+        opacity: 0.5;
+        height: 7%;
+    }
+
+    #login_title {
+        color: White;
+        font-size: 200%;
+        margin: 0;
+        position: fixed;
+        width: 100%;
+        padding: 1%;
+        z-index: 1;
+    }
+
+    #lets_play_link {
+        margin: 0;
+        position: relative;
+        top: -15vh;
+        color: White;
+        margin: 0;
+        text-decoration: none;
+        font-size: 70px;
+    }
+
+    #login-subtitle {
+        font-size: 50%
+    }
+
+    #arrow {
+        /* border: 2px red solid; */
+        position: relative;
+        top: -3vh;
+        width: 40px;
+    }
+
+    #home_form_container {
+        position: fixed;
+        top: 25%;
+        width: 100%;
+        background-color: #6d6a6a7a;
+        height: 50%;
+        margin: 0;
+    }
+    #signup {
+        color: #2424ff;
+    }
+}

@@ -1,5 +1,3 @@
-
-
 body {
   /* margin: 0;
   padding: 0;
@@ -81,7 +79,6 @@ body {
   float: left;
 }
 
-
 .survey-parent{
   margin-top: 10%;
 }
@@ -124,13 +121,13 @@ body {
     margin-right: 33%
   }
   
-   #Overview{
+   /* #Overview{
     border: 2px solid black;
     margin: 15% 0 0 0;
     width: 350px;
     height: 200px;
     position: absolute;
-  }
+  } */
   
   #Overview_photo{
     float: left;
@@ -140,10 +137,6 @@ body {
     -webkit-border-radius: 50px;
   }
 
-  
-
-
-  
   #edit_Overview_button{
     border: 1px solid gray;
     font-size: 18px;
