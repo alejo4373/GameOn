@@ -73,6 +73,7 @@ export default class Login extends Component {
       loggedIn,
       user
     } = this.state;
+    // eslint-disable-next-line
     const { submitForm } = this;
 
     if (user) {
@@ -99,13 +100,14 @@ export default class Login extends Component {
               src="/images/soccer-background.png"
               height="100%"
               width="100%"
+              alt=''
             />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/football-background.png" height="100%" />
+            <img src="/images/football-background.png" height="100%" alt='' />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/basketball-for-slide-show.jpg" height="100%" />
+            <img src="/images/basketball-for-slide-show.jpg" height="100%"  alt=''/>
           </Carousel.Item>
         </Carousel>
         <a id="lets_play_link" href="#form_container">
@@ -144,6 +146,7 @@ export default class Login extends Component {
             </form>
           </div>
         </div>
+        {message}
       </div>
     );
   }

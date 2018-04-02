@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { ProgressBar } from "react-bootstrap";
 import axios from "axios";
 
@@ -45,7 +45,6 @@ class Overview extends Component {
 
   render() {
     const { user, loggedOut, profileClicked } = this.state;
-    const { handleLogOut, redirectToUserProfile } = this;
 
     if (loggedOut) {
       this.setState({
@@ -65,27 +64,54 @@ class Overview extends Component {
       <div>
         {user.map(u => {
           return (
-            <div id="Overview" onClick={redirectToUserProfile}>
+            <div id="Overview">
               <div id="photo_container">
-                <img id="Overview_photo" src={u.profile_pic} width="130px" alt=""/>
+                <img
+                  id="Overview_photo"
+                  src={u.profile_pic}
+                  width="180px"
+                  alt=""
+                />
               </div>
               <div id="Overview_description">
-                <span id="username">
+                <div id="username">
                   <h3>{u.username.toUpperCase()}</h3>
-                </span>
-                <span id="xp_header">
+                </div>
+                <div id="xp_header">
                   <h3>XP: {u.exp_points} pts</h3>
                   <ProgressBar
+                    style={{ width: "200px" }}
                     bsStyle="success"
                     now={u.exp_points}
-                    label={`${u.exp_points}`}
+                    label={`${u.exp_points} xp`}
                   />
-                </span>
+                </div>
+              </div>
+              <div 
+              id="medal-container"
+              style={{
+                  width: "200px",
+                  height: "150px",
+                  position: 'absolute',
+                  margin: '10% 0 0 60%'
+                }}>
+                  <img src='/images/gold-trophy.png' width={'105px'} alt=''/>
+                </div>
+              <div
+                style={{
+                  width: "100px",
+                  border: "0.3px solid black",
+                  backgroundColor: "#0C6195",
+                  margin: "55% 0 0 40%",
+                  height: "50px",
+                  color: 'white',
+                }}
+              >
+                New Game
               </div>
             </div>
           );
         })}
-        {/* <button onClick={this.handleLogOut}>Log Off</button> */}
       </div>
     );
   }

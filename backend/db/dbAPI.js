@@ -363,8 +363,20 @@ const getEventsUserHosts = (userId, callback) => {
     .catch(err => callback(err))
 }
 
-const awardPoints = (winnerTeam, loserTeam) => {
-  db
+const getEventsUserParticipatedIn = (userId, callback) => {
+  db.any(
+    `SELECT 
+       events.*,
+       users.username AS host_username,
+       sports.name AS sport_name,
+       sports_format.description AS sport_format_description
+     FROM events
+     JOIN sports ON events.sport_id = sports.id
+     JOIN sports_format ON events.sport_format_id = sports_format.id JOIN users ON events.host_id = users.id
+     JOIN players_events ON players_events.event_id = events.id
+     WHERE players_events.player_id = $1`, userId)
+    .then(events => callback(null, events))
+    .catch(err => callback(err))
 }
 
 module.exports = {
@@ -374,6 +386,7 @@ module.exports = {
   getUserInfo: getUserInfo,
   getSportsForUser: getSportsForUser,
   getEventsUserHosts: getEventsUserHosts,
+  getEventsUserParticipatedIn: getEventsUserParticipatedIn,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
   /*- Sports Related */

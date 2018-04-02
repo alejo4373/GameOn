@@ -8,6 +8,10 @@
     height: 70px;
 }
 
+.login_container{
+    background-color: white;
+}
+
 #login_title {
     color: White;
     font-size: 40px;
