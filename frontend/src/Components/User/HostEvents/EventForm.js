@@ -202,7 +202,7 @@ export default class Event extends React.Component {
             style={{color: 'black'}}
           />{" "}
           <br />
-          Name You're Event: <br />
+          Name Your Event: <br />
           <input
             required
             type="text"

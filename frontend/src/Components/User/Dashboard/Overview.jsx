@@ -65,6 +65,7 @@ class Overview extends Component {
         {user.map(u => {
           return (
             <div id="Overview">
+              <div className="header">
               <div id="photo_container">
                 <img
                   id="Overview_photo"
@@ -75,10 +76,13 @@ class Overview extends Component {
               </div>
               <div id="Overview_description">
                 <div id="username">
-                  <h3>{u.username.toUpperCase()}</h3>
+                  <h3 className="username">{u.username.toUpperCase()}</h3>
                 </div>
+                <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
                 <div id="xp_header">
-                  <h3>XP: {u.exp_points} pts</h3>
+                  <h2>
+                    XP: <span className="points">{u.exp_points} pts</span>
+                  </h2>
                   <ProgressBar
                     style={{ width: "200px" }}
                     bsStyle="success"
@@ -86,17 +90,36 @@ class Overview extends Component {
                     label={`${u.exp_points} xp`}
                   />
                 </div>
-              </div>
-              <div 
-              id="medal-container"
-              style={{
-                  width: "200px",
-                  height: "150px",
-                  position: 'absolute',
-                  margin: '10% 0 0 60%'
-                }}>
-                  <img src='/images/gold-trophy.png' width={'105px'} alt=''/>
                 </div>
+                <div
+                  id="medal-container"
+                  style={{
+                    height: "150px",
+                    position: "absolute"
+                  }}
+                >
+                  <h3 className="medal">
+                  Medals
+                  </h3>
+                  <img
+                    className="medal-img"
+                    src="/images/gold-trophy.png"
+                    width={"105px"}
+                    alt=""
+                  />
+                </div>
+              </div>
+              {/* <div className='buttons'>
+              <div className="join-button">
+                <h3 className='button-text'>Join</h3>
+              </div>
+              <div className="create-button">
+                <h3 className='button-text'>Create</h3>
+              </div>
+              <div className='create-button'>
+              <i class="fas fa-cogs" id='gear'></i>
+              </div> */}
+              {/* </div> */}
               <div
                 style={{
                   width: "100px",
@@ -104,7 +127,7 @@ class Overview extends Component {
                   backgroundColor: "#0C6195",
                   margin: "55% 0 0 40%",
                   height: "50px",
-                  color: 'white',
+                  color: "white"
                 }}
               >
                 New Game
