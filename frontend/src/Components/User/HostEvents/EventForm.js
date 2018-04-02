@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
-import { Modal, Button } from "react-bootstrap";
-import { Redirect, Route } from "react-router-dom";
+import { Modal } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 import moment from "moment";
 import "./time.css";
 import "./Events.css";
 import InputMoment from "input-moment";
-import Events from "./CreatedEvent";
+//import Events from "./CreatedEvent";
 
 export default class Event extends React.Component {
   constructor() {
@@ -36,7 +36,6 @@ export default class Event extends React.Component {
       sport_id: "",
       event: "",
       searchResponses: [],
-      event_id:""
     };
   }
 
@@ -344,7 +343,7 @@ export default class Event extends React.Component {
     );
   };
   render() {
-    const { submit, event, event_id } = this.state;
+    const { submit, event_id } = this.state;
     console.log('the event id is',event_id)
     const url = `/user/event/myevents/${event_id}`
     return <div>
