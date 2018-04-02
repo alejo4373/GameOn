@@ -109,11 +109,16 @@ router.patch('/start/:eventId', loginRequired, (req, res, next) => {
 })
 
 router.patch('/end/:eventId', loginRequired, (req, res, next) => {
+  //Award participation points here once the event ended
   const endInfo = {
     event_id: req.params.eventId,
-    actual_end_ts: Number(req.body.actual_end_ts)
+    actual_end_ts: Number(req.body.actual_end_ts),
+    winner_team: req.body.winner_team,
+    winner_team_members: JSON.parse(req.body.winner_team_members),
+    loser_team_members: JSON.parse(req.body.loser_team_members)
   }
-   dbAPI.endEvent(endInfo, (err, event) => {
+  //Award winning points here once we know who won
+   dbAPI.endEventAndAwardPoints(endInfo, (err, event) => {
     if(err) { return next(err) }
     res.status(200)
     res.json({

@@ -24,6 +24,7 @@ CREATE TABLE users_sports(
   sport_id INT REFERENCES sports(id) NOT NULL
 );
 
+CREATE TYPE team_type AS ENUM ('A', 'B'); --So that a team can only be A or B
 CREATE TABLE events (
     id SERIAL PRIMARY KEY,
     host_id INT NOT NULL,
@@ -40,10 +41,10 @@ CREATE TABLE events (
     sport_format_id INT NOT NULL,
     event_pic VARCHAR,
     description VARCHAR,
-    cancelled BOOLEAN
+    cancelled BOOLEAN,
+    winner_team team_type
 );
 
-CREATE TYPE team_type AS ENUM ('A', 'B'); --So that a team can only be A or B
 CREATE TABLE players_events (
     id SERIAL PRIMARY KEY,
     event_id INT REFERENCES events(id) ON DELETE CASCADE NOT NULL, --CASCADE so that when deleting an event we automatically delete records in this table too
@@ -122,8 +123,8 @@ VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 1521755233284, 
        ;
 
 INSERT INTO players_events(event_id, player_id, team, match_judge)
-VALUES(1, 2, 'A', TRUE),
-      (1, 3, 'A', FALSE),
-      (1, 1, 'B', TRUE),
+VALUES(1, 2, 'A', FALSE),
+      (1, 3, 'B', TRUE),
+      (1, 1, 'A', TRUE),
       (2, 2, 'A', TRUE) 
       ;

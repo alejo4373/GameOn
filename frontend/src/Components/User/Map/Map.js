@@ -216,8 +216,8 @@ export class MapContainer extends Component {
               bsClass="formControlsSelect"
               onChange={this.handleSportSelector}
             >
-              {allSports.map(s => {
-                return <option value={s.id}>{s.name}</option>;
+              {allSports.map((s, i) => {
+                return <option key={i} value={s.id}>{s.name}</option>;
               })}
             </FormControl>
           </div>

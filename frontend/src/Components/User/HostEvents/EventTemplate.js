@@ -1,29 +1,49 @@
 import React from "react";
 
-export default class Event extends React.Component{
-    render(){
-        const event = this.props.event
-        console.log(event)
-        const date = new Date(Number(event.start_ts));
-        console.log(date.toTimeString)
-        const end = new Date(Number(event.end_ts));
-        return (
-          <div>
-            <img class = "eventpic" src={event.event_pic} alt="" width="150px" />
-            <div class= "details"> 
-            <h4>Name: {event.name}</h4>
-            <h4>
-              Sport:{" "}
-              {event.sport_name.charAt(0).toUpperCase() + event.sport_name.slice(1)}
-            </h4>
-            <h4>Location: {event.location}</h4>
-            <h4>Date: {date.toDateString()}</h4>
-            <h4>Start Time: {date.toTimeString()}</h4>
-            <h4>End Time: {end.toTimeString()}</h4>
-            <h4>Organizer: {event.players[0].username}</h4>
-            <h4>Description: {event.description}</h4>
-            </div>
+export default class Event extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      event: this.props.event
+    };
+  }
+
+  render() {
+    const { event } = this.state;
+    const date = new Date(Number(event.start_ts));
+    const end = new Date(Number(event.end_ts));
+    console.log(date.getDate())
+
+    const options = {  
+      weekday: "long", year: "numeric", month: "short",  
+      day: "numeric", hour: "2-digit", minute: "2-digit"  
+  };  
+
+    return (
+      <div className="container">
+        <div className="details" >
+          <div className='middle'>
+          <div className="eventinfo">
+          <h3><i class="fas fa-calendar-alt"></i> {date.toLocaleTimeString('en-US',options)}</h3>
+          <h3 className="end">{end.toLocaleTimeString('en-US', options)}</h3>
+          <h3><i class="fas fa-map-marker-alt"></i> {event.location}</h3>
+          <h3><i class="fas fa-user"></i> {event.players[0].username}</h3>
           </div>
-        );
-    }
-};
+          <div className="info">
+          <h3>Description <h4 class="decription">{event.description}</h4></h3>
+          <h3>
+            Sport
+            <h4>
+            {event.sport_name.charAt(0).toUpperCase() +
+              event.sport_name.slice(1)}
+            </h4>
+          </h3>
+          </div>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
