@@ -7,9 +7,22 @@ export default class Events extends React.Component {
     super(props);
 
     this.state = {
-      event: this.props.event.event,
+      event: '',
       delete: false
     };
+  }
+
+  componentDidMount(){
+    const id = this.props.match.params.id;
+    axios
+    .get(`/event/info/${id}`)
+    .then(res =>{
+      this.setState({
+        event: res.data.event
+      })
+    }
+    )
+    .catch(err => console.log('err retrieving the event info', err));
   }
 
   handleDelete = () => {
@@ -26,16 +39,25 @@ export default class Events extends React.Component {
     const { event } = this.state;
     return (
       <div className='eventpage'>
+        {this.state.delete ?<h2>The event has been deleted </h2>:
+        <div>
+        <div className="event_header" style={{backgroundImage: `url(${event.event_pic})`}}>
+          <h3 className="title">{event.name}</h3>
+          </div>
         <Template event = { event }/>
         <button onClick={this.handleDelete}>Delete</button>
+        </div>}
       </div>
     );
   };
 
   render() {
+    console.log('the id that is getting called', this.props.match.params.id)
+    console.log('the event that is being render', this.state.event.event)
     return (
       <div>
-        {this.state.delete ? <h2>The event has been deleted </h2> : this.form()}
+        {this.state.event? this.form(): ""}
+        {/* {this.state.delete ? <h2>The event has been deleted </h2> : this.form()} */}
       </div>
     );
   }

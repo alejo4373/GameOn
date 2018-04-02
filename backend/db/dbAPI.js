@@ -180,9 +180,12 @@ const addEvent = (event, callback) => {
     .catch(err => callback(err));
 }
 
-const deleteEvent = (deleteReq, callback) => {
-  db.any('DELETE FROM events WHERE id = ${event_id} AND host_id = ${host_id}', deleteReq)
-    .then(() => callback(null))
+const cancelEvent = (eventId, callback) => {
+  db.one(
+    `UPDATE events SET cancelled = TRUE 
+     WHERE id = $1
+     RETURNING id AS event_id, cancelled`, eventId)
+    .then((event) => callback(null, event))
     .catch(err => callback(err));
 }
 
@@ -215,7 +218,8 @@ const getEventInfo = (eventId, callback) => {
     `SELECT 
       events.*,
       sports.name as sport_name,
-      sports_format.description as sport_format
+      sports_format.description as sport_format,
+      sports_format.num_players
     FROM events
     INNER JOIN sports ON sports.id = events.sport_id
     INNER JOIN sports_format ON sports_format.id = events.sport_format_id
@@ -237,19 +241,22 @@ const getEventInfo = (eventId, callback) => {
           }
           callback(null, eventInfo)
         })
-        .then(err => callback(err))
+        .catch(err => callback(err))
     })
     .catch(err => callback(err));
 }
 
 const getAllEventsInRadius = (latLongRange, callback) => {
-  console.log('calling getAllEventsInRadius')
   db.any(
     `SELECT 
       events.*,
-      sports.name AS sport_name
+      users.username AS host_username,
+      sports.name AS sport_name,
+      sports_format.description AS sport_format_description
     FROM events
-    INNER JOIN sports ON events.sport_id = sports.id
+    JOIN sports ON events.sport_id = sports.id
+    JOIN sports_format ON events.sport_format_id = sports_format.id
+    JOIN users ON events.host_id = users.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
     AND long BETWEEN $/minLon/ AND $/maxLon/`
     , latLongRange)
@@ -261,9 +268,13 @@ const getEventsForSportInRadius = (latLongRange, sport_id, callback) => {
   db.any(
     `SELECT 
       events.*,
-      sports.name AS sport_name
+      users.username AS host_username,
+      sports.name AS sport_name,
+      sports_format.description AS sport_format_description
     FROM events
-    INNER JOIN sports ON events.sport_id = sports.id
+    JOIN sports ON events.sport_id = sports.id
+    JOIN sports_format ON events.sport_format_id = sports_format.id
+    JOIN users ON events.host_id = users.id
     WHERE lat BETWEEN $/minLat/ AND $/maxLat/
     AND long BETWEEN $/minLon/ AND $/maxLon/ AND events.sport_id = $/sport_id/`
     , {...latLongRange, sport_id})
@@ -277,12 +288,105 @@ const getSportFormats = (sport_id, callback) => {
     .catch(err => callback(err));
 }
 
+const startEvent = (startInfo, callback) => {
+  db.one(
+    `UPDATE events SET actual_start_ts = $/actual_start_ts/ 
+     WHERE id = $/event_id/
+     RETURNING id AS event_id, actual_start_ts`, startInfo)
+    .then((event) => callback(null, event))
+    .catch(err => callback(err));
+}
+
+const endEventAndAwardPoints = (endInfo, callback) => {
+    const winners = endInfo.winner_team_members
+    const losers = endInfo.loser_team_members
+  db.tx(t => {
+    //q1 updates the event setting the actual start and end timestamps and the winner team
+    const q1 = t.none(
+      `UPDATE events SET actual_end_ts = $/actual_end_ts/, winner_team = $/winner_team/ 
+       WHERE id = $/event_id/`,
+       endInfo
+      )
+
+    //Building one sql statement to update multiple winner users exp_point at once
+    if(winners.length) {
+      //Base (header) for the SQL statement
+      var SQLWinnersStatement = 'UPDATE users SET exp_points = exp_points + 100 WHERE id ='
+      winners.forEach((winner, index) => {
+        if(index === 0) {
+          SQLWinnersStatement  =  SQLWinnersStatement + '\n' + winner.id
+        } else {
+          SQLWinnersStatement = SQLWinnersStatement + '\n' + `OR id = ${winner.id}`
+        }
+      })
+        SQLWinnersStatement += ';' 
+      //q2 updates the exp_points for the winners
+      const q2 = t.none(SQLWinnersStatement)
+    }
+
+    //Building one sql statement to update multiple loser users exp_point at once
+    if(losers.length) {
+      //Base (header) for the SQL statement
+      var SQLLosersStatement = 'UPDATE users SET exp_points = exp_points + 50 WHERE id ='
+      losers.forEach((loser, index) => {
+        if(index === 0) {
+          SQLLosersStatement  =  SQLLosersStatement + '\n' + loser.id
+        } else {
+          SQLLosersStatement = SQLLosersStatement + '\n' + `OR id = ${loser.id}`
+        }
+      })
+        SQLLosersStatement += ';' 
+      //q2 updates the exp_points for the winners
+      const q2 = t.none(SQLLosersStatement)
+      return t.batch([q1, q2])
+    }
+  })
+  .then(event => {
+    callback(null, {...event, msg: 'points awarded'})
+  })
+  .catch(err => callback(err));
+}
+
+const getEventsUserHosts = (userId, callback) => {
+  db.any(
+    `SELECT 
+      events.*,
+      users.username AS host_username,
+      sports.name AS sport_name,
+      sports_format.description AS sport_format_description
+    FROM events
+    JOIN sports ON events.sport_id = sports.id
+    JOIN sports_format ON events.sport_format_id = sports_format.id
+    JOIN users ON events.host_id = users.id
+    WHERE events.host_id = $1`, userId)
+    .then(events => callback(null, events))
+    .catch(err => callback(err))
+}
+
+const getEventsUserParticipatedIn = (userId, callback) => {
+  db.any(
+    `SELECT 
+       events.*,
+       users.username AS host_username,
+       sports.name AS sport_name,
+       sports_format.description AS sport_format_description
+     FROM events
+     JOIN sports ON events.sport_id = sports.id
+     JOIN sports_format ON events.sport_format_id = sports_format.id JOIN users ON events.host_id = users.id
+     JOIN players_events ON players_events.event_id = events.id
+     WHERE players_events.player_id = $1`, userId)
+    .then(events => callback(null, events))
+    .catch(err => callback(err))
+}
+
 module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
   registerUser: registerUser,
   getUserInfo: getUserInfo,
   getSportsForUser: getSportsForUser,
+  getEventsUserHosts: getEventsUserHosts,
+  getEventsUserParticipatedIn: getEventsUserParticipatedIn,
   getAllUsers: getAllUsers,
   updateUserInfo: updateUserInfo,
   /*- Sports Related */
@@ -298,6 +402,8 @@ module.exports = {
   getEventsForSportInRadius: getEventsForSportInRadius,
   joinEvent: joinEvent,
   leaveEvent: leaveEvent,
-  deleteEvent, deleteEvent
+  cancelEvent: cancelEvent,
+  startEvent: startEvent,
+  endEventAndAwardPoints: endEventAndAwardPoints
 };
 

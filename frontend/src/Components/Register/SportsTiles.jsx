@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+// eslint-disable-next-line
 import { Carousel } from "react-bootstrap";
 import "./SportsTile.css";
 
@@ -37,6 +38,7 @@ export default class SportTiles extends Component {
             id="form-image"
             src="/images/form-page-basketball-background.jpg"
             align="left"
+            alt=''
           />
         </div>
 

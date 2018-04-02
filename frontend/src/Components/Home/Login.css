@@ -15,6 +15,10 @@
     height: 70px;
 }
 
+.login_container{
+    background-color: white;
+}
+
 #login_title {
     color: #dbdbdb;
     font-size: 310%;

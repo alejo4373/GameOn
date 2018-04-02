@@ -57,6 +57,38 @@ router.get('/sports', loginRequired, (req, res, next) => {
   })
 })
 
+router.get('/events', loginRequired, (req, res, next) => {
+  var userId = req.query.user_id
+  //If we dont request a particular userId in the query
+  if(!userId) {
+    //Get the id for the logged in user traveling in the req.user
+    userId = req.user.id  
+  }
+  dbAPI.getEventsUserHosts(userId, (err, events) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      events: events,
+      msg: 'All events hosted by user retrieved'
+    })
+  })
+})
 
+router.get('/events/history', loginRequired, (req, res, next) => {
+  var userId = req.query.user_id
+  //If we dont request a particular userId in the query
+  if(!userId) {
+    //Get the id for the logged in user traveling in the req.user
+    userId = req.user.id  
+  }
+  dbAPI.getEventsUserParticipatedIn(userId, (err, events) => {
+    if(err){return next(err)}
+    res.status(200)
+    res.json({
+      events: events,
+      msg: 'All events hosted by user retrieved'
+    })
+  })
+})
 
 module.exports = router;

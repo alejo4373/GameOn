@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./Form.css";
-// import axios from "axios";
 import { Link } from "react-router-dom";
-// import { Redirect } from "react-router";
-import { Carousel } from "react-bootstrap";
 import Selection from "./Selection";
 
 export default class Registration extends Component {
@@ -68,7 +65,6 @@ export default class Registration extends Component {
       emailInput,
       fullNameInput,
       zipcodeInput,
-      alert
     } = this.state;
 
     if (
@@ -97,7 +93,6 @@ export default class Registration extends Component {
       confirmInput,
       emailInput,
       fullNameInput,
-      registered,
       zipcodeInput
     } = this.state;
 
@@ -149,10 +144,8 @@ export default class Registration extends Component {
       passwordInput,
       confirmInput,
       message,
-      registered,
       zipcodeInput,
       nextPressed,
-      alert
     } = this.state;
 
     const {
@@ -185,6 +178,7 @@ export default class Registration extends Component {
                 id="form-image"
                 src="/images/form-page-basketball-background.jpg"
                 align="left"
+                alt=''
               />
             </div>
 
