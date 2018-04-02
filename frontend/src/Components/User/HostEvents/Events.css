@@ -2,7 +2,7 @@
 
 body{
   font-family: 'Prata', serif;
-  color: white;
+  /* color: white; */
 }
 #event-form {
   margin-top:6%;
@@ -144,4 +144,9 @@ ul{
 
 .modal-body > button {
     color: white
+}
+
+.survey-modal{
+  color: black;
+height: 180px;
 }

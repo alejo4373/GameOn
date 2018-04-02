@@ -1,10 +1,9 @@
 import React, { Component } from "react";
+import axios from "axios";
+import { FormGroup, ButtonToolbar, Radio, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
-import {
-  FormGroup,
-  Checkbox
-} from "react-bootstrap";
-
+import { Redirect } from "react-router";
 import "rc-slider/assets/index.css";
 import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
@@ -13,6 +12,13 @@ import Slider from "rc-slider";
 const Handle = Slider.Handle;
 
 export default class Survey extends Component {
+  state = {
+    message: "",
+    winner: "",
+    likeness: "",
+    gameEnded: false,
+    show: true
+  };
   handle = props => {
     const { value, dragging, index, ...restProps } = props;
 
@@ -29,31 +35,93 @@ export default class Survey extends Component {
       </Tooltip>
     );
   };
+
+  handleSelectors = e => {
+    const winner = e.target.value;
+
+    this.setState({
+      winner: winner
+    });
+  };
+
+  handleWinner = () => {
+    const { event } = this.props;
+    const { winner } = this.state;
+    const teamA = event.players.filter(player => player.team === "A");
+    const teamB = event.players.filter(player => player.team === "B");
+    if (winner === "teamA") {
+      axios
+        .patch(`/event/end/${event.id}`, {
+          actual_end_ts: event.actual_end_ts,
+          winner_team: "A",
+          winner_team_members: JSON.stringify(teamA),
+          loser_team_members: JSON.stringify(teamB)
+        })
+        .then(() => {
+          this.setState({
+            message: "Congrats to Team A",
+            gameEnded: true
+          });
+        })
+        .catch(err => {
+          console.log("Error:", err);
+        });
+    } else if (winner === "teamB") {
+      axios
+        .patch(`/event/end/${event.id}`, {
+          actual_end_ts: event.actual_end_ts,
+          winner_team: "B",
+          winner_team_members: JSON.stringify(teamB),
+          loser_team_members: JSON.stringify(teamA)
+        })
+        .then(() => {
+          this.setState({
+            message: "Congrats to Team B",
+            gameEnded: true
+          });
+        })
+        .catch(err => {
+          console.log("Error:", err);
+        });
+    }
+  };
+
   render() {
+    const { event } = this.props;
+    const { gameEnded, show } = this.state;
+
+    console.log("events in survey", event);
+    const teamA = event.players.filter(player => player.team === "A");
+    const teamB = event.players.filter(player => player.team === "B");
+
+    if (gameEnded) {
+      this.setState({
+        gameEnded: false
+      });
+      return <Redirect to="/user/map" />;
+    }
     return (
       <div className="survey-parent">
-        <h2>Did You Enjoy The Game</h2>
-        <div style={{maxWidth: "300px", marginLeft: '38%', minWidth:"400px"}}>
-        <Slider
-          defaultValue={1}
-          min={1}
-          max={5}
-          handle={this.handle}
-        //   onChange={}
-        />
-        </div>
-        <h2>Who Won The Game</h2>
-        <FormGroup>
-          <Checkbox inline>1</Checkbox> 
-          <Checkbox inline>2</Checkbox>
-          <Checkbox inline>3</Checkbox>
-        </FormGroup>
-        <h2>Would You Play With this Team Or Host Again?</h2>
-        <FormGroup>
-          <Checkbox inline>Absolutely</Checkbox> 
-          <Checkbox inline>No</Checkbox>
-          <Checkbox inline>Maybe</Checkbox>
-        </FormGroup>
+        <Modal show={show} >
+          <Modal.Body  bsClass='survey-modal'>
+            <h2>Who Won The Game</h2>
+            <FormGroup onChange={this.handleSelectors}>
+              <Radio name="winnerGroup" inline value="teamA">
+                Team A <br /> {teamA.map(p => p.username + " ")}
+              </Radio>
+              <br />
+              <Radio name="winnerGroup" inline value="teamB">
+                Team B <br /> {teamB.map(p => p.username + " ")}
+              </Radio>{" "}
+            </FormGroup>
+            <ButtonToolbar
+              style={{ marginLeft: "45%" }}
+              onClick={this.handleWinner}
+            >
+              <Button bsStyle="success">Finish</Button>
+            </ButtonToolbar>
+          </Modal.Body>
+        </Modal>
       </div>
     );
   }
