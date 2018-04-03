@@ -1,15 +1,15 @@
 #leaderboard-body{
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     /* display: flex;
     flex-wrap: wrap; */
-    color: black;
+   
 
 }
 
 #leaderboard_header{
-    margin-top: 80px;
+    margin-top: 40px;
     color: black;
 }
 
@@ -55,41 +55,12 @@ table, th, td {
 table {
     margin-left: 10%;
     margin-right: 10%;
+    height: 200px;
     float: left;
     width: 80%;
     top: -15vh;
     position: relative;
+    overflow: scroll;
 }
 
 
-/* @media (max-width: 600px){
-    #leaderboard_parent{
-        margin-top: 20%;
-    }
-    #leaderboard-body{
-        width: 700px;
-        height: 1180px;
-        background-color: #213238;
-        position: absolute;
-    }
-    #leaderboard-rank-pic{
-        width: 500px;
-        margin-top: 40%;
-    }
-    #player-1, #player-2{
-        position: absolute;
-    }
-        
-    #player-0{
-        margin:20% 0 0 48%;
-        position: absolute;
-    }
-        
-    #player-1{
-        margin: 30% 0 0 25%;
-    }
-        
-    #player-2{
-        margin: 30% 0 0 70%;
-    }
-} */

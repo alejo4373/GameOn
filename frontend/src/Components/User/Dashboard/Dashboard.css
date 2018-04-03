@@ -14,24 +14,6 @@
 .header{
   display: flex;
 }
-
- #Overview{
-    border: 2px solid white;
-    margin: 6% 0 8% 10%;
-    width: 80%;
-    height: 80%;
-    position: absolute;
-    background-color:white;
-    color: black;
-    text-align: left;
-  }
-  #photo_container{
-    width: 50%;
-  }
-  .header{
-    display: flex;
-  }
-  
   #Overview_photo{
     margin: 2% 0 0 20%;
     width: 300px;
@@ -150,3 +132,4 @@
   #add-btn:hover{
     border-color: gold;
   }
+

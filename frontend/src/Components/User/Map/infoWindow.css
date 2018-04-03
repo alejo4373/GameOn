@@ -1,0 +1,54 @@
+#individual-event-card {
+  width: 300px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+.left-side{
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
+  clip-path: circle(86.8% at 0 50%) 
+}
+
+.right-side{
+  display: grid;
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.right-side > .event-name {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.right-side > p {
+  text-align: left;
+  color: black;
+  align-self:center;
+  font-size: 1.4em;
+  padding-left: 6%;
+  margin: 0;
+}
+
+.right-side > button {
+  grid-column-start: span 2;
+}
+
+.right-side > .icon {
+  align-self:center;
+}
+
+.icon {
+  width: 100%;
+}
+
+#marker-event-photo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
+  clip-path: circle(43%);
+  width: 100%;
+}

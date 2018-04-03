@@ -43,23 +43,18 @@
   
   
   
-  #past-event-panel{
-    margin: 10% 0 0 35%;
-    width: 400px;
-  }
-  
   .container{
     min-width: 100vw
   }
     
   
   #map-filter{
-    background-color: #F5F5F5;
+    background-color: #FDFDFD;
     color: black;
     width: 240px;
     height: 80px;
     position: absolute;
-    margin: 4% 0 0 30%;
+    margin: 0% 0 0 40%;
     z-index: 3;
   }
   
@@ -97,18 +92,6 @@
     margin: 8% 0 0 13%;
     
   }
-   
- 
-  
-  
-#individual-event-card{
-    background-image: url("https://bsbproduction.s3.amazonaws.com/portals/9843/images/basketball_for_all_s.jpg");
-    background: rgb(255,255,255); /* Old browsers */
-    background: -moz-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(33,50,56,1) 55%, rgba(33,50,56,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, rgba(255,255,255,1) 0%,rgba(33,50,56,1) 55%,rgba(33,50,56,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(33,50,56,1) 55%,rgba(33,50,56,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#213238',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
   
   #history_component{
     position: absolute;
