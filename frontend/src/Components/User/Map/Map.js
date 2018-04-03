@@ -26,8 +26,6 @@ import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
 import Slider from "rc-slider";
 
-
-
 const Handle = Slider.Handle;
 
 // eslint-disable-next-line
@@ -49,7 +47,7 @@ export class MapContainer extends Component {
       activeMarker: {},
       selectedEvents: {},
       hostedEvents: [],
-      userCurrentLocation: "",
+      userCurrentLocation: { latitude: 40.7128, longitude: -73.935242 },
       allSports: [{ name: "All", id: "" }],
       miles: 5,
       sportID: ""
@@ -103,44 +101,33 @@ export class MapContainer extends Component {
     }
   };
 
-  getUserCurrentLocation = (callback, miles = this.state.miles, id) => {
+  getUserCurrentLocation = () => {
     var options = {
       enableHighAccuracy: true,
-      timeout: 2500,
+      timeout: 5000,
       maximumAge: 0
     };
 
-    function error(err) {
-      console.log("error", err);
-      callback(40.7128, -73.935242, miles, id);
-      //40.6619451,-73.8946182
-    }
-    function showPosition(position) {
-      if (position) {
-        callback(
-          position.coords.latitude,
-          position.coords.longitude,
-          miles,
-          id
-        );
-      }
-    }
+    const success = position => {
+      this.setState({
+        userCurrentLocation: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }
+      }, this.getAllHostedEvents);
+    };
 
-    navigator.geolocation.getCurrentPosition(showPosition, error, options);
+    navigator.geolocation.getCurrentPosition(success);
   };
 
-  getAllHostedEvents = (latitude, longitude, miles, id) => {
-    console.log(id);
-
-    this.setState({
-      miles: miles
-    });
+  getAllHostedEvents = () => {
+    const { userCurrentLocation, miles, sportID } = this.state;
 
     axios
       .get(
-        `/event/radius?lat=${latitude}&long=${longitude}&radius=${miles}&sport_id=${
-          id !== undefined ? id : ""
-        }`
+        `/event/radius?lat=${userCurrentLocation.latitude}&long=${
+          userCurrentLocation.longitude
+        }&radius=${miles}&sport_id=${sportID}`
       )
       .then(res => {
         console.log("HostData:", res.data);
@@ -150,26 +137,41 @@ export class MapContainer extends Component {
       });
   };
 
+  handleMilesSlider = props => {
+  
+    this.setState({
+      miles: props
+    }, this.getAllHostedEvents);
+  
+  };
+
   handleSportSelector = e => {
-    const { miles } = this.state;
-
     let id = e.target.value;
-
     this.setState({
       sportID: id
-    });
-    this.getUserCurrentLocation(this.getAllHostedEvents, miles, id);
+    },  this.getAllHostedEvents);
+   
   };
 
   componentWillMount() {
-    this.getUserCurrentLocation(this.getAllHostedEvents);
+    this.getUserCurrentLocation();
+    this.getAllHostedEvents();
     this.getAllSports();
   }
 
   render() {
-    const { hostedEvents, selectedEvents, allSports, miles } = this.state;
+    const {
+      hostedEvents,
+      selectedEvents,
+      allSports,
+      miles,
+      userCurrentLocation
+    } = this.state;
+
+    console.log("User Location:", userCurrentLocation);
+
     const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
-    const mapStyle = {height: "100%"}
+    const mapStyle = { height: "100%" };
     return (
       <div>
         <div id="google-map">
@@ -186,13 +188,7 @@ export class MapContainer extends Component {
                 min={1}
                 max={8}
                 handle={this.handle}
-                onChange={props =>
-                  this.getUserCurrentLocation(
-                    this.getAllHostedEvents,
-                    props,
-                    this.state.sportID
-                  )
-                }
+                onChange={props => this.handleMilesSlider(props)}
               />
             </div>
             <div style={{ position: "absolute", marginLeft: 20 }}>
@@ -205,7 +201,11 @@ export class MapContainer extends Component {
               onChange={this.handleSportSelector}
             >
               {allSports.map((s, i) => {
-                return <option key={i} value={s.id}>{s.name}</option>;
+                return (
+                  <option key={i} value={s.id}>
+                    {s.name}
+                  </option>
+                );
               })}
             </FormControl>
           </div>
@@ -219,6 +219,14 @@ export class MapContainer extends Component {
             onClick={this.onMapClicked}
             style={mapStyle}
           >
+            <Marker
+              title="You Are Here"
+              position={{
+                lat: userCurrentLocation.latitude,
+                lng: userCurrentLocation.longitude
+              }}
+            />
+
             {hostedEvents.length
               ? hostedEvents.map(e => (
                   <Marker
@@ -243,19 +251,27 @@ export class MapContainer extends Component {
             <InfoWindow
               marker={this.state.activeMarker}
               visible={this.state.showingInfoWindow}
-              
             >
               <a href={`/user/event/${selectedEvents.id}`}>
                 <div id="individual-event-card">
-                  <div className='left-side' style={{backgroundImage: `url(/images/${selectedEvents.sport}.jpg)`}}>
-                  </div>
-                  <div className='right-side'>
-                        <img src={`/icons/${selectedEvents.sport}-icon.png`} className='icon'/>
-                        <p className='event-name'>{selectedEvents.name}</p>
-                        <img src='/icons/user-icon.png' className='icon'/>
-                        <p>{selectedEvents.hostUsername}</p>
-                        <img src='/icons/pin-icon.png' className='icon'/>
-                        <p>{selectedEvents.location}</p>
+                  <div
+                    className="left-side"
+                    style={{
+                      backgroundImage: `url(/images/${
+                        selectedEvents.sport
+                      }.jpg)`
+                    }}
+                  />
+                  <div className="right-side">
+                    <img
+                      src={`/icons/${selectedEvents.sport}-icon.png`}
+                      className="icon"
+                    />
+                    <p className="event-name">{selectedEvents.name}</p>
+                    <img src="/icons/user-icon.png" className="icon" />
+                    <p>{selectedEvents.hostUsername}</p>
+                    <img src="/icons/pin-icon.png" className="icon" />
+                    <p>{selectedEvents.location}</p>
                   </div>
                 </div>
               </a>
