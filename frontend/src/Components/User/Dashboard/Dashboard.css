@@ -14,157 +14,122 @@
 .header{
   display: flex;
 }
+  #Overview_photo{
+    margin: 2% 0 0 20%;
+    width: 300px;
+    -moz-border-radius: 90px;
+    -webkit-border-radius: 200px;
+  }
+  
+  #edit_Overview_button{
+    border: 1px solid gray;
+    font-size: 18px;
+    width: auto;
+    height: 28px;
+    position: absolute;
+    margin: 1.5% 0 0 13%;
+  
+  }
+  #username{
+    margin-top: 5%;
+    margin-left: 1%;
+    position: absolute;
+    /* font-size: 100px; */
+    /* text-align: center; */
+  }
+  .username{
+    font-size: 45px;
+    /* text-align: center; */
+  }
+  
+  #xp_header{
+    margin-top: 12%;
+    margin-left: 1%;
+    position: absolute;
+  }
+  .medal{
+    border-bottom: 2px solid;
+    border-top: 2px solid;
+    padding: 10px;
+    width: 150%;
+    text-align: left;
+    background-color: peru;
+  }
 
-#Overview_photo{
-  margin: 2% 0 0 20%;
-  width: 300px;
-  -moz-border-radius: 90px;
-  -webkit-border-radius: 200px;
-}
-.buttons{
-  display: flex;
-  flex-direction: row;
-  margin-left:40%;
-}
+  #medal-container{
+    margin-top: 24%;
+    width:53%;
+  }
 
-.join-button, .create-button{
-  width: 150px;
-  height:150px;
-  margin-top: 30%;
-  margin-right:6%;
-  background-color: peru;
-  -moz-border-radius: 90px;
-  -webkit-border-radius: 100px;
-}
+  .medal-img{
+    margin-top:1px;
+  }
+  .points{
+    font-size: 25px;
+  }
+  #dashboard-tabs{
+    width: 480px;
+    margin: 28% 0 0 20%;
+    z-index:  1;
+    position: absolute;
+  }
+  
+  #event_container{
+    width: 480px;
+    height: 520px;
+    overflow-y:  auto;
+    position: absolute;
+  }
+  
+  .host_img{
+    float: left;
+    margin: 1% 0% 0 3%;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+  }
+  
+  .host_Name{
+    position: absolute;
+    margin-left: 34%
+  }
+  
+  .event_descriptions{
+    width: 200px;
+    height: auto;
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 5%;
+  }
+  
+  .individual_event{
+    border: 2px solid #DDDDDD;
+    width: 475px;
+    height: 125px;
+    margin-top: 0.4%;
+    background-color: aliceblue;
+  }
+  
+  .nav-tabs > li{
+  padding-left: 7%
+  }
+  
+  
+  .newGame-btn{
+    margin-left: 90%;
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    border: none
+  }
+  
+  #add-btn{
+    width: 55px;
+    border: 2px solid #1BADC0;
+    border-radius: 50px;
+  }
+  
+  
+  #add-btn:hover{
+    border-color: gold;
+  }
 
-.join-button:hover, .create-button:hover{
-  opacity: 0.5;
-}
-
-.button-text{
-  margin-top:45%;
-}
-
-#gear{
-  width:20px
-}
-
-#edit_Overview_button{
-  border: 1px solid gray;
-  font-size: 18px;
-  width: auto;
-  height: 28px;
-  position: absolute;
-  margin: 1.5% 0 0 13%;
-
-}
-
-#username{
-  margin-top: 5%;
-  margin-left: 1%;
-  position: absolute;
-  /* font-size: 100px; */
-  /* text-align: center; */
-}
-.username{
-  font-size: 45px;
-  /* text-align: center; */
-}
-
-#xp_header{
-  margin-top: 8%;
-  margin-left: 1%;
-  position: absolute;
-}
-.medal{
-  border-bottom: 2px solid;
-  border-top: 2px solid;
-  padding: 10px;
-  width: 150%;
-  text-align: left;
-  background-color: peru;
-}
-
-#medal-container{
-  margin-top: 24%;
-  width:53%;
-}
-
-.medal-img{
-  margin-top:1px;
-}
-.points{
-  font-size: 25px;
-}
-
-#past-event-panel{
-  margin: 10% 0 0 35%;
-  width: 400px;
-}
-
-#dashboard-tabs{
-  width: 480px;
-  margin: 28% 0 0 20%;
-  z-index:  1;
-  position: absolute;
-}
-
-#event_container{
-  width: 480px;
-  height: 520px;
-  overflow-y:  auto;
-  position: absolute;
-}
-
-.host_img{
-  float: left;
-  margin: 1% 0% 0 3%;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-}
-
-.host_Name{
-  position: absolute;
-  margin-left: 34%
-}
-
-.event_descriptions{
-  width: 200px;
-  height: auto;
-  position: absolute;
-  margin-left: 20%;
-  margin-top: 5%;
-}
-
-.individual_event{
-  border: 2px solid #DDDDDD;
-  width: 475px;
-  height: 125px;
-  margin-top: 0.4%;
-  background-color: aliceblue;
-}
-
-.nav-tabs > li{
-padding-left: 7%
-}
-
-
-.newGame-btn{
-  margin-left: 90%;
-  border-radius: 50px;
-  width: 55px;
-  height: 55px;
-  border: none
-}
-
-#add-btn{
-  width: 55px;
-  border: 2px solid #1BADC0;
-  border-radius: 50px;
-}
-
-button:focus {outline:0;}
-
-#add-btn:hover{
-  border-color: gold;
-}

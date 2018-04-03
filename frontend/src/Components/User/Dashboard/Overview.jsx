@@ -114,34 +114,34 @@ class Overview extends Component {
 
     return (
       <div>
-        {user.map((u, i) => {
+        {user.map((u,i) => {
           return (
-            <div key={i} id="Overview">
+            <div key ={i} id="Overview">
               <div className="header">
-                <div id="photo_container">
-                  <img
-                    id="Overview_photo"
-                    src={u.profile_pic}
-                    width="180px"
-                    alt=""
+              <div id="photo_container">
+                <img
+                  id="Overview_photo"
+                  src={u.profile_pic}
+                  width="180px"
+                  alt=""
+                />
+              </div>
+              <div id="Overview_description">
+                <div id="username">
+                  <h3 className="username">{u.username.toUpperCase()}</h3>
+                </div>
+                <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
+                <div id="xp_header">
+                  <h2>
+                    XP: <span className="points">{u.exp_points} pts</span>
+                  </h2>
+                  <ProgressBar
+                    style={{ width: "200px" }}
+                    bsStyle="success"
+                    now={u.exp_points}
+                    label={`${u.exp_points} xp`}
                   />
                 </div>
-                <div id="Overview_description">
-                  <div id="username">
-                    <h3 className="username">{u.username.toUpperCase()}</h3>
-                  </div>
-                  <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
-                  <div id="xp_header">
-                    <h2>
-                      XP: <span className="points">{u.exp_points} pts</span>
-                    </h2>
-                    <ProgressBar
-                      style={{ width: "200px" }}
-                      bsStyle="success"
-                      now={u.exp_points}
-                      label={`${u.exp_points} xp`}
-                    />
-                  </div>
                 </div>
                 {/* <div
                   id="medal-container"
@@ -183,8 +183,3 @@ class Overview extends Component {
 
 export default Overview;
 
-/**
- * <div id="hostevent-component">
-                        <HostEvents />
-                      </div>
- */
