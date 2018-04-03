@@ -11,6 +11,7 @@ import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
 import Events from "./HostEvents/EventForm";
 import CurrentEvent from "./HostEvents/CurrentEvent";
+import EventProfile from "./HostEvents/EventProfile";
 import Map from "./Map/Map";
 import Leaderboard from "./Leaderboard/Leaderboard";
 import History from "./History";
@@ -69,6 +70,7 @@ class HUB extends Component {
             <Route path="/user/map" component={Map} />
             <Route path="/user/leaderboard" component={Leaderboard} />
             <Route exact path="/user/event" component={Events} />
+            {/* <Route exact path="/user/event/:id" component={EventProfile} /> */}
             <Route exact path="/user/event/:id" component={CurrentEvent} />
             <Route path="/user/event/myevents/:id" component={MyEvents}/>
             <Route path="/user/history" component={History} />
