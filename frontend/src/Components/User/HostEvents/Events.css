@@ -10,6 +10,21 @@ body{
   color: azure;
 }
 
+#autocomplete-form{
+  width: 200px;
+  margin-left: 43%;
+  
+}
+
+#address-response-container{
+  border: 1px solid #70A9E3;
+
+  width: 176px;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
+}
+
 .details {
   padding-top: 10px;
 }

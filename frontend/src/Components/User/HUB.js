@@ -13,7 +13,7 @@ import CurrentEvent from "./HostEvents/CurrentEvent";
 import Map from "./Map/Map";
 import Leaderboard from "./Leaderboard/Leaderboard";
 import History from "./History";
-import Survey from "./HostEvents/Survey";
+
 import MyEvents from "./HostEvents/CreatedEvent";
 
 
@@ -71,7 +71,6 @@ class HUB extends Component {
             <Route exact path="/user/event/:id" component={CurrentEvent} />
             <Route path="/user/event/myevents/:id" component={MyEvents}/>
             <Route path="/user/history" component={History} />
-            <Route path='/user/survey' component={Survey} />
           </Switch>
         </div>
       </div>

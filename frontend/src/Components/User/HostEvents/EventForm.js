@@ -213,7 +213,6 @@ export default class Event extends React.Component {
           />{" "}
           <br />
           Enter Address: <br />
-          <div id="autocomplete-form">
             <input
               required
               type="text"
@@ -224,6 +223,7 @@ export default class Event extends React.Component {
               onFocus={Address}
               style={{color: 'black'}}
             />
+          <div id="autocomplete-form">
             {searchResponses.length ? (
               <div id="address-response-container"
               style={{color: 'black'}}

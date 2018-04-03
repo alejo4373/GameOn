@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { ProgressBar } from "react-bootstrap";
+import { Tabs, Tab } from "react-bootstrap";
 import axios from "axios";
+
+import Upcoming from "./Upcoming";
 
 class Overview extends Component {
   state = {
     user: [],
     loggedOut: false,
-    profileClicked: false
+    profileClicked: false,
+    hostedEvents: [],
+    addPressed: false
   };
 
   getUserInfo = () => {
@@ -20,6 +25,37 @@ class Overview extends Component {
         });
       })
       .catch(err => console.log("Failed To Fetch User:", err));
+  };
+
+  getUserCurrentLocation = callback => {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 500,
+      maximumAge: 0
+    };
+
+    function error(err) {
+      console.log("error", err);
+      callback(40.7128, -73.935242);
+    }
+    function showPosition(position) {
+      if (position) {
+        callback(position.coords.latitude, position.coords.longitude);
+      }
+    }
+
+    navigator.geolocation.getCurrentPosition(showPosition, error, options);
+  };
+
+  getAllHostedEvents = (latitude, longitude) => {
+    axios
+      .get(`/event/radius?lat=${latitude}&long=${longitude}&radius=${10}`)
+      .then(res => {
+        console.log("HostData:", res.data);
+        this.setState({
+          hostedEvents: res.data.events
+        });
+      });
   };
 
   handleLogOut = () => {
@@ -41,10 +77,11 @@ class Overview extends Component {
 
   componentWillMount() {
     this.getUserInfo();
+    this.getUserCurrentLocation(this.getAllHostedEvents);
   }
 
   render() {
-    const { user, loggedOut, profileClicked } = this.state;
+    const { user, loggedOut, profileClicked, hostedEvents, addPressed} = this.state;
 
     if (loggedOut) {
       this.setState({
@@ -53,11 +90,11 @@ class Overview extends Component {
       return <Redirect to="/" />;
     }
 
-    if (profileClicked) {
+    if (addPressed) {
       this.setState({
         profileClicked: false
       });
-      return <Redirect to="/user/profile" />;
+      return <Redirect to="/user/event" />;
     }
 
     return (
@@ -65,33 +102,33 @@ class Overview extends Component {
         {user.map((u, i) => {
           return (
             <div key={i} id="Overview">
-              <div id="photo_container">
-                <img
-                  id="Overview_photo"
-                  src={u.profile_pic}
-                  width="180px"
-                  alt=""
-                />
-              </div>
-              <div id="Overview_description">
-                <div id="username">
-                  <h3 className="username">{u.username.toUpperCase()}</h3>
-                </div>
-                <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
-                <div id="xp_header">
-                  <h2>
-                    XP: <span className="points">{u.exp_points} pts</span>
-                  </h2>
-                  <ProgressBar
-                    style={{ width: "200px" }}
-                    bsStyle="success"
-                    now={u.exp_points}
-                    label={`${u.exp_points} xp`}
+              <div className="header">
+                <div id="photo_container">
+                  <img
+                    id="Overview_photo"
+                    src={u.profile_pic}
+                    width="180px"
+                    alt=""
                   />
                 </div>
-              <div>
+                <div id="Overview_description">
+                  <div id="username">
+                    <h3 className="username">{u.username.toUpperCase()}</h3>
+                  </div>
+                  <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
+                  <div id="xp_header">
+                    <h2>
+                      XP: <span className="points">{u.exp_points} pts</span>
+                    </h2>
+                    <ProgressBar
+                      style={{ width: "200px" }}
+                      bsStyle="success"
+                      now={u.exp_points}
+                      label={`${u.exp_points} xp`}
+                    />
+                  </div>
                 </div>
-                <div
+                {/* <div
                   id="medal-container"
                   style={{
                     height: "150px",
@@ -107,31 +144,18 @@ class Overview extends Component {
                     width={"105px"}
                     alt=""
                   />
+                </div> */}
+                <div id="dashboard-tabs">
+                  <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                    <Tab eventKey={1} title="Past Event" />
+                    <Tab eventKey={2} title="Upcoming Events">
+                      <Upcoming events={hostedEvents} />
+                    </Tab>
+                    <Tab eventKey={3} title="My Events" />
+                  </Tabs>
                 </div>
               </div>
-               <div className='buttons'>
-              <div className="join-button">
-                <h3 className='button-text'>Join</h3>
-              </div>
-              <div className="create-button">
-                <h3 className='button-text'>Create</h3>
-              </div>
-              <div className='create-button'>
-              <i class="fas fa-cogs" id='gear'></i>
-              </div> 
-               </div> 
-              <div
-                style={{
-                  width: "100px",
-                  border: "0.3px solid black",
-                  backgroundColor: "#0C6195",
-                  margin: "55% 0 0 40%",
-                  height: "50px",
-                  color: "white"
-                }}
-              >
-                New Game
-              </div>
+              <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
             </div>
           );
         })}
@@ -143,20 +167,7 @@ class Overview extends Component {
 export default Overview;
 
 /**
- * <div id="user_selectedSports_container">
-                  {u.sports.map(s => {
-                    return (
-                      <div className="user_selectedSports">
-                        <div className="sports_name_skills">
-                          Sport: {s.name.toUpperCase()} Skill: {s.id}
-                          <ProgressBar
-                            bsStyle="success"
-                            now={20}
-                            label={`${20}%`}
-                          />
-                        </div>
+ * <div id="hostevent-component">
+                        <HostEvents />
                       </div>
-                    );
-                  })}
-                </div>
  */

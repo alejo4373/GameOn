@@ -25,8 +25,7 @@ import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
 import Slider from "rc-slider";
 
-import Upcoming from "./Upcoming";
-import HostEvents from "../HostEvents/EventForm";
+
 
 const Handle = Slider.Handle;
 
@@ -171,19 +170,6 @@ export class MapContainer extends Component {
     const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
     return (
       <div>
-        <div id="map-tabs">
-          <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-            <Tab eventKey={1} title="Upcoming Events">
-              <Upcoming events={hostedEvents} />
-            </Tab>
-            <Tab eventKey={2} title="Host Event">
-              <div id="hostevent-component">
-                <HostEvents />
-              </div>
-            </Tab>
-          </Tabs>
-        </div>
-
         <div id="google-map">
           <div id="map-filter">
             <div style={wrapperStyle}>
