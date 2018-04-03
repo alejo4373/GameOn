@@ -97,6 +97,10 @@
   font-size: 25px;
 }
 
+#past-event-panel{
+  margin: 10% 0 0 35%;
+  width: 400px;
+}
 
 #dashboard-tabs{
   width: 480px;
@@ -159,6 +163,7 @@ padding-left: 7%
   border-radius: 50px;
 }
 
+button:focus {outline:0;}
 
 #add-btn:hover{
   border-color: gold;

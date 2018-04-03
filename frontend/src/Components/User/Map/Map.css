@@ -43,23 +43,18 @@
   
   
   
-  #past-event-panel{
-    margin: 10% 0 0 35%;
-    width: 400px;
-  }
-  
   .container{
     min-width: 100vw
   }
     
   
   #map-filter{
-    background-color: #F5F5F5;
+    background-color: #FDFDFD;
     color: black;
     width: 240px;
     height: 80px;
     position: absolute;
-    margin: 4% 0 0 30%;
+    margin: 0% 0 0 40%;
     z-index: 3;
   }
   
