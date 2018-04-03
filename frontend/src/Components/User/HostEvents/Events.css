@@ -2,7 +2,7 @@
 
 body{
   font-family: 'Prata', serif;
-  color: black;
+  color:black;
 }
 #event-form {
   margin-top:6%;
@@ -132,14 +132,24 @@ ul{
 }
 
 .eventpage{
-    color: white;
+    color: black;
+    background-color: #eeeeee;
     height: 100vh;
 }
 
 .eventpage > button{
     color: blue
 }
-
+/* 
+.form-input-container {
+  float: left;
+  margin-left: 3em;
+  margin-bottom: 1em;
+} */
+/* 
+.form-input-label, .form-input {
+  display: block;
+} */
 
 .modal-body > button {
     color: white
