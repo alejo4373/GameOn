@@ -62,9 +62,9 @@ class Overview extends Component {
 
     return (
       <div>
-        {user.map(u => {
+        {user.map((u,i) => {
           return (
-            <div id="Overview">
+            <div key ={i} id="Overview">
               <div className="header">
               <div id="photo_container">
                 <img
@@ -109,17 +109,6 @@ class Overview extends Component {
                   />
                 </div>
               </div>
-              {/* <div className='buttons'>
-              <div className="join-button">
-                <h3 className='button-text'>Join</h3>
-              </div>
-              <div className="create-button">
-                <h3 className='button-text'>Create</h3>
-              </div>
-              <div className='create-button'>
-              <i class="fas fa-cogs" id='gear'></i>
-              </div> */}
-              {/* </div> */}
               <div
                 style={{
                   width: "100px",
@@ -142,21 +131,3 @@ class Overview extends Component {
 
 export default Overview;
 
-/**
- * <div id="user_selectedSports_container">
-                  {u.sports.map(s => {
-                    return (
-                      <div className="user_selectedSports">
-                        <div className="sports_name_skills">
-                          Sport: {s.name.toUpperCase()} Skill: {s.id}
-                          <ProgressBar
-                            bsStyle="success"
-                            now={20}
-                            label={`${20}%`}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
- */
