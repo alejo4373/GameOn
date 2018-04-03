@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
 
 import { Navbar, Nav, NavItem } from "react-bootstrap";
+import './HUB.css'
 
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
@@ -34,7 +35,7 @@ class HUB extends Component {
           <Navbar inverse collapseOnSelect >
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to="/user/dashboard">GameOn</Link>
+                <Link to="/user/dashboard"><h2 id="app-Name">GameOn</h2></Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
