@@ -1,6 +1,6 @@
 .login_container {
     /* border: 4px solid salmon; */
-    height: 100%;
+    /* height: 100%; */
     /* display: flex; */
     /* flex-wrap: wrap; */
 }
@@ -20,8 +20,8 @@
 }
 
 #login_title {
-    color: #dbdbdb;
-    font-size: 310%;
+    color: White;
+    font-size: 40px;
     margin: 0;
     position: fixed;
     width: 100%;
@@ -30,32 +30,27 @@
 }
 
 .carousel{
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    /* overflow: hidden; */
-    /* position: fixed; */
+    overflow: hidden;
 }
 
 .carousel-inner>.next {
     margin: 0;
     bottom: 0;
 }
-#link-div {
 
-}
 #lets_play_link {
     margin: 0;
     position: relative;
-    top: -15vh;
+    top: -40vh;
     color: White;
+    font-size: 45px;
     margin: 0;
     text-decoration: none;
-    font-size: 70px;
 }
 
 #login-subtitle {
-    position: fixed;
-    z-index: 1;
 
 }
 
@@ -63,14 +58,11 @@
     /* border: 2px red solid; */
     position: relative;
     top: -2vh;
-    border: mediumvioletred 2px solid;
 }
 
 #form_container {
-    position: fixed;
+    position: relative;
     top: -10vh;
-    border: purple 2px solid;
-    float: inherit;
 }
 
 #home_form_container {
@@ -80,12 +72,11 @@
     top: 12vh;
     width: 45%;
     background-color: #6d6a6a7a;
-    float: left;
 }
 
 #login {
     font-size: 25px;
-    color: white;
+    color: block;
 }
 
 input[id=login-input], input[id=login-password]{
@@ -110,8 +101,7 @@ input[id=login-submit] {
 }
 
 #homePage-question {
-    font-size: 15px;
-    color: #dbdbdb;
+
 }
 
 
@@ -121,6 +111,10 @@ input[id=login-submit] {
     width: 15%;
     margin-left: 43%;
 }
+/* p {
+    font-size: 25px;
+    color: black;
+} */
 
 #signup {
     font-size: 15px;
