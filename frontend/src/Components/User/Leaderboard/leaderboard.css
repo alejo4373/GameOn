@@ -3,6 +3,7 @@
     height: 100%;
     background-color: #213238;
     position: absolute;
+    color: black;
 }
 
 
@@ -30,7 +31,7 @@
 
 #leaderboard_header > div{
     float: left;
-    padding-right: 45%
+    padding-right: 43%
 }
 
 #olympic_rank_container{
