@@ -61,7 +61,7 @@ class HUB extends Component {
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div>
+        <div className="every-component">
           {/*Components Goes HERE*/}
           <Switch>
             <Route path="/user/dashboard" component={Dashboard} />
