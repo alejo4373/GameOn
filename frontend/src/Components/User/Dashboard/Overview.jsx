@@ -118,6 +118,7 @@ class Overview extends Component {
           return (
             <div key ={i} id="Overview">
               <div className="header">
+                <div className="right_half">
               <div id="photo_container">
                 <img
                   id="Overview_photo"
@@ -127,10 +128,13 @@ class Overview extends Component {
                 />
               </div>
               <div id="Overview_description">
+                <div className="blurb">
                 <div id="username">
                   <h3 className="username">{u.username.toUpperCase()}</h3>
                 </div>
-                <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
+                <div className="sports" >Sports: <span className="sport_lists">{u.sports.map(elem => <li className="each_sport">{elem.name}</li>)}</span></div>
+                </div>
+                <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
                 <div id="xp_header">
                   <h2>
                     XP: <span className="points">{u.exp_points} pts</span>
@@ -141,6 +145,7 @@ class Overview extends Component {
                     now={u.exp_points}
                     label={`${u.exp_points} xp`}
                   />
+                </div>
                 </div>
                 </div>
                 {/* <div
@@ -172,7 +177,6 @@ class Overview extends Component {
                   </Tabs>
                 </div>
               </div>
-              <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
             </div>
           );
         })}
