@@ -91,7 +91,7 @@ export default class Events extends React.Component {
   }
 
 
-  timing = (t) => {
+  timing = () => {
     var t = new Date().toLocaleTimeString()
     console.log('my time',t)
    this.setState({ time: t})
@@ -147,7 +147,7 @@ export default class Events extends React.Component {
   };
 
   render() {
-    const { event, m } = this.state;
+    const { event } = this.state;
     // console.log('what i am getting for my game time',gameTime)
     return <div>
       <div>{event ? this.form() : ""}</div></div>;
