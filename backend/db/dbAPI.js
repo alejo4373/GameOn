@@ -374,7 +374,7 @@ const getEventsUserParticipatedIn = (userId, callback) => {
      JOIN sports ON events.sport_id = sports.id
      JOIN sports_format ON events.sport_format_id = sports_format.id JOIN users ON events.host_id = users.id
      JOIN players_events ON players_events.event_id = events.id
-     WHERE players_events.player_id = $1`, userId)
+     WHERE players_events.player_id = $1 AND actual_end_ts IS NOT NULL`, userId)
     .then(events => callback(null, events))
     .catch(err => callback(err))
 }
