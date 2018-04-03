@@ -7,9 +7,6 @@ class Upcoming extends Component {
     console.log(events);
     return (
       <Panel defaultExpanded id="event-panel">
-        <Panel.Heading>
-          <Panel.Title toggle>Upcoming Events</Panel.Title>
-        </Panel.Heading>
         <Panel.Collapse>
           {/* <Panel.Body>Some default panel content here.</Panel.Body> */}
           <div id="event_container">

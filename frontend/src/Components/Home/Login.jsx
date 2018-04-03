@@ -108,13 +108,13 @@ export default class Login extends Component {
             <img src="/images/basketball-for-slide-show.jpg" height="100vh" />
           </Carousel.Item>
         </Carousel>
-        {/* <div id="link-div">
-        <a id="lets_play_link" href="#form_container">
-          <h2 id="login-subtitle">Let's Play</h2>
-          <img id="arrow" src="/images/homePage-arrow.png" alt="Arrow" />
-        </a>
-        </div> */}
-        <div id="home_form_container">
+        <div id="link-div">
+          <a id="lets_play_link" href="#form_container">
+            <h2 id="login-subtitle">Let's Play</h2>
+            <img id="arrow" src="/images/homePage-arrow.png" alt="" />
+          </a>
+        </div>
+        <div id="form_container">
           <p id="login">Log In</p>
           <div id="form_div">
             <form onSubmit={this.submitForm}>
@@ -137,7 +137,7 @@ export default class Login extends Component {
               />
               <br />
               <input id="login-submit" type="submit" value="Submit" />
-              <p id="homePage-question">
+              <p id="homPage-question">
                 Don't have an account?{" "}
                 <Link id="signup" to="/register">
                   Sign Up

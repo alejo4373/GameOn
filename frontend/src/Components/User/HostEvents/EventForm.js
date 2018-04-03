@@ -187,10 +187,11 @@ export default class Event extends React.Component {
     } = this.state;
 
     return (
-      <div id="event-form" style={{height:'100%'}}>
+      <div id="event-form">
         <div className="event-background" />
+        <div className="title-name">
         <h1 id="event-title">Create An Event</h1>
-
+        </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
           <div className="row">

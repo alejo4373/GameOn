@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import axios from "axios";
 
 import { Navbar, Nav, NavItem } from "react-bootstrap";
+import './HUB.css'
 
 import Dashboard from "./Dashboard/Dashboard";
 import Profile from "./Profile/Profile";
@@ -13,7 +14,7 @@ import CurrentEvent from "./HostEvents/CurrentEvent";
 import Map from "./Map/Map";
 import Leaderboard from "./Leaderboard/Leaderboard";
 import History from "./History";
-import Survey from "./HostEvents/Survey";
+
 import MyEvents from "./HostEvents/CreatedEvent";
 
 
@@ -34,7 +35,7 @@ class HUB extends Component {
           <Navbar inverse collapseOnSelect >
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to="/user/dashboard">GameOn</Link>
+                <Link to="/user/dashboard"><h2 id="app-Name">GameOn</h2></Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -60,7 +61,7 @@ class HUB extends Component {
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div>
+        <div className="every-component">
           {/*Components Goes HERE*/}
           <Switch>
             <Route path="/user/dashboard" component={Dashboard} />
@@ -71,7 +72,6 @@ class HUB extends Component {
             <Route exact path="/user/event/:id" component={CurrentEvent} />
             <Route path="/user/event/myevents/:id" component={MyEvents}/>
             <Route path="/user/history" component={History} />
-            <Route path='/user/survey' component={Survey} />
           </Switch>
         </div>
       </div>

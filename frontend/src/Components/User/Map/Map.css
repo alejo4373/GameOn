@@ -51,16 +51,11 @@
   .container{
     min-width: 100vw
   }
-  
-  #autocomplete-form{
-    width: 200px;
-    margin-left: 23%
-  }
-  
-  
+    
   
   #map-filter{
     background-color: #F5F5F5;
+    color: black;
     width: 240px;
     height: 80px;
     position: absolute;
@@ -84,14 +79,7 @@
     border-radius: 4px;
   }
   
-  #address-response-container{
-    border: 1px solid #70A9E3;
-    margin-left: 6%;
-    width: 153px;
-    background-color: white;
-    position: absolute;
-    z-index: 1;
-  }
+ 
   
   #address-container{
     border: 1px solid  #70A9E3;
@@ -109,61 +97,18 @@
     margin: 8% 0 0 13%;
     
   }
-  
-  #event-panel,
-  #map-tabs{
-    width: 380px;
-    margin-top: 5%;
-    z-index:  1;
-    position: absolute;
-  }
+   
+ 
   
   
-  #event_container{
-    width: 400px;
-    height: 520px;
-    overflow-y:  auto;
-    position: absolute;
-  }
-  
-  #upcoming_component{
-    position: absolute;
-    float: left;
-    height: 50px;
-    z-index: -3;
-  }
-  .host_img{
-    float: left;
-    margin: 1% 0% 0 3%;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
-  }
-  
-  .host_Name{
-    position: absolute;
-    margin-left: 34%
-  }
-  
-  .event_descriptions{
-    width: 200px;
-    height: auto;
-    position: absolute;
-    margin-left: 20%;
-    margin-top: 5%;
-  }
-  
-  .individual_event{
-    border: 1px solid black;
-    width: 375px;
-    height: 125px;
-    margin-top: 1%;
-    background-color: aliceblue;
-  }
-  
-  
-  /* #individual-event-card{
-      background-image: url("https://bsbproduction.s3.amazonaws.com/portals/9843/images/basketball_for_all_s.jpg")
-  } */
+#individual-event-card{
+    background-image: url("https://bsbproduction.s3.amazonaws.com/portals/9843/images/basketball_for_all_s.jpg");
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(33,50,56,1) 55%, rgba(33,50,56,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, rgba(255,255,255,1) 0%,rgba(33,50,56,1) 55%,rgba(33,50,56,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(33,50,56,1) 55%,rgba(33,50,56,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#213238',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
   
   #history_component{
     position: absolute;

@@ -1,10 +1,26 @@
+#Overview{
+  border: 2px solid white;
+  margin: 6% 0 8% 10%;
+  width: 80%;
+  height: 80%;
+  /* position: absolute; */
+  background-color:white;
+  color: black;
+  text-align: left;
+}
+#photo_container{
+  width: 50%;
+}
+.header{
+  display: flex;
+}
 
  #Overview{
     border: 2px solid white;
     margin: 6% 0 8% 10%;
     width: 80%;
     height: 80%;
-    /* position: absolute; */
+    position: absolute;
     background-color:white;
     color: black;
     text-align: left;
@@ -21,33 +37,6 @@
     width: 300px;
     -moz-border-radius: 90px;
     -webkit-border-radius: 200px;
-  }
-  .buttons{
-    display: flex;
-    flex-direction: row;
-    margin-left:40%;
-  }
-
-  .join-button, .create-button{
-    width: 150px;
-    height:150px;
-    margin-top: 30%;
-    margin-right:6%;
-    background-color: peru;
-    -moz-border-radius: 90px;
-    -webkit-border-radius: 100px;
-  }
-
-  .join-button:hover, .create-button:hover{
-    opacity: 0.5;
-  }
-
-  .button-text{
-    margin-top:45%;
-  }
-
-  #gear{
-    width:20px
   }
   
   #edit_Overview_button{
@@ -95,4 +84,69 @@
   }
   .points{
     font-size: 25px;
+  }
+  #dashboard-tabs{
+    width: 480px;
+    margin: 28% 0 0 20%;
+    z-index:  1;
+    position: absolute;
+  }
+  
+  #event_container{
+    width: 480px;
+    height: 520px;
+    overflow-y:  auto;
+    position: absolute;
+  }
+  
+  .host_img{
+    float: left;
+    margin: 1% 0% 0 3%;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+  }
+  
+  .host_Name{
+    position: absolute;
+    margin-left: 34%
+  }
+  
+  .event_descriptions{
+    width: 200px;
+    height: auto;
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 5%;
+  }
+  
+  .individual_event{
+    border: 2px solid #DDDDDD;
+    width: 475px;
+    height: 125px;
+    margin-top: 0.4%;
+    background-color: aliceblue;
+  }
+  
+  .nav-tabs > li{
+  padding-left: 7%
+  }
+  
+  
+  .newGame-btn{
+    margin-left: 90%;
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    border: none
+  }
+  
+  #add-btn{
+    width: 55px;
+    border: 2px solid #1BADC0;
+    border-radius: 50px;
+  }
+  
+  
+  #add-btn:hover{
+    border-color: gold;
   }

@@ -14,7 +14,7 @@ class Leaderboard extends Component {
       .get("/user/all")
       .then(res => {
         this.setState({
-          players: res.data.data, 
+          players: res.data.data,
           topThree: [res.data.data[0], res.data.data[1], res.data.data[2]]
         });
       })
@@ -25,79 +25,49 @@ class Leaderboard extends Component {
     this.getAllPlayers();
   }
   render() {
-    const { players, topThree, } = this.state;
+    const { players, topThree } = this.state;
     console.log("Leaderboard-player:", players);
-
-
 
     console.log("Top Three:", topThree);
 
     return (
       <div id="leaderboard-body">
-        <Tabs
-          activeKey={this.state.key}
-          onSelect={this.handleSelect}
-          id="leaderboard-tab"
-        >
-            <Tab eventKey={1} title="Top Three">
-              <div id="olympic_rank_container">
-                {topThree.map((p,i) => {
-                  return (
-                    <div id={`player-${i}`}>
-                     <h5 style={{color: 'white'}}>{p.username}</h5> 
-                      <img id={`player-${i}-pic`} src={p.profile_pic} width={'75px'} alt=''/>
-                     <h5 style={{color: 'white'}}>{p.exp_points}</h5>
-                    </div>
-                  );
-                })}
-                <img src="/images/leaderboard-rank-2.png" id='leaderboard-rank-pic' alt='' />
+        <h2 id="leaderboard_header">LEADERBOARD</h2>
+        <div id="top3">
+          {topThree.map((p, i) => {
+            return (
+              <div id={`player-${i}`}>
+                <h5 style={{ color: "black" }}>{p.username}</h5>
+                <img
+                  id={`player-${i}-pic`}
+                  src={p.profile_pic}
+                  width={"75px"}
+                  alt=""
+                />
+                <h5 style={{ color: "black" }}>{p.exp_points}</h5>
               </div>
-            </Tab>
-          )}
-          <Tab eventKey={2} title="All">
-            <div id="leaderboard_parent">
-              <h2 style={{ color: "white" }} id="">
-                LEADERBOARD
-              </h2>
-              <ListGroup id="leaderboard_container">
-                <ListGroupItem id="leaderboard_header">
-                  <div>Player</div>
-                  {/* <div>Medal</div>
-                        <div>Rank</div> */}
-                  <div>Score</div>
-                  {/* <div>Wins</div>
-                        <div>Losses</div>    */}
-                </ListGroupItem>
-                {players.map(p => {
-                  return (
-                    <ListGroupItem className="leaderboard-individual-player">
-                      <div className="leaderboard-profile-pic-container">
-                        {
-                          <img
-                            className="leaderboard-profile-pic"
-                            src={p.profile_pic}
-                            width={"50px"}
-                            alt=''
-                          />
-                        }
-                      </div>
-                      <div className="leaderboard-username-container">
-                        {p.username}
-                      </div>
+            );
+          })}
+        </div>
 
-                      <div className="leaderboards-player-points">
-                        {p.exp_points}
-                      </div>
-                    </ListGroupItem>
-                  );
-                })}
-              </ListGroup>
-            </div>
-          </Tab>
-          {/* <Tab eventKey={3} title="Tab 3" disabled>
-            Tab 3 content
-          </Tab> */}
-        </Tabs>
+        <table>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Games Played</th>
+          </tr>
+          {topThree.map((p, i) => {
+            return (
+              <tr id="LeaderBoard">
+                <td>{i + 1}</td>
+                <td>{p.username}</td>
+                <td>{p.exp_points}</td>
+                <td />
+              </tr>
+            );
+          })}
+        </table>
       </div>
     );
   }

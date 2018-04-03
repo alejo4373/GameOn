@@ -2,15 +2,14 @@ body {
   /* margin: 0;
   padding: 0;
   font-family: sans-serif; */
+  /* background-color: #213238; */
+  /* overflow: hidden; */
   background-color: #213238;
   /* overflow: hidden; */
+ color: white
 }
 
-.navbar{
-  top:0;
-  position: fixed;
-  z-index: 4;
-}
+
 
 #selection_container{
   margin-left: 35%;
@@ -293,12 +292,7 @@ body {
     -webkit-border-radius: 60px;
   }
   
-  
-  .navbar{
-    top:0;
-    position: fixed;
-    z-index: 3;
-  }
+
   
   
   .modal-container {
@@ -381,3 +375,4 @@ body {
 }
  
 }
+
