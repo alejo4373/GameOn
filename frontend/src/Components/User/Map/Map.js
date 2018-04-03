@@ -255,10 +255,6 @@ export class MapContainer extends Component {
                   color: 'black'
                 }}
               >
-                <div
-                  id="marker-event-header"
-                  style={{ width: "300px", height: "150px" }}
-                >
                   <img
                     src={"/images/user.png"}
                     id="marker-event-photo"
@@ -277,7 +273,6 @@ export class MapContainer extends Component {
                     <a href={`/user/event/${selectedEvents.id}`}>More Info</a>
                   </button>
                 </div>
-              </div>
             </InfoWindow>
           </Map>
         </div>
