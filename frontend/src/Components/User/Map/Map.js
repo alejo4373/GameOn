@@ -168,6 +168,7 @@ export class MapContainer extends Component {
   render() {
     const { hostedEvents, selectedEvents, allSports, miles } = this.state;
     const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
+    const mapStyle = {height: "100%"}
     return (
       <div>
         <div id="google-map">
@@ -215,12 +216,7 @@ export class MapContainer extends Component {
             }}
             zoom={12}
             onClick={this.onMapClicked}
-            style={{
-              width: "900px",
-              marginLeft: "30%",
-              height: "675px",
-              marginTop: "4%"
-            }}
+            style={mapStyle}
           >
             {hostedEvents.length
               ? hostedEvents.map(e => (

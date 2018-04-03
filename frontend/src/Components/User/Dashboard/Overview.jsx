@@ -5,6 +5,8 @@ import { Tabs, Tab } from "react-bootstrap";
 import axios from "axios";
 
 import Upcoming from "./Upcoming";
+import UsersEvent from "./UsersEvent";
+
 
 class Overview extends Component {
   state = {
@@ -12,6 +14,7 @@ class Overview extends Component {
     loggedOut: false,
     profileClicked: false,
     hostedEvents: [],
+    usersEvents: [],
     addPressed: false
   };
 
@@ -26,6 +29,17 @@ class Overview extends Component {
       })
       .catch(err => console.log("Failed To Fetch User:", err));
   };
+
+
+  getUsersEvents = () => {
+    axios
+    .get('/user/events')
+    .then(res => {
+        this.setState({
+          usersEvents: res.data.events
+        })
+    }).catch(err => console.log("Error:", err))
+  }
 
   getUserCurrentLocation = callback => {
     var options = {
@@ -78,10 +92,11 @@ class Overview extends Component {
   componentWillMount() {
     this.getUserInfo();
     this.getUserCurrentLocation(this.getAllHostedEvents);
+    this.getUsersEvents();
   }
 
   render() {
-    const { user, loggedOut, profileClicked, hostedEvents, addPressed} = this.state;
+    const { user, loggedOut, profileClicked, hostedEvents, addPressed, usersEvents} = this.state;
 
     if (loggedOut) {
       this.setState({
@@ -151,7 +166,9 @@ class Overview extends Component {
                     <Tab eventKey={2} title="Upcoming Events">
                       <Upcoming events={hostedEvents} />
                     </Tab>
-                    <Tab eventKey={3} title="My Events" />
+                    <Tab eventKey={3} title="My Events" >
+                    <UsersEvent events={usersEvents} />
+                    </Tab>
                   </Tabs>
                 </div>
               </div>
