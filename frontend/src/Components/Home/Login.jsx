@@ -96,7 +96,10 @@ export default class Login extends Component {
           pauseOnHover={false}
         >
           <Carousel.Item>
-            <img src="/images/soccer-background.png" height="100vh" />
+            <img
+              src="/images/soccer-background.png"
+              height="100vh"
+            />
           </Carousel.Item>
           <Carousel.Item>
             <img src="/images/football-background.png" height="100vh" />
