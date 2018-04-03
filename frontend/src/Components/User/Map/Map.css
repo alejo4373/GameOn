@@ -4,10 +4,10 @@
     -webkit-border-radius: 60px;
   }
 
-   
   .modal-container {
     position: relative;
   }
+
   .modal-container .modal, .modal-container .modal-backdrop {
     position: absolute;
   }
@@ -19,7 +19,6 @@
   #profile_info_container{
   color: aliceblue;
   }
-  
   
   .profile_sport{
     float: left;
@@ -41,13 +40,11 @@
     border: 15px solid white;
   }
   
-  
-  
+
   .container{
     min-width: 100vw
   }
-    
-  
+      
   #map-filter{
     background-color: #FDFDFD;
     color: black;
@@ -73,8 +70,6 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
- 
   
   #address-container{
     border: 1px solid  #70A9E3;
