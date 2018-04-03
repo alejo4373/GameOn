@@ -39,6 +39,12 @@ export default class Event extends React.Component {
               event.sport_name.slice(1)}
             </h4>
           </h3>
+          <h3>
+            Team Dynamic
+            <h4>
+              {event.sport_format}
+            </h4>
+          </h3>
           </div>
 
           </div>

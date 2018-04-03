@@ -213,7 +213,6 @@ export default class Event extends React.Component {
           />{" "}
           <br />
           Enter Address: <br />
-          <div id="autocomplete-form">
             <input
               required
               type="text"
@@ -224,6 +223,7 @@ export default class Event extends React.Component {
               onFocus={Address}
               style={{color: 'black'}}
             />
+          <div id="autocomplete-form">
             {searchResponses.length ? (
               <div id="address-response-container"
               style={{color: 'black'}}
@@ -324,7 +324,7 @@ export default class Event extends React.Component {
           Describe You're Game <br />
           <textarea
             rows="6"
-            cols="50"
+            cols="40"
             type="textarea"
             name="Description"
             value={Description}
