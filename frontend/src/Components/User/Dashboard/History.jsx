@@ -4,7 +4,7 @@ import { Panel, ListGroup } from "react-bootstrap";
 class History extends Component {
   render() {
     const { events } = this.props;
-    console.log(events);
+
     return (
       <Panel defaultExpanded id="event-panel">
 

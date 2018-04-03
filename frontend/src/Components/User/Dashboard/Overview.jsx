@@ -6,7 +6,7 @@ import axios from "axios";
 
 import Upcoming from "./Upcoming";
 import UsersEvent from "./UsersEvent";
-
+import History from "./History";
 
 class Overview extends Component {
   state = {
@@ -15,6 +15,7 @@ class Overview extends Component {
     profileClicked: false,
     hostedEvents: [],
     usersEvents: [],
+    historyEvents: [],
     addPressed: false
   };
 
@@ -22,7 +23,6 @@ class Overview extends Component {
     axios
       .get("/user/getinfo")
       .then(res => {
-        console.log(res.data.user);
         this.setState({
           user: [res.data.user]
         });
@@ -30,6 +30,17 @@ class Overview extends Component {
       .catch(err => console.log("Failed To Fetch User:", err));
   };
 
+  getUserHistory = () => {
+    axios
+    .get("/user/events/history")
+    .then(res => {
+      console.log("History",res.data)
+      this.setState({
+        historyEvents: res.data.events
+      });
+    })
+    .catch(err => console.log("Failed To Fetch User:", err));
+  }
  
 
   getUsersEvents = () => {
@@ -94,10 +105,11 @@ class Overview extends Component {
     this.getUserInfo();
     this.getUserCurrentLocation(this.getAllHostedEvents);
     this.getUsersEvents();
+    this.getUserHistory();
   }
 
   render() {
-    const { user, loggedOut, profileClicked, hostedEvents, addPressed, usersEvents} = this.state;
+    const { user, loggedOut, profileClicked, hostedEvents, addPressed, usersEvents, historyEvents} = this.state;
 
     if (loggedOut) {
       this.setState({
@@ -163,7 +175,9 @@ class Overview extends Component {
                 </div> */}
                 <div id="dashboard-tabs">
                   <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                    <Tab eventKey={1} title="Past Event" />
+                    <Tab eventKey={1} title="Past Event" > 
+                    <History events={historyEvents}/>
+                    </Tab>
                     <Tab eventKey={2} title="Upcoming Events">
                       <Upcoming events={hostedEvents} />
                     </Tab>
