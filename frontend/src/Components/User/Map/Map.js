@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Map.css";
+import "./infoWindow.css";
 
 import {
   Map,
@@ -230,6 +231,7 @@ export class MapContainer extends Component {
                     sport={e.sport_name}
                     id={e.id}
                     location={e.location}
+                    hostUsername={e.host_username}
                     description={e.description}
                     position={{ lat: e.lat, lng: e.long }}
                     onClick={this.onMarkerClick}
@@ -246,33 +248,20 @@ export class MapContainer extends Component {
               visible={this.state.showingInfoWindow}
               
             >
-              <div
-                id="individual-event-card"
-                style={{
-                  width: "300px",
-                  height: "150px",
-                  backgroundColor: '#FAFAFA',
-                  color: 'black'
-                }}
-              >
-                  <img
-                    src={"/images/user.png"}
-                    id="marker-event-photo"
-                    alt=""
-                  />
-                  <div id="marker-event-username">{selectedEvents.name}</div>
-                  <div id="marker-event-sport-name">
-                    {selectedEvents.sport
-                      ? selectedEvents.sport.toUpperCase()
-                      : ""}
+              <a href={`/user/event/${selectedEvents.id}`}>
+                <div id="individual-event-card">
+                  <div class='left-side' style={{backgroundImage: `url(/images/${selectedEvents.sport}.jpg)`}}>
                   </div>
-                  <div>Address: {selectedEvents.location}</div>
-                  <div>Description: {selectedEvents.description}</div>
-                  <button>GameOn!</button>
-                  <button>
-                    <a href={`/user/event/${selectedEvents.id}`}>More Info</a>
-                  </button>
+                  <div class='right-side'>
+                        <img src={`/icons/${selectedEvents.sport}-icon.png`} class='icon'/>
+                        <p class='event-name'>{selectedEvents.name}</p>
+                        <img src='/icons/user-icon.png' class='icon'/>
+                        <p>{selectedEvents.hostUsername}</p>
+                        <img src='/icons/pin-icon.png' class='icon'/>
+                        <p>{selectedEvents.location}</p>
+                  </div>
                 </div>
+              </a>
             </InfoWindow>
           </Map>
         </div>
