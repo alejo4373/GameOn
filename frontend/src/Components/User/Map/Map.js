@@ -106,7 +106,7 @@ export class MapContainer extends Component {
   getUserCurrentLocation = (callback, miles = this.state.miles, id) => {
     var options = {
       enableHighAccuracy: true,
-      timeout: 500,
+      timeout: 2500,
       maximumAge: 0
     };
 
@@ -226,6 +226,7 @@ export class MapContainer extends Component {
                     name={e.name}
                     sport={e.sport_name}
                     id={e.id}
+                    key={e.id}
                     location={e.location}
                     hostUsername={e.host_username}
                     description={e.description}
@@ -246,14 +247,14 @@ export class MapContainer extends Component {
             >
               <a href={`/user/event/${selectedEvents.id}`}>
                 <div id="individual-event-card">
-                  <div class='left-side' style={{backgroundImage: `url(/images/${selectedEvents.sport}.jpg)`}}>
+                  <div className='left-side' style={{backgroundImage: `url(/images/${selectedEvents.sport}.jpg)`}}>
                   </div>
-                  <div class='right-side'>
-                        <img src={`/icons/${selectedEvents.sport}-icon.png`} class='icon'/>
-                        <p class='event-name'>{selectedEvents.name}</p>
-                        <img src='/icons/user-icon.png' class='icon'/>
+                  <div className='right-side'>
+                        <img src={`/icons/${selectedEvents.sport}-icon.png`} className='icon'/>
+                        <p className='event-name'>{selectedEvents.name}</p>
+                        <img src='/icons/user-icon.png' className='icon'/>
                         <p>{selectedEvents.hostUsername}</p>
-                        <img src='/icons/pin-icon.png' class='icon'/>
+                        <img src='/icons/pin-icon.png' className='icon'/>
                         <p>{selectedEvents.location}</p>
                   </div>
                 </div>

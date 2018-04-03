@@ -57,7 +57,7 @@ class Leaderboard extends Component {
             <th>Score</th>
             <th>Games Played</th>
           </tr>
-          {topThree.map((p, i) => {
+          {players.map((p, i) => {
             return (
               <tr id="LeaderBoard">
                 <td>{i + 1}</td>
