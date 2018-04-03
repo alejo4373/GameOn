@@ -364,7 +364,6 @@ const getEventsUserHosts = (userId, callback) => {
 }
 
 const getEventsUserParticipatedIn = (userId, callback) => {
-  const now = Date.now().toString()
   db.any(
     `SELECT 
        events.*,
