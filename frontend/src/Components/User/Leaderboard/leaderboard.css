@@ -4,6 +4,8 @@
     position: fixed;
     /* display: flex;
     flex-wrap: wrap; */
+    color: black;
+
 }
 
 #leaderboard_header{
@@ -27,6 +29,7 @@
     position: relative;
     width: 75%;
 }
+
 
 #player-2{
     position: relative;
