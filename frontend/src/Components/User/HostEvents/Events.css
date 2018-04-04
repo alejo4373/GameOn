@@ -170,8 +170,9 @@ ul {
 .eventpage > button {
   color: blue;
 }
-#event-title {
-  padding-top: 6%;
+
+#event-title{
+  padding-top: 4%;
   padding-bottom: 2%;
   width: 80%;
   margin: auto;
