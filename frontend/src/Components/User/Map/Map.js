@@ -17,7 +17,9 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  HelpBlock
+  HelpBlock,
+  DropdownButton,
+  MenuItem
 } from "react-bootstrap";
 
 //Bootstrap Elements ~Kelvin
@@ -109,12 +111,15 @@ export class MapContainer extends Component {
     };
 
     const success = position => {
-      this.setState({
-        userCurrentLocation: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        }
-      }, this.getAllHostedEvents);
+      this.setState(
+        {
+          userCurrentLocation: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        },
+        this.getAllHostedEvents
+      );
     };
 
     navigator.geolocation.getCurrentPosition(success);
@@ -138,19 +143,22 @@ export class MapContainer extends Component {
   };
 
   handleMilesSlider = props => {
-  
-    this.setState({
-      miles: props
-    }, this.getAllHostedEvents);
-  
+    this.setState(
+      {
+        miles: props
+      },
+      this.getAllHostedEvents
+    );
   };
 
   handleSportSelector = e => {
     let id = e.target.value;
-    this.setState({
-      sportID: id
-    },  this.getAllHostedEvents);
-   
+    this.setState(
+      {
+        sportID: id
+      },
+      this.getAllHostedEvents
+    );
   };
 
   componentWillMount() {
@@ -170,45 +178,47 @@ export class MapContainer extends Component {
 
     console.log("User Location:", userCurrentLocation);
 
-    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
+    const wrapperStyle = { width: 150, margin: 5 };
     const mapStyle = { height: "100%" };
     return (
-      <div>
         <div id="google-map">
-          <div id="map-filter">
-            <div style={wrapperStyle}>
-              Select Miles
-              <span
-                style={{ width: "20px", height: "10px", position: "absolute" }}
-              >
-                {miles}
-              </span>
-              <Slider
-                defaultValue={miles}
-                min={1}
-                max={8}
-                handle={this.handle}
-                onChange={props => this.handleMilesSlider(props)}
-              />
-            </div>
-            <div style={{ position: "absolute", marginLeft: 20 }}>
-              Select A Sport:
-            </div>
-            <FormControl
-              componentClass="select"
-              placeholder="select"
-              bsClass="formControlsSelect"
-              onChange={this.handleSportSelector}
+          <DropdownButton bsStyle={"Info"} title={"Fiter"} id={"filter-button"}>
+            <MenuItem eventKey="1"
+            disabled={'true'}
             >
-              {allSports.map((s, i) => {
-                return (
-                  <option key={i} value={s.id}>
-                    {s.name}
-                  </option>
-                );
-              })}
-            </FormControl>
-          </div>
+              <div id="map-filter">
+                <div style={wrapperStyle}>
+                  Select Miles <span> {miles} </span>
+
+                  <Slider
+                    defaultValue={miles}
+                    min={1}
+                    max={8}
+                    handle={this.handle}
+                    onChange={props => this.handleMilesSlider(props)}
+                  />
+                </div>
+                
+                <label>Select A Sport:</label>  
+                
+                <FormControl
+                  componentClass="select"
+                  placeholder="select"
+                  bsClass="formControlsSelect"
+                  onChange={this.handleSportSelector}
+                  
+                >
+                  {allSports.map((s, i) => {
+                    return (
+                      <option key={i} value={s.id}>
+                        {s.name}
+                      </option>
+                    );
+                  })}
+                </FormControl>
+              </div>
+            </MenuItem>
+          </DropdownButton>
           <Map
             google={this.props.google}
             initialCenter={{
@@ -278,7 +288,7 @@ export class MapContainer extends Component {
             </InfoWindow>
           </Map>
         </div>
-      </div>
+     
     );
   }
 }
