@@ -15,8 +15,8 @@
   display: flex;
 }
   #Overview_photo{
-    margin: 2% 0 0 20%;
-    width: 300px;
+    margin: 5% 0 0 0;
+    width: 250px;
     -moz-border-radius: 90px;
     -webkit-border-radius: 200px;
   }
@@ -31,8 +31,9 @@
   
   }
   #username{
-    margin-top: 5%;
-    margin-left: 1%;
+    float: left;
+    margin-top: 90px;
+    margin-left: 5%;
     position: absolute;
     /* font-size: 100px; */
     /* text-align: center; */
@@ -43,9 +44,10 @@
   }
   
   #xp_header{
-    margin-top: 12%;
-    margin-left: 1%;
-    position: absolute;
+    margin-top: 100px;
+    /* margin-right:10px; */
+    /* margin-left: 1%;
+    position: absolute; */
   }
   .medal{
     border-bottom: 2px solid;
@@ -69,7 +71,7 @@
   }
   #dashboard-tabs{
     width: 480px;
-    margin: 28% 0 0 20%;
+    margin: 0 0 0 50%;
     z-index:  1;
     position: absolute;
   }
@@ -115,11 +117,13 @@
   
   
   .newGame-btn{
-    margin-left: 90%;
+    margin-left: 250px;
+    margin-top: 130px;
     border-radius: 50px;
     width: 55px;
     height: 55px;
-    border: none
+    border: none;
+    background-color: white;
   }
   
   #add-btn{
@@ -133,3 +137,20 @@
     border-color: gold;
   }
 
+.right_half{
+  /* background-color: gold; */
+  display: flex;
+}
+.blurb{
+  display: flex;
+  flex-direction: row;
+}
+
+.each_sport{
+  display: inline-block;
+  margin-right:2px;
+}
+.sports{
+  margin-top:165px;
+  margin-left: 60px;
+}
