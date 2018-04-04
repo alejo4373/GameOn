@@ -178,24 +178,18 @@ export class MapContainer extends Component {
 
     console.log("User Location:", userCurrentLocation);
 
-    const wrapperStyle = { width: 150, margin: 5, marginLeft: 40 };
+    const wrapperStyle = { width: 150, margin: 5 };
     const mapStyle = { height: "100%" };
     return (
         <div id="google-map">
-          <DropdownButton bsStyle={"Info"} title={"Fiter"} id={"filter-button"} pullLeft={'true'}>
-            <MenuItem eventKey="1">
+          <DropdownButton bsStyle={"Info"} title={"Fiter"} id={"filter-button"}>
+            <MenuItem eventKey="1"
+            disabled={'true'}
+            >
               <div id="map-filter">
                 <div style={wrapperStyle}>
-                  Select Miles
-                  <span
-                    style={{
-                      width: "20px",
-                      height: "10px",
-                      position: "absolute"
-                    }}
-                  >
-                    {miles}
-                  </span>
+                  Select Miles <span> {miles} </span>
+
                   <Slider
                     defaultValue={miles}
                     min={1}
@@ -204,14 +198,15 @@ export class MapContainer extends Component {
                     onChange={props => this.handleMilesSlider(props)}
                   />
                 </div>
-                <div style={{ position: "absolute", marginLeft: 20 }}>
-                  Select A Sport:
-                </div>
+                
+                <label>Select A Sport:</label>  
+                
                 <FormControl
                   componentClass="select"
                   placeholder="select"
                   bsClass="formControlsSelect"
                   onChange={this.handleSportSelector}
+                  
                 >
                   {allSports.map((s, i) => {
                     return (
@@ -224,40 +219,6 @@ export class MapContainer extends Component {
               </div>
             </MenuItem>
           </DropdownButton>
-          {/* <div id="map-filter">
-            <div style={wrapperStyle}>
-              Select Miles
-              <span
-                style={{ width: "20px", height: "10px", position: "absolute" }}
-              >
-                {miles}
-              </span>
-              <Slider
-                defaultValue={miles}
-                min={1}
-                max={8}
-                handle={this.handle}
-                onChange={props => this.handleMilesSlider(props)}
-              />
-            </div>
-            <div style={{ position: "absolute", marginLeft: 20 }}>
-              Select A Sport:
-            </div>
-            <FormControl
-              componentClass="select"
-              placeholder="select"
-              bsClass="formControlsSelect"
-              onChange={this.handleSportSelector}
-            >
-              {allSports.map((s, i) => {
-                return (
-                  <option key={i} value={s.id}>
-                    {s.name}
-                  </option>
-                );
-              })}
-            </FormControl>
-          </div> */}
           <Map
             google={this.props.google}
             initialCenter={{

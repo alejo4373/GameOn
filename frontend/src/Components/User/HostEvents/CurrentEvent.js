@@ -23,6 +23,7 @@ export default class Events extends React.Component {
       started: false,
       gameEnded: false,
       timer: "",
+      Switch: false
     
     };
   }
@@ -50,7 +51,8 @@ export default class Events extends React.Component {
       .then(res => {
         this.setState({
           msg: "Congratulations! You have been added to the event",
-          show: false
+          show: false,
+          Switch: true
         });
       })
       .catch(err => console.log("error fetching the event", err));
@@ -64,7 +66,8 @@ export default class Events extends React.Component {
       })
       .then(
         this.setState({
-          show: false
+          show: false,
+          Switch: false
         })
       )
       .catch(err => {
@@ -73,7 +76,7 @@ export default class Events extends React.Component {
   };
 
   handleClose = () => {
-    this.setState({ show: false });
+    this.setState({ show: false, Switch: false });
   };
 
   handleShow = () => {
@@ -111,7 +114,7 @@ export default class Events extends React.Component {
   };
 
   form = () => {
-    const { event, show, time, started } = this.state;
+    const { event, show, time, started, Switch } = this.state;
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
     const teamA = event.players.filter(player => player.team === "A");
     const teamB = event.players.filter(player => player.team === "B");
@@ -125,7 +128,7 @@ export default class Events extends React.Component {
           <h3 className="title">{event.name}</h3>
         </div>
         <div className="join">
-          {show ? (
+          {true? (
             <button className="click" onClick={leaveEvent}>
               Leave
             </button>

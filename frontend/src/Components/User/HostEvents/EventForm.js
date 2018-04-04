@@ -250,7 +250,6 @@ export default class Event extends React.Component {
                 {searchResponses.map(res => {
                   return (
                     <div
-                      style={{ backgroundColor: "black" }}
                       id="address-container"
                       onClick={() =>
                         this.setState({
