@@ -7,7 +7,7 @@ import axios from "axios";
 import Upcoming from "./Upcoming";
 import UsersEvent from "./UsersEvent";
 import History from "./History";
-
+import Notifications from "../Notification"
 class Overview extends Component {
   state = {
     user: [],
@@ -36,7 +36,7 @@ class Overview extends Component {
     .then(res => {
       console.log("History",res.data)
       this.setState({
-        historyEvents: res.data.events
+        historyEvents: res.data.events.reverse()
       });
     })
     .catch(err => console.log("Failed To Fetch User:", err));
@@ -48,7 +48,7 @@ class Overview extends Component {
     .get('/user/events')
     .then(res => {
         this.setState({
-          usersEvents: res.data.events
+          usersEvents: res.data.events.reverse()
         })
     }).catch(err => console.log("Error:", err))
   }
@@ -79,7 +79,7 @@ class Overview extends Component {
       .then(res => {
         console.log("HostData:", res.data);
         this.setState({
-          hostedEvents: res.data.events
+          hostedEvents: res.data.events.reverse()
         });
       });
   };
@@ -127,10 +127,13 @@ class Overview extends Component {
 
     return (
       <div>
+
+        <Notifications />
         {user.map((u,i) => {
           return (
             <div key ={i} id="Overview">
               <div className="header">
+                <div className="right_half">
               <div id="photo_container">
                 <img
                   id="Overview_photo"
@@ -140,20 +143,26 @@ class Overview extends Component {
                 />
               </div>
               <div id="Overview_description">
+                <div className="blurb">
                 <div id="username">
                   <h3 className="username">{u.username.toUpperCase()}</h3>
                 </div>
-                <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
+                <div className="sports" >Sports: <span className="sport_lists">{u.sports.map(elem => <li className="each_sport">{elem.name}</li>)}</span></div>
+                </div>
+                <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
                 <div id="xp_header">
                   <h2>
                     XP: <span className="points">{u.exp_points} pts</span>
                   </h2>
                   <ProgressBar
                     style={{ width: "200px" }}
+                    active
+                    max={1000}
                     bsStyle="success"
                     now={u.exp_points}
-                    label={`${u.exp_points} xp`}
+                    label={` Level 1`}
                   />
+                </div>
                 </div>
                 </div>
                 {/* <div
@@ -187,7 +196,6 @@ class Overview extends Component {
                   </Tabs>
                 </div>
               </div>
-              <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
             </div>
           );
         })}
