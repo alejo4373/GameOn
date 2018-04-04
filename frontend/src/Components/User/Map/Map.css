@@ -44,14 +44,25 @@
   .container{
     min-width: 100vw
   }
-      
-  #map-filter{
+
+  #filter-button{
     background-color: #FDFDFD;
     color: black;
-    width: 240px;
-    height: 80px;
+    width: 100px;
+    height: 40px;
     position: absolute;
-    margin: 0% 0 0 40%;
+   
+    z-index: 3;
+  }
+
+  .dropdown-menu{
+    height: 100px;
+    width: 300px;
+  }
+      
+  #map-filter{
+    color: black;
+    position: absolute;
     z-index: 3;
   }
   
@@ -104,3 +115,7 @@
     -webkit-border-radius: 60px;
   
   }
+
+  .btn-group, .btn-group-vertical {
+    position: absolute;
+}
