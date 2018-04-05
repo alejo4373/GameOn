@@ -183,6 +183,7 @@ class Overview extends Component {
                     alt=""
                   />
                 </div> */}
+                <div className="left-half" style={{width: 600}}>
                 <div id="dashboard-tabs">
                   <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
                     <Tab eventKey={1} title="Past Event" > 
@@ -195,6 +196,7 @@ class Overview extends Component {
                     <UsersEvent events={usersEvents} />
                     </Tab>
                   </Tabs>
+                </div>
                 </div>
               </div>
             </div>
