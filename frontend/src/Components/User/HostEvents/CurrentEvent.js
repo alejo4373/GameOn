@@ -73,6 +73,17 @@ export default class Events extends React.Component {
       .catch(err => {
         console.log("error leaving the group", err);
       });
+
+      const id = this.props.match.params.id;
+    axios
+      .get(`/event/info/${id}`)
+      .then(res => {
+        console.log("data receiving", res.data.event);
+        this.setState({
+          event: res.data.event
+        });
+      })
+      .catch(err => console.log("err retrieving the event info", err));
   };
 
   handleClose = () => {
@@ -80,7 +91,7 @@ export default class Events extends React.Component {
   };
 
   handleShow = () => {
-    this.setState({ show: true });
+    this.setState({ show: true, Switch: true });
   };
 
   selectTeam = e => {
@@ -116,8 +127,8 @@ export default class Events extends React.Component {
   form = () => {
     const { event, show, time, started, Switch } = this.state;
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
-    const teamA = event.players.filter(player => player.team === "A");
-    const teamB = event.players.filter(player => player.team === "B");
+    let teamA = event.players.filter(player => player.team === "A");
+    let teamB = event.players.filter(player => player.team === "B");
     console.log(event);
     return (
       <div className="eventpage">
@@ -128,7 +139,7 @@ export default class Events extends React.Component {
           <h3 className="title">{event.name}</h3>
         </div>
         <div className="join">
-          {true? (
+          {Switch? (
             <button className="click" onClick={leaveEvent}>
               Leave
             </button>
