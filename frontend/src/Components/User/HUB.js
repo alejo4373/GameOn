@@ -61,7 +61,6 @@ class HUB extends Component {
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div className="every-component">
           {/*Components Goes HERE*/}
           <Switch>
             <Route path="/user/dashboard" component={Dashboard} />
@@ -73,7 +72,6 @@ class HUB extends Component {
             <Route path="/user/event/myevents/:id" component={MyEvents}/>
           </Switch>
         </div>
-      </div>
     );
   }
 }
