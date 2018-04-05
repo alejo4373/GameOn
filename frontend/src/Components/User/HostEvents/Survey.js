@@ -9,6 +9,8 @@ import "rc-tooltip/assets/bootstrap.css";
 import Tooltip from "rc-tooltip";
 import Slider from "rc-slider";
 
+import Notifications from '../Notification'
+
 const Handle = Slider.Handle;
 
 export default class Survey extends Component {
@@ -17,7 +19,8 @@ export default class Survey extends Component {
     winner: "",
     likeness: "",
     gameEnded: false,
-    show: true
+    show: true,
+    send: false,
   };
   handle = props => {
     const { value, dragging, index, ...restProps } = props;
@@ -84,7 +87,14 @@ export default class Survey extends Component {
           console.log("Error:", err);
         });
     }
+
+    this.sendNotifications()
   };
+
+  sendNotifications = () => {
+    const {send} = this.state
+    return <Notifications show={send} />
+  }
 
   render() {
     const { event } = this.props;
@@ -98,7 +108,7 @@ export default class Survey extends Component {
       this.setState({
         gameEnded: false
       });
-      return <Redirect to="/user/map" />;
+      return <Redirect to="/user/dashboard" />;
     }
     return (
       <div className="survey-parent">
@@ -107,15 +117,15 @@ export default class Survey extends Component {
             <h2>Who Won The Game</h2>
             <FormGroup onChange={this.handleSelectors}>
               <Radio name="winnerGroup" inline value="teamA">
-                Team A <br /> {teamA.map(p => p.username + " ")}
+                Team A 
               </Radio>
-              <br />
+              
               <Radio name="winnerGroup" inline value="teamB">
-                Team B <br /> {teamB.map(p => p.username + " ")}
+                Team B 
               </Radio>{" "}
             </FormGroup>
             <ButtonToolbar
-              style={{ marginLeft: "45%" }}
+              style={{ marginLeft: "42%" }}
               onClick={this.handleWinner}
             >
               <Button bsStyle="success">Finish</Button>
