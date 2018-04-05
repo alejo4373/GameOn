@@ -1,13 +1,8 @@
-.navbar{
-    /* position: relative; */
-    min-height: 50px;
-    margin: 0;
-    border-radius: 0;
-
-    position: fixed;
-    width: 100%;
+.navbar {
+    position: relative;
     z-index: 1;
-    /* opacity: 0.5; */
+    margin-bottom: 0px;
+    border-radius: 0;
 }
 
 #app-Name {

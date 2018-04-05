@@ -133,11 +133,11 @@ export default class Event extends React.Component {
             event_pic: imgScr
           })
           .then(res => {
-            console.log('data i am getting after adding an event',res.data)
+            console.log("data i am getting after adding an event", res.data);
             this.setState({
-              event_id:res.data.event.id,
-              submit:true
-            })
+              event_id: res.data.event.id,
+              submit: true
+            });
           })
           .catch(err => console.log("Error Adding Event:", err));
       })
@@ -150,9 +150,9 @@ export default class Event extends React.Component {
     });
     axios
       .get(
-        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
-          e.target.value
-        }&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
+        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e
+          .target
+          .value}&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
       )
       .then(res => {
         this.setState({
@@ -188,56 +188,75 @@ export default class Event extends React.Component {
 
     return (
       <div id="event-form">
+        <div className="event-background" />
+        <div className="title-name">
         <h1 id="event-title">Create An Event</h1>
-
+        </div>
         <form onSubmit={this.handleSubmit}>
-          Upload A Photo: <br />
-          <input
-            required
-            type="text"
-            name="imgScr"
-            value={imgScr}
-            onChange={this.handleChange}
-            style={{color: 'black'}}
-          />{" "}
-          <br />
-          Name Your Event: <br />
-          <input
-            required
-            type="text"
-            name="Name"
-            value={Name}
-            placeholder="Event name"
-            onInput={this.handleChange}
-            style={{color: 'black'}}
-          />{" "}
-          <br />
-          Enter Address: <br />
-            <input
-              required
-              type="text"
-              name="Address"
-              placeholder="Address"
-              value={Address}
-              onChange={this.onChange}
-              onFocus={Address}
-              style={{color: 'black'}}
-            />
-          <div id="autocomplete-form">
+          <div className="form">
+          <div className="row">
+            <div className="col-25">
+              <label for="imgScr">Upload A Photo: </label>
+            </div>
+            <div className="col-75">
+              <input
+                required
+                type="text"
+                name="imgScr"
+                value={imgScr}
+                onChange={this.handleChange}
+                style={{ color: "black" }}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-25">
+              <label for="Name">Name Your Event: </label>
+            </div>
+            <div className="col-75">
+              <input
+                required
+                type="text"
+                name="Name"
+                value={Name}
+                placeholder="Event name"
+                onInput={this.handleChange}
+                style={{ color: "black" }}
+              />
+            </div>
+          </div>
+
+          <div className="row add">
+              <div className="col-25 address-label">
+                <label className= "address_lab" for="address">Enter Address: </label>
+              </div>
+              <div className=" col-75 address">
+                <input
+                  required
+                  type="text"
+                  id="address"
+                  name="Address"
+                  placeholder="Address"
+                  value={Address}
+                  onChange={this.onChange}
+                  onFocus={Address}
+                  style={{ color: "black" }}
+                />
+              </div>
+            </div>
+
             {searchResponses.length ? (
-              <div id="address-response-container"
-              style={{color: 'black'}}
-              >
+              <div id="address-response-container">
                 {searchResponses.map(res => {
                   return (
                     <div
+                      style={{ backgroundColor: "black" }}
                       id="address-container"
                       onClick={() =>
                         this.setState({
                           Address: res.description,
                           searchResponses: []
-                        })
-                      }
+                        })}
                     >
                       {res.description}
                     </div>
@@ -247,97 +266,137 @@ export default class Event extends React.Component {
             ) : (
               ""
             )}
+
+
+          <div className="row">
+            <div className="col-25">
+              <label for="startT">
+                <button
+                className='times'
+                  name="start"
+                  onClick={this.handleToggle}
+                >
+                  Start Time
+                </button>
+              </label>
+            </div>
+            <div className="col-75">
+              <input
+                id="startT"
+                type="text"
+                value={this.state.startTime}
+                readOnly
+                style={{ color: "black" }}
+              />
+            </div>
           </div>
-          Enter Starting Time: <br />
-          <button
-            style={{ color: "Green" }}
-            name="start"
-            onClick={this.handleToggle}
-          >
-            Start Time
-          </button>
-          <div className="input">
-            <input type="text" value={this.state.startTime} readOnly style={{color: 'black'}} />
-          </div>
-          <Modal show={start} onHide={this.handleClose} >
-            <Modal.Body
-            style={{  height: "450px"}}
-            >
+          <Modal show={start} onHide={this.handleClose}>
+            <Modal.Body style={{ height: "450px" }}>
               <InputMoment
                 name="startTime"
                 moment={this.state.m}
                 onChange={this.handleMoment}
                 minStep={5}
                 onSave={this.handleStartTime}
-                style={{  marginLeft: "5%" }}
+                style={{ marginLeft: "5%" }}
               />
             </Modal.Body>
           </Modal>
-          Enter Ending Time: <br />
-          <button
-            style={{ color: "Green" }}
-            name="end"
-            onClick={this.handleToggle}
-          >
-            End Time
-          </button>
-          <div className="input">
-            <input type="text" style={{color: 'black'}} value={this.state.endTime} readOnly />
+          <div className="row">
+            <div className="col-25">
+              <label for="endT">
+                <button
+                className='times'
+                  name="end"
+                  onClick={this.handleToggle}
+                >
+                  End Time
+                </button>
+              </label>
+            </div>
+            <div className="col-75">
+              <input
+                id="endT"
+                type="text"
+                style={{ color: "black" }}
+                value={this.state.endTime}
+                readOnly
+              />
+            </div>
           </div>
-          <Modal show={end} onHide={this.handleClose} >
-            <Modal.Body
-            style={{  height: "450px"}}
-            >
+          <Modal show={end} onHide={this.handleClose}>
+            <Modal.Body style={{ height: "450px" }}>
               <InputMoment
                 name="startTime"
                 moment={this.state.m}
                 onChange={this.handleMoment}
                 minStep={5}
                 onSave={this.handleEndTime}
-                style={{  marginLeft: "5%" }}
+                style={{ marginLeft: "5%" }}
               />
             </Modal.Body>
           </Modal>
-          Select A Sport:{" "}
-          <select
-            style={{ backgroundColor: "#41CFFD" }}
-            onChange={this.handleSportSelect}
-          >
-            {["", ...sports].map((sport, idx) => (
-              <option key={idx} value={sport.id}>
-                {sport.name}
-              </option>
-            ))}
-          </select>{" "}
-          <br />
-          Choose Team Dynamic:{" "}
-          <select
-            style={{ backgroundColor: "#41CFFD" }}
-            class="team"
-            onChange={this.handleSportFormat}
-          >
-            {["", ...gameFormat].map(game => (
-              <option value={game.id}>{game.description}</option>
-            ))}
-          </select>{" "}
-          <br />
-          Describe You're Game <br />
-          <textarea
-            rows="6"
-            cols="40"
-            type="textarea"
-            name="Description"
-            value={Description}
-            placeholder="Description"
-            onInput={this.handleChange}
-            style={{color: 'black'}}
-          />{" "}
-          <br />
+          <div className="row">
+            <div className="col-25">
+              <label for="sports"> Select A Sport:</label>
+            </div>
+            <div className="col-75">
+              <select
+                name="sports"
+               // style={{ backgroundColor: "#41CFFD" }}
+                onChange={this.handleSportSelect}
+              >
+                {["", ...sports].map((sport, idx) => (
+                  <option key={idx} value={sport.id}>
+                    {sport.name}
+                  </option>
+                ))}
+              </select>{" "}
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-25">
+              <label for="verses">Choose Team Dynamic:</label>
+            </div>
+            <div className="col-75">
+              <select
+                name="verses"
+                //style={{ backgroundColor: "#41CFFD" }}
+                class="team"
+                onChange={this.handleSportFormat}
+              >
+                {["", ...gameFormat].map(game => (
+                  <option value={game.id}>{game.description}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-25">
+              <label for="Description">Describe You're Game </label>
+            </div>
+            <div className="col-75">
+              <textarea
+                rows="6"
+                cols="50"
+                type="textarea"
+                name="Description"
+                id="Description"
+                value={Description}
+                placeholder="Description"
+                onInput={this.handleChange}
+                style={{ color: "black" }}
+              />
+            </div>
+          </div>
           <input
+          className="times"
             type="submit"
             value="Create event"
-            style={{ backgroundColor: "red" }}
+           style={{ width: "20%", padding:"11px", marginTop:"5px", marginBottom:"15px" }}
           />
+          </div>
         </form>
       </div>
     );

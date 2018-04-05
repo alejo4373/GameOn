@@ -1,98 +1,141 @@
 #leaderboard-body{
     width: 100%;
-    height: 100%;
-    position: fixed;
-    /* display: flex;
-    flex-wrap: wrap; */
-    color: black;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    background-color: #2e3136;
 
+}
+
+#leaderboard-container {
+    margin: 20px;
+    background-color: #fcfcfc;
+    width: 100%;
 }
 
 #leaderboard_header{
-    margin-top: 80px;
-    color: black;
-}
-
-#player-0, #player1, #player-2 {
-    float: left;
-    width:100px;
-    /* border: 1px solid black; */
-}
-
-#player-0{
-    position: relative;
+    margin-top: 40px;
+    color: #f23708;
     width: 100%;
-
-}
-
-#player-1{
-    position: relative;
-    width: 75%;
 }
 
 
-#player-2{
-    position: relative;
-    width: 0%;
-    margin-right: 0;
-    margin-left: 60%;
-    top: -20vh;
+#leaderboard-table-container {
+    margin: 20px;
+    float: left;
+    width: 60%;
 }
 
-#leaderboard-rank-pic{
-    margin-top: 11%;
-    
+.player-card{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
-table, th, td {
+.headers-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    /* border: 1px solid black;  */
+}
+#rank, #player, #score, #games-played {
+    width: 100%;
     border: 1px solid black;
-    padding: 15px;
+    margin: 0;
+    padding: 15px
 }
 
+#rank-number {
+    padding: 5px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
+}
+
+#player-info {
+    /* padding: 5px; */
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#score-points {
+    padding: 5px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 15px;
+    text-align: center;
+    margin: 0;
+}
 #LeaderBoard:hover {
     background-color: rgb(173, 194, 212);
 }
+ 
+#player-0 {
+    /* border: 2px solid black; */
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 10px;
 
-table {
-    margin-left: 10%;
-    margin-right: 10%;
-    float: left;
-    width: 80%;
-    top: -15vh;
-    position: relative;
-    overflow-y: scroll;
-    height: 200px;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
 }
 
+#player-1 {
+    /* border: 2px solid black; */
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 10px;
+    /* height: 300px; */
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+}
 
-/* @media (max-width: 600px){
-    #leaderboard_parent{
-        margin-top: 20%;
-    }
-    #leaderboard-body{
-        width: 700px;
-        height: 1180px;
-        background-color: #213238;
-        position: absolute;
-    }
-    #leaderboard-rank-pic{
-        width: 500px;
-        margin-top: 40%;
-    }
-    #player-1, #player-2{
-        position: absolute;
-    }
-        
-    #player-0{
-        margin:20% 0 0 48%;
-        position: absolute;
-    }
-        
-    #player-1{
-        margin: 30% 0 0 25%;
-    }
-        
-    #player-2{
-        margin: 30% 0 0 70%;
-    }
+#player-2 {
+    /* border: 2px solid black; */
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 20px;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    
+}
+
+#top3 {
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    width: 35%;
+    float: left;
+    /* margin:10px; */
+}
+/* #top3-username {
+    border-bottom: 2px solid;
+    width: 100%;
+    margin:0;
+    padding: 10px;
+}
+
+#top3-exp {
+    border-top: 2px solid black;
+    margin: 0;
+    padding: 5px;
 } */
+
+/* #player-0-pic {
+    height: 150px;
+}
+
+#player-1-pic {
+    height: 150px;
+}
+
+#player-2-pic {
+    height: 150px;
+}    */

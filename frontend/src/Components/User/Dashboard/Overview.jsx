@@ -5,6 +5,8 @@ import { Tabs, Tab } from "react-bootstrap";
 import axios from "axios";
 
 import Upcoming from "./Upcoming";
+import UsersEvent from "./UsersEvent";
+import History from "./History";
 
 class Overview extends Component {
   state = {
@@ -12,6 +14,8 @@ class Overview extends Component {
     loggedOut: false,
     profileClicked: false,
     hostedEvents: [],
+    usersEvents: [],
+    historyEvents: [],
     addPressed: false
   };
 
@@ -19,13 +23,35 @@ class Overview extends Component {
     axios
       .get("/user/getinfo")
       .then(res => {
-        console.log(res.data.user);
         this.setState({
           user: [res.data.user]
         });
       })
       .catch(err => console.log("Failed To Fetch User:", err));
   };
+
+  getUserHistory = () => {
+    axios
+    .get("/user/events/history")
+    .then(res => {
+      console.log("History",res.data)
+      this.setState({
+        historyEvents: res.data.events
+      });
+    })
+    .catch(err => console.log("Failed To Fetch User:", err));
+  }
+ 
+
+  getUsersEvents = () => {
+    axios
+    .get('/user/events')
+    .then(res => {
+        this.setState({
+          usersEvents: res.data.events
+        })
+    }).catch(err => console.log("Error:", err))
+  }
 
   getUserCurrentLocation = callback => {
     var options = {
@@ -78,10 +104,12 @@ class Overview extends Component {
   componentWillMount() {
     this.getUserInfo();
     this.getUserCurrentLocation(this.getAllHostedEvents);
+    this.getUsersEvents();
+    this.getUserHistory();
   }
 
   render() {
-    const { user, loggedOut, profileClicked, hostedEvents, addPressed} = this.state;
+    const { user, loggedOut, profileClicked, hostedEvents, addPressed, usersEvents, historyEvents} = this.state;
 
     if (loggedOut) {
       this.setState({
@@ -99,34 +127,39 @@ class Overview extends Component {
 
     return (
       <div>
-        {user.map((u, i) => {
+        {user.map((u,i) => {
           return (
-            <div key={i} id="Overview">
+            <div key ={i} id="Overview">
               <div className="header">
-                <div id="photo_container">
-                  <img
-                    id="Overview_photo"
-                    src={u.profile_pic}
-                    width="180px"
-                    alt=""
+                <div className="right_half">
+              <div id="photo_container">
+                <img
+                  id="Overview_photo"
+                  src={u.profile_pic}
+                  width="180px"
+                  alt=""
+                />
+              </div>
+              <div id="Overview_description">
+                <div className="blurb">
+                <div id="username">
+                  <h3 className="username">{u.username.toUpperCase()}</h3>
+                </div>
+                <div className="sports" >Sports: <span className="sport_lists">{u.sports.map(elem => <li className="each_sport">{elem.name}</li>)}</span></div>
+                </div>
+                <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
+                <div id="xp_header">
+                  <h2>
+                    XP: <span className="points">{u.exp_points} pts</span>
+                  </h2>
+                  <ProgressBar
+                    style={{ width: "200px" }}
+                    bsStyle="success"
+                    now={u.exp_points}
+                    label={`${u.exp_points} xp`}
                   />
                 </div>
-                <div id="Overview_description">
-                  <div id="username">
-                    <h3 className="username">{u.username.toUpperCase()}</h3>
-                  </div>
-                  <div>Sports: {u.sports.map(elem => <p>{elem.name}</p>)}</div>
-                  <div id="xp_header">
-                    <h2>
-                      XP: <span className="points">{u.exp_points} pts</span>
-                    </h2>
-                    <ProgressBar
-                      style={{ width: "200px" }}
-                      bsStyle="success"
-                      now={u.exp_points}
-                      label={`${u.exp_points} xp`}
-                    />
-                  </div>
+                </div>
                 </div>
                 {/* <div
                   id="medal-container"
@@ -147,15 +180,18 @@ class Overview extends Component {
                 </div> */}
                 <div id="dashboard-tabs">
                   <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                    <Tab eventKey={1} title="Past Event" />
+                    <Tab eventKey={1} title="Past Event" > 
+                    <History events={historyEvents}/>
+                    </Tab>
                     <Tab eventKey={2} title="Upcoming Events">
                       <Upcoming events={hostedEvents} />
                     </Tab>
-                    <Tab eventKey={3} title="My Events" />
+                    <Tab eventKey={3} title="My Events" >
+                    <UsersEvent events={usersEvents} />
+                    </Tab>
                   </Tabs>
                 </div>
               </div>
-              <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
             </div>
           );
         })}
@@ -166,8 +202,3 @@ class Overview extends Component {
 
 export default Overview;
 
-/**
- * <div id="hostevent-component">
-                        <HostEvents />
-                      </div>
- */

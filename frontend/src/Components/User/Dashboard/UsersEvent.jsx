@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Panel, ListGroup } from "react-bootstrap";
 
-class Upcoming extends Component {
+class UsersEvent extends Component {
   render() {
     const { events } = this.props;
-    
+    console.log(events);
     return (
       <Panel defaultExpanded id="event-panel">
+
           <div id="event_container">
             <ListGroup>
               {events.map(e => {
@@ -37,12 +38,11 @@ class Upcoming extends Component {
               })}
             </ListGroup>
           </div>
-
       </Panel>
     );
   }
 }
 
-export default Upcoming;
+export default UsersEvent;
 
 

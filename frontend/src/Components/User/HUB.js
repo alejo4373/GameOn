@@ -13,7 +13,7 @@ import Events from "./HostEvents/EventForm";
 import CurrentEvent from "./HostEvents/CurrentEvent";
 import Map from "./Map/Map";
 import Leaderboard from "./Leaderboard/Leaderboard";
-import History from "./History";
+
 
 import MyEvents from "./HostEvents/CreatedEvent";
 
@@ -61,7 +61,7 @@ class HUB extends Component {
             </Navbar.Collapse>
           </Navbar>
         </div>
-        <div>
+        <div className="every-component">
           {/*Components Goes HERE*/}
           <Switch>
             <Route path="/user/dashboard" component={Dashboard} />
@@ -71,7 +71,6 @@ class HUB extends Component {
             <Route exact path="/user/event" component={Events} />
             <Route exact path="/user/event/:id" component={CurrentEvent} />
             <Route path="/user/event/myevents/:id" component={MyEvents}/>
-            <Route path="/user/history" component={History} />
           </Switch>
         </div>
       </div>
