@@ -250,7 +250,6 @@ export default class Event extends React.Component {
                 {searchResponses.map(res => {
                   return (
                     <div
-                      style={{ backgroundColor: "black" }}
                       id="address-container"
                       onClick={() =>
                         this.setState({
@@ -270,7 +269,7 @@ export default class Event extends React.Component {
 
           <div className="row">
             <div className="col-25">
-              <label for="startT">
+              <label className="time-label" for="startT">
                 <button
                 className='times'
                   name="start"
@@ -304,7 +303,7 @@ export default class Event extends React.Component {
           </Modal>
           <div className="row">
             <div className="col-25">
-              <label for="endT">
+              <label className="time-label" for="endT">
                 <button
                 className='times'
                   name="end"
