@@ -136,37 +136,45 @@ class Overview extends Component {
     }
 
     return (
-      <div style={{ height: "100vh" }}>
+      <div>
         {user.map((u, i) => {
           return (
-            <div key={i} id="Overview">
-              <div className="header">
-                <div className="right_half">
-                  <div id="photo_container">
+            <div id="Overview">
+              <div className="left-top-half">
+                <div className="left-container">
+                  <div className="left-top">
                     <img
                       id="Overview_photo"
                       src={u.profile_pic}
                       width="180px"
                       alt=""
                     />
-                    {/* <img 
-              scr="https://png.pngtree.com/element_pic/16/12/07/899b3fd7a659988d228d707972916a21.jpg"/> */}
+                    <h3 className="username">{u.username.toUpperCase()}</h3>
                   </div>
-                  <div id="Overview_description">
-                    <div className="blurb">
-                      <div id="username">
-                        <h3 className="username">{u.username.toUpperCase()}</h3>
+                  <div className="left-bottom">
+                    <button
+                      className="newGame-btn"
+                      onClick={() => this.setState({ addPressed: true })}
+                    >
+                      <img id="add-btn" src="/images/add-btn.png" />
+                    </button>
+                    <div style={{ width: "100px" , position:'absolute', margin: '0 0 0 15%'}}>
+                        <CircularProgressbar 
+                        percentage={30}
+                        initialAnimation={'true'}
+                        textForPercentage={() => `Level 3`}
+                        />
                       </div>
-                      {/* <div className="sports" >
-                  <img className = "each_sport" src="http://www.pngmart.com/files/1/Basketball-Clip-Art-PNG-279x279.png" />
-                  <img className = "each_sport" src="https://4vector.com/i/free-vector-soccer-ball-clip-art_111277_Soccer_Ball_clip_art_hight.png" />
-                </div> */}
-                    </div>
+                    <div />
+                  </div>
+                </div>
+              </div>
+              {/* 
+                    
+
+                  <div id="Overview_description">
+
                     <div id="xp_header">
-                      <h2>
-                    XP: <span className="points">{u.exp_points} pts</span>
-                  </h2>
-                     
                       <div style={{ width: "100px" , position:'absolute', margin: '0 0 0 15%'}}>
                         <CircularProgressbar 
                         percentage={30}
@@ -175,43 +183,34 @@ class Overview extends Component {
                         />
                       </div>
                     </div>
+                    <CircularProgressbar 
+                        //className='progress_bar'
+                        percentage={30}
+                        initialAnimation={'true'}
+                        textForPercentage={() => `Level 3`}
                     <button
                       className="newGame-btn"
                       onClick={() => this.setState({ addPressed: true })}
                     >
                       <img id="add-btn" src="/images/add-btn.png" />
                     </button>
+                  </div> */}
+
+              <div className="right-half">
+                <div className="inner-right">
+                  <div id="dashboard-tabs">
+                    <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                      <Tab eventKey={1} title="Past Event">
+                        <History events={historyEvents} />
+                      </Tab>
+                      <Tab eventKey={2} title="Upcoming Events">
+                        <Upcoming events={hostedEvents} />
+                      </Tab>
+                      <Tab eventKey={3} title="My Events">
+                        <UsersEvent events={usersEvents} />
+                      </Tab>
+                    </Tabs>
                   </div>
-                </div>
-                {/* <div
-                  id="medal-container"
-                  style={{
-                    height: "150px",
-                    position: "absolute"
-                  }}
-                >
-                  <h3 className="medal">
-                  Medals
-                  </h3>
-                  <img
-                    className="medal-img"
-                    src="/images/gold-trophy.png"
-                    width={"105px"}
-                    alt=""
-                  />
-                </div> */}
-                <div id="dashboard-tabs">
-                  <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                    <Tab eventKey={1} title="Past Event">
-                      <History events={historyEvents} />
-                    </Tab>
-                    <Tab eventKey={2} title="Upcoming Events">
-                      <Upcoming events={hostedEvents} />
-                    </Tab>
-                    <Tab eventKey={3} title="My Events">
-                      <UsersEvent events={usersEvents} />
-                    </Tab>
-                  </Tabs>
                 </div>
               </div>
             </div>
