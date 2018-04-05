@@ -217,12 +217,14 @@ const getEventInfo = (eventId, callback) => {
   db.one(
     `SELECT 
       events.*,
+      users.username AS host_username,
       sports.name as sport_name,
       sports_format.description as sport_format,
       sports_format.num_players
     FROM events
     INNER JOIN sports ON sports.id = events.sport_id
     INNER JOIN sports_format ON sports_format.id = events.sport_format_id
+    INNER JOIN users ON events.host_id = users.id
     WHERE events.id = $1;`, eventId)
     .then((event) => {
       db.any(
