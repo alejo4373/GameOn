@@ -117,9 +117,9 @@ VALUES(1, 1),
       (2, 1);
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, actual_start_ts, actual_end_ts, name, location, sport_id, sport_format_id, event_pic, description, cancelled)
-VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Soccer at the park', 'Bryant Park', 2, 6, '/images/event.png', 'Bring hydration', FALSE),
-       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/event.png', 'Rain or shine', FALSE),
-       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/event.png', 'Rain or shine', FALSE)
+VALUES (1, 40.7580278, -73.881801, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Soccer at the park', 'Bryant Park, New York, NY', 2, 6, '/images/soccer1.jpg', 'Hey Footballers all over New York City. Let''s get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develop yourself with others through the sport of soccer.', FALSE),
+       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/basketball1.jpg', 'Rain or shine', FALSE),
+       (2, 40.7582048, -73.8578325, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/tennis1.jpg', 'Rain or shine', FALSE)
        ;
 
 INSERT INTO players_events(event_id, player_id, team, match_judge)
