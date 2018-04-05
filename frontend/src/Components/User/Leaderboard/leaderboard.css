@@ -40,49 +40,51 @@
 }
 
 #player-0 {
-    border-left: 30px solid rgb(250, 142, 125);
+    /* border-left: 30px solid rgb(250, 142, 125);
     border-top: 2px solid rgb(250, 142, 125);
     border-right: 2px solid rgb(250, 142, 125);
-    border-bottom: 2px solid rgb(250, 142, 125);
+    border-bottom: 2px solid rgb(250, 142, 125); */
     width: 50%;
     margin-left: 25%;
+    margin-top: 5%;
     margin-bottom: 10px;
-    box-shadow: 4px 4px 4px red;
+    /* box-shadow: 4px 4px 4px red; */
 }
 
 #player-1 {
-    border-left: 30px solid rgb(250, 142, 125);
+    /* border-left: 30px solid rgb(250, 142, 125);
     border-top: 2px solid rgb(250, 142, 125);
     border-right: 2px solid rgb(250, 142, 125);
-    border-bottom: 2px solid rgb(250, 142, 125);
+    border-bottom: 2px solid rgb(250, 142, 125); */
     width: 50%;
     margin-left: 25%;
     margin-bottom: 10px;
-    box-shadow: 4px 4px 4px red;
+    /* box-shadow: 4px 4px 4px red; */
 }
 
 #player-2 {
-    border-left: 30px solid rgb(250, 142, 125);
+    /* border-left: 30px solid rgb(250, 142, 125);
     border-top: 2px solid rgb(250, 142, 125);
     border-right: 2px solid rgb(250, 142, 125);
-    border-bottom: 2px solid rgb(250, 142, 125);
+    border-bottom: 2px solid rgb(250, 142, 125); */
     width: 50%;
     margin-left: 25%;
     margin-bottom: 20px;
-    box-shadow: 4px 4px 4px gray;
+    /* box-shadow: 4px 4px 4px gray; */
 }
 
 #leaderboard-table-container {
     margin: 20px;
     float: left;
     /* width: 54%; */
-    overflow: auto;
-    box-shadow: 10px 5px 5px gray;
+    overflow-x: scroll;
+    box-shadow: 5px 5px 5px gray;
     /* border: solid 2px black; */
     border-radius: 4px;
    background-color: snow;
    position: relative;
-   top: 7vh;
+   /* top: 7vh; */
+   height: 100%
 }
 
 .headers-container{
