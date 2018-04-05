@@ -139,19 +139,23 @@ class Overview extends Component {
                   width="180px"
                   alt=""
                 />
+                {/* <img 
+              scr="https://png.pngtree.com/element_pic/16/12/07/899b3fd7a659988d228d707972916a21.jpg"/> */}
               </div>
               <div id="Overview_description">
                 <div className="blurb">
                 <div id="username">
                   <h3 className="username">{u.username.toUpperCase()}</h3>
                 </div>
-                <div className="sports" >Sports: <span className="sport_lists">{u.sports.map(elem => <li className="each_sport">{elem.name}</li>)}</span></div>
+                {/* <div className="sports" >
+                  <img className = "each_sport" src="http://www.pngmart.com/files/1/Basketball-Clip-Art-PNG-279x279.png" />
+                  <img className = "each_sport" src="https://4vector.com/i/free-vector-soccer-ball-clip-art_111277_Soccer_Ball_clip_art_hight.png" />
+                </div> */}
                 </div>
-                <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
                 <div id="xp_header">
-                  <h2>
+                  {/* <h2>
                     XP: <span className="points">{u.exp_points} pts</span>
-                  </h2>
+                  </h2> */}
                   <ProgressBar
                     style={{ width: "200px" }}
                     bsStyle="success"
@@ -159,6 +163,7 @@ class Overview extends Component {
                     label={`${u.exp_points} xp`}
                   />
                 </div>
+                <button className='newGame-btn' onClick={() => this.setState({addPressed: true})}><img id='add-btn' src='/images/add-btn.png' /></button>
                 </div>
                 </div>
                 {/* <div

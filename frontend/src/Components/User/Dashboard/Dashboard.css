@@ -1,10 +1,13 @@
+#Overview_component{
+  background-color: #e0f2f1;
+}
 #Overview{
-  border: 2px solid white;
-  margin: 6% 0 8% 10%;
+  /* border: 2px solid white; */
+  /* margin: 6% 0 8% 10%; */
   width: 80%;
   height: 80%;
   /* position: absolute; */
-  background-color:white;
+  background-color:#e0f2f1;
   color: black;
   text-align: left;
 }
@@ -15,8 +18,8 @@
   display: flex;
 }
   #Overview_photo{
-    margin: 5% 0 0 0;
-    width: 250px;
+    margin: 40% 0 0 55%;
+    width: 200px;
     -moz-border-radius: 90px;
     -webkit-border-radius: 200px;
   }
@@ -32,22 +35,22 @@
   }
   #username{
     float: left;
-    margin-top: 90px;
-    margin-left: 5%;
+    margin-top: 30px;
+    margin-left: 14%;
     position: absolute;
     /* font-size: 100px; */
     /* text-align: center; */
   }
   .username{
-    font-size: 45px;
+    font-size: 25px;
     /* text-align: center; */
   }
   
   #xp_header{
     margin-top: 100px;
     /* margin-right:10px; */
-    /* margin-left: 1%;
-    position: absolute; */
+     margin-left: 130px;
+    /* position: absolute;  */
   }
   .medal{
     border-bottom: 2px solid;
@@ -70,14 +73,14 @@
     font-size: 25px;
   }
   #dashboard-tabs{
-    width: 480px;
-    margin: 0 0 0 50%;
+    width: 400px;
+    margin: 3% 0 0 60%;
     z-index:  1;
     position: absolute;
   }
   
   #event_container{
-    width: 480px;
+    width: 390px;
     height: 520px;
     overflow-y:  auto;
     position: absolute;
@@ -104,21 +107,26 @@
   }
   
   .individual_event{
+    /* background: linear-gradient(to bottom right, rgb(129,212,250) 30%, rgb(77,182,172) ); */
+    box-shadow: 0px 2px 10px #b39ddb;
+    color: black;
     border: 2px solid #DDDDDD;
-    width: 475px;
+    width: 390px;
     height: 125px;
-    margin-top: 0.4%;
+    margin-bottom: 5%;
     background-color: aliceblue;
+    /* margin: 3%; */
   }
-  
+/*   
   .nav-tabs > li{
   padding-left: 7%
   }
-  
+   */
   
   .newGame-btn{
-    margin-left: 250px;
-    margin-top: 130px;
+    margin-left: 200px;
+    margin-top: 40px;
+    margin-bottom: 39px;
     border-radius: 50px;
     width: 55px;
     height: 55px;
@@ -138,19 +146,16 @@
   }
 
 .right_half{
-  /* background-color: gold; */
-  display: flex;
+  background: linear-gradient(to bottom, rgb(77,182,172) 30%, rgb(129,212,250));
+  box-shadow: 0px 9px 25px #b39ddb;
+  color:white;
+  width: 45%;
+  height: 60%;
+  margin-top: 65px;
+  margin-left: 160px;
 }
 .blurb{
   display: flex;
   flex-direction: row;
 }
 
-.each_sport{
-  display: inline-block;
-  margin-right:2px;
-}
-.sports{
-  margin-top:165px;
-  margin-left: 60px;
-}
