@@ -1,4 +1,9 @@
-.navbar {margin-bottom: 0px;}
+.navbar {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0px;
+    border-radius: 0;
+}
 
 #app-Name {
     margin-top: -5px;
