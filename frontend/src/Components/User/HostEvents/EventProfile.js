@@ -6,52 +6,63 @@ export default class EventProfile extends React.Component {
     super(props);
 
     this.state = {
-      event: {
-            "id": 1,
-            "host_id": 1,
-            "lat": 40.7580278,
-            "long": -73.881801,
-            "start_ts": "1521754233284",
-            "end_ts": "1521755961187",
-            "actual_start_ts": "1521755233284",
-            "actual_end_ts": "1521756961187",
-            "name": "Soccer at the park",
-            "location": "Bryant Park, New York, NY",
-            "sport_id": 2,
-            "sport_format_id": 6,
-            "event_pic": "/images/soccer1.jpg",
-            "description": "Hey Footballers all over New York City. Let's get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develop yourself with others through the sport of soccer.",
-            "cancelled": false,
-            "winner_team": null,
-            "host_username": "alejo4373",
-            "sport_name": "soccer",
-            "sport_format": "3x3",
-            "num_players": "6",
-            "players": [ 
-              { "id": 1, "username": "alejo4373", "team": "A", "match_judge": true },
-              { "id": 2, "username": "maito2018", "team": "A", "match_judge": false },
-              { "id": 3, "username": "olu_joya", "team": "B", "match_judge": true },
-              { "id": 2, "username": "bart178", "team": "A", "match_judge": false },
-              { "id": 2, "username": "lol101", "team": "B", "match_judge": false },
-              { "id": 2, "username": "michelle01", "team": "B", "match_judge": false },
-            ]
-        },
+      event:{players: []},
+      user: {},
+      team: 'A',
+      buttonText: '', //'Join' | 'Leave' | 'Start' | 'End'
       delete: false
     };
   }
 
-  // componentDidMount(){
-  //   const id = this.props.match.params.id;
-  //   axios
-  //   .get(`/event/info/${id}`)
-  //   .then(res =>{
-  //     this.setState({
-  //       event: res.data.event
-  //     })
-  //   }
-  //   )
-  //   .catch(err => console.log('err retrieving the event info', err));
-  // }
+  componentDidMount(){
+    // const userId = this.state.user.id;
+    const eventId = this.props.match.params.id;
+    axios
+    .get("/user/getinfo")
+    .then(res => {
+      console.log(res.data.user);
+      const user = res.data.user
+      axios
+        .get(`/event/info/${eventId}`)
+        .then(res =>{
+          const { event } = res.data
+          var buttonText = 'Join'
+          if(event.host_id === user.id) { buttonText = 'Start' }
+          this.setState({
+            event: res.data.event,
+            buttonText: buttonText,
+            user: user
+          })
+         })
+        .catch(err => console.log("Failed To Fetch User:", err));
+    })
+    .catch(err => console.log("Failed To Fetch User:", err));
+  }
+
+  joinEvent = () => {
+    console.log('JOINING EVENT')
+    const { event, team } = this.state;
+    axios
+      .post("/event/join", {
+        event_id: event.id,
+        team: 'B'
+      })
+      .then(res => {
+        axios
+          .get(`/event/info/${event.id}`)
+          .then(res => {
+            this.setState({
+              event: res.data.event,
+              msg: "Congratulations! You have been added to the event",
+              buttonText: 'Leave',
+              show: false,
+              Switch: true,
+            })}
+          )
+          .catch(err => console.log("error fetching the event", err));
+      })
+      .catch(err => console.log("error fetching the event", err));
+  };
 
   handleDelete = () => {
     const { event_id } = this.props;
@@ -63,51 +74,85 @@ export default class EventProfile extends React.Component {
     .catch(err => console.log('err deleting the event', err));
   };
 
-  render() {
-    const { event } = this.state;
-    const date = new Date(Number(event.start_ts));
-    const startTime = 0;
-    const endTime = new Date(Number(event.end_ts));
-    console.log(date)
+  handleButton = e => {
+    const buttonText = e.target.id;
+    switch(buttonText) {
+      case 'Join':
+        return this.joinEvent()
+      case 'Start':
+        return this.startEvent();
+        break;
+      case 'End':
+        return this.endEvent();
+    } 
+  }
 
-    const options = {  
-      weekday: "short", year: "numeric", month: "short",  
-      day: "numeric", hour: "2-digit", minute: "2-digit"  
-  };  
+  startEvent = () => {
+    console.log('START EVENT')
+  }
+  endEvent = () => {
+    console.log('ENDING EVENT')
+  }
+  render() {
+    const { event, buttonText } = this.state;
+    const startDate = new Date(Number(event.start_ts));
+    const endDate = new Date(Number(event.end_ts));
+
+    const dateOptions = {  
+      weekday: "long", year: "numeric", month: "long",  
+      day: "numeric",// hour: "2-digit", minute: "2-digit"  
+    };  
+
+    const timeOptions = {
+      hour: "2-digit", minute: "2-digit"  
+    }
+    //Dates as strings ready to display
+    const date = startDate.toLocaleDateString('en-US', dateOptions)
+    const startTime = startDate.toLocaleTimeString('en-US', timeOptions)
+    const endTime = endDate.toLocaleTimeString('en-US', timeOptions)
 
     return (
       <div className="event-profile">
-        <div className="header" style={{backgroundImage: `url(${event.event_pic})`}}>
-        </div>
-        <div className='middle'>
-          <div className='left'>
-            <div>
-              <h3> Details </h3>
-              <p>{event.description}</p>
+        <div className="left">
+          <div className="card">
+            <div className='top' style={{backgroundImage: `url(${event.event_pic})`}}>
             </div>
-          </div>
-          <div className='right'>
-            <h3 className='span'> Overview </h3>
-            <img src={`/icons/calendar-icon.png`} class='icon'/>
-            <p>{event.sport_name}</p>
+            <div className='bottom'>
+              <div className='sub-header'> Details </div>
+              <p className='details-p'>{event.description}</p>
+            </div>
+            </div>
+        </div>
 
+        <div className='right'>
+          <div className='top'>
+            <div className='sub-header'> Overview </div>
+            <img src={`/icons/calendar-icon.png`} class='icon'/>
+            <div className='text-cell'>
+              {date}
+              <br/>
+              {startTime} to {endTime}
+            </div>
             <img src='/icons/pin-icon.png' class='icon'/>
-            <p>{event.location}</p>
+            <div className='text-cell'>{event.location}</div>
 
             <img src='/icons/user-icon.png' class='icon'/>
-            <p>{event.host_username}</p>
+            <div className='text-cell'>{event.host_username}</div>
 
             <img src='/icons/format-icon.png' class='icon'/>
-            <p>{event.sport_format}</p>
+            <div className='text-cell'>{event.sport_format}</div>
           </div>
-       </div>
-       <div className='bottom'>
-         <div className='left'>
-         </div>
-         <div className='right'>
-          <button>Join</button>
+          <div className='right-middle'>
+            <div className='sub-header'>VS</div>
+              <div className='team-header'>Team A</div>
+              <div className='team-header'>Team B</div>
+              {event.players.map(player => player.team === 'A' ? <div>{player.username}</div> : '')}
+              {event.players.map(player => player.team === 'B' ? <div>{player.username}</div> : '')}
           </div>
-       </div>
+          <div className='bottom'>
+            <div className='button' id={buttonText} onClick={this.handleButton}>{buttonText}</div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -108,8 +108,8 @@ VALUES ('1', '1x1', 1),
        ;
 
 INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)
-VALUES('Alejandro Franco', 'alejo4373', 'alejandro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
-      ('Martin Ramirez', 'maito2018', 'maitoawesome@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+VALUES('Anthony King', 'AnthonyKing', 'antonioReyes@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+      ('Michael Beckham', 'MichaelB', 'maichB@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50);
 
 INSERT INTO users_sports (sport_id, user_id)
@@ -126,5 +126,6 @@ INSERT INTO players_events(event_id, player_id, team, match_judge)
 VALUES(1, 2, 'A', FALSE),
       (1, 3, 'B', TRUE),
       (1, 1, 'A', TRUE),
-      (2, 2, 'A', TRUE) 
+      (2, 2, 'A', TRUE),
+      (3, 2, 'A', TRUE) 
       ;
