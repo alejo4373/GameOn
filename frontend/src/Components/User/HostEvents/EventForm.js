@@ -14,16 +14,16 @@ export default class Event extends React.Component {
     super();
 
     this.state = {
-      Name: "",
+      Name: "Soccer in the Alley",
       m: moment(),
-      imgScr: "",
-      Address: "",
+      imgScr: "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      Address: "Lion Gate Field",
       start: false,
       end: false,
       DateInfo: "",
       startTime: "",
       endTime: "",
-      Description: "",
+      Description: `Hey Footballers all over New York City. Let's get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develope yourself with others through the sport of soccer.`,
       sport: "",
       lat: "",
       long: "",
@@ -32,7 +32,7 @@ export default class Event extends React.Component {
       players: "",
       sports: [],
       gameFormat: [],
-      format_id: "",
+      format_id: "1 x 1",
       sport_id: "",
       event: "",
       searchResponses: []
@@ -408,7 +408,6 @@ export default class Event extends React.Component {
               type="submit"
               value="Create event"
               style={{
-                width: "20%",
                 padding: "11px",
                 marginTop: "5px",
                 marginBottom: "15px"
