@@ -212,6 +212,10 @@ button:focus {
     margin-left: 84%;
   }
 
+  .host_img{
+    width: 90px;
+  }
+
   #add-btn {
     width: 55px;
     border: 2px solid #1badc0;
