@@ -39,8 +39,8 @@ class History extends Component {
                       width={"50px"}
                       alt=""
                     />
-                    <div className="host_name">{e.name}</div>
                     <div className="event_descriptions" id={e.id}>
+                    <div className="host_name">{e.name}</div>
                       <span className="event_date">{date}</span>
                       <br />
                       <span className="event_time">{startTime} - {endTime}</span>
@@ -49,7 +49,7 @@ class History extends Component {
                         Location: {e.location}
                       </span> */}
                       <br />
-                      <img src={`/icons/${e.sport_name}-icon.png`} style={{width: 30}}/>
+                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} style={{width: 40}}/>
                     </div>
                   </div>
                 </a>
