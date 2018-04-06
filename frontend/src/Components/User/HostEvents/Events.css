@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy|Michroma|Prata");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
 
 body {
-  font-family: "Prata", serif;
+  font-family: "Open Sans", serif;
   color: black;
 }
 #event-form {
@@ -179,7 +179,7 @@ ul {
   color: white;
 }
 
-input[type="text"],
+.event-form,
 select,
 textarea {
   width: 100%;

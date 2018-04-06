@@ -69,12 +69,13 @@ body {
     width: 400px;
     /* margin: 3% 0 0 60%;  */
     margin-left:3%;
+    background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
     /* z-index:  1;
     position: absolute; */
   } 
-  
+
   #event_container{
-    width: 400px;
+    width: 430px;
     height: 470px;
     overflow-y:  auto;
     position: absolute;
@@ -109,13 +110,13 @@ body {
     height: 125px;
     margin-bottom: 5%;
     background-color: aliceblue;
-    margin: 3%; 
+    margin: 2%; 
   } 
-/*   
-  .nav-tabs > li{
-  padding-left: 7%
+  
+  .nav-tabs>li>a{
+  margin-right:20px;
   }
-   */
+  
   
   .newGame-btn{
     border-radius: 50px;
@@ -189,6 +190,8 @@ body {
   width:450px;
   height:530px;
   box-shadow: 0px 9px 25px  #b39ddb;
+  padding-top: 6px;
+  background-color: white;
   /* background-color: white; */
   margin: 35px auto;
 }
