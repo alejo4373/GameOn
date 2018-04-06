@@ -116,7 +116,7 @@ class Leaderboard extends Component {
                     <div className="player-card">
                       <p id="rank-number">{i + 1}</p>
                       <div id="player-info">
-                        <span>
+                        <span id="img">
                           <img
                             id={`player-${i}-pic`}
                             src={p.profile_pic}

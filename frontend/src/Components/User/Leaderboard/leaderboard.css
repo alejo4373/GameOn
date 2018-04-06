@@ -143,3 +143,96 @@
 }
 
 
+@media only screen 
+  and (max-width: 450px)
+  {
+      #leaderboard-body {
+       
+      }
+    #leaderboard-container {
+        margin-top: 20%;
+    }
+
+    #leaderboard_header {
+        /* width: 100px; */
+        font-size: 25px;
+    }
+
+    #top3 {
+        /* width: 100%; */
+        margin: 0;
+        margin-left: 12%;
+        margin-top: 5%;
+        width: 75%;
+        display: flex;
+    }
+    body {
+        width: 100%;
+    }
+    img[id=player-0-pic] {
+        width: 60%;
+        float: left;
+        margin: 0;
+        position: relative;
+        margin-left: 10px;
+    }
+    img[id=player-1-pic] {
+        width: 50%;
+        float: left;
+        margin: 0;
+    }
+
+    img[id=player-2-pic] {
+        width: 50%;
+        float: left;
+        margin: 0;
+    }
+    #player-0{
+        margin: 0;
+        position: relative;
+        left: 90px;
+        margin-top: 5%;
+        margin-left: 5%;
+        /* display: flex; */
+    }
+    #player-1{
+        margin: 0;
+        position: relative;
+        left: -65px;
+        top: 8px;
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+    #player-2{
+        margin: 0;
+        position: relative;
+        top: 8px;
+        margin-top: 5%;
+        margin-left: 5%;
+    }
+    #rank-number {
+        /* width: 91.86px; */
+        padding:0;
+        text-align: center
+    }
+    #player-info{
+        width: 104.73px;
+    }
+    #score-points {
+        width: 99.45%;
+    }
+    #img {
+        display: none;
+    }
+    #rank {
+        width: 98.5px;
+    }
+    #player {
+        margin-right: 1px;
+    }
+    #top3-username {
+        position: relative;
+        top: 0;
+    }
+}
+

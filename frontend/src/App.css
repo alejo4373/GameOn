@@ -27,3 +27,7 @@ html {
 #title {
   border: 2px solid pink;
 }
+
+.profile_parent {
+  background-color: red;
+}
