@@ -9,69 +9,17 @@ body {
 .dashboard-parent {
   height: 100%;
 }
-
-/* #Overview_description{
-  background-color: white; */
-/* }
-#Overview{
-  /* border: 2px solid white; */
-  /* margin: 4% auto;
-  width: 90%;
-  color: black;
-  text-align: left;
-  display:grid;
-  grid-template-columns: 37% 37%;
-  grid-column-gap: 5%;
-} */ 
-/* #photo_container{
-  width: 50%;
-  height: 60%
-} */
-/* .header{
-
-} */
    #Overview_photo{
-    /* margin: 40% 0 0 55%;  */
-     /* margin: 10% 0 20% 5%; */
      margin-top:1%;
     width: 200px;
     -moz-border-radius: 90px;
     -webkit-border-radius: 200px;
   } 
-  
-  /* #edit_Overview_button{
-    border: 1px solid gray;
-    font-size: 18px;
-    width: auto;
-    height: 28px;
-    position: absolute;
-    margin: 1.5% 0 0 13%;
-  
-  } */
-  /* #username{
-    float: left;
-    margin-top: 30px;
-    margin-left: 15%;
-    position: absolute;
-    color: black;
-  } */
-  /* .username{
-    font-size: 30px;
-  } */
-  
-  /* #xp_header{
-    /* margin-top: 100px; */
-    /* margin-right:10px; */
-     /* margin-left: 130px;
-    /* position: absolute;  */
 
     #dashboard-tabs{
     width: 400px;
-    /* margin: 3% 0 0 60%;  */
     margin-left:3%;
     background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
-    /* z-index:  1;
-    position: absolute; */
   } 
 
   #event_container{
@@ -81,25 +29,13 @@ body {
     position: absolute;
   }
   
-  /* .host_img{
+  .host_img{
     float: left;
-    margin: 1% 0% 0 3%;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
+    /* margin: 0% 0% 0 3%; */
+    width: 180px;
+    -webkit-clip-path: polygon(0% 0%, 55% 0, 81% 50%, 57% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 55% 0, 81% 50%, 57% 100%, 0% 100%);
   }
-  
-  .host_Name{
-    position: absolute;
-    margin-left: 34%
-  } */
-  
-  /* .event_descriptions{
-    width: 200px;
-    height: auto;
-    position: absolute;
-    margin-left: 20%;
-    margin-top: 5%;
-  } */
   
   .individual_event{
     /* background: linear-gradient(to bottom right, rgb(129,212,250) 30%, rgb(77,182,172) ); */
@@ -111,6 +47,7 @@ body {
     margin-bottom: 5%;
     background-color: aliceblue;
     margin: 2%; 
+    text-align: left;
   } 
   
   .nav-tabs>li>a{
@@ -195,8 +132,7 @@ body {
   /* background-color: white; */
   margin: 35px auto;
 }
-/* .progress_bar{
-  width: 60px;
-  position:absolute;  
-  margin: 5% 0 0 13%;
-} */
+.host_name{
+ font-size: 18px;
+  margin-top:10px;
+}
