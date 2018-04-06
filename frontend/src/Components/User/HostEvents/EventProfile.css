@@ -13,10 +13,6 @@ body {
     grid-column-gap: 2%;
 }
 
-.left, .right {
-  background-color: ghostwhite;
-}
-
 .left > .card {
   display: grid;
   grid-template-rows: 40% 60%;
@@ -48,6 +44,7 @@ body {
 .right, .left {
   box-shadow: 0px 9px 25px #b39ddb;
   border: #cebebe solid 1px;
+  background-color: ghostwhite;
 }
 
 /*Right side styling */
@@ -86,7 +83,7 @@ body {
   /* padding: 2%; */
 }
 
-.right > .bottom > .button {
+.button {
   box-shadow: 0px 0px 23px #b39ddb;
   border: #cebebe solid 1px;
   border-radius: 4px;
@@ -98,15 +95,10 @@ body {
   font-size: 1.7em;
 }
 
-.right > .bottom > .button:hover {
+.button:hover {
   width: 47%;
   font-size: 1.6em;
   margin: 10% auto;
-}
-
-.right > .bottom > .button:click {
-  background: linear-gradient(to bottom right, rgb(255,147,96) 40%, rgb(255,146,160));
-  color: red;
 }
 
 .event-profile > .right .sub-header {
@@ -122,4 +114,30 @@ body {
 }
 .event-profile .team-header {
   text-decoration-line: underline;
+}
+
+.stopwatch-timer {
+  font-size: 6em;
+  text-shadow: 0px 0px 23px #b39ddb;
+  margin-top: 9%;
+}
+
+/*MEDIA QUERIES*/
+@media (max-width: 784px) {
+  .event-profile {
+    display: block;
+    box-shadow: 0px 0px 23px #b39ddb;
+    border: #cebebe solid 1px;
+    border-radius: 4px;
+    background-color: ghostwhite;
+  }
+  .right, .left {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  .left > .card > .top {
+    min-height: 300px;
+  }
 }

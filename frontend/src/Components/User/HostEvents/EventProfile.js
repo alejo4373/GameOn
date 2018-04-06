@@ -1,6 +1,16 @@
 import React from "react";
 import axios from "axios";
 import './EventProfile.css';
+
+//For the timer to work
+const formattedSeconds = (sec) => {
+  return(
+    Math.floor(sec / 60) +
+      ':' +
+    ('0' + sec % 60).slice(-2)
+  )
+}
+
 export default class EventProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -10,9 +20,15 @@ export default class EventProfile extends React.Component {
       user: {},
       team: 'A',
       buttonText: '', //'Join' | 'Leave' | 'Start' | 'End'
-      delete: false
+      delete: false,
+
+      //Timer related
+      secondsElapsed: 0, 
+      laps: [],
+      lastClearedIncrementer: null
     };
-  }
+     this.incrementer = null;
+  };
 
   componentDidMount(){
     // const userId = this.state.user.id;
@@ -38,6 +54,22 @@ export default class EventProfile extends React.Component {
     })
     .catch(err => console.log("Failed To Fetch User:", err));
   }
+
+  handleStartStopwatchClick(e) {
+    this.incrementer = setInterval( () =>
+      this.setState({
+        secondsElapsed: this.state.secondsElapsed + 1
+      })
+    , 1000);
+  }
+  
+  handleStopStopwatchClick(e) {
+    clearInterval(this.incrementer);
+    this.setState({
+      lastClearedIncrementer: this.incrementer
+    });   
+  }
+   
 
   joinEvent = () => {
     console.log('JOINING EVENT')
@@ -88,6 +120,7 @@ export default class EventProfile extends React.Component {
   }
 
   startEvent = () => {
+    this.handleStartStopwatchClick()
     console.log('START EVENT')
     const eventId = this.state.event.id
     axios
@@ -101,6 +134,7 @@ export default class EventProfile extends React.Component {
   }
 
   endEvent = () => {
+    this.handleStopStopwatchClick();
     console.log('ENDING EVENT')
     const eventId = this.state.event.id
     axios
@@ -175,8 +209,19 @@ export default class EventProfile extends React.Component {
               {event.players.map(player => player.team === 'A' ? <div>{player.username}</div> : '')}
               {event.players.map(player => player.team === 'B' ? <div>{player.username}</div> : '')}
           </div>
-          <div className='bottom'>
-            <div className='button' id={buttonText} onClick={this.handleButton}>{buttonText}</div>
+          <div className="stopwatch">
+            <div className="stopwatch-timer">{formattedSeconds(this.state.secondsElapsed)}</div>
+   
+              {(this.state.secondsElapsed === 0 || this.incrementer === this.state.lastClearedIncrementer)
+                ?
+                <div className='bottom'>
+                  <div className='button' id={buttonText} onClick={this.handleButton}>{buttonText}</div>
+                </div>
+                :  
+                <div className='bottom'>
+                  <div className='button' id={buttonText} onClick={this.handleButton}>{buttonText}</div>
+                </div>
+                }
           </div>
         </div>
       </div>
