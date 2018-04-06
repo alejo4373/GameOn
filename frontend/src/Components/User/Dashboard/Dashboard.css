@@ -287,22 +287,20 @@ button:focus {outline:0;}
     } */
   
   .individual_event {
-    /* background: linear-gradient(to bottom right, rgb(129,212,250) 30%, rgb(77,182,172) ); */
-    /* box-shadow: 0px 2px 10px #b39ddb; */
+    font-size: 18px;
     color: black;
     border: 2px solid #dddddd;
-    width: 390px;
+    width: 290px;
     height: 125px;
     margin-bottom: 5%;
     background-color: aliceblue;
     margin: 3%;
   }
-  /*   
-    .nav-tabs > li{
-    padding-left: 7%
-    }
-     */
   
+  #Overview{
+   margin-left: 0;
+   margin-right: 0;
+  }
   .newGame-btn {
     border-radius: 50px;
     width: 55px;
