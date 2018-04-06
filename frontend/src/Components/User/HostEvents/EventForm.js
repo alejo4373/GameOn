@@ -190,7 +190,7 @@ export default class Event extends React.Component {
       <div id="event-form">
         <div className="event-background" />
         <div className="title-name">
-        <h1 id="event-title">Create An Event</h1>
+        <h1 id="event-title">Create An Game</h1>
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
