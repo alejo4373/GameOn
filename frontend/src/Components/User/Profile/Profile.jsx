@@ -112,7 +112,7 @@ class Profile extends Component {
     const { user, enable, show, photo, message } = this.state;
 
     return (
-        <div className="profile_parent">
+        <div className="profile_parent" >
         <Modal show={show} aria-labelledby="contained-modal-title">
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title">Upload Photo</Modal.Title>

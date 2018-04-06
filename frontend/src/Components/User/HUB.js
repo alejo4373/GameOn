@@ -31,8 +31,8 @@ class HUB extends Component {
   render() {
     const { handleLogOut } = this;
     return (
-      <div>
-        <div>
+      <div id="hub-div"> 
+        <div id="navbar-div">
           <Navbar inverse collapseOnSelect >
             <Navbar.Header>
               <Navbar.Brand>
