@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Template from "./EventTemplate";
+import ReactInterval from "react-interval";
 
 export default class Events extends React.Component {
   constructor(props) {
@@ -11,70 +12,11 @@ export default class Events extends React.Component {
       delete: false,
       time: 0,
       offset: "",
-      interval: "",
+      interval: null,
       On: false
-
     };
+    this.interval = null
   }
-
-  updateTime = () => {
-    const { On, time } = this.state
-    const { timeChange, timeFormatter } = this
-    console.log('suuuuup')
-    let newTime = time +  timeChange()
-    const formatTime = timeFormatter(newTime)
-    if (On){
-      this.setState({
-        time: formatTime
-      })
-    }
-  }
-
-  timeChange = () => {
-    const { offset } = this.state
-    let currentTime = new Date()
-    const change = currentTime - offset
-    this.setState({
-      offset: currentTime
-    })
-  }
-
-  timeFormatter = () => {
-    const { time } = this.state
-    const rawTime = new Date(time);
-    
-        var minutes = rawTime.getMinutes().toString();
-        var seconds = rawTime.getSeconds().toString();
-        var milliseconds = rawTime.getMilliseconds().toString();
-    
-        if (minutes.length < 2) {
-          minutes = '0' + minutes;
-        }
-    
-        if (seconds.length < 2) {
-          seconds = '0' + seconds;
-        }
-    
-        while (milliseconds.length < 3) {
-          milliseconds = '0' + milliseconds;
-        }
-    
-        return minutes + ' : ' + seconds + ' . ' + milliseconds;
-  }
-
-  begin = () => {
-    this.setState({
-      offset: Date.now(),
-      On: true
-    })
-    setInterval(this.updateTime, 1000);
-  };
-
- stop = () =>  {
-    this.setState({
-      On: false
-    })
-  };
 
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -101,7 +43,7 @@ export default class Events extends React.Component {
   };
 
   form = () => {
-    const { event, On, time } = this.state;
+    const { event, On, time, interval } = this.state;
     return (
       <div className="eventpage">
         {this.state.delete ? (
@@ -115,12 +57,12 @@ export default class Events extends React.Component {
               <h3 className="title">{event.name}</h3>
             </div>
             <Template event={event} />
-            <div className= "display-timer">
-            <h1 id="timer">{time}</h1>
+            {/* <div className="display-timer">
+              <h1 id="timer">{time}</h1>
             </div>
             <div className="event-timer">
               { On? <button id="stop" onClick={this.stop}>Stop</button>: <button id="begin" onClick={this.begin}>Start</button>}
-            </div>
+            </div> */}
             <button onClick={this.handleDelete}>Delete</button>
           </div>
         )}
