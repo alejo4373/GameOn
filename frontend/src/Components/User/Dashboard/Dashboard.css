@@ -133,6 +133,8 @@ body {
   border-radius: 50px;
 }
 
+button:focus {outline:0;}
+
 #add-btn:hover {
   border-color: gold;
 }
