@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
+
+body {
+  font-family: 'Open Sans', sans-serif; 
+}
+
+.event-profile{
+    width: 80%;
+    margin: 6% auto;
+    color:white;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-column-gap: 2%;
+}
+
+.left > .card {
+  display: grid;
+  grid-template-rows: 40% 60%;
+  box-shadow: 0px 0px 23px #b39ddb;
+  border: #cebebe solid 1px;
+  border-radius: 4px;
+  margin: 5%;
+  height: 92%;
+}
+
+.left > .card > .top {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
+}
+
+.left > .card > .bottom {
+  background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
+  height: 100%;
+}
+
+.left > .card > .bottom > .details-p {
+  text-align: justify;
+  padding: 5%;
+}
+/* Both .right and .left */
+.right, .left {
+  box-shadow: 0px 9px 25px #b39ddb;
+  border: #cebebe solid 1px;
+  background-color: ghostwhite;
+}
+
+/*Right side styling */
+.right{
+  color: black;
+}
+
+.right > .top {
+  display: grid;
+  grid-template-columns: 20% 76%;
+  grid-column-gap: 4%;
+  margin: 5%;
+  box-shadow: 0px 0px 23px #b39ddb;
+  border-radius: 4px;
+  border: #cebebe solid 1px;
+  text-align: left;
+  /* padding: 2%; */
+}
+.right > .top > .icon {
+  align-self:center;
+  width: 1.8em;
+  margin-left: auto;
+}
+
+.right > .top > .text-cell {
+  margin: 2% 0;
+}
+.right > .right-middle {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 0;
+  margin: 5%;
+  box-shadow: 0px 0px 23px #b39ddb;
+  border-radius: 4px;
+  border: #cebebe solid 1px; 
+  /* padding: 2%; */
+}
+
+.button {
+  box-shadow: 0px 0px 23px #b39ddb;
+  border: #cebebe solid 1px;
+  border-radius: 4px;
+  width: 50%;
+  margin: 10% auto;
+  text-align: center;
+  padding: 5% 0;
+  background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
+  font-size: 1.7em;
+}
+
+.button:hover {
+  width: 47%;
+  font-size: 1.6em;
+  margin: 10% auto;
+}
+
+.event-profile > .right .sub-header {
+  grid-column-start: span 2;
+  text-align: center;
+  background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
+  padding: 5% 0;
+}
+
+.sub-header{
+  color: black;
+  font-size: 1.7em;
+}
+.event-profile .team-header {
+  text-decoration-line: underline;
+}
+
+.stopwatch-timer {
+  font-size: 6em;
+  text-shadow: 0px 0px 23px #b39ddb;
+  margin-top: 9%;
+}
+
+/*MEDIA QUERIES*/
+@media (max-width: 784px) {
+  .event-profile {
+    display: block;
+    box-shadow: 0px 0px 23px #b39ddb;
+    border: #cebebe solid 1px;
+    border-radius: 4px;
+    background-color: ghostwhite;
+  }
+  .right, .left {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  .left > .card > .top {
+    min-height: 300px;
+  }
+}
