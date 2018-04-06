@@ -395,10 +395,10 @@ export default class Event extends React.Component {
             </div>
           </div>
           <input
+          id='submit-form-btn'
           className="times"
             type="submit"
             value="Create event"
-           style={{ width: "20%", padding:"11px", marginTop:"5px", marginBottom:"15px" }}
           />
           </div>
         </form>
