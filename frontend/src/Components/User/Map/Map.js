@@ -178,7 +178,7 @@ export class MapContainer extends Component {
 
     console.log("User Location:", userCurrentLocation);
 
-    const wrapperStyle = { width: 150, margin: 5 };
+  
     const mapStyle = { height: "100%" };
     return (
         <div id="google-map">
@@ -187,7 +187,7 @@ export class MapContainer extends Component {
             disabled={'true'}
             >
               <div id="map-filter">
-                <div style={wrapperStyle}>
+                <div id='slider-filter' >
                   Select Miles <span> {miles} </span>
 
                   <Slider

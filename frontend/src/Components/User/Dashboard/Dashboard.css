@@ -9,7 +9,8 @@ body {
 .dashboard-parent {
   height: 100%;
 }
-   #Overview_photo{
+
+ #Overview_photo{
      margin-top:1%;
     width: 200px;
     -moz-border-radius: 90px;
@@ -50,89 +51,259 @@ body {
     text-align: left;
   } 
   
-  .nav-tabs>li>a{
-  margin-right:20px;
-  }
-  
-  
-  .newGame-btn{
-    border-radius: 50px;
-    width: 55px;
-    height: 55px;
-    border: none;
-    margin-left: 350px;
-    margin-top: 20px;
-    background-color: #7BD0EA;
-  } 
-  
-  #add-btn{
-    width: 55px;
-    border: 2px solid #1BADC0;
-    border-radius: 50px;
-  } 
-  
-  
-  #add-btn:hover{
-    border-color: gold;
-  } 
+ 
+
+.nav-tabs > li > a {
+  margin-right: 20px;
+}
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+  font-size: 10px;
+}
 
 
-.CircularProgressbar{
+#add-btn:hover {
+  border-color: gold;
+}
+
+.newGame-btn {
+  border-radius: 50px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  margin-left: 350px;
+  margin-top: 20px;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+#add-btn {
+  width: 55px;
+  border: 2px solid #1badc0;
+  border-radius: 50px;
+}
+
+button:focus {
+  outline: 0;
+}
+
+#add-btn:hover {
+  border-color: gold;
+}
+
+.CircularProgressbar {
   width: 70px;
   background-color: white;
 }
-#Overview{
+#Overview {
   display: grid;
   grid-template-columns: 500px 500px;
   grid-template-rows: 600px;
   grid-gap: 20px;
-  margin-top:20px;
+  margin-top: 20px;
   justify-content: center;
 }
 
-.right-half{
+.right-half {
   grid-column: 2;
   grid-row: 1;
-  box-shadow: 0px 9px 25px  #b39ddb;
+  box-shadow: 0px 9px 25px #b39ddb;
   justify-content: center;
-  /* align-items: center; */
 }
 
-.left-top-half{
+.left-top-half {
   grid-column: 1;
   grid-row: 1;
-  box-shadow: 0px 9px 25px  #b39ddb;
+  box-shadow: 0px 9px 25px #b39ddb;
 }
-.left-container{
+.left-container {
   display: grid;
   grid-template-columns: 450px;
   grid-template-rows: 270px 250px;
   justify-content: center;
   grid-gap: 10px;
-  margin-top:35px;
+  margin-top: 35px;
 }
-.left-top{
-  /* grid-column: 1; */
+.left-top {
   grid-row: 1;
-  box-shadow: 0px 9px 25px  #b39ddb;
-  background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
+  box-shadow: 0px 9px 25px #b39ddb;
+  background: linear-gradient(
+    to bottom right,
+    rgb(255, 147, 96) 30%,
+    rgb(255, 146, 160)
+  );
 }
-.left-bottom{
-  /* grid-column: 1; */
+.left-bottom {
   grid-row: 2;
-  box-shadow: 0px 9px 25px  #b39ddb;
+  box-shadow: 0px 9px 25px #b39ddb;
   background-color: white;
 }
-.inner-right{
-  width:450px;
-  height:530px;
-  box-shadow: 0px 9px 25px  #b39ddb;
+
+.inner-right {
+  width: 450px;
+  height: 530px;
+  box-shadow: 0px 9px 25px #b39ddb;
   padding-top: 6px;
   background-color: white;
-  /* background-color: white; */
   margin: 35px auto;
 }
+
 .host_name{
  font-size: 18px;
   margin-top:10px;
+}
+
+
+#circularProgressBar-container {
+  width: 100px;
+  position: absolute;
+  margin: 0 0 0 13%;
+}
+
+@media only screen and (max-width: 480px) {
+  body {
+    background-color: #e0f2f1;
+    margin-right: 0;
+  }
+
+  .dashboard-parent {
+    height: 100%;
+  }
+
+  #Overview_photo {
+    margin-top: 1%;
+    width: 200px;
+    -moz-border-radius: 90px;
+    -webkit-border-radius: 200px;
+  }
+
+  #dashboard-tabs {
+    width: 330px;
+  }
+
+  .individual_event {
+    color: black;
+    border: 2px solid #dddddd;
+    width: 300px;
+    height: 100px;
+    margin-bottom: 5%;
+    background-color: aliceblue;
+    margin: 3%;
+  }
+
+  #Overview {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #event_container {
+    width: 300px;
+    height: 413px;
+    overflow-y: auto;
+    position: absolute;
+  }
+  .newGame-btn {
+    border-radius: 50px;
+    width: 55px;
+    height: 55px;
+    border: none;
+    margin-top: 20px;
+    padding: 0;
+    margin: 0;
+    margin-left: 84%;
+  }
+
+  #add-btn {
+    width: 55px;
+    border: 2px solid #1badc0;
+    border-radius: 50px;
+  }
+
+  button:focus {
+    outline: 0;
+  }
+
+  #add-btn:hover {
+    border-color: gold;
+  }
+
+  .CircularProgressbar {
+    width: 70px;
+    background-color: white;
+  }
+  #Overview {
+    padding: 0;
+    display: grid;
+    margin-left: 0;
+    grid-template-columns: 1px;
+    grid-template-rows: 600px;
+    grid-gap: 5px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .right-half {
+    grid-column: 2;
+    grid-row: 2;
+    box-shadow: 0px 9px 25px #b39ddb;
+    justify-content: center;
+    width: 350px;
+    height: 540px;
+  }
+
+  .left-top-half {
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 5px;
+    box-shadow: 0px 9px 25px #b39ddb;
+    width: 350px;
+    height: 540px;
+  }
+
+  #uncontrolled-tab-example {
+    height: 500px;
+  }
+  .left-container {
+    display: grid;
+    grid-template-columns: 350px;
+    grid-template-rows: 200px 250px;
+    justify-content: center;
+    grid-gap: 10px;
+    margin-top: 35px;
+  }
+  .left-top {
+    grid-row: 1;
+    box-shadow: 0px 9px 25px #b39ddb;
+    background: linear-gradient(
+      to bottom right,
+      rgb(255, 147, 96) 30%,
+      rgb(255, 146, 160)
+    );
+  }
+  .left-bottom {
+    grid-row: 2;
+    box-shadow: 0px 9px 25px #b39ddb;
+    background-color: white;
+  }
+  .inner-right {
+    width: 350px;
+    height: 530px;
+    box-shadow: 0px 9px 25px #b39ddb;
+    /* background-color: white; */
+  }
+
+  #circularProgressBar-container {
+    width: 100px;
+    position: absolute;
+    margin: 0 0 0 30%;
+  }
+
+  #event-panel {
+    padding: 0;
+    margin: 0;
+  }
+
+  #profile_personal_info:hover, #profile_sport_info:hover, #Overview:hover, .individual_event:hover {
+    background-color: #E0F1F1;
+    cursor: pointer;
+}
 }
