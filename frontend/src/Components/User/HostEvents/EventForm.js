@@ -45,6 +45,8 @@ export default class Event extends React.Component {
     });
   };
 
+
+
   handleMoment = m => {
     this.setState({ m });
   };
@@ -194,36 +196,37 @@ export default class Event extends React.Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
-            <div className="row">
-              <div className="col-25">
-                <label for="imgScr">Upload A Photo: </label>
-              </div>
-              <div className="col-75">
-                <input
-                  required
-                  type="text"
-                  name="imgScr"
-                  value={imgScr}
-                  onChange={this.handleChange}
-                  style={{ color: "black" }}
-                />
-              </div>
+          <div className="row">
+            <div className="col-25">
+              <label for="imgScr">Upload A Photo: </label>
             </div>
-            <div className="row">
-              <div className="col-25">
-                <label for="Name">Name Your Event: </label>
-              </div>
-              <div className="col-75">
-                <input
-                  required
-                  type="text"
-                  name="Name"
-                  value={Name}
-                  placeholder="Event name"
-                  onInput={this.handleChange}
-                  style={{ color: "black" }}
-                />
-              </div>
+            <div className="col-75">
+              <input
+                required
+                className="event-form"
+                type="text"
+                name="imgScr"
+                value={imgScr}
+                onChange={this.handleChange}
+                style={{ color: "black" }}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-25">
+              <label for="Name">Name Your Event: </label>
+            </div>
+            <div className="col-75">
+              <input
+                required
+                className="event-form"
+                type="text"
+                name="Name"
+                value={Name}
+                placeholder="Event name"
+                onInput={this.handleChange}
+                style={{ color: "black" }}
+              />
             </div>
 
             <div className="row add">
@@ -235,6 +238,7 @@ export default class Event extends React.Component {
               <div className=" col-75 address">
                 <input
                   required
+                  className="event-form"
                   type="text"
                   id="address"
                   name="Address"
@@ -269,27 +273,62 @@ export default class Event extends React.Component {
               ""
             )}
 
-            <div className="row">
-              <div className="col-25">
-                <label className="time-label" for="startT">
-                  <button
-                    className="times"
-                    name="start"
-                    onClick={this.handleToggle}
-                  >
-                    Start Time
-                  </button>
-                </label>
-              </div>
-              <div className="col-75">
-                <input
-                  id="startT"
-                  type="text"
-                  value={this.state.startTime}
-                  readOnly
-                  style={{ color: "black" }}
-                />
-              </div>
+          <div className="row">
+            <div className="col-25">
+              <label className="time-label" for="startT">
+                <button
+                className='times'
+                  name="start"
+                  onClick={this.handleToggle}
+                >
+                  Start Time
+                </button>
+              </label>
+            </div>
+            <div className="col-75">
+              <input
+                id="startT"
+                className="event-form"
+                type="text"
+                value={this.state.startTime}
+                readOnly
+                style={{ color: "black" }}
+              />
+            </div>
+          </div>
+          <Modal show={start} onHide={this.handleClose}>
+            <Modal.Body style={{ height: "450px" }}>
+              <InputMoment
+                name="startTime"
+                moment={this.state.m}
+                onChange={this.handleMoment}
+                minStep={5}
+                onSave={this.handleStartTime}
+                style={{ marginLeft: "5%" }}
+              />
+            </Modal.Body>
+          </Modal>
+          <div className="row">
+            <div className="col-25">
+              <label className="time-label" for="endT">
+                <button
+                className='times'
+                  name="end"
+                  onClick={this.handleToggle}
+                >
+                  End Time
+                </button>
+              </label>
+            </div>
+            <div className="col-75">
+              <input
+              className="event-form"
+                id="endT"
+                type="text"
+                style={{ color: "black" }}
+                value={this.state.endTime}
+                readOnly
+              />
             </div>
             <Modal show={start} onHide={this.handleClose}>
               <Modal.Body style={{ height: "450px" }}>

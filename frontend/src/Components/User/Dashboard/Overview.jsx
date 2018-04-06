@@ -170,7 +170,7 @@ class Overview extends Component {
                   </div>
                 </div>
               </div>
-      
+
               <div className="right-half">
                 <div className="inner-right">
                   <div id="dashboard-tabs">
