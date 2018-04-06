@@ -194,21 +194,21 @@ export default class Event extends React.Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
-          <div className="row">
-            <div className="col-25">
-              <label for="imgScr">Upload A Photo: </label>
-            </div>
-            <div className="col-75">
-              <input
-                required
-                className="event-form"
-                type="text"
-                name="imgScr"
-                value={imgScr}
-                onChange={this.handleChange}
-                style={{ color: "black" }}
-              />
-            </div>
+            <div className="row">
+              <div className="col-25">
+                <label for="imgScr">Upload A Photo: </label>
+              </div>
+              <div className="col-75">
+                <input
+                  required
+                  className="event-form"
+                  type="text"
+                  name="imgScr"
+                  value={imgScr}
+                  onChange={this.handleChange}
+                  style={{ color: "black" }}
+                />
+              </div>
           </div>
           <div className="row">
             <div className="col-25">
@@ -401,6 +401,8 @@ export default class Event extends React.Component {
             value="Create event"
           />
           </div>
+          </div>
+        </div>
         </form>
       </div>
     );
