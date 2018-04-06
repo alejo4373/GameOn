@@ -50,7 +50,7 @@ export default class Event extends React.Component {
   };
 
   handleSportSelect = e => {
-    const id = e.target.value;
+    const id = e.target.id;
     axios.get(`/sport/formats/${id}`).then(res => {
       this.setState({
         gameFormat: res.data.formats,
