@@ -108,8 +108,8 @@ VALUES ('1', '1x1', 1),
        ;
 
 INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)
-VALUES('Anthony King', 'AnthonyKing', 'antonioReyes@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
-      ('Michael Beckham', 'MichaelB', 'maichB@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+VALUES('Alejandro Fraco', 'AlejandroF', 'antonioReyes@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+      ('Kelvin Rodriguez', 'KelvinRo', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50);
 
 INSERT INTO users_sports (sport_id, user_id)

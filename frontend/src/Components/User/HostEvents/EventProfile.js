@@ -89,10 +89,36 @@ export default class EventProfile extends React.Component {
 
   startEvent = () => {
     console.log('START EVENT')
+    const eventId = this.state.event.id
+    axios
+    .patch(`/event/start/${eventId}`, {actual_start_ts: Date.now()})
+      .then(res => {
+        this.setState({
+          buttonText: 'End'
+        })
+      })
+      .catch(err => console.log('err deleting the event', err));
   }
+
   endEvent = () => {
     console.log('ENDING EVENT')
+    const eventId = this.state.event.id
+    axios
+    .patch(`/event/end/${eventId}`,{
+      //Hardcoded should not
+      winner_team: 'A',
+      winner_team_members: '[{"id":1,"username":"alejo4373","team":"A"},{"id":2,"username":"maito2018","team":"A"}]',
+      loser_team_members: '[{"id":3,"username":"olu_joya","team":"B","match_judge":true}]',
+      actual_end_ts: Date.now()
+    })
+      .then(res => {
+        this.setState({
+          buttonText: 'Ended'
+        })
+      })
+      .catch(err => console.log('err deleting the event', err));
   }
+
   render() {
     const { event, buttonText } = this.state;
     const startDate = new Date(Number(event.start_ts));

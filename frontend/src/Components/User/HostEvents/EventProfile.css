@@ -13,7 +13,8 @@ body {
     grid-column-gap: 2%;
 }
 
-.left {
+.left, .right {
+  background-color: ghostwhite;
 }
 
 .left > .card {
