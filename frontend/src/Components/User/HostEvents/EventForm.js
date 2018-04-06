@@ -14,16 +14,16 @@ export default class Event extends React.Component {
     super();
 
     this.state = {
-      Name: "Soccer in the Alley",
+      Name: "",
       m: moment(),
-      imgScr: "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      Address: "Lion Gate Field",
+      imgScr: "",
+      Address: "",
       start: false,
       end: false,
       DateInfo: "",
       startTime: "",
       endTime: "",
-      Description: `Hey Footballers all over New York City. Let's get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develope yourself with others through the sport of soccer.`,
+      Description: "",
       sport: "",
       lat: "",
       long: "",
@@ -32,10 +32,10 @@ export default class Event extends React.Component {
       players: "",
       sports: [],
       gameFormat: [],
-      format_id: "1 x 1",
+      format_id: "",
       sport_id: "",
       event: "",
-      searchResponses: []
+      searchResponses: [],
     };
   }
 
@@ -45,14 +45,12 @@ export default class Event extends React.Component {
     });
   };
 
-
-
   handleMoment = m => {
     this.setState({ m });
   };
 
   handleSportSelect = e => {
-    const id = e.target.id;
+    const id = e.target.value;
     axios.get(`/sport/formats/${id}`).then(res => {
       this.setState({
         gameFormat: res.data.formats,
@@ -152,9 +150,9 @@ export default class Event extends React.Component {
     });
     axios
       .get(
-        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${
-          e.target.value
-        }&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
+        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e
+          .target
+          .value}&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
       )
       .then(res => {
         this.setState({
@@ -192,7 +190,7 @@ export default class Event extends React.Component {
       <div id="event-form">
         <div className="event-background" />
         <div className="title-name">
-          <h1 id="event-title">Create A Game</h1>
+        <h1 id="event-title">Create An Event</h1>
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
@@ -228,12 +226,11 @@ export default class Event extends React.Component {
                 style={{ color: "black" }}
               />
             </div>
+          </div>
 
-            <div className="row add">
+          <div className="row add">
               <div className="col-25 address-label">
-                <label className="address_lab" for="address">
-                  Enter Address:{" "}
-                </label>
+                <label className= "address_lab" for="address">Enter Address: </label>
               </div>
               <div className=" col-75 address">
                 <input
@@ -261,8 +258,7 @@ export default class Event extends React.Component {
                         this.setState({
                           Address: res.description,
                           searchResponses: []
-                        })
-                      }
+                        })}
                     >
                       {res.description}
                     </div>
@@ -272,6 +268,7 @@ export default class Event extends React.Component {
             ) : (
               ""
             )}
+
 
           <div className="row">
             <div className="col-25">
@@ -330,68 +327,24 @@ export default class Event extends React.Component {
                 readOnly
               />
             </div>
-            <Modal show={start} onHide={this.handleClose}>
-              <Modal.Body style={{ height: "450px" }}>
-                <InputMoment
-                  name="startTime"
-                  moment={this.state.m}
-                  onChange={this.handleMoment}
-                  minStep={5}
-                  onSave={this.handleStartTime}
-                  style={{ marginLeft: "5%" }}
-                />
-              </Modal.Body>
-            </Modal>
-            <div className="row">
-              <div className="col-25">
-                <label className="time-label" for="endT">
-                  <button
-                    className="times"
-                    name="end"
-                    onClick={this.handleToggle}
-                  >
-                    End Time
-                  </button>
-                </label>
-              </div>
-              <div className="col-75">
-                <input
-                  id="endT"
-                  type="text"
-                  style={{ color: "black" }}
-                  value={this.state.endTime}
-                  readOnly
-                />
-              </div>
+          </div>
+          <Modal show={end} onHide={this.handleClose}>
+            <Modal.Body style={{ height: "450px" }}>
+              <InputMoment
+                name="startTime"
+                moment={this.state.m}
+                onChange={this.handleMoment}
+                minStep={5}
+                onSave={this.handleEndTime}
+                style={{ marginLeft: "5%" }}
+              />
+            </Modal.Body>
+          </Modal>
+          <div className="row">
+            <div className="col-25">
+              <label for="sports"> Select A Sport:</label>
             </div>
-            <Modal show={end} onHide={this.handleClose}>
-              <Modal.Body style={{ height: "450px" }}>
-                <InputMoment
-                  name="startTime"
-                  moment={this.state.m}
-                  onChange={this.handleMoment}
-                  minStep={5}
-                  onSave={this.handleEndTime}
-                  style={{ marginLeft: "5%" }}
-                />
-              </Modal.Body>
-            </Modal>
-            <div className="row">
-              <div className="col-25">
-                <label for="sports"> Select A Sport:</label>
-              </div>
-              <div className="col-75">
-                {/* <select
-                name="sports"
-               // style={{ backgroundColor: "#41CFFD" }}
-                onChange={this.handleSportSelect}
-              >
-                {["", ...sports].map((sport, idx) => (
-                  <option  key={idx} value={sport.id}>
-                   <img src={`/icons/${sport.name}-icon.png`} width='1px' height='2px' alt={sport.name}/>
-                  </option>
-                ))}
-              </select>{" "} */}
+            <div className="col-75">
 
                 {sports.map((sport, idx) => (
                   <div style={{ float: "left", marginLeft: '5px'}} id='sport-icon'>
@@ -405,64 +358,60 @@ export default class Event extends React.Component {
                   </div>
                 ))}
               </div>
-            </div>
+          </div>
 
-            <div className="row">
-              <div className="col-25">
-                <label for="verses">Choose Team Dynamic:</label>
-              </div>
-              <div className="col-75">
-                <select
-                  name="verses"
-                  //style={{ backgroundColor: "#41CFFD" }}
-                  class="team"
-                  onChange={this.handleSportFormat}
-                >
-                  {["", ...gameFormat].map(game => (
-                    <option value={game.id}>{game.description}</option>
-                  ))}
-                </select>
-              </div>
+          <div className="row">
+            <div className="col-25">
+              <label for="verses">Choose Team Dynamic:</label>
             </div>
-            <div className="row">
-              <div className="col-25">
-                <label for="Description">Describe You're Game </label>
-              </div>
-              <div className="col-75">
-                <textarea
-                  rows="6"
-                  cols="50"
-                  type="textarea"
-                  name="Description"
-                  id="Description"
-                  value={Description}
-                  placeholder="Description"
-                  onInput={this.handleChange}
-                  style={{ color: "black" }}
-                />
-              </div>
+            <div className="col-75">
+              <select
+                name="verses"
+                //style={{ backgroundColor: "#41CFFD" }}
+                class="team"
+                onChange={this.handleSportFormat}
+              >
+                {["", ...gameFormat].map(game => (
+                  <option value={game.id}>{game.description}</option>
+                ))}
+              </select>
             </div>
-            <input
-              className="times"
-              type="submit"
-              value="Create event"
-              style={{
-                padding: "11px",
-                marginTop: "5px",
-                marginBottom: "15px"
-              }}
-            />
           </div>
+          <div className="row">
+            <div className="col-25">
+              <label for="Description">Describe You're Game </label>
+            </div>
+            <div className="col-75">
+              <textarea
+                rows="6"
+                cols="50"
+                type="textarea"
+                name="Description"
+                id="Description"
+                value={Description}
+                placeholder="Description"
+                onInput={this.handleChange}
+                style={{ color: "black" }}
+              />
+            </div>
           </div>
-        </div>
+          <input
+          id='submit-form-btn'
+          className="times"
+            type="submit"
+            value="Create event"
+          />
+          </div>
         </form>
-      </div>
+        </div>
     );
   };
   render() {
     const { submit, event_id } = this.state;
-    console.log("the event id is", event_id);
-    const url = `/user/event/myevents/${event_id}`;
-    return <div>{submit ? <Redirect to={url} /> : this.form()}</div>;
+    console.log('the event id is',event_id)
+    const url = `/user/event/myevents/${event_id}`
+    return <div>
+      {submit ? <Redirect to={url} /> : this.form()}
+      </div>;
   }
 }

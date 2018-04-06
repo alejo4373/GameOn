@@ -39,7 +39,7 @@ class Upcoming extends Component {
                       width={"50px"}
                       alt=""
                     />
-                    <div className="host_Name">{e.name}</div>
+                    <div className="host_name">{e.name}</div>
                     <div className="event_descriptions" id={e.id}>
                       <span className="event_date">{date}</span>
                       <br />
@@ -49,7 +49,7 @@ class Upcoming extends Component {
                         Location: {e.location}
                       </span> */}
                       <br />
-                      <span>{e.sport_name}</span>
+                      <img src={`/icons/${e.sport_name}-icon.png`} style={{width: 30}}/>
                     </div>
                   </div>
                 </a>
