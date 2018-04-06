@@ -50,9 +50,7 @@
     text-decoration: none;
 }
 
-#login-subtitle {
 
-}
 
 #arrow {
     /* border: 2px red solid; */
@@ -100,9 +98,6 @@ input[id=login-submit] {
     cursor: pointer;
 }
 
-#homePage-question {
-
-}
 
 
 #signin-button {

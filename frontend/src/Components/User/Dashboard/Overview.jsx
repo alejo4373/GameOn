@@ -158,11 +158,12 @@ class Overview extends Component {
                     >
                       <img id="add-btn" src="/images/add-btn.png" />
                     </button>
-                    <div style={{ width: "100px" , position:'absolute', margin: '0 0 0 15%'}}>
+                    <div id='circularProgressBar-container' >
+                       <h3>Level 2</h3> 
                         <CircularProgressbar 
-                        percentage={30}
+                        percentage={u.exp_points/100}
                         initialAnimation={'true'}
-                        textForPercentage={() => `Level 3`}
+                        textForPercentage={() => `${u.exp_points}`}
                         />
                       </div>
                     <div />
