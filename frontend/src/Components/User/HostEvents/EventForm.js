@@ -201,6 +201,7 @@ export default class Event extends React.Component {
             <div className="col-75">
               <input
                 required
+                className="event-form"
                 type="text"
                 name="imgScr"
                 value={imgScr}
@@ -216,6 +217,7 @@ export default class Event extends React.Component {
             <div className="col-75">
               <input
                 required
+                className="event-form"
                 type="text"
                 name="Name"
                 value={Name}
@@ -233,6 +235,7 @@ export default class Event extends React.Component {
               <div className=" col-75 address">
                 <input
                   required
+                  className="event-form"
                   type="text"
                   id="address"
                   name="Address"
@@ -282,6 +285,7 @@ export default class Event extends React.Component {
             <div className="col-75">
               <input
                 id="startT"
+                className="event-form"
                 type="text"
                 value={this.state.startTime}
                 readOnly
@@ -315,6 +319,7 @@ export default class Event extends React.Component {
             </div>
             <div className="col-75">
               <input
+              className="event-form"
                 id="endT"
                 type="text"
                 style={{ color: "black" }}

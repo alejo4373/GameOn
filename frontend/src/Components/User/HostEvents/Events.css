@@ -179,7 +179,7 @@ ul {
   color: white;
 }
 
-input[type="text"],
+.event-form,
 select,
 textarea {
   width: 100%;
