@@ -345,18 +345,19 @@ export default class Event extends React.Component {
               <label for="sports"> Select A Sport:</label>
             </div>
             <div className="col-75">
-              <select
-                name="sports"
-               // style={{ backgroundColor: "#41CFFD" }}
-                onChange={this.handleSportSelect}
-              >
-                {["", ...sports].map((sport, idx) => (
-                  <option key={idx} value={sport.id}>
-                    {sport.name}
-                  </option>
+
+                {sports.map((sport, idx) => (
+                  <div style={{ float: "left", marginLeft: '5px'}} id='sport-icon'>
+                    <img
+                      src={`/icons/${sport.name}-icon.png`}
+                      width="40px"
+                      height="40px"
+                      alt={sport.name}
+                      id={sport.id} onClick={this.handleSportSelect}
+                    />
+                  </div>
                 ))}
-              </select>{" "}
-            </div>
+              </div>
           </div>
 
           <div className="row">
@@ -401,10 +402,8 @@ export default class Event extends React.Component {
             value="Create event"
           />
           </div>
-          </div>
-        </div>
         </form>
-      </div>
+        </div>
     );
   };
   render() {
