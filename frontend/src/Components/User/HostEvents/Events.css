@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy|Michroma|Prata");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
 
 body {
-  font-family: "Prata", serif;
+  font-family: "Open Sans", serif;
   color: black;
 }
 #event-form {
@@ -15,7 +15,7 @@ body {
   /* position: absolute;
   z-index: -1;  */
 }
-.event-background{
+.event-background {
   /* background-color: #e0e0e0; */
   background-color: #e0f2f1;
 
@@ -159,17 +159,21 @@ ul {
 .eventpage > button {
   color: blue;
 }
-#event-title{
+#event-title {
   padding-top: 4%;
   padding-bottom: 2%;
   width: 60%;
-  margin:auto;
-  background: linear-gradient(to right, rgb(77,182,172) 30%, rgb(129,212,250));
+  margin: auto;
+  background: linear-gradient(
+    to right,
+    rgb(77, 182, 172) 30%,
+    rgb(129, 212, 250)
+  );
   /* background-color: #fb8c00; */
 }
 
-.form{
-  width:60%;
+.form {
+  width: 60%;
   background-color: white;
   margin: auto;
   padding-top: 2%;
@@ -179,7 +183,7 @@ ul {
   color: white;
 }
 
-input[type="text"],
+.event-form,
 select,
 textarea {
   width: 100%;
@@ -235,20 +239,69 @@ label {
   content: "";
   display: table;
   clear: both;
-} 
-.time-label{
-  padding:0px 12px 5px 0;
+}
+.time-label {
+  padding: 0px 12px 5px 0;
 }
 
-.times{
+.times {
   /* background-color: #42a5f5; */
   background-color: #26a69a;
   /* color:white; */
-  border: 1px solid #26c6da ;
-  padding:9px;
-  width:120px;
+  border: 1px solid #26c6da;
+  padding: 9px;
+  width: 120px;
 
   border-radius: 8px;
   /* margin-bottom: 2px; */
   /* margin-right:25% */
+}
+
+@media only screen and (max-width: 480px) {
+  .container-fluid > .navbar-collapse,
+  .container-fluid > .navbar-header,
+  .container > .navbar-collapse,
+  .container > .navbar-header {
+    margin-right: 0;
+  }
+
+  /* body {
+    overflow: hidden;
+  } */
+
+  .times {
+    width: auto;
+  }
+
+  .form,
+  .title-name,
+  #event-title {
+    width: 56vh;
+  }
+
+  #event-form {
+    /* margin-top:2%; */
+    /* padding-top: 5%; */
+    color: #37474f;
+    width: 100vw;
+    height: 100%;
+    background-color: #e0f2f1;
+    /* background-color: #0277bd; */
+    /* position: absolute;
+      z-index: -1;  */
+    overflow-x: hidden;
+  }
+
+  input[type="submit"] {
+    width: 100px;
+  }
+
+  .m-input-moment {
+    width: 69vw;
+    position: absolute;
+    left: 0;
+}
+.modal-content{
+  margin-left: 10%
+}
 }

@@ -22,6 +22,7 @@
     "passport-local": "^1.0.0",
     "password-hash-and-salt": "^0.1.4",
     "pg-promise": "^8.2.2",
+    "react-circular-progressbar": "^0.8.0",
     "serve-favicon": "^2.4.5",
     "supervisor": "^0.12.0"
   },
