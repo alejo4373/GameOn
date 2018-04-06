@@ -161,7 +161,7 @@ class Overview extends Component {
                     <div id='circularProgressBar-container' >
                        <h3>Level 2</h3> 
                         <CircularProgressbar 
-                        percentage={u.exp_points/100}
+                        percentage={u.exp_points/10}
                         initialAnimation={'true'}
                         textForPercentage={() => `${u.exp_points}`}
                         />

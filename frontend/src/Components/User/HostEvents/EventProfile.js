@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Survey from "./Survey";
 import './EventProfile.css';
 
 //For the timer to work
@@ -19,7 +20,7 @@ export default class EventProfile extends React.Component {
       event:{players: []},
       user: {},
       team: 'A',
-      buttonText: '', //'Join' | 'Leave' | 'Start' | 'End'
+      buttonText: '', //'Join' | 'Leave' | 'Start' | 'End' | 'Ended'
       delete: false,
 
       //Timer related
@@ -224,6 +225,7 @@ export default class EventProfile extends React.Component {
                 }
           </div>
         </div>
+        <div>{buttonText === 'Ended' ? <Survey event={event} /> : ''}</div>
       </div>
     );
   }
