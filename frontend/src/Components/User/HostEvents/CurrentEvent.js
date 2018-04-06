@@ -129,6 +129,7 @@ export default class Events extends React.Component {
     const { leaveEvent, handleShow, handleClose, selectTeam, joinEvent } = this;
     let teamA = event.players.filter(player => player.team === "A");
     let teamB = event.players.filter(player => player.team === "B");
+    console.log("FOMR:", teamA)
     console.log(event);
     return (
       <div className="eventpage">
@@ -159,12 +160,26 @@ export default class Events extends React.Component {
           <div className="team_players">
             <ul>
               <div className="A">
-                {teamA.map(player => <li>{player.username}</li>)}
+              <div>
+                {teamA.map(player => (
+                  <div>
+                    <img src={player.profile_pic} width="70px" />
+                    <h5>{player.username}</h5>
+                  </div>
+                ))}
+              </div>
               </div>
             </ul>
             <ul>
               <div className="B">
-                {teamB.map(player => <li>{player.username}</li>)}
+              <div>
+                {teamB.map(player => (
+                  <div>
+                    <img src={player.profile_pic} width="70px" />
+                    <h5>{player.username}</h5>
+                  </div>
+                ))}
+              </div>
               </div>
             </ul>
           </div>
