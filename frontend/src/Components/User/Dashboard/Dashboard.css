@@ -190,6 +190,8 @@ body {
   width:450px;
   height:530px;
   box-shadow: 0px 9px 25px  #b39ddb;
+  padding-top: 6px;
+  background-color: white;
   /* background-color: white; */
   margin: 35px auto;
 }
