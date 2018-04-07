@@ -49,7 +49,7 @@ export class MapContainer extends Component {
       activeMarker: {},
       selectedEvents: {},
       hostedEvents: [],
-      userCurrentLocation: { latitude: 40.7128, longitude: -73.935242 },
+      userCurrentLocation: { latitude: 40.731643, longitude: -74.008397 },
       allSports: [{ name: "All", id: "" }],
       miles: 5,
       sportID: ""
@@ -235,6 +235,7 @@ export class MapContainer extends Component {
                 lat: userCurrentLocation.latitude,
                 lng: userCurrentLocation.longitude
               }}
+              icon={{ url: '/icons/you-are-here.png' }}
             />
 
             {hostedEvents.length
@@ -250,7 +251,7 @@ export class MapContainer extends Component {
                     description={e.description}
                     position={{ lat: e.lat, lng: e.long }}
                     onClick={this.onMarkerClick}
-                    profile_pic={e.profile_pic}
+                    event_pic={e.event_pic}
                     icon={{
                       url: `/images/${e.sport_name}-marker.png`
                     }}
@@ -267,9 +268,7 @@ export class MapContainer extends Component {
                   <div
                     className="left-side"
                     style={{
-                      backgroundImage: `url(/images/${
-                        selectedEvents.sport
-                      }.jpg)`
+                      backgroundImage: `url(${selectedEvents.event_pic})`
                     }}
                   />
                   <div className="right-side">

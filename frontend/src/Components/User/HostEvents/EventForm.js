@@ -14,16 +14,16 @@ export default class Event extends React.Component {
     super();
 
     this.state = {
-      Name: "",
+      Name: "Soccer And The City",
       m: moment(),
-      imgScr: "",
-      Address: "",
+      imgScr: "http://worldsoccertalk.com/wp-content/uploads/2013/11/manchester-city-new-york-600x400.png",
+      Address: "James J Walker Park",
       start: false,
       end: false,
       DateInfo: "",
       startTime: "",
       endTime: "",
-      Description: "",
+      Description: "Hey Footballers all over New York City. Let's get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develop yourself with others through the sport of soccer.",
       sport: "",
       lat: "",
       long: "",
@@ -50,7 +50,7 @@ export default class Event extends React.Component {
   };
 
   handleSportSelect = e => {
-    const id = e.target.value;
+    const id = e.target.id;
     axios.get(`/sport/formats/${id}`).then(res => {
       this.setState({
         gameFormat: res.data.formats,
@@ -409,7 +409,7 @@ export default class Event extends React.Component {
   render() {
     const { submit, event_id } = this.state;
     console.log('the event id is',event_id)
-    const url = `/user/event/myevents/${event_id}`
+    const url = `/user/event/${event_id}`
     return <div>
       {submit ? <Redirect to={url} /> : this.form()}
       </div>;
