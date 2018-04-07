@@ -116,7 +116,7 @@
     border-bottom: 1px solid rgb(225, 214, 213);
     border-left: 1px solid rgb(225, 214, 213);
     border-right: 1px solid rgb(225, 214, 213);
-    padding: 15px;
+    padding: 55px;
     text-align: center;
     margin: 0;
 }
@@ -129,7 +129,7 @@
     text-align: center;
     margin: 0;
     display: grid;
-    grid-template-columns: 50% 50%;
+    /* grid-template-columns: 50% 50%; */
 }
 
 #score-points {
@@ -137,7 +137,7 @@
     border-bottom: 1px solid rgb(225, 214, 213);
     border-left: 1px solid rgb(225, 214, 213);
     border-right: 1px solid rgb(225, 214, 213);
-    padding: 15px;
+    padding: 55px;
     text-align: center;
     margin: 0;
 }
@@ -174,18 +174,18 @@
         float: left;
         margin: 0;
         position: relative;
-        margin-left: 10px;
+        margin-left: 15px;
     }
     img[id=player-1-pic] {
         width: 50%;
         float: left;
-        margin: 0;
+        margin-left: 13px;
     }
 
     img[id=player-2-pic] {
         width: 50%;
         float: left;
-        margin: 0;
+        margin-left: 17px;
     }
     #player-0{
         margin: 0;
@@ -213,6 +213,7 @@
     #rank-number {
         /* width: 91.86px; */
         padding:0;
+        padding-top: 40px;
         text-align: center
     }
     #player-info{
@@ -220,15 +221,17 @@
     }
     #score-points {
         width: 99.45%;
+        padding: 0;
+        padding-top: 40px;
     }
     #img {
         display: none;
     }
     #rank {
-        width: 98.5px;
+        width: 94.5px;
     }
     #player {
-        margin-right: 1px;
+        width: 105.5px;
     }
     #top3-username {
         position: relative;
