@@ -251,7 +251,7 @@ export class MapContainer extends Component {
                     description={e.description}
                     position={{ lat: e.lat, lng: e.long }}
                     onClick={this.onMarkerClick}
-                    profile_pic={e.profile_pic}
+                    event_pic={e.event_pic}
                     icon={{
                       url: `/images/${e.sport_name}-marker.png`
                     }}
@@ -268,9 +268,7 @@ export class MapContainer extends Component {
                   <div
                     className="left-side"
                     style={{
-                      backgroundImage: `url(/images/${
-                        selectedEvents.sport
-                      }.jpg)`
+                      backgroundImage: `url(${selectedEvents.event_pic})`
                     }}
                   />
                   <div className="right-side">
