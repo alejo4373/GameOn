@@ -49,7 +49,7 @@ export class MapContainer extends Component {
       activeMarker: {},
       selectedEvents: {},
       hostedEvents: [],
-      userCurrentLocation: { latitude: 40.7128, longitude: -73.935242 },
+      userCurrentLocation: { latitude: 40.731643, longitude: -74.008397 },
       allSports: [{ name: "All", id: "" }],
       miles: 5,
       sportID: ""
@@ -235,6 +235,7 @@ export class MapContainer extends Component {
                 lat: userCurrentLocation.latitude,
                 lng: userCurrentLocation.longitude
               }}
+              icon={{ url: '/icons/you-are-here.png' }}
             />
 
             {hostedEvents.length

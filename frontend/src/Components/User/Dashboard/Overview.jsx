@@ -64,7 +64,7 @@ class Overview extends Component {
 
     function error(err) {
       console.log("error", err);
-      callback(40.7128, -73.935242);
+      callback(40.731643, -74.008397);
     }
     function showPosition(position) {
       if (position) {
@@ -149,7 +149,7 @@ class Overview extends Component {
                       width="180px"
                       alt=""
                     />
-                    <h3 className="username">{u.username.toUpperCase()}</h3>
+                    <h3 className="username">{u.username}</h3>
                   </div>
                   <div className="left-bottom">
                     <button
