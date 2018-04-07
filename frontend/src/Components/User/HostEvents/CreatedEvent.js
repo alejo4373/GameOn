@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import Template from "./EventTemplate";
-import ReactInterval from "react-interval";
 
 export default class Events extends React.Component {
   constructor(props) {
