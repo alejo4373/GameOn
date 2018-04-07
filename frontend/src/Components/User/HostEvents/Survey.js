@@ -97,12 +97,7 @@ export default class Survey extends Component {
   }
 
   render() {
-    const { event } = this.props;
     const { gameEnded, show } = this.state;
-
-    console.log("events in survey", event);
-    const teamA = event.players.filter(player => player.team === "A");
-    const teamB = event.players.filter(player => player.team === "B");
 
     if (gameEnded) {
       this.setState({

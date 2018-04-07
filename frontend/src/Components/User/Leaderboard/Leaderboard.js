@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./leaderboard.css";
 import axios from "axios";
-import { ListGroup, ListGroupItem, Tabs, Tab } from "react-bootstrap";
+
 
 class Leaderboard extends Component {
   state = {
@@ -90,6 +90,7 @@ class Leaderboard extends Component {
                       </div>
                     );
                   }
+                  return(
                   <div id={`player-${i}`}>
                     <h5 style={{ color: "black" }}>{p.username}</h5>
                     <img
@@ -99,7 +100,8 @@ class Leaderboard extends Component {
                       alt=""
                     />
                     <h5 style={{ color: "black" }}>{p.exp_points}</h5>
-                  </div>;
+                  </div>
+                  )
                 })}
               </div>
             </div>
@@ -130,6 +132,8 @@ class Leaderboard extends Component {
                     </div>
                   );
                 }
+                 // eslint-disable-next-line 
+                return
               })}
             </div>
           </div>

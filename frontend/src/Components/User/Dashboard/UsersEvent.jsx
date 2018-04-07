@@ -45,7 +45,7 @@ class UsersEvent extends Component {
                       <br />
                       <span className="event_time">{startTime} - {endTime}</span>
                       <br />
-                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} />
+                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} alt='sport-icon'/>
                     </div>
                   </div>
                 </a>

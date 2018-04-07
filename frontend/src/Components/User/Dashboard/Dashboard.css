@@ -198,7 +198,7 @@ button:focus {
   .individual_event {
     color: black;
     border: 2px solid #dddddd;
-    width: 300px;
+    width: 317px;
     height: 100px;
     /* margin-bottom: 10%; */
     background-color: aliceblue;
@@ -219,10 +219,11 @@ button:focus {
     margin-right: 0;
   }
   #event_container {
-    width: 300px;
-    height: 413px;
+    width: 324px;
+    height: 420px;
     overflow-y: auto;
     position: absolute;
+    overflow-x: hidden
   }
   .newGame-btn {
     border-radius: 50px;
@@ -232,6 +233,8 @@ button:focus {
     margin-top: 20px;
     padding: 0;
     margin: 0;
+    position: relative;
+    margin-top: 4%;
     margin-left: 84%;
   }
 
@@ -342,7 +345,7 @@ button:focus {
     cursor: pointer;
   }
   .sport-icon {
-    margin: 20% 0 0 55%;
+    margin: 26% 0 0 65%;
     position: absolute;
     width: 30px;
     top:0;

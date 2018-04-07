@@ -37,7 +37,7 @@ class HUB extends Component {
             <Navbar.Header>
               <Navbar.Brand>
                 {/* <Link to="/user/dashboard"><h2 id="app-Name">GameOn</h2></Link> */}
-                <Link to="/user/dashboard"><img id="app-Name" src='/images/gameon-logo.png'/></Link>
+                <Link to="/user/dashboard"><img id="app-Name" src='/images/gameon-logo.png' alt='gameon-logo'/></Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>

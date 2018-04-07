@@ -5,6 +5,7 @@ class Notifications extends Component {
   notify = () => toast(`Congratulations You Won! ${'\n'} 100xp +`);
 
   render(){
+    // eslint-disable-next-line
     const {send} = this.props
     return (
       <div>
