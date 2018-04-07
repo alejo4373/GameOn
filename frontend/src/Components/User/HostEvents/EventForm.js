@@ -36,6 +36,8 @@ export default class Event extends React.Component {
       sport_id: "",
       event: "",
       searchResponses: [],
+      sportSelected: '',
+      style: { float: "left", marginLeft: '5px'}
     };
   }
 
@@ -51,6 +53,8 @@ export default class Event extends React.Component {
 
   handleSportSelect = e => {
     const id = e.target.id;
+    const sport = e.target.name
+    this.setState({sportSelected: sport})
     axios.get(`/sport/formats/${id}`).then(res => {
       this.setState({
         gameFormat: res.data.formats,
@@ -144,6 +148,15 @@ export default class Event extends React.Component {
       .catch(error => console.error("Error", error));
   };
 
+  onSportSelected = (e) => {
+    const sport = e.target.name
+
+    this.setState({
+      style: { float: "left", marginLeft: '5px', border:'1px solid #70C9D9'}
+    })
+     
+  }
+
   onChange = e => {
     this.setState({
       Address: e.target.value
@@ -183,7 +196,9 @@ export default class Event extends React.Component {
       start,
       end,
       gameFormat,
-      searchResponses
+      searchResponses,
+      style,
+      sportSelected
     } = this.state;
 
     return (
@@ -347,13 +362,16 @@ export default class Event extends React.Component {
             <div className="col-75">
 
                 {sports.map((sport, idx) => (
-                  <div style={{ float: "left", marginLeft: '5px'}} id='sport-icon'>
+                  <div style={style} name={sport.name}>
                     <img
-                      src={`/icons/${sport.name}-icon.png`}
+                      src={`/icons/${sportSelected === sport.name?'selected':sport.name}-icon.png`}
                       width="40px"
                       height="40px"
                       alt={sport.name}
-                      id={sport.id} onClick={this.handleSportSelect}
+                      title={sport.name}
+                      id={sport.id} 
+                      name={sport.name}
+                      onClick={this.handleSportSelect}
                     />
                   </div>
                 ))}
