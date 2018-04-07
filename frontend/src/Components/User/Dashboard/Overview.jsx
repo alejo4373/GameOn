@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { ProgressBar } from "react-bootstrap";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { Tabs, Tab } from "react-bootstrap";
@@ -9,6 +8,7 @@ import axios from "axios";
 import Upcoming from "./Upcoming";
 import UsersEvent from "./UsersEvent";
 import History from "./History";
+// eslint-disable-next-line 
 import Notifications from "../Notification";
 class Overview extends Component {
   state = {
@@ -114,7 +114,6 @@ class Overview extends Component {
     const {
       user,
       loggedOut,
-      profileClicked,
       hostedEvents,
       addPressed,
       usersEvents,
@@ -156,7 +155,7 @@ class Overview extends Component {
                       className="newGame-btn"
                       onClick={() => this.setState({ addPressed: true })}
                     >
-                      <img id="add-btn" src="/images/add-btn.png" />
+                      <img id="add-btn" src="/images/add-btn.png" alt='add-btn' />
                     </button>
                     <div id='circularProgressBar-container' >
                        <h3>Level 2</h3> 

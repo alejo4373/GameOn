@@ -148,15 +148,6 @@ export default class Event extends React.Component {
       .catch(error => console.error("Error", error));
   };
 
-  onSportSelected = (e) => {
-    const sport = e.target.name
-
-    this.setState({
-      style: { float: "left", marginLeft: '5px', border:'1px solid #70C9D9'}
-    })
-     
-  }
-
   onChange = e => {
     this.setState({
       Address: e.target.value

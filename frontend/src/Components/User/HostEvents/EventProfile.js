@@ -74,6 +74,7 @@ export default class EventProfile extends React.Component {
 
   joinEvent = () => {
     console.log('JOINING EVENT')
+     // eslint-disable-next-line 
     const { event, team } = this.state;
     axios
       .post("/event/join", {
@@ -109,12 +110,12 @@ export default class EventProfile extends React.Component {
 
   handleButton = e => {
     const buttonText = e.target.id;
+     // eslint-disable-next-line 
     switch(buttonText) {
       case 'Join':
         return this.joinEvent()
       case 'Start':
         return this.startEvent();
-        break;
       case 'End':
         return this.endEvent();
     } 
@@ -188,19 +189,19 @@ export default class EventProfile extends React.Component {
         <div className='right'>
           <div className='top'>
             <div className='sub-header'> Overview </div>
-            <img src={`/icons/calendar-icon.png`} class='icon'/>
+            <img src={`/icons/calendar-icon.png`} class='icon' alt='icon'/>
             <div className='text-cell'>
               {date}
               <br/>
               {startTime} to {endTime}
             </div>
-            <img src='/icons/pin-icon.png' class='icon'/>
+            <img src='/icons/pin-icon.png' class='icon' alt='icon'/>
             <div className='text-cell'>{event.location}</div>
 
-            <img src='/icons/user-icon.png' class='icon'/>
+            <img src='/icons/user-icon.png' class='icon' alt='icon'/>
             <div className='text-cell'>{event.host_username}</div>
 
-            <img src='/icons/format-icon.png' class='icon'/>
+            <img src='/icons/format-icon.png' class='icon' alt='icon'/>
             <div className='text-cell'>{event.sport_format}</div>
           </div>
           <div className='right-middle'>

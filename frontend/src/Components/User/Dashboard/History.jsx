@@ -49,7 +49,7 @@ class History extends Component {
                         Location: {e.location}
                       </span> */}
                       <br />
-                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} style={{width: 40}}/>
+                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} alt='sport-icon' style={{width: 40}}/>
                     </div>
                   </div>
                 </a>

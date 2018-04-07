@@ -72,12 +72,6 @@ body {
   grid-auto-rows: minmax(100px, auto);
 }
 
-#submit-form-btn {
-  width: 25%;
-  padding: 11px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-}
 
 .eventinfo {
   grid-column: 3;
@@ -282,8 +276,16 @@ label {
   .form,
   .title-name,
   #event-title {
-    width: 56vh;
+    width: 62.5vh;;
   }
+
+  #submit-form-btn {
+    width: 28%;
+    padding: 11px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  
 
   #event-form {
     /* margin-top:2%; */

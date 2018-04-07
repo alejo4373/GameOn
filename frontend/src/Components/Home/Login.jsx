@@ -99,13 +99,14 @@ export default class Login extends Component {
             <img
               src="/images/soccer-background.png"
               height="100vh"
+              alt=''
             />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/football-background.png" height="100vh" />
+            <img src="/images/football-background.png" height="100vh" alt='' />
           </Carousel.Item>
           <Carousel.Item>
-            <img src="/images/basketball-for-slide-show.jpg" height="100vh" />
+            <img src="/images/basketball-for-slide-show.jpg" height="100vh" alt='' />
           </Carousel.Item>
         </Carousel>
         <div id="link-div">

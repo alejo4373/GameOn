@@ -220,7 +220,7 @@ button:focus {
   }
   #event_container {
     width: 324px;
-    height: 429px;
+    height: 420px;
     overflow-y: auto;
     position: absolute;
     overflow-x: hidden

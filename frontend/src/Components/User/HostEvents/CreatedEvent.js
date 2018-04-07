@@ -12,7 +12,6 @@ export default class Events extends React.Component {
       time: 0,
       offset: "",
       interval: null,
-      On: false
     };
     this.interval = null
   }
@@ -42,7 +41,8 @@ export default class Events extends React.Component {
   };
 
   form = () => {
-    const { event, On, time, interval } = this.state;
+    // eslint-disable-next-line 
+    const { event, time, interval } = this.state;
     return (
       <div className="eventpage">
         {this.state.delete ? (

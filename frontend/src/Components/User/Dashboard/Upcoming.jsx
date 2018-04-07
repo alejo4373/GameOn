@@ -49,7 +49,7 @@ class Upcoming extends Component {
                         Location: {e.location}
                       </span> */}
                       <br />
-                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} />
+                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} alt='sport-icon' />
                     </div>
                   </div>
                 </a>

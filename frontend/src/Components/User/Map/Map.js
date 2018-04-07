@@ -12,8 +12,6 @@ import {
   google
 } from "google-maps-react";
 import {
-  Tabs,
-  Tab,
   FormGroup,
   ControlLabel,
   FormControl,
@@ -104,12 +102,7 @@ export class MapContainer extends Component {
   };
 
   getUserCurrentLocation = () => {
-    var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-
+   
     const success = position => {
       this.setState(
         {
@@ -275,11 +268,12 @@ export class MapContainer extends Component {
                     <img
                       src={`/icons/${selectedEvents.sport}-icon.png`}
                       className="icon"
+                      alt={selectedEvents.name}
                     />
                     <p className="event-name">{selectedEvents.name}</p>
-                    <img src="/icons/user-icon.png" className="icon" />
+                    <img src="/icons/user-icon.png" className="icon" alt={selectedEvents.name}/>
                     <p>{selectedEvents.hostUsername}</p>
-                    <img src="/icons/pin-icon.png" className="icon" />
+                    <img src="/icons/pin-icon.png" className="icon" alt={selectedEvents.name}/>
                     <p>{selectedEvents.location}</p>
                   </div>
                 </div>
