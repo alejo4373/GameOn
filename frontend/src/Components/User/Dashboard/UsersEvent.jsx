@@ -39,13 +39,13 @@ class UsersEvent extends Component {
                       width={"50px"}
                       alt=""
                     />
-                    <div className="host_name">{e.name}</div>
                     <div className="event_descriptions" id={e.id}>
+                    <div className="host_name">{e.name}</div>
                       <span className="event_date">{date}</span>
                       <br />
                       <span className="event_time">{startTime} - {endTime}</span>
                       <br />
-                      <img src={`/icons/${e.sport_name}-icon.png`} style={{width: 30, margin:'auto'}}/>
+                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} />
                     </div>
                   </div>
                 </a>
