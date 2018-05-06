@@ -287,31 +287,6 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE"
+  apiKey: "AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE",
+  version: "3.31"
 })(MapContainer);
-
-/**
- * Google API For Search
- * https://maps.googleapis.com/maps/api/place/autocomplete/json?input={searchInput}&location={usersLocations}&radius=100&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE
- */
-
-/**
- * Google API To Give Detailed Information About The Search Value
- * https://maps.googleapis.com/maps/api/place/details/json?placeid={searchValue}&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE
- */
-
-/**
-   * Google API to Search By Query
-   * https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=YOUR_API_KEY&input=pizza+near%20par
-
-*/
-
-/**
- * Google API To Convert Coordinates into Addresses
- * https://maps.googleapis.com/maps/api/geocode/json?latlng=40.6619239,-73.9624696&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE
- */
-
-/**
- * Google API To Convert Addresses into Coordinates
- * https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
- */
