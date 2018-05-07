@@ -167,14 +167,12 @@ export default class Event extends React.Component {
   form = () => {
     const {
       Name,
-      address,
       imgScr,
       Description,
       sports,
       start,
       end,
       gameFormat,
-      searchResponses,
       style,
       sportSelected
     } = this.state;
