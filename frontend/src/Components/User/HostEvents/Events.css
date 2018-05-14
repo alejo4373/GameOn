@@ -212,6 +212,7 @@ label {
 }
 
 .col-75 {
+  text-align: left;
   float: left;
   width: 50%;
   margin-top: 6px;
@@ -312,4 +313,19 @@ label {
   .modal-content {
     margin-left: 10%;
   }
+}
+
+#event-form 
+.icon-container {
+  display: inline-block
+}
+
+.checkmark{
+  position: absolute;
+  height: 40px;
+  
+}
+
+.sport-icon {
+  margin: 0;
 }
