@@ -3,6 +3,7 @@ import axios from "axios";
 import { Modal } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 
+import AutocompleteTextInput from "./AutocompleteInputText";
 import moment from "moment";
 import "./time.css";
 import "./Events.css";
@@ -14,16 +15,16 @@ export default class Event extends React.Component {
     super();
 
     this.state = {
-      Name: "Soccer And The City",
+      Name: "",
       m: moment(),
-      imgScr: "http://worldsoccertalk.com/wp-content/uploads/2013/11/manchester-city-new-york-600x400.png",
-      Address: "James J Walker Park",
+      imgScr: "",
+      address: "",
       start: false,
       end: false,
       DateInfo: "",
       startTime: "",
       endTime: "",
-      Description: "Hey Footballers all over New York City. Let's get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develop yourself with others through the sport of soccer.",
+      Description: "",
       sport: "",
       lat: "",
       long: "",
@@ -88,6 +89,16 @@ export default class Event extends React.Component {
     });
   };
 
+  handleAddressInput = placeInfo => {
+    console.log('handleAddressInput -> place:', placeInfo);
+    const { address, lat, long } = placeInfo
+    this.setState({
+      address,
+      lat,
+      long 
+    })
+  }
+
   loadPage = id => {
     axios
       .get(`/event/info/${id}`)
@@ -108,27 +119,22 @@ export default class Event extends React.Component {
     e.preventDefault();
     const {
       Name,
-      Address,
+      address,
       startTime,
       imgScr,
       endTime,
       Description,
       sport_id,
-      format_id
+      format_id,
+      lat,
+      long
     } = this.state;
-
-    axios
-      .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${Address}&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
-      )
-      .then(res => {
-        console.log("Response API", res);
-        axios
+       axios
           .post("/event/add", {
             name: Name,
-            lat: res.data.results[0].geometry.location.lat,
-            long: res.data.results[0].geometry.location.lng,
-            location: Address,
+            lat: lat,
+            long: long,
+            location: address,
             start_ts: new Date(startTime).getTime(),
             end_ts: new Date(endTime).getTime(),
             description: Description,
@@ -144,25 +150,6 @@ export default class Event extends React.Component {
             });
           })
           .catch(err => console.log("Error Adding Event:", err));
-      })
-      .catch(error => console.error("Error", error));
-  };
-
-  onChange = e => {
-    this.setState({
-      Address: e.target.value
-    });
-    axios
-      .get(
-        ` https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e
-          .target
-          .value}&location=nyc&radius=10&key=AIzaSyAulk5PFU6VTLLaBMnENrJGrKNlGjKnzhE`
-      )
-      .then(res => {
-        this.setState({
-          searchResponses: res.data.predictions
-        });
-      });
   };
 
   componentWillMount() {
@@ -180,14 +167,12 @@ export default class Event extends React.Component {
   form = () => {
     const {
       Name,
-      Address,
       imgScr,
       Description,
       sports,
       start,
       end,
       gameFormat,
-      searchResponses,
       style,
       sportSelected
     } = this.state;
@@ -239,42 +224,9 @@ export default class Event extends React.Component {
                 <label className= "address_lab" for="address">Enter Address: </label>
               </div>
               <div className=" col-75 address">
-                <input
-                  required
-                  className="event-form"
-                  type="text"
-                  id="address"
-                  name="Address"
-                  placeholder="Address"
-                  value={Address}
-                  onChange={this.onChange}
-                  onFocus={Address}
-                  style={{ color: "black" }}
-                />
+                <AutocompleteTextInput handleAddressInput={this.handleAddressInput}/>
               </div>
             </div>
-
-            {searchResponses.length ? (
-              <div id="address-response-container">
-                {searchResponses.map(res => {
-                  return (
-                    <div
-                      id="address-container"
-                      onClick={() =>
-                        this.setState({
-                          Address: res.description,
-                          searchResponses: []
-                        })}
-                    >
-                      {res.description}
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              ""
-            )}
-
 
           <div className="row">
             <div className="col-25">
@@ -377,7 +329,7 @@ export default class Event extends React.Component {
               <select
                 name="verses"
                 //style={{ backgroundColor: "#41CFFD" }}
-                class="team"
+                className="team"
                 onChange={this.handleSportFormat}
               >
                 {["", ...gameFormat].map(game => (

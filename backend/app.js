@@ -53,14 +53,10 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log('there is an err', err)
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
+  console.log(err)
+  var errorCode = err.status || 500
   res.status(err.status || 500);
-  res.render('error');
+  res.send(`error ${errorCode}`);
 });
 
 module.exports = app;
