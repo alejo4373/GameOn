@@ -67,7 +67,8 @@ VALUES ('basketball'),
        ('volleyball'),
        ('tennis'),
        ('handball'),
-       ('football');
+       ('football'),
+       ('table tennis');
 
 INSERT INTO sports_format (sport_id, description, num_players)
        --┌basketball
@@ -99,13 +100,16 @@ VALUES ('1', '1x1', 1),
        ('5', '1x1', 2),
        ('5', '2x2', 4),
        ('5', '3x3', 6), --24
-      --┌Football
+       --┌Football
        ('6', '6x6', 12),
        ('6', '7x7', 14),
        ('6', '8x8', 16),
        ('6', '9x9', 18),
        ('6', '10x10', 20),
-       ('6', '11x11', 21)
+       ('6', '11x11', 21),
+       --┌Table Tennis
+       ('7', '1x1', 2),
+       ('7', '2x2', 4)
        ;
 
 INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)

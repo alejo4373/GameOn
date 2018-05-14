@@ -38,7 +38,6 @@ export default class Event extends React.Component {
       event: "",
       searchResponses: [],
       sportSelected: '',
-      style: { float: "left", marginLeft: '5px'}
     };
   }
 
@@ -173,7 +172,6 @@ export default class Event extends React.Component {
       start,
       end,
       gameFormat,
-      style,
       sportSelected
     } = this.state;
 
@@ -303,18 +301,27 @@ export default class Event extends React.Component {
               <label for="sports"> Select A Sport:</label>
             </div>
             <div className="col-75">
-
                 {sports.map((sport, idx) => (
-                  <div style={style} name={sport.name}>
+                  <div className='icon-container' name={sport.name}>
+                    {
+                      //If current sport-icon is the one user selected put checkmark in front of it
+                      //To show it has been selected
+                      sport.name === sportSelected 
+                      ? <img 
+                          className='checkmark'
+                          src='/icons/checkmark.png'
+                          alt='checkmark symbol'
+                        />
+                      :''
+                    }
                     <img
-                      src={`/icons/${sportSelected === sport.name?'selected':sport.name}-icon.png`}
-                      width="40px"
-                      height="40px"
+                      src={`/icons/${sport.name}-icon.png`}
                       alt={sport.name}
                       title={sport.name}
                       id={sport.id} 
                       name={sport.name}
                       onClick={this.handleSportSelect}
+                      className='sport-icon'
                     />
                   </div>
                 ))}
@@ -328,7 +335,6 @@ export default class Event extends React.Component {
             <div className="col-75">
               <select
                 name="verses"
-                //style={{ backgroundColor: "#41CFFD" }}
                 className="team"
                 onChange={this.handleSportFormat}
               >
