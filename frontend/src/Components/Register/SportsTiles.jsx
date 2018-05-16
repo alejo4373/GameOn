@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-// eslint-disable-next-line
-import { Carousel } from "react-bootstrap";
 import "./SportsTile.css";
 
 export default class SportTiles extends Component {
@@ -11,7 +9,6 @@ export default class SportTiles extends Component {
 
   getAllSports = () => {
     axios
-
     .get('/sport/all')
     .then(res => {
       this.setState({
@@ -19,12 +16,13 @@ export default class SportTiles extends Component {
       })
    }).catch(err => console.log("Error Getting All Sports:", err));
   }
+
   componentWillMount() {
     this.getAllSports();
   }
 
   render() {
-    const { handleNextButton, handleSelectionChanges } = this.props;
+    const { handleSportsSelection, submitForm } = this.props;
     const {  allSports } = this.state;
     return (
       <div id="sportsTile-container">
@@ -50,7 +48,7 @@ export default class SportTiles extends Component {
             <div
               name={s.name}
               id="individual-image-container"
-              onClick={handleSelectionChanges}
+              onClick={handleSportsSelection}
             >
               <img
                 src={`/images/${s.name}.jpg`}
@@ -72,7 +70,7 @@ export default class SportTiles extends Component {
             id="sportsTile-submit"
             type="submit"
             value="Next"
-            onClick={handleNextButton}
+            onClick={submitForm}
           />
         </form>
       </div>

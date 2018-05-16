@@ -3,21 +3,22 @@ import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import axios from "axios";
 
-import Selection from "./Selection";
+import SportTiles from "./SportsTiles.jsx";
 
 class Registration extends Component {
   state = {
-    emailInput: "",
-    fullNameInput: "",
-    usernameInput: "",
-    passwordInput: "",
-    confirmInput: "",
-    zipcodeInput: "",
+    email: "",
+    fullname: "",
+    username: "",
+    password: "",
+    confirmPass: "",
+    zipcode: "",
     message: "",
     nextPressed: false,
     registered: false,
     alert: false,
-    loggedIN: false
+    loggedIN: false,
+    selectedSports: []
   };
 
   checkedIfUserLoggedIn = () => {
@@ -28,111 +29,60 @@ class Registration extends Component {
     });
   };
 
-  handleUsernameChange = e => {
+  handleInputFields = e => {
+    const inputName = e.target.name
+    const value = e.target.value
     this.setState({
-      usernameInput: e.target.value
-    });
-  };
-
-  handlePasswordChange = e => {
-    this.setState({
-      passwordInput: e.target.value
-    });
-  };
-
-  handleConfirmChange = e => {
-    this.setState({
-      confirmInput: e.target.value
-    });
-  };
-
-  handleEmailChange = e => {
-    this.setState({
-      emailInput: e.target.value
-    });
-  };
-
-  handleFullNameChange = e => {
-    this.setState({
-      fullNameInput: e.target.value
+      [inputName]: value
     });
   };
 
   handleZipCodeChange = e => {
-    const { zipcodeInput } = this.state;
+    const { zipcode } = this.state;
     const userZip = Number(e.target.value);
-    if (!isNaN(userZip) && zipcodeInput.length <= 5) {
+    if (!isNaN(userZip) && zipcode.length <= 5) {
       this.setState({
-        zipcodeInput: e.target.value
+        zipcode: e.target.value
       });
     }
   };
 
-  handleNextButton = () => {
+  validateAndNext = () => {
     const {
-      usernameInput,
-      passwordInput,
-      confirmInput,
-      emailInput,
-      fullNameInput,
-      zipcodeInput,
-      alert
+      username,
+      password,
+      confirmPass,
+      email,
+      fullname,
+      zipcode
     } = this.state;
 
     if (
-      !usernameInput ||
-      !passwordInput ||
-      !confirmInput ||
-      !emailInput ||
-      !fullNameInput ||
-      !zipcodeInput
+      !username ||
+      !password ||
+      !confirmPass ||
+      !email ||
+      !fullname||
+      !zipcode
     ) {
       this.setState({
-        nextPressed: true
-      });
-    } else {
-      this.setState({
-        message: "Please Fill Out The Require Fields"
-      });
-    }
-  };
-
-  submitForm = () => {
-    const {
-      usernameInput,
-      passwordInput,
-      confirmInput,
-      emailInput,
-      fullNameInput,
-      zipcodeInput
-    } = this.state;
-
-    if (
-      !usernameInput ||
-      !passwordInput ||
-      !confirmInput ||
-      !emailInput ||
-      !fullNameInput ||
-      !zipcodeInput
-    ) {
-      this.setState({
-        passwordInput: "",
-        confirmInput: "",
+        password: "",
+        confirmPass: "",
         alert: true,
         message: "Please complete all required fields"
       });
       return;
     }
-    if (passwordInput.length < 5) {
+    if (password.length < 5) {
       this.setState({
-        passwordInput: "",
-        confirmInput: "",
+        password: "",
+        confirm: "",
         alert: true,
         message: "Password length must be at least 5 characters"
       });
       return;
     }
-    if (passwordInput !== confirmInput) {
+    if (password!== confirmPass) {
       this.setState({
         passwordInput: "",
         confirmInput: "",
@@ -147,28 +97,89 @@ class Registration extends Component {
     });
   };
 
+  handleSportsSelection = e => {
+    let { selectedSports } = this.state;
+    const sportName = e.target.name;
+    const sportId = e.target.id
+    console.log('sportselected:', sportId, sportName)
+
+    //Find if we already have the clicked sport in our array
+    //if so it means our user wants to de-select it, so remove it, else add it
+    let sportIndex = selectedSports.findIndex(sport => { 
+      return sport.sport_id === sportId 
+    })
+
+    if(sportIndex) {
+      //Removing ~ Deselecting
+      selectedSports.splice(sportIndex, 1)
+    } else {
+      //Adding
+      selectedSports.push({sport_id: sportId, sport_name: sportName})
+    }
+
+    this.setState({
+      selectedSports: selectedSports
+    });
+  };
+
+  submitForm = () => {
+    const { username, password, email, fullname, zipcode, selectedSports } = this.state
+    axios
+    .post("/signup", {
+      username,
+      password,
+      email,
+      fullname,
+      zipcode,
+      sports: JSON.stringify(selectedSports)
+    })
+    .then(res => {
+      console.log(res.data);
+      this.setState({
+        registered: true,
+        username: "",
+        password: "",
+        confirmPass: "",
+        submitted: true,
+        email: "",
+        message: `Welcome to the site ${this.state.usernameInput}`
+      });
+    })
+    .catch(err => {
+      console.log("error: ", err);
+      this.setState({
+        usernameInput: "",
+        passwordInput: "",
+        confirmInput: "",
+        emailInput: "",
+        message: "Error inserting user"
+      });
+    });
+  };
+
   componentDidMount() {
     this.checkedIfUserLoggedIn();
   }
 
   render() {
     const {
-      emailInput,
-      fullNameInput,
-      usernameInput,
-      passwordInput,
-      confirmInput,
+      email,
+      fullname,
+      username,
+      password,
+      confirmPass,
       message,
-      zipcodeInput,
+      zipcode,
       nextPressed,
+      selectedSports,
       loggedIN
     } = this.state;
 
     const {
       submitForm,
-      handleEmailChange,
-      handleFullNameChange,
-      handleUsernameChange
+      handleInputFields,
+      handleZipCodeChange,
+      handleSportsSelection,
     } = this;
 
     if (loggedIN) {
@@ -178,12 +189,10 @@ class Registration extends Component {
     return (
       <div className="parent">
         {nextPressed ? (
-            <Selection
-              emailInput={emailInput}
-              fullNameInput={fullNameInput}
-              usernameInput={usernameInput}
-              passwordInput={passwordInput}
-              zipcodeInput={zipcodeInput}
+            <SportTiles
+              selectedSports={selectedSports}
+              handleSportsSelection={handleSportsSelection}
+              submitForm={submitForm}
             />
         ) : (
           <div class="login-container">
@@ -194,19 +203,19 @@ class Registration extends Component {
                 <label>
                   <input
                     type="text"
-                    name="Email"
+                    name="email"
                     placeholder="Email"
-                    value={emailInput}
-                    onChange={handleEmailChange}
+                    value={email}
+                    onChange={handleInputFields}
                   />
                 </label>
                 <label>
                   <input
                     type="text"
-                    name="Full name"
+                    name="fullname"
                     placeholder="Full name"
-                    value={fullNameInput}
-                    onChange={handleFullNameChange}
+                    value={fullname}
+                    onChange={handleInputFields}
                   />
                 </label>
                 <label>
@@ -214,8 +223,8 @@ class Registration extends Component {
                     type="text"
                     name="username"
                     placeholder="Username"
-                    value={usernameInput}
-                    onChange={handleUsernameChange}
+                    value={username}
+                    onChange={handleInputFields}
                   />
                 </label>
                 <label>
@@ -223,30 +232,30 @@ class Registration extends Component {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={passwordInput}
-                    onChange={this.handlePasswordChange}
+                    value={password}
+                    onChange={this.handleInputFields}
                   />
                 </label>
                 <label id="confirm">
                   <input
                     type="password"
-                    name="confirm-input"
+                    name="confirmPass"
                     placeholder="Confirm Password"
-                    value={confirmInput}
-                    onChange={this.handleConfirmChange}
+                    value={confirmPass}
+                    onChange={this.handleInputFields}
                   />
                 </label>
                 <label>
                   <input
                     type="text"
-                    name="zip_code"
-                  placeholder="Zipcode"
-                    value={zipcodeInput}
-                    onChange={this.handleZipCodeChange}
+                    name="zipcode"
+                    placeholder="Zipcode"
+                    value={zipcode}
+                    onChange={handleZipCodeChange}
                   />
                 </label>
               </form>
-              <button onClick={submitForm}>Next</button>
+              <button onClick={this.validateAndNext}>Next</button>
               <p>{message}</p>
             </div>
             <div class="login-box">

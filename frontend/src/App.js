@@ -3,11 +3,8 @@ import { Route, /*Link*/ Switch} from 'react-router-dom'
 import './App.css';
 
 import Home from './Components/Home/Home';
-import Login from './Components/Home/Login.jsx'
-import Register from './Components/Register/Form.jsx'
-
-// import Login from './Components/Home/Login'
-// import Registration from './Components/Register/Registration'
+import Login from './Components/Home/Login'
+import Register from './Components/Register/Registration'
 import HUB from './Components/User/HUB'
 
 class App extends Component {

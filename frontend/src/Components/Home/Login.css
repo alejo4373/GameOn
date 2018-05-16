@@ -58,9 +58,9 @@
     top: -2vh;
 }
 
-#form_container {
-    position: relative;
-    top: -10vh;
+.form_container {
+  width: 50%;
+  margin: 0 auto;
 }
 
 #home_form_container {
