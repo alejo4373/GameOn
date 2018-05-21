@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Login.css";
 import { Carousel } from "react-bootstrap";
 import { Redirect } from "react-router";
+import { Alert } from "react-bootstrap";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
@@ -29,7 +30,7 @@ export default class Login extends Component {
   handleSignupResponse = (err, user) => {
     if(err) {
       this.setState({
-        message: 'An error occurred when trying to sign up'
+        message: 'An error occurred while trying to sign up'
       })
     } else {
       this.setState({
@@ -39,11 +40,23 @@ export default class Login extends Component {
     }
   }
 
+  handleAlert = () => {
+    const { message } = this.state
+    if(message) {
+      return(
+        <Alert bsStyle='danger'>
+          {message}
+        </Alert>
+      )
+    }
+  }
+
   toggleForm = (e) => {
     e.preventDefault()
     this.setState(prevState => {
       return {
-        renderLoginForm: !prevState.renderLoginForm
+        renderLoginForm: !prevState.renderLoginForm,
+        message: ''
       }
     })
   }
@@ -99,8 +112,8 @@ export default class Login extends Component {
             : 
               <SignupForm handleSignupResponse={this.handleSignupResponse} toggleForm={this.toggleForm}/>
           }
+          {this.handleAlert()}
         </div>
-        {message}
       </div>
     );
   }
