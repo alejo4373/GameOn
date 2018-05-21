@@ -1,11 +1,4 @@
 body {
-  /* margin: 0;
-  padding: 0;
-  font-family: sans-serif; */
-  /* background-color: #213238; */
-  /* overflow: hidden; */
-  /* background-color: #213238; */
-  /* overflow: hidden; */
   color: white;
 }
 
@@ -80,10 +73,7 @@ body {
   .userinfo_grid {
     width: 100vw;
   }
-  .form-horizontal {
-    margin-top: 25%;
-    position: absolute;
-  }
+
   #profile_info_container {
     width: auto;
     height: 300px;
@@ -111,14 +101,6 @@ body {
     margin-right: 33%;
   }
 
-  /* #Overview{
-    border: 2px solid black;
-    margin: 15% 0 0 0;
-    width: 350px;
-    height: 200px;
-    position: absolute;
-  } */
-
   #Overview_photo {
     float: left;
     margin: 2% 0 0 2%;
@@ -134,11 +116,6 @@ body {
     height: 28px;
     position: absolute;
     margin: 1.5% 0 0 13%;
-  }
-
-  #username {
-    margin-left: 1%;
-    position: absolute;
   }
 
   #username > h3 {
@@ -326,20 +303,53 @@ body {
     margin: 4.1% 0 0 30%;
     z-index: 3;
   }
-
-  /* .form-control {
-    position: absolute;
-    width: 50px;
-    height: 30px;
-    display: inline;
-    margin-left: 2%;
-    font-size: 12px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  } */
 }
+
+/* Signup & Login Forms */
+
+
+.form-container {
+  width: 40%;
+  padding: 2%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 25px;
+  margin-bottom: 1em;
+  color: block;
+  text-align: center;
+}
+
+.sports-selection-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Bootstrap classes style edits */
+.form-group {
+  text-align: left;
+} 
+
+.control-label {
+  text-align: left;
+}
+/* END Bootstrap classes style edits */
+
+
+
+/*At 480px we start our mobile layout*/
+@media (max-width: 480px) {
+  .form_container{
+    width: 90%;
+  }
+  /*contro-label class given by bootstrap*/
+  .control-label {
+    display: none;
+  }
+
+}
+
 

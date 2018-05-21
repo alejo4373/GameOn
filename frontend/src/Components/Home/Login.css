@@ -58,11 +58,6 @@
     top: -2vh;
 }
 
-.form_container {
-  width: 50%;
-  margin: 0 auto;
-}
-
 #home_form_container {
     position: fixed;
     margin-left: 30px;
@@ -70,11 +65,6 @@
     top: 12vh;
     width: 45%;
     background-color: #6d6a6a7a;
-}
-
-#login {
-    font-size: 25px;
-    color: block;
 }
 
 input[id=login-input], input[id=login-password]{
@@ -106,10 +96,6 @@ input[id=login-submit] {
     width: 15%;
     margin-left: 43%;
 }
-/* p {
-    font-size: 25px;
-    color: black;
-} */
 
 #signup {
     font-size: 18px;

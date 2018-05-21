@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FormGroup, FormControl, ControlLabel, Form, Col } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Form, HelpBlock } from 'react-bootstrap';
+import SportsSelectionOptions from './SportsSelectionOptions'
 
 export default class SignupForm extends Component {
   state = {
@@ -11,7 +12,7 @@ export default class SignupForm extends Component {
     confirmPass: "",
     zipcode: "",
     message: "",
-    selectedSports: []
+    selectedSportsIds: []
   }
 
   handleTextInput = (e) => {
@@ -30,32 +31,30 @@ export default class SignupForm extends Component {
     }
   };
 
-  handleSportsSelection = e => {
-    let { selectedSports } = this.state;
-    const sportName = e.target.name;
-    const sportId = e.target.id
-    console.log('sportselected:', sportId, sportName)
+  handleSportsSelection = clickedSportId => {
+    let { selectedSportsIds } = this.state;
+    console.log('called handleSportsSelection with:',typeof(clickedSportId), clickedSportId)
 
     //Find if we already have the clicked sport in our array
     //if so it means our user wants to de-select it, so remove it, else add it
-    let sportIndex = selectedSports.findIndex(sport => { 
-      return sport.sport_id === sportId 
-    })
-
-    if(sportIndex) {
+    let sportIndex = selectedSportsIds.indexOf(clickedSportId)
+    console.log('index of;', clickedSportId, 'is:', sportIndex)
+    if(sportIndex >= 0) {
       //Removing ~ Deselecting
-      selectedSports.splice(sportIndex, 1)
+      selectedSportsIds.splice(sportIndex, 1)
     } else {
       //Adding
-      selectedSports.push({sport_id: sportId, sport_name: sportName})
+      selectedSportsIds.push(clickedSportId)
     }
+    console.log(selectedSportsIds)
 
     this.setState({
-      selectedSports: selectedSports
+      selectedSportsIds: selectedSportsIds
     });
   };
 
-  validateAndSubmit = () => {
+  validateAndSubmit = (e) => {
+    e.preventDefault()
     const {
       username,
       password,
@@ -63,7 +62,7 @@ export default class SignupForm extends Component {
       email,
       fullname,
       zipcode,
-      selectedSports
+      selectedSportsIds
     } = this.state;
 
     if (
@@ -73,7 +72,7 @@ export default class SignupForm extends Component {
       !email ||
       !fullname||
       !zipcode ||
-      !selectedSports.length
+      !selectedSportsIds.length
     ) {
       return this.setState({
         password: "",
@@ -104,7 +103,8 @@ export default class SignupForm extends Component {
   };
 
   handleSubmit = () => {
-    const { username, password, email, fullname, zipcode, selectedSports } = this.state
+    const { username, password, email, fullname, zipcode, selectedSportsIds } = this.state
+    const { handleSignupResponse } = this.props
     axios
     .post("/signup", {
       username,
@@ -112,19 +112,18 @@ export default class SignupForm extends Component {
       email,
       fullname,
       zipcode,
-      sports: JSON.stringify(selectedSports)
+      sports_ids: JSON.stringify(selectedSportsIds)
     })
     .then(res => {
       console.log(res.data);
       this.setState({
-        registered: true,
         username: "",
         password: "",
         confirmPass: "",
-        submitted: true,
         email: "",
-        message: `Welcome to the site ${this.state.usernameInput}`
       });
+
+      handleSignupResponse(null, res.data.user) 
     })
     .catch(err => {
       console.log("error: ", err);
@@ -133,72 +132,90 @@ export default class SignupForm extends Component {
         passwordInput: "",
         confirmInput: "",
         emailInput: "",
-        message: "Error inserting user"
+        message: "An error occurred"
       });
     });
   };
 
   render() {
-    const { email, fullname, username, password, confirmPass, zipcode, message } = this.state;
+    const { email, fullname, username, password, confirmPass, zipcode, message, selectedSportsIds } = this.state;
     return (
       <div>
-        <p id="login">Log In</p>
-          <Form horizontal onSubmit={this.handleSubmit}>
+        <h1 className="form-title">Sign Up</h1>
+          <Form horizontal onSubmit={this.validateAndSubmit}>
             <FormGroup controlId="email">
-              <Col sm={1}>
-                <ControlLabel>Email:</ControlLabel>
-              </Col>
-              <Col sm={11}>
-                <FormControl
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={this.handleTextInput}
-                />
-              </Col>
+              <ControlLabel>Email:</ControlLabel>
+              <FormControl
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={this.handleTextInput}
+              />
             </FormGroup>
-            <input
-              type="text"
-              name="fullname"
-              placeholder="First and Last Name"
-              value={fullname}
-              onChange={this.handleTextInput}
-            />
-            <input
-              type="input"
-              placeholder="Username"
-              name="username"
-              value={username}
-              onChange={this.handleTextInput}
-            />
-            <br />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={password}
-              onChange={this.handleTextInput}
-            />
-            <br/>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              name="confirmPass"
-              value={confirmPass}
-              onChange={this.handleTextInput}
-            />
-            <br />
-            <input
-              type="text"
-              name="zipcode"
-              placeholder="Zipcode"
-              value={zipcode}
-              onChange={this.handleZipCodeChange}
-            />
-           <p>{message}</p>
-           <input id="login-submit" type="submit" value="Submit" />
-           <p>Already have an Account <a onClick={this.props.toggleForm}>Log In</a></p>
+            <FormGroup controId='fullname'>
+              <ControlLabel>Fullname:</ControlLabel>
+              <FormControl
+                type="text"
+                name="fullname"
+                placeholder="Fullname"
+                value={fullname}
+                onChange={this.handleTextInput}
+              />
+            </FormGroup>
+            <FormGroup controlId='username'>
+              <ControlLabel>Username:</ControlLabel>
+              <FormControl
+                type="input"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={this.handleTextInput}
+              />
+            </FormGroup>
+            <FormGroup controlId='password'>
+              <ControlLabel>Password:</ControlLabel>
+              <FormControl
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={this.handleTextInput}
+              />
+            </FormGroup>
+            <FormGroup controlId='confirmPass'>
+              <ControlLabel>Confirm Password:</ControlLabel>
+              <FormControl
+                type="password"
+                placeholder="Confirm Password"
+                name="confirmPass"
+                value={confirmPass}
+                onChange={this.handleTextInput}
+              />
+            </FormGroup>
+            <FormGroup controlId='zipcode'>
+              <ControlLabel>Zipcode:</ControlLabel>
+              <FormControl
+                type="text"
+                name="zipcode"
+                placeholder="Zipcode"
+                value={zipcode}
+                onChange={this.handleZipCodeChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Sports: </ControlLabel>
+              <HelpBlock>Pick the sports you would like to play.</HelpBlock>
+              <SportsSelectionOptions
+                handleSportsSelection={this.handleSportsSelection}
+                selectedSportsIds={selectedSportsIds}
+              />
+            </FormGroup>
+            <div className='form-footer'>
+              <p>{message}</p>
+              <input id="login-submit" type="submit" value="Submit" />
+              <p>Already have an Account <a onClick={this.props.toggleForm}>Log In</a></p>
+           </div> 
           </Form>
       </div>
     )

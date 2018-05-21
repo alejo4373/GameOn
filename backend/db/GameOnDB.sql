@@ -68,7 +68,7 @@ VALUES ('basketball'),
        ('tennis'),
        ('handball'),
        ('football'),
-       ('table tennis');
+       ('table_tennis');
 
 INSERT INTO sports_format (sport_id, description, num_players)
        --┌basketball

@@ -89,7 +89,7 @@ export default class Event extends React.Component {
   };
 
   handleAddressInput = placeInfo => {
-    console.log('handleAddressInput -> place:', placeInfo);
+    //console.log('handleAddressInput -> place:', placeInfo);
     const { address, lat, long } = placeInfo
     this.setState({
       address,
@@ -151,11 +151,10 @@ export default class Event extends React.Component {
           .catch(err => console.log("Error Adding Event:", err));
   };
 
-  componentWillMount() {
+  componentDidMount() {
     axios
       .get("/user/sports")
       .then(res => {
-        console.log(res.data);
         this.setState({
           sports: res.data.sports
         });
@@ -179,13 +178,13 @@ export default class Event extends React.Component {
       <div id="event-form">
         <div className="event-background" />
         <div className="title-name">
-        <h1 id="event-title">Create An Event</h1>
+        <h1 id="event-title">Host a Game</h1>
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className="form">
             <div className="row">
               <div className="col-25">
-                <label for="imgScr">Upload A Photo: </label>
+                <label htmlFor="imgScr">Upload A Photo: </label>
               </div>
               <div className="col-75">
                 <input
@@ -201,7 +200,7 @@ export default class Event extends React.Component {
           </div>
           <div className="row">
             <div className="col-25">
-              <label for="Name">Name Your Event: </label>
+              <label htmlFor="Name">Name Your Event: </label>
             </div>
             <div className="col-75">
               <input
@@ -219,7 +218,7 @@ export default class Event extends React.Component {
 
           <div className="row add">
               <div className="col-25 address-label">
-                <label className= "address_lab" for="address">Enter Address: </label>
+                <label className= "address_lab" htmlFor="address">Enter Address: </label>
               </div>
               <div className=" col-75 address">
                 <AutocompleteTextInput handleAddressInput={this.handleAddressInput}/>
@@ -228,7 +227,7 @@ export default class Event extends React.Component {
 
           <div className="row">
             <div className="col-25">
-              <label className="time-label" for="startT">
+              <label className="time-label" htmlFor="startT">
                 <button
                 className='times'
                   name="start"
@@ -263,7 +262,7 @@ export default class Event extends React.Component {
           </Modal>
           <div className="row">
             <div className="col-25">
-              <label className="time-label" for="endT">
+              <label className="time-label" htmlFor="endT">
                 <button
                 className='times'
                   name="end"
@@ -298,11 +297,15 @@ export default class Event extends React.Component {
           </Modal>
           <div className="row">
             <div className="col-25">
-              <label for="sports"> Select A Sport:</label>
+              <label> Select A Sport:</label>
             </div>
             <div className="col-75">
                 {sports.map((sport, idx) => (
-                  <div className='icon-container' name={sport.name}>
+                  <div 
+                    key={idx}
+                    className='icon-container'
+                    name={sport.name}
+                  >
                     {
                       //If current sport-icon is the one user selected put checkmark in front of it
                       //To show it has been selected
@@ -330,7 +333,7 @@ export default class Event extends React.Component {
 
           <div className="row">
             <div className="col-25">
-              <label for="verses">Choose Team Dynamic:</label>
+              <label htmlFor="verses">Choose Team Dynamic:</label>
             </div>
             <div className="col-75">
               <select
@@ -338,15 +341,15 @@ export default class Event extends React.Component {
                 className="team"
                 onChange={this.handleSportFormat}
               >
-                {["", ...gameFormat].map(game => (
-                  <option value={game.id}>{game.description}</option>
+                {["", ...gameFormat].map((game, i)=> (
+                  <option key={i} value={game.id}>{game.description}</option>
                 ))}
               </select>
             </div>
           </div>
           <div className="row">
             <div className="col-25">
-              <label for="Description">Describe You're Game </label>
+              <label htmlFor="Description">Describe You're Game </label>
             </div>
             <div className="col-75">
               <textarea
@@ -375,7 +378,6 @@ export default class Event extends React.Component {
   };
   render() {
     const { submit, event_id } = this.state;
-    console.log('the event id is',event_id)
     const url = `/user/event/${event_id}`
     return <div>
       {submit ? <Redirect to={url} /> : this.form()}

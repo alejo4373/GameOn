@@ -1,32 +1,35 @@
 import React, { Component } from "react";
 import "./Login.css";
 import { Carousel } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import { Redirect } from "react-router";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
 export default class Login extends Component {
   state = {
-    usernameInput: this.props.usernameInput || "",
-    passwordInput: this.props.passwordInput || "",
     loggedIn: false,
     message: "",
     user: null,
-    renderLoginForm: true //When false Signup form will render
+    renderLoginForm: true //When false <SignupForm/> will render
   };
-
-  /**
-       * @func handleUserNameChange
-       Handles the users value and Set the State to that value
-       ~Kelvin
-       */
 
   handleLoginResponse = (err, user) => {
     if(err) {
       this.setState({
         message: 'Username or Password Not Found'
+      })
+    } else {
+      this.setState({
+        user: user,
+        loggedIn: true
+      })
+    }
+  }
+
+  handleSignupResponse = (err, user) => {
+    if(err) {
+      this.setState({
+        message: 'An error occurred when trying to sign up'
       })
     } else {
       this.setState({
@@ -47,8 +50,6 @@ export default class Login extends Component {
 
   render() {
     const {
-      usernameInput,
-      passwordInput,
       message,
       loggedIn,
       renderLoginForm,
@@ -91,12 +92,12 @@ export default class Login extends Component {
             <img id="arrow" src="/images/homePage-arrow.png" alt="" />
           </a>
         </div>
-        <div className="form_container">
+        <div className="form-container">
           {
             renderLoginForm ? 
               <LoginForm handleLoginResponse={this.handleLoginResponse} toggleForm={this.toggleForm}/>
             : 
-              <SignupForm handleSignupResponse={this.handleLoginResponse} toggleForm={this.toggleForm}/>
+              <SignupForm handleSignupResponse={this.handleSignupResponse} toggleForm={this.toggleForm}/>
           }
         </div>
         {message}
