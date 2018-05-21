@@ -128,7 +128,15 @@ VALUES(1, 1),
       (1, 2),
       (2, 2),
       (4, 2),
-      (5, 5)
+      (5, 5),
+      --Demo user will have all the sports 
+      (1, 8),
+      (2, 8),
+      (3, 8),
+      (4, 8),
+      (5, 8),
+      (6, 8),
+      (7, 8)
       ;
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, actual_start_ts, actual_end_ts, name, location, sport_id, sport_format_id, event_pic, description, cancelled)
