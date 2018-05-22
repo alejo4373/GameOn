@@ -34,11 +34,11 @@ const registerUser = (user, callback) => {
       profilePicUrl: '/images/user.png',
       expPoints: 0,
       email: user.email,
-      sports: user.sports,
+      sportsIds: user.sports_ids,
       zipcode: user.zipcode
   }
-  const sports = JSON.parse(newUser.sports)
-  console.log(sports)
+  const sportsIds = JSON.parse(newUser.sportsIds)
+  console.log(sportsIds)
   db.one('INSERT INTO users(fullname, username, email, password_digest, zip_code, profile_pic, exp_points)' +
           'VALUES (${fullName}, ${userName}, ${email}, ${passwordDigest}, ${zipcode}, ${profilePicUrl}, ${expPoints})'+ 
           'RETURNING id, username, fullname, profile_pic', newUser)
@@ -48,15 +48,15 @@ const registerUser = (user, callback) => {
     //Check if the user selected some sports for each sport we in a hacky not sure if good way 
     //concatenate a SQL statement string so that we insert that data in one INSERT statement at once
     //if the user didn't picked any sport then skip this step altogether 
-    if(sports.length) {
+    if(sportsIds.length) {
       //Base (header) for the SQL statement
       var SQLStatement = 'INSERT INTO users_sports(user_id, sport_id)'
-      sports.forEach((sport, index) => {
-        console.log(sport)
+      sportsIds.forEach((sportId, index) => {
+        console.log(sportId)
         if(index === 0) {
-          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sport.sport_id})` 
+          SQLStatement  =  SQLStatement + '\n' + `VALUES(${user_id}, ${sportId})` 
         } else {
-          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sport.sport_id})`
+          SQLStatement = SQLStatement + '\n' + `,(${user_id}, ${sportId})`
         }
       })
       SQLStatement += ';' 

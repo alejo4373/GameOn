@@ -22,6 +22,7 @@ class Home extends React.Component {
         this.getUser();
     }
     render() {
+      console.log('RENDERING HOME =======>>>')
         const { user } = this.state
        
         if (user) {
