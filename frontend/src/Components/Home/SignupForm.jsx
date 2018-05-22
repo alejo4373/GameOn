@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FormGroup, FormControl, ControlLabel, Form, HelpBlock } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Form, HelpBlock, Button, Alert} from 'react-bootstrap';
 import SportsSelectionOptions from './SportsSelectionOptions'
 
 export default class SignupForm extends Component {
@@ -128,12 +128,11 @@ export default class SignupForm extends Component {
     .catch(err => {
       console.log("error: ", err);
       this.setState({
-        usernameInput: "",
-        passwordInput: "",
-        confirmInput: "",
-        emailInput: "",
-        message: "An error occurred"
+        username: "",
+        password: "",
+        confirmPass: "",
       });
+      handleSignupResponse(err, null) 
     });
   };
 
@@ -153,7 +152,7 @@ export default class SignupForm extends Component {
                 onChange={this.handleTextInput}
               />
             </FormGroup>
-            <FormGroup controId='fullname'>
+            <FormGroup controlId='fullname'>
               <ControlLabel>Fullname:</ControlLabel>
               <FormControl
                 type="text"
@@ -212,8 +211,8 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <div className='form-footer'>
-              <p>{message}</p>
-              <input id="login-submit" type="submit" value="Submit" />
+              { message ? <Alert bsStyle='warning'>{message}</Alert> : '' }
+              <Button bsStyle='success' type="submit"> Sign Up </Button>
               <p>Already have an Account <a onClick={this.props.toggleForm}>Log In</a></p>
            </div> 
           </Form>

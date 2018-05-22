@@ -305,9 +305,9 @@ body {
   }
 }
 
-/* Signup & Login Forms */
-
-
+/* 
+ Sign up & Login Forms 
+ */
 .form-container {
   width: 40%;
   padding: 2%;
@@ -328,9 +328,11 @@ body {
   justify-content: space-between;
 }
 
-/* Bootstrap classes style edits */
-.form-group {
+/* Bootstrap classes style overrides */
+.form-horizontal .form-group {
   text-align: left;
+  margin-right: 0;
+  margin-left: 0;
 } 
 
 .control-label {
@@ -342,8 +344,8 @@ body {
 
 /*At 480px we start our mobile layout*/
 @media (max-width: 480px) {
-  .form_container{
-    width: 90%;
+  .form-container{
+    width: 70%;
   }
   /*contro-label class given by bootstrap*/
   .control-label {

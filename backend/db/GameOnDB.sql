@@ -113,13 +113,14 @@ VALUES ('1', '1x1', 1),
        ;
 
 INSERT INTO users (fullname, username, email, password_digest, zip_code, profile_pic, exp_points)
-VALUES('Alejandro Fraco', 'AlejandroF', 'antonioReyes@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, 'https://avatars1.githubusercontent.com/u/18352555?s=460&v=4', 50),
-      ('Kelvin Rodriguez', 'KelvinRo', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/users/kelvin.jpg', 50),
-      ('Joyce Ajagbe', 'olu_joya', 'olu_joya@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
-      ('Romi', 'MichaelSSS', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+VALUES('Alejandro Fraco', 'alejo4373', 'alejandrofranco@ac.c4q.nyc', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, 'https://avatars1.githubusercontent.com/u/18352555?s=460&v=4', 50),
+      ('Kelvin Rodriguez', 'kelvinRo', 'kelvinrodriguez@ac.c4q.nyc', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/users/kelvin.jpg', 50),
+      ('Joyce Ajagbe', 'olu_joya', 'joyceajagbe@ac.c4q.nyc', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+      ('Romie Zelaya', 'romiezelaya', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Nathan Cook', 'NCooker', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
       ('Matha Pullman', 'Mathinna19', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
-      ('Carolina Restrepo', 'CarolinaRR', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50);
+      ('Carolina Restrepo', 'CarolinaRR', 'kelvinro@gmail.com', '$2a$10$7UQ3CrFUnzTxqJ246evvEeKB81ISV5lNjlgs7/ai1.QCLoCjd/IGG', 11369, '/images/user.png', 50),
+      ('Demo User', 'demoUser', 'demo@example.com', '$2a$10$ycRiK/t1L5CWC4TXbCo3Qu4RiDOUatqjUCBxRzuKMGrYpoEA02Dv6', 11369, '/images/user.png', 50);
 
 INSERT INTO users_sports (sport_id, user_id)
 VALUES(1, 1),
@@ -127,7 +128,15 @@ VALUES(1, 1),
       (1, 2),
       (2, 2),
       (4, 2),
-      (5, 5)
+      (5, 5),
+      --Demo user will have all the sports 
+      (1, 8),
+      (2, 8),
+      (3, 8),
+      (4, 8),
+      (5, 8),
+      (6, 8),
+      (7, 8)
       ;
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, actual_start_ts, actual_end_ts, name, location, sport_id, sport_format_id, event_pic, description, cancelled)
