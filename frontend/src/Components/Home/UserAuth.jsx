@@ -63,7 +63,6 @@ export default class Login extends Component {
 
   render() {
     const {
-      message,
       loggedIn,
       renderLoginForm,
       user

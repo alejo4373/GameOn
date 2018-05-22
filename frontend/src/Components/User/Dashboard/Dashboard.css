@@ -1,156 +1,73 @@
-body {
-  background-color: #e0f2f1;
-}
-
-#root {
-  height: 100%;
-}
-
-.dashboard-parent {
-  height: 100%;
-}
-
 .sport-icon {
   width: 40px;
+} 
+
+.profile-photo {
+  margin-top: 5%;
+  width: 41%;
+  border-radius: 50%;
 }
 
-#Overview_photo {
-  margin-top: 1%;
-  width: 200px;
-  -moz-border-radius: 90px;
-  -webkit-border-radius: 200px;
+.progress-metrics {
+  width: 41%;
+  margin: 3% auto;
 }
 
-#dashboard-tabs {
-  width: 400px;
-  margin-left: 3%;
-  background: linear-gradient(
-    to bottom right,
-    rgb(255, 147, 96) 30%,
-    rgb(255, 146, 160)
-  );
+.username {
+  color: black;
 }
 
-#event_container {
-  width: 430px;
-  height: 470px;
-  overflow-y: auto;
-  position: absolute;
+/*same style as the .card rule*/
+.tabs-container {
+  box-shadow: 0px 0px 23px #b39ddb;
+  border: #cebebe solid 1px;
+  border-radius: 4px;
+  margin: 5%;
+  height: 92%;
 }
 
-.host_img {
-  /* float: left; */
-  /* margin: 0% 0% 0 3%; */
-  width: 180px;
-  -webkit-clip-path: polygon(0% 0%, 55% 0, 81% 50%, 57% 100%, 0% 100%);
-  clip-path: polygon(0% 0%, 55% 0, 81% 50%, 57% 100%, 0% 100%);
+.tab-content {
+  height: inherit;
 }
 
-.event_descriptions {
-  width: 200px;
-  height: auto;
-  position: absolute;
-  margin-left: 40%;
+.event-cards-container {
+  height: 71.5vh;
+  overflow: hidden;
+  overflow-y: scroll;
+
 }
 
-.individual_event {
+.event-card {
   overflow: hidden;
   display: flex;
   flex-direction: row;
   color: black;
   border: 2px solid #dddddd;
   border-radius: 12px;
-  width: 390px;
+  width: 96%;
   height: 130px;
   margin-bottom: 5%;
   background-color: aliceblue;
   margin: 2%;
   text-align: left;
+  font-size: 13px;
 }
 
-.nav-tabs > li > a {
-  margin-right: 20px;
-}
-.nav-tabs {
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
+.event-card-img {
+  width: 50%;
+  clip-path: polygon(0% 0%, 73% 0%, 100% 50%, 61% 122%, 0% 100%);
+  margin-left: -10%;
 }
 
-#add-btn:hover {
-  border-color: gold;
+.event-card-legend {
+  margin-left: 1%;
+  width: 50%;
+  margin: 0 auto;
 }
 
-.newGame-btn {
-  border-radius: 50px;
-  width: 55px;
-  height: 55px;
-  border: none;
-  margin-left: 350px;
-  margin-top: 20px;
-  padding: 0;
-  background-color: #ffffff;
-}
-
-#add-btn {
-  width: 55px;
-  border: 2px solid #1badc0;
-  border-radius: 50px;
-}
-
-button:focus {
-  outline: 0;
-}
-
-#add-btn:hover {
-  border-color: gold;
-}
-
-.CircularProgressbar {
-  width: 70px;
-  background-color: white;
-}
-#Overview {
-  display: grid;
-  grid-template-columns: 500px 500px;
-  grid-template-rows: 600px;
-  grid-gap: 20px;
-  margin-top: 20px;
-  justify-content: center;
-}
-
-.right-half {
-  grid-column: 2;
-  grid-row: 1;
-  box-shadow: 0px 9px 25px #b39ddb;
-  justify-content: center;
-}
-
-.left-top-half {
-  grid-column: 1;
-  grid-row: 1;
-  box-shadow: 0px 9px 25px #b39ddb;
-}
-.left-container {
-  display: grid;
-  grid-template-columns: 450px;
-  grid-template-rows: 270px 250px;
-  justify-content: center;
-  grid-gap: 10px;
-  margin-top: 35px;
-}
-.left-top {
-  grid-row: 1;
-  box-shadow: 0px 9px 25px #b39ddb;
-  background: linear-gradient(
-    to bottom right,
-    rgb(255, 147, 96) 30%,
-    rgb(255, 146, 160)
-  );
-}
-.left-bottom {
-  grid-row: 2;
-  box-shadow: 0px 9px 25px #b39ddb;
-  background-color: white;
+.event-card:hover {
+  background-color: lightsteelblue;
+  cursor: pointer;
 }
 
 .inner-right {
@@ -162,185 +79,21 @@ button:focus {
   margin: 35px auto;
 }
 
-.host_name {
+.event-name {
   font-size: 18px;
   margin-top: 10px;
 }
 
-#circularProgressBar-container {
-  width: 100px;
-  position: absolute;
-  margin: 0 0 0 13%;
+/* Bootstrap css override */
+/* to make the tabs align in the center with equal spacing */
+.nav-tabs {
+  display: grid;
+  grid-template-columns: 1% 33% 32% 33%;
 }
 
-@media only screen and (max-width: 480px) {
-  body {
-    background-color: #e0f2f1;
-    margin-right: 0;
-  }
-
-  .dashboard-parent {
-    height: 100%;
-  }
-
-  #Overview_photo {
-    margin-top: 1%;
-    width: 200px;
-    -moz-border-radius: 90px;
-    -webkit-border-radius: 200px;
-  }
-
-  #dashboard-tabs {
-    width: 330px;
-  }
-
-  .individual_event {
-    color: black;
-    border: 2px solid #dddddd;
-    width: 317px;
-    height: 100px;
-    /* margin-bottom: 10%; */
-    background-color: aliceblue;
-    margin: 4%;
-  }
-
-  .event_descriptions {
-    width: 200px;
-    height: auto;
-    position: absolute;
-    margin-left: 40%;
-  }
-
-  
-
-  #Overview {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  #event_container {
-    width: 324px;
-    height: 420px;
-    overflow-y: auto;
-    position: absolute;
-    overflow-x: hidden
-  }
-  .newGame-btn {
-    border-radius: 50px;
-    width: 55px;
-    height: 55px;
-    border: none;
-    margin-top: 20px;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    margin-top: 4%;
-    margin-left: 84%;
-  }
-
-  .nav-tabs {
-    border-bottom: 1px solid #ddd;
-    font-size: 10px;
-  }
-
-  .host_img {
-    width: 120px;
-  }
-
-  #add-btn {
-    width: 55px;
-    border: 2px solid #1badc0;
-    border-radius: 50px;
-  }
-
-  button:focus {
-    outline: 0;
-  }
-
-  #add-btn:hover {
-    border-color: gold;
-  }
-
-  .CircularProgressbar {
-    width: 70px;
-    background-color: white;
-  }
-  #Overview {
-    padding: 0;
-    display: grid;
-    margin-left: 0;
-    grid-template-columns: 1px;
-    grid-template-rows: 600px;
-    grid-gap: 5px;
-    margin-top: 20px;
-    justify-content: center;
-  }
-
-  .right-half {
-    grid-column: 2;
-    grid-row: 2;
-    box-shadow: 0px 9px 25px #b39ddb;
-    justify-content: center;
-    width: 350px;
-    height: 540px;
-  }
-
-  .left-top-half {
-    grid-column: 1;
-    grid-row: 1;
-    margin-left: 5px;
-    box-shadow: 0px 9px 25px #b39ddb;
-    width: 350px;
-    height: 540px;
-  }
-
-  #uncontrolled-tab-example {
-    height: 500px;
-  }
-  .left-container {
-    display: grid;
-    grid-template-columns: 350px;
-    grid-template-rows: 200px 250px;
-    justify-content: center;
-    grid-gap: 10px;
-    margin-top: 35px;
-  }
-  .left-top {
-    grid-row: 1;
-    box-shadow: 0px 9px 25px #b39ddb;
-    background: linear-gradient(
-      to bottom right,
-      rgb(255, 147, 96) 30%,
-      rgb(255, 146, 160)
-    );
-  }
-  .left-bottom {
-    grid-row: 2;
-    box-shadow: 0px 9px 25px #b39ddb;
-    background-color: white;
-  }
-  .inner-right {
-    width: 350px;
-    height: 530px;
-    box-shadow: 0px 9px 25px #b39ddb;
-    /* background-color: white; */
-  }
-
-  #circularProgressBar-container {
-    width: 100px;
-    position: absolute;
-    margin: 0 0 0 30%;
-  }
-
-  #event-panel {
-    padding: 0;
-    margin: 0;
-  }
-
-  #profile_personal_info:hover,
-  #profile_sport_info:hover,
-  #Overview:hover,
-  .individual_event:hover {
-    background-color: #e0f1f1;
-    cursor: pointer;
+/*Event name title wraps at a lower width, this rule prevents it*/
+@media (max-width: 462px) {
+  .event-card-legend > .event-name {
+    font-size: 1.2em;
   }
 }

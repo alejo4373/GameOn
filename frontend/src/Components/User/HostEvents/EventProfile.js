@@ -174,7 +174,7 @@ export default class EventProfile extends React.Component {
     const endTime = endDate.toLocaleTimeString('en-US', timeOptions)
 
     return (
-      <div className="event-profile">
+      <div className="two-sided">
         <div className="left">
           <div className="card">
             <div className='top' style={{backgroundImage: `url(${event.event_pic})`}}>

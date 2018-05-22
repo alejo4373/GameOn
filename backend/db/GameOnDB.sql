@@ -140,14 +140,16 @@ VALUES(1, 1),
       ;
 
 INSERT INTO events (host_id, lat, long, start_ts, end_ts, actual_start_ts, actual_end_ts, name, location, sport_id, sport_format_id, event_pic, description, cancelled)
-VALUES (1, 40.762826, -73.884249, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Soccer at the park', 'Gorman Playground', 2, 6, '/images/soccer1.jpg', 'Hey Footballers all over New York City. Let''s get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develop yourself with others through the sport of soccer.', FALSE),
-       (2, 40.747387, -73.949494, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/basketball1.jpg', 'Rain or shine', FALSE),
-       (2, 40.758204, -73.857832, 1521754233284, 1521755961187, 1521755233284, 1521756961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/tennis1.jpg', 'Rain or shine', FALSE),
-       (1, 40.720012, -73.951192, 1523400900000, 1523408100000,NULL,NULL,'Pick up Soccer @ Park','McCarren Park',2,6,'https://u90soccer.com/wp/wp-content/uploads/2014/04/u90270.jpg','Let''s play a good soccer game!!', FALSE),
-       (3, 40.731780, -74.032469, 1523487660000, 1523491260000,NULL,NULL,'American Football','Newport Green Park',6,26,'https://s.wsj.net/public/resources/images/BN-UZ206_FBALLV_P_20170906191432.jpg','Like sex and the city but with soccer.',FALSE),
-       (4, 40.728885, -73.973503, 1523620800000, 1523626200000,NULL,NULL,'Futbol - Soccer NYC','Con Edison Field, Avenue C',2,15,'https://c1.staticflickr.com/9/8265/8663297305_37aed14f3d_b.jpg','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam volutpat massa sit amet blandit venenatis. Suspendisse eget luctus purus, vel tristique enim. Donec feugiat facilisis eros, ut tincidunt justo ultrices ac. Aliquam a tempus dolor. Aenean in pretium eros, dignissim aliquet risus. ', FALSE),
-       (2, 40.753665, -73.983498 ,152397180000, 152397180000 ,NULL,NULL, 'Tennis & Yellow balls', 'Bryant Park',4,20 ,'http://assets.nydailynews.com/polopoly_fs/1.1454400.1379033025!/img/httpImage/image.jpg_gen/derivatives/article_750/tennis13n-4-web.jpg' , 'Vestibulum nec vehicula metus, eu ultrices eros. Etiam volutpat neque eget efficitur vestibulum. Suspendisse molestie bibendum enim nec malesuad', FALSE),
+VALUES (1, 40.762826, -73.884249, 1523554233284, 1523555961187, 1521755233284, 1521756961187, 'Soccer at the park', 'Gorman Playground', 2, 6, '/images/soccer1.jpg', 'Hey Footballers all over New York City. Let''s get together to play friendly, competitive and fun pickup games. Come and exercise physically and mentally. Grow & develop yourself with others through the sport of soccer.', FALSE),
+       (2, 40.747387, -73.949494, 1523554233284, 1523575961187, 1521755233284, 1521756961187, 'Basketball with Matt', 'Romeos Park', 1, 2, '/images/basketball1.jpg', 'Rain or shine', FALSE),
+       (2, 40.758204, -73.857832, 1523554233284, 1523575961187, 1521755233284, 1521756961187, 'Tennis at City Field', 'City Field', 4, 19, '/images/tennis1.jpg', 'Rain or shine', FALSE),
+       (1, 40.720012, -73.951192, 1523400900000, 1523408100000, NULL, NULL, 'Pick up Soccer @ Park','McCarren Park',2,6,'https://u90soccer.com/wp/wp-content/uploads/2014/04/u90270.jpg','Let''s play a good soccer game!!', FALSE),
+       (3, 40.731780, -74.032469, 1523487660000, 1523491260000, NULL, NULL, 'American Football','Newport Green Park',6,26,'https://s.wsj.net/public/resources/images/BN-UZ206_FBALLV_P_20170906191432.jpg','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam volutpat massa sit amet blandit venenatis. Suspendisse eget luctus purus, vel tristique enim. Donec feugiat facilisis eros, ut tincidunt justo ultrices ac. Aliquam a tempus dolor. Aenean in pretium eros, dignissim aliquet risus.',FALSE),
+       (4, 40.728885, -73.973503, 1523620800000, 1523626200000, NULL, NULL, 'Futbol - Soccer NYC','Con Edison Field, Avenue C',2,15,'https://c1.staticflickr.com/9/8265/8663297305_37aed14f3d_b.jpg','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam volutpat massa sit amet blandit venenatis. Suspendisse eget luctus purus, vel tristique enim. Donec feugiat facilisis eros, ut tincidunt justo ultrices ac. Aliquam a tempus dolor. Aenean in pretium eros, dignissim aliquet risus. ', FALSE),
+       (2, 40.753665, -73.983498, 1523971800000, 1523971800000, NULL, NULL, 'Tennis & Yellow balls', 'Bryant Park',4,20 ,'http://assets.nydailynews.com/polopoly_fs/1.1454400.1379033025!/img/httpImage/image.jpg_gen/derivatives/article_750/tennis13n-4-web.jpg' , 'Vestibulum nec vehicula metus, eu ultrices eros. Etiam volutpat neque eget efficitur vestibulum. Suspendisse molestie bibendum enim nec malesuad', FALSE),
+       (8, 40.742959, -73.941921, 1530227820000, 1530231420000, NULL, NULL, 'Ping Pong Rush', 'C4Q, 47-10 Austell Pl, Long Island City, NY 11101, USA', 7, 32, 'http://richmondoval.ca/wp-content/uploads/2015/05/DSC_2483-e1435828946843-1024x614.jpg', 'Come play with some of the best players at C4Q and find out if you beat them. Bring your friends', FALSE),
        (6, 40.758857, -73.991295 ,152397180000, 152397180000 ,NULL,NULL, 'Handball Bros', 'McCaffrey Playground',5,24 ,'http://i.imgur.com/ww5oTiQ.jpg' , 'Vestibulum nec vehicula metus, eu ultrices eros. Etiam volutpat neque eget efficitur vestibulum. Suspendisse molestie bibendum enim nec malesuad', FALSE)
+
        ;
 --Soccer and The City
 INSERT INTO players_events(event_id, player_id, team, match_judge)
@@ -157,5 +159,6 @@ VALUES(1, 2, 'A', FALSE),
       (2, 2, 'A', TRUE),
       (3, 2, 'A', TRUE),
       (7, 2, 'A', TRUE),
-      (8, 6, 'A', TRUE)
+      (8, 8, 'A', TRUE),
+      (9, 6, 'A', TRUE)
       ;
