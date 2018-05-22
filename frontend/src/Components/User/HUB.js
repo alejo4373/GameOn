@@ -53,9 +53,9 @@ class HUB extends Component {
               </Nav>
 
               <Nav pullRight>
-                <LinkContainer to="/user/profile">
+                {/* <LinkContainer to="/user/profile">
                   <NavItem eventKey={1}> Settings </NavItem>
-                </LinkContainer>
+                </LinkContainer> */}
                 <LinkContainer to="/login">
                   <NavItem onClick={handleLogOut}> Logout </NavItem>
                 </LinkContainer>

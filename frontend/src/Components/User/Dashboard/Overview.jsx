@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import CircularProgressbar from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Button } from "react-bootstrap";
 import axios from "axios";
-
-import Upcoming from "./Upcoming";
-import UsersEvent from "./UsersEvent";
-import History from "./History";
+import EventCardsList from "./EventCardsList";
 // eslint-disable-next-line 
 import Notifications from "../Notification";
 class Overview extends Component {
@@ -138,53 +135,48 @@ class Overview extends Component {
       <div>
         {user.map((u, i) => {
           return (
-            <div id="Overview">
-              <div className="left-top-half">
-                <div className="left-container">
-                  <div className="left-top">
+            <div className="two-sided">
+              <div className="left">
+                <div className="card">
+                  <div className="top">
                     <img
-                      id="Overview_photo"
+                      className='profile-photo'
                       src={u.profile_pic}
-                      width="180px"
-                      alt=""
+                      alt="user"
                     />
                     <h3 className="username">{u.username}</h3>
+                    <Button bsStyle="primary" onClick={() => this.setState({ addPressed: true })} >
+                      Host a Game
+                    </Button>
+
                   </div>
-                  <div className="left-bottom">
-                    <button
-                      className="newGame-btn"
-                      onClick={() => this.setState({ addPressed: true })}
-                    >
-                      <img id="add-btn" src="/images/add-btn.png" alt='add-btn' />
-                    </button>
-                    <div id='circularProgressBar-container' >
-                       <h3>Level 2</h3> 
-                        <CircularProgressbar 
-                        percentage={u.exp_points/10}
-                        initialAnimation={'true'}
-                        textForPercentage={() => `${u.exp_points}`}
-                        />
-                      </div>
+                  <div className="bottom">
+                    <div className='progress-metrics'>
+                      <h3>Level 2</h3> 
+                      <CircularProgressbar 
+                      percentage={u.exp_points/10}
+                      initialAnimation={'true'}
+                      textForPercentage={() => `${u.exp_points}`}
+                      />
+                    </div>
                     <div />
                   </div>
                 </div>
               </div>
 
-              <div className="right-half">
-                <div className="inner-right">
-                  <div id="dashboard-tabs">
-                    <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                      <Tab eventKey={1} title="Past Event">
-                        <History events={historyEvents} />
-                      </Tab>
-                      <Tab eventKey={2} title="Upcoming Events">
-                        <Upcoming events={hostedEvents} />
-                      </Tab>
-                      <Tab eventKey={3} title="My Events">
-                        <UsersEvent events={usersEvents} />
-                      </Tab>
-                    </Tabs>
-                  </div>
+              <div className="right">
+                <div className="tabs-container">
+                  <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                    <Tab eventKey={1} title="History">
+                      <EventCardsList events={historyEvents} />
+                    </Tab>
+                    <Tab eventKey={2} title="Upcoming">
+                      <EventCardsList events={hostedEvents} />
+                    </Tab>
+                    <Tab eventKey={3} title="My Events">
+                      <EventCardsList events={usersEvents} />
+                    </Tab>
+                  </Tabs>
                 </div>
               </div>
             </div>

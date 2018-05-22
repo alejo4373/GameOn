@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Panel, ListGroup } from "react-bootstrap";
 
 const dateOptions = {
   weekday: "long",
@@ -13,14 +12,12 @@ const timeOptions = {
   minute: "2-digit"
 };
 
-class History extends Component {
+class EventCardsList extends Component {
   render() {
     const { events } = this.props;
 
     return (
-      <Panel defaultExpanded id="event-panel">
-        <div id="event_container">
-          <ListGroup>
+        <div className="event-cards-container">
             {events.map(e => {
               const startDate = new Date(Number(e.start_ts));
               const endDate = new Date(Number(e.end_ts));
@@ -32,18 +29,18 @@ class History extends Component {
               const endTime = endDate.toLocaleTimeString("en-US", timeOptions);
               return (
                 <a href={`/user/event/${e.id}`}>
-                  <div className="individual_event">
+                  <div className="event-card">
                     <img
-                      className="host_img"
+                      className="event-card-img"
                       src={e.event_pic}
                       width={"50px"}
                       alt=""
                     />
-                    <div className="event_descriptions" id={e.id}>
-                    <div className="host_name">{e.name}</div>
-                      <span className="event_date">{date}</span>
+                    <div className="event-card-legend" id={e.id}>
+                      <div className="event-name">{e.name}</div>
+                      <span>{date}</span>
                       <br />
-                      <span className="event_time">{startTime} - {endTime}</span>
+                      <span>{startTime} - {endTime}</span>
                       {/* <br />
                       <span className="event_location">
                         Location: {e.location}
@@ -55,11 +52,9 @@ class History extends Component {
                 </a>
               );
             })}
-          </ListGroup>
         </div>
-      </Panel>
     );
   }
 }
 
-export default History;
+export default EventCardsList;

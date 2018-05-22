@@ -51,8 +51,7 @@ body {
 }
 
 #profile_personal_info:hover,
-#profile_sport_info:hover,
-.individual_event:hover {
+#profile_sport_info:hover {
   background-color: lightsteelblue;
   cursor: pointer;
 }
@@ -138,31 +137,13 @@ body {
     display: block;
   }
 
-  #event_container {
-    width: 400px;
-    height: 500px;
-    overflow-y: hidden;
-    position: absolute;
-  }
-
   #upcoming_component {
     position: absolute;
     margin-left: 3%;
   }
   
 
-  .individual_event {
-    border: 1px solid black;
-    width: 300px;
-    height: 125px;
-    margin-bottom: 2%;
-  }
 
-  
-
-  .individual_event > div > span {
-    font-size: 13px;
-  }
   .list-group {
     width: 100px;
   }
@@ -220,8 +201,7 @@ body {
 
   #profile_personal_info:hover,
   #profile_sport_info:hover,
-  #Overview:hover,
-  .individual_event:hover {
+  #Overview:hover {
     background-color: lightsteelblue;
     cursor: pointer;
   }
