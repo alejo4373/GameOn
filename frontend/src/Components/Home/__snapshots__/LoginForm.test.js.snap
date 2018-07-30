@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginForm/> form renders as it did last time (snapshot) 1`] = `
+<div>
+  <h1
+    className="form-title"
+  >
+    Log In
+  </h1>
+  <form
+    className="form-horizontal"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id={undefined}
+        name="username"
+        onChange={[Function]}
+        placeholder="Username"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="form-group"
+    >
+      <input
+        className="form-control"
+        id={undefined}
+        name="password"
+        onChange={[Function]}
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+    </div>
+    <div
+      className="login-buttons"
+    >
+      <button
+        className="btn btn-success"
+        disabled={false}
+        type="submit"
+      >
+        Log In
+      </button>
+       
+      <button
+        className="btn btn-info"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Demo
+      </button>
+    </div>
+    <p>
+      Don't have an Account 
+      <a
+        onClick={undefined}
+      >
+        Sign Up
+      </a>
+    </p>
+  </form>
+</div>
+`;
