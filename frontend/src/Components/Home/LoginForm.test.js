@@ -10,19 +10,28 @@ describe('<LoginForm/>', () => {
     expect(tree).toMatchSnapshot();
   })
 
-  it('click to submit form', (done) => {
-    const callback = (err, user) => {
-      expect(err).toEqual(new Error("Network Error"))
+  it('simulate onSubmit & verify prop function got called', (done) => {
+    const assertHandleLoginResponse = (err, user) => {
+      expect(err).toBeDefined(); //Meaning the function got called
       done();
     }
 
-    const wrapper = mount(
-      <LoginForm handleLoginResponse={callback}/> 
-    );
-    wrapper.find('form').simulate('submit');
+    // mount() (Full Dom Rendering) test passes without complaints about e.preventDefault
+    // const wrapper = mount(
+    //   <LoginForm handleLoginResponse={assertHandleLoginResponse}/> 
+    // );
+    // console.log(wrapper.debug());
+    // wrapper.find('Form').simulate('submit')//, {preventDefault: () => null});
+
+    // shallow() test complained about e.preventDefault when added passes
+    // complaint is a good sign that I should use this test and have it pass
+      const wrapper = shallow(
+        <LoginForm handleLoginResponse={assertHandleLoginResponse}/> 
+      );
+      console.log(wrapper.debug());
+      wrapper.find('Form').simulate('submit', {preventDefault: () => null});
+
+
   });
 
-  it('has two input texts, one of them is type password');
-  it('doesn\'t submit if either input field is empty' );
-  it('has a submit button with a function attached to it');
 });
