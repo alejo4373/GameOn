@@ -5,13 +5,13 @@ body {
 }
 
 .two-sided{
-    width: 80%;
+    width: 60%;
     margin: 2% auto;
     color:white;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-column-gap: 2%;
-    min-height: 85vh;
+    height: 86rem;
 }
 
 .left > .card {
