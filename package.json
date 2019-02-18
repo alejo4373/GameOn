@@ -1,0 +1,12 @@
+{
+  "name": "gameon-lets-play",
+  "description": "Full-Stack Web App that allows users to connect, play and rank in a sport of their liking",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.15.1"
+  },
+  "scripts": {
+    "start": "cd ./backend && npm start",
+    "heroku-prebuild": "cd frontend && npm run build"
+  }
+}
