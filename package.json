@@ -7,6 +7,6 @@
   },
   "scripts": {
     "start": "cd ./backend && npm start",
-    "heroku-prebuild": "cd frontend && npm run build"
+    "heroku-prebuild": "cd backend && npm install && cd ../frontend && npm install && npm run build"
   }
 }
