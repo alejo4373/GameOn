@@ -1,3 +1,4 @@
+require('dotenv').config({ path: "./.env.local" });
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
