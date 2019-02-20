@@ -151,7 +151,7 @@ class Overview extends Component {
                       </Button>
                     </div>
                   </div>
-                  <div className="bottom flex-centered-justified">
+                  <div className="bottom flex-centered-justified bkgnd-primary-color">
                     <div className="protector">
                       <h3>Level 2</h3> 
                       

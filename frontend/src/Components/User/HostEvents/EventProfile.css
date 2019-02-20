@@ -1,26 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
 
-body {
-  font-family: 'Open Sans', sans-serif; 
-}
-
-.two-sided{
-    width: 60%;
-    margin: 2% auto;
-    color:white;
-    display: grid;
-    grid-template-columns: 48% 48%;
-    grid-column-gap: 4%;
-    padding: 2%;
-}
-
-.card {
-  box-shadow: 0px 9px 25px #b39ddb;
-  border: #cebebe solid 1px;
-  background-color: ghostwhite;
-  border-radius: 4px;
-}
-
 .left > .card-content {
     display: grid;
     height: 100%;
@@ -42,20 +21,14 @@ body {
   background-position: center; 
 }
 
-.card > .card-content > .bottom {
-  background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
-}
+
 
 .card > .card-content > .bottom > .details-p {
   text-align: justify;
   padding: 5%;
 }
 
-.protector {
-  margin: 5%;
-  text-align: center;
-  width: 90%;
-}
+
 
 /*Right side styling */
 .right{
