@@ -9,22 +9,32 @@ body {
     margin: 2% auto;
     color:white;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-column-gap: 2%;
-    height: 86rem;
+    grid-template-columns: 48% 48%;
+    grid-column-gap: 4%;
+    padding: 2%;
 }
 
-.left > .card {
-  display: grid;
-  grid-template-rows: 50% 50%;
-  box-shadow: 0px 0px 23px #b39ddb;
+.card {
+  box-shadow: 0px 9px 25px #b39ddb;
   border: #cebebe solid 1px;
+  background-color: ghostwhite;
   border-radius: 4px;
-  margin: 5%;
-  height: 92%;
 }
 
-.left > .card > .top {
+.left > .card-content {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 50% 50%;
+}
+
+.flex-centered-justified{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card > .card-content > .top {
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   background-size: cover;
@@ -32,21 +42,19 @@ body {
   background-position: center; 
 }
 
-.left > .card > .bottom {
+.card > .card-content > .bottom {
   background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
-  height: 100%;
 }
 
-.left > .card > .bottom > .details-p {
+.card > .card-content > .bottom > .details-p {
   text-align: justify;
   padding: 5%;
 }
-/* Both .right and .left */
-.right, .left {
-  box-shadow: 0px 9px 25px #b39ddb;
-  border: #cebebe solid 1px;
-  background-color: ghostwhite;
-  height: inherit;
+
+.protector {
+  margin: 5%;
+  text-align: center;
+  width: 90%;
 }
 
 /*Right side styling */
@@ -128,19 +136,14 @@ body {
 @media (max-width: 784px) {
   .two-sided {
     display: block;
-    box-shadow: 0px 0px 23px #b39ddb;
-    border: #cebebe solid 1px;
-    border-radius: 4px;
-    background-color: ghostwhite;
-  }
-  .right, .left {
-    box-shadow: none;
-    border: none;
-    border-radius: 0;
   }
 
-  .left > .card > .top {
-    min-height: 300px;
+  .left {
+    margin-bottom: 6%;
+  }
+
+  .left > .card-content {
+    display: block;
   }
 }
 

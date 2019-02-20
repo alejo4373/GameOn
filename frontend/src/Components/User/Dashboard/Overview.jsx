@@ -135,37 +135,41 @@ class Overview extends Component {
       <div>
         {user.map((u, i) => {
           return (
-            <div className="two-sided">
-              <div className="left">
-                <div className="card">
-                  <div className="top">
-                    <img
-                      className='profile-photo'
-                      src={u.profile_pic}
-                      alt="user"
-                    />
-                    <h3 className="username">{u.username}</h3>
-                    <Button bsStyle="primary" onClick={() => this.setState({ addPressed: true })} >
-                      Host a Game
-                    </Button>
-
-                  </div>
-                  <div className="bottom">
-                    <div className='progress-metrics'>
-                      <h3>Level 2</h3> 
-                      <CircularProgressbar 
-                      percentage={u.exp_points/10}
-                      initialAnimation={'true'}
-                      textForPercentage={() => `${u.exp_points}`}
+            <div className="card two-sided">
+              <div className="card left">
+                <div className="card-content">
+                  <div className="top flex-centered-justified">
+                    <div className="protector">
+                      <img
+                        className="circle-med"
+                        src={u.profile_pic}
+                        alt="user"
                       />
+                      <h3 className="username">{u.username}</h3>
+                      <Button bsStyle="primary" onClick={() => this.setState({ addPressed: true })} >
+                        Host a Game
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="bottom flex-centered-justified">
+                    <div className="protector">
+                      <h3>Level 2</h3> 
+                      
+                      <div className="circle-med">
+                        <CircularProgressbar 
+                          percentage={u.exp_points/10}
+                          initialAnimation={'true'}
+                          textForPercentage={() => `${u.exp_points}`}
+                        />
+                      </div>
                     </div>
                     <div />
                   </div>
                 </div>
               </div>
 
-              <div className="right">
-                <div className="tabs-container">
+              <div className="card right">
+                <div className="card-content">
                   <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
                     <Tab eventKey={1} title="History">
                       <EventCardsList events={historyEvents} />

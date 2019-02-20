@@ -2,15 +2,14 @@
   width: 40px;
 } 
 
-.profile-photo {
-  margin-top: 5%;
+.circle-med {
   width: 41%;
   border-radius: 50%;
+  margin: 0 auto;
 }
 
 .progress-metrics {
   width: 41%;
-  margin: 3% auto;
 }
 
 .username {
