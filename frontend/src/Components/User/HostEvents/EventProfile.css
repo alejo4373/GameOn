@@ -75,12 +75,10 @@
   text-align: center;
   padding: 5% 0;
   background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
-  font-size: 1.7em;
 }
 
 .button:hover {
   width: 47%;
-  font-size: 1.6em;
   margin: 10% auto;
 }
 
@@ -93,14 +91,12 @@
 
 .sub-header{
   color: black;
-  font-size: 1.7em;
 }
 .two-sided .team-header {
   text-decoration-line: underline;
 }
 
 .stopwatch-timer {
-  font-size: 6em;
   text-shadow: 0px 0px 23px #b39ddb;
   margin-top: 9%;
 }

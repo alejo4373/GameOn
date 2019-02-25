@@ -16,10 +16,8 @@
   }
   .m-calendar thead td {
     color: #1385e5;
-    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 12px;
   }
   .m-calendar tbody td {
     color: #666;
@@ -52,7 +50,6 @@
     border: 1px solid #1385e5;
     border-radius: 50%;
     background: #1385e5;
-    font-size: 20px;
     padding: 0;
     text-align: center;
     outline: 0;
@@ -77,7 +74,6 @@
   }
   .m-time .separater {
     display: inline-block;
-    font-size: 32px;
     font-weight: 700;
     color: #1385e5;
     width: 32px;
@@ -88,7 +84,6 @@
   .m-time .time-text {
     position: relative;
     left: -10px;
-    font-size: 15px;
     color: #1385e5;
     margin-top: 7px;
     margin-bottom: 10px;
@@ -100,7 +95,6 @@
     width: 65px;
     height: 65px;
     display: inline-block;
-    font-size: 38px;
     line-height: 65px;
     background-color: #1385e5;
     border-radius: 3px;
@@ -168,7 +162,6 @@
     width: 50%;
     color: #1385e5;
     text-align: center;
-    font-size: 16px;
     padding: 7px;
     border: 1px solid #1385e5;
     border-radius: 3px;
@@ -203,7 +196,6 @@
     padding: 12px 0;
     text-align: center;
     color: #fff;
-    font-size: 16px;
     border-radius: 3px;
   }
   

@@ -46,10 +46,8 @@ body {
 .title {
   padding-top: 120px;
   color: white;
-  font-size: 40px;
   -webkit-text-stroke-width: 5px;
   -webkit-text-stroke-color: black;
-  font-size: 80px;
 }
 
 .join {
@@ -127,7 +125,6 @@ i {
 
 .verse {
   font-family: "Luckiest Guy", cursive;
-  font-size: 120px;
   padding: 0px;
   margin-top: 0px;
 }

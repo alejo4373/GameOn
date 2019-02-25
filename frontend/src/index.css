@@ -2,7 +2,6 @@ body {
   color: white;
 }
 
-
 #selection_container {
   margin-left: 35%;
   width: 550px;
@@ -110,15 +109,10 @@ body {
 
   #edit_Overview_button {
     border: 1px solid gray;
-    font-size: 18px;
     width: auto;
     height: 28px;
     position: absolute;
     margin: 1.5% 0 0 13%;
-  }
-
-  #username > h3 {
-    font-size: 12px;
   }
 
   #xp_header {
@@ -165,7 +159,6 @@ body {
   }
 
   .event_result {
-    font-size: 12px;
     position: absolute;
     margin: 3% 0 0 50%;
     text-align: center;
@@ -296,7 +289,6 @@ body {
 }
 
 .form-title {
-  font-size: 25px;
   margin-bottom: 1em;
   color: block;
   text-align: center;
@@ -333,5 +325,3 @@ body {
   }
 
 }
-
-

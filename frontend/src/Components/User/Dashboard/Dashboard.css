@@ -47,7 +47,6 @@
   background-color: aliceblue;
   margin: 2%;
   text-align: left;
-  font-size: 13px;
 }
 
 .event-card-img {
@@ -77,7 +76,6 @@
 }
 
 .event-name {
-  font-size: 18px;
   margin-top: 10px;
 }
 
@@ -91,6 +89,6 @@
 /*Event name title wraps at a lower width, this rule prevents it*/
 @media (max-width: 462px) {
   .event-card-legend > .event-name {
-    font-size: 1.2em;
+   
   }
 }
