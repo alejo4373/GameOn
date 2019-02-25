@@ -79,6 +79,10 @@
   margin-top: 10px;
 }
 
+.nav-tabs a {
+  font-size: 1.5em;
+}
+
 /* Bootstrap css override */
 /* to make the tabs align in the center with equal spacing */
 .nav-tabs {

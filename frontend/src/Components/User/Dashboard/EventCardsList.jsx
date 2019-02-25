@@ -37,7 +37,7 @@ class EventCardsList extends Component {
                       alt=""
                     />
                     <div className="event-card-legend" id={e.id}>
-                      <div className="event-name">{e.name}</div>
+                      <h3 className="event-name">{e.name}</h3>
                       <span>{date}</span>
                       <br />
                       <span>{startTime} - {endTime}</span>

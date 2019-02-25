@@ -100,24 +100,3 @@
   text-shadow: 0px 0px 23px #b39ddb;
   margin-top: 9%;
 }
-
-/*MEDIA QUERIES*/
-@media (max-width: 784px) {
-  .two-sided {
-    display: block;
-  }
-
-  .left {
-    margin-bottom: 6%;
-  }
-
-  .left > .card-content {
-    display: block;
-  }
-}
-
-@media (max-width: 412px) {
-  .two-sided {
-    width: 95%;
-  }
-}

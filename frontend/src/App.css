@@ -5,7 +5,7 @@ body {
 }
 
 .two-sided{
-    width: 60%;
+    width: 95%;
     margin: 2% auto;
     color:white;
     display: grid;
@@ -42,4 +42,18 @@ body {
 
 #title {
   border: 2px solid pink;
+}
+
+/*MEDIA QUERIES*/
+@media (max-width: 768px) {
+  .two-sided {
+    display: block;
+  }
+}
+
+@media (min-width: 1440px) {
+  .two-sided {
+    width: 1368px;
+    padding: 50px;
+  }
 }

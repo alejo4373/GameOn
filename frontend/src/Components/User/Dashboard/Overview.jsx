@@ -145,7 +145,7 @@ class Overview extends Component {
                         src={u.profile_pic}
                         alt="user"
                       />
-                      <h3 className="username">{u.username}</h3>
+                      <h1 className="username">{u.username}</h1>
                       <Button bsStyle="primary" onClick={() => this.setState({ addPressed: true })} >
                         Host a Game
                       </Button>
@@ -153,7 +153,7 @@ class Overview extends Component {
                   </div>
                   <div className="bottom flex-centered-justified bkgnd-primary-color">
                     <div className="protector">
-                      <h3>Level 2</h3> 
+                      <h1>Level 2</h1> 
                       
                       <div className="circle-med">
                         <CircularProgressbar 
@@ -170,8 +170,8 @@ class Overview extends Component {
 
               <div className="card right">
                 <div className="card-content">
-                  <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                    <Tab eventKey={1} title="History">
+                  <Tabs defaultActiveKey={2} id="tabs">
+                    <Tab eventKey={1} title="History" >
                       <EventCardsList events={historyEvents} />
                     </Tab>
                     <Tab eventKey={2} title="Upcoming">
