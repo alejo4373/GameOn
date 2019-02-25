@@ -22,7 +22,6 @@
   border: #cebebe solid 1px;
   border-radius: 4px;
   margin: 5%;
-  height: 92%;
 }
 
 .tab-content {
@@ -30,7 +29,6 @@
 }
 
 .event-cards-container {
-  height: 74rem;
   overflow: hidden;
   overflow-y: scroll;
 
