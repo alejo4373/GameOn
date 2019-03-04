@@ -51,9 +51,25 @@ body {
   }
 }
 
+@media (min-width: 320px) {
+  .card-content {
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-content {
+    font-size: 1.5em;
+  }
+}
+
 @media (min-width: 1440px) {
   .two-sided {
     width: 1368px;
     padding: 50px;
+  }
+
+  .card-content {
+    font-size: 2em;
   }
 }

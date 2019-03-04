@@ -54,7 +54,7 @@
 }
 
 .sport-icon {
-  width: 40px;
+  width: 2em;
 } 
 
 .event-card:hover {
@@ -72,11 +72,8 @@
 }
 
 .event-name {
-  margin-top: 10px;
-}
-
-.nav-tabs a {
-  font-size: 1.5em;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 /* Bootstrap css override */
