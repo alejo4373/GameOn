@@ -1,7 +1,3 @@
-.sport-icon {
-  width: 40px;
-} 
-
 .circle-med {
   width: 41%;
   border-radius: 50%;
@@ -35,31 +31,31 @@
 }
 
 .event-card {
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  color: black;
+  background-color: aliceblue;
+  display: grid;
+  grid-template-columns: 35% 60%;
+  grid-gap: 5%;
   border: 2px solid #dddddd;
   border-radius: 12px;
-  width: 96%;
-  height: 130px;
-  margin-bottom: 5%;
-  background-color: aliceblue;
   margin: 2%;
   text-align: left;
+  overflow: hidden;
 }
 
-.event-card-img {
-  width: 50%;
+.event-card > .left {
+  max-height: 100%;
+}
+
+.event-card > .left > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   clip-path: polygon(0% 0%, 73% 0%, 100% 50%, 61% 122%, 0% 100%);
-  margin-left: -10%;
 }
 
-.event-card-legend {
-  margin-left: 1%;
-  width: 50%;
-  margin: 0 auto;
-}
+.sport-icon {
+  width: 40px;
+} 
 
 .event-card:hover {
   background-color: lightsteelblue;
@@ -90,9 +86,12 @@
   grid-template-columns: 1% 33% 32% 33%;
 }
 
+.event-card-legend > .event-name {
+  text-overflow: ellipsis;
+}
 /*Event name title wraps at a lower width, this rule prevents it*/
 @media (max-width: 462px) {
   .event-card-legend > .event-name {
-   
+    
   }
 }
