@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { FormGroup, FormControl, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default class LoginForm extends Component {
   state = {
@@ -74,7 +75,7 @@ export default class LoginForm extends Component {
               {' '}
               <Button bsStyle='info' onClick={this.handleDemoLogin}>Demo</Button>
             </div>
-            <p>Don't have an Account <a onClick={this.props.toggleForm}>Sign Up</a></p>
+            <p>Don't have an Account <Link to='/signup'>Sign Up</Link></p>
           </Form>
       </div>
     )

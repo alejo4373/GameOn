@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FormGroup, FormControl, ControlLabel, Form, HelpBlock, Button, Alert} from 'react-bootstrap';
 import SportsSelectionOptions from './SportsSelectionOptions'
@@ -213,7 +214,7 @@ export default class SignupForm extends Component {
             <div className='form-footer'>
               { message ? <Alert bsStyle='warning'>{message}</Alert> : '' }
               <Button bsStyle='success' type="submit"> Sign Up </Button>
-              <p>Already have an Account <a onClick={this.props.toggleForm}>Log In</a></p>
+              <p>Already have an Account <Link to='/login'>Log In</Link></p>
            </div> 
           </Form>
       </div>
