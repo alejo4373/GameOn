@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "../Components/Home/Login.css";
+import "../CSS/Landing.css";
 import { Carousel } from "react-bootstrap";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import LoginForm from "./Home/LoginForm";
 import SignupForm from "./Home/SignupForm";
@@ -89,11 +89,27 @@ export default class Landing extends Component {
     }
 
     return (
-      <div className="login_container">
-        <div className="pageHeader" />
-        <h1 id="login_title">
-          <strong>Game On!</strong> <br />
-        </h1>
+      <div className="landing">
+        <div className="header">
+          <nav>
+            <div className="global-logo">
+              <Link to="/user/dashboard"><img id="logo" src='/images/gameon-logo.png' alt='gameon-logo'/></Link>
+            </div>
+            <div className="auth-nav">
+              <ul>
+                <li>
+                  <Link to='/login'>Login</Link>
+                </li>
+                <li>
+                  or
+                </li>
+                <li>
+                  <Link to='/signup'>Signup</Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
         <Carousel
           controls={false}
           interval={4000}
