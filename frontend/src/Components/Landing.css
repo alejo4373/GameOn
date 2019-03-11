@@ -1,6 +1,13 @@
-.landing nav {
+.landing {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 12% 88%;
+}
+
+.landing > .top > nav {
   display: flex;
-  height: 120px;
+  height: 100%;
   max-width: 1220px;
   align-items: center;
   margin: 0 auto;
@@ -11,8 +18,7 @@
 }
 
 .auth-nav {
-  /* display: inline-block; */
-  display: flex;
+  display: inline-block;
   margin-left: auto;
 }
 
@@ -21,42 +27,65 @@
   margin: 0 2px;
   font-size: 1.3em;
 }
-.carousel{
-    height: 50%;
-    width: 100%;
-    overflow: hidden;
+
+.carousel,
+.carousel-inner, 
+.carousel-inner > .item {
+    height: 100%;
 }
 
-.carousel-inner>.next {
-    margin: 0;
-    bottom: 0;
+.carousel-inner > .item > img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
-#lets_play_link {
-    margin: 0;
-    position: relative;
-    top: -40vh;
-    color: White;
-    margin: 0;
-    text-decoration: none;
+.bottom {
+  position: relative;
 }
 
-
-
-#arrow {
-    /* border: 2px red solid; */
-    position: relative;
-    top: -2vh;
+.bottom > .overlay {
+  position: absolute;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
 }
 
-#home_form_container {
-    position: fixed;
-    margin-left: 30px;
-    margin-top: 10%;
-    top: 12vh;
-    width: 45%;
-    background-color: #6d6a6a7a;
+/* 
+ Sign up & Login Forms 
+ */
+.overlay > .form-container {
+  background-color: #fffc;
+  display: inline-block;
 }
+
+.form-title {
+  margin-bottom: 1em;
+  color: block;
+  text-align: center;
+}
+
+.sports-selection-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Bootstrap classes style overrides */
+.form-horizontal .form-group {
+  text-align: left;
+  margin-right: 0;
+  margin-left: 0;
+} 
+
+.control-label {
+  text-align: left;
+}
+/* END Bootstrap classes style edits */
+
 
 input[id=login-submit] {
     /* width: 50%; */
@@ -69,8 +98,6 @@ input[id=login-submit] {
     cursor: pointer;
 }
 
-
-
 #signin-button {
     color: white;
     border: 2px solid white;
@@ -78,29 +105,7 @@ input[id=login-submit] {
     margin-left: 43%;
 }
 
-@media only screen 
-  and (max-width: 480px)
-  {
-    .landing {
-        background: url("https://images.unsplash.com/photo-1518063319789-7217e6706b04?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c81c34c2973c3947d4afb6c26d179a35&auto=format&fit=crop&w=634&q=80") no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        height: 100vh;
-    }
-    .carousel{
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        display: none
-    }
-    
-    .carousel-inner>.next {
-        margin: 0;
-        bottom: 0;
-    }
-
+@media only screen and (max-width: 480px) {
     .pageHeader {
         position: fixed;
         background-color: #2f2e2e;
@@ -136,15 +141,7 @@ input[id=login-submit] {
         width: 40px;
     }
 
-    #home_form_container {
-        position: fixed;
-        top: 25%;
-        width: 100%;
-        background-color: #6d6a6a7a;
-        height: 50%;
-        margin: 0;
-    }
-    #signup {
+   #signup {
         color: #2424ff;
     }
 }

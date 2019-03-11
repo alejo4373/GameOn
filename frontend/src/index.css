@@ -1,4 +1,13 @@
 body {
+  font-family: 'Open Sans', sans-serif; 
+  width: 100%;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
   color: white;
 }
 
@@ -215,9 +224,6 @@ body {
     -webkit-border-radius: 60px;
   }
   
-
-  
-  
   .modal-container {
     position: relative;
   }
@@ -277,40 +283,6 @@ body {
     z-index: 3;
   }
 }
-
-/* 
- Sign up & Login Forms 
- */
-.form-container {
-  width: 40%;
-  padding: 2%;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.form-title {
-  margin-bottom: 1em;
-  color: block;
-  text-align: center;
-}
-
-.sports-selection-options {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-/* Bootstrap classes style overrides */
-.form-horizontal .form-group {
-  text-align: left;
-  margin-right: 0;
-  margin-left: 0;
-} 
-
-.control-label {
-  text-align: left;
-}
-/* END Bootstrap classes style edits */
 
 
 

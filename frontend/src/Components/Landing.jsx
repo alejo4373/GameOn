@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../CSS/Landing.css";
+import "./Landing.css";
 import { Carousel } from "react-bootstrap";
 import { Switch, Route, Link, Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
@@ -90,7 +90,7 @@ export default class Landing extends Component {
 
     return (
       <div className="landing">
-        <div className="header">
+        <div className="top">
           <nav>
             <div className="global-logo">
               <Link to="/user/dashboard"><img id="logo" src='/images/gameon-logo.png' alt='gameon-logo'/></Link>
@@ -110,38 +110,32 @@ export default class Landing extends Component {
             </div>
           </nav>
         </div>
-        <Carousel
-          controls={false}
-          interval={4000}
-          indicators={false}
-          pauseOnHover={false}
-        >
-          <Carousel.Item>
-            <img
-              src="/images/soccer-background.png"
-              height="100vh"
-              alt=''
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img src="/images/football-background.png" height="100vh" alt='' />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img src="/images/basketball-for-slide-show.jpg" height="100vh" alt='' />
-          </Carousel.Item>
-        </Carousel>
-        <div id="link-div">
-          <a id="lets_play_link" href="#form_container">
-            <h2 id="login-subtitle">Let's Play</h2>
-            <img id="arrow" src="/images/homePage-arrow.png" alt="" />
-          </a>
-        </div>
-        <div className="form-container">
-          <Switch>
-            <Route path='/login' render={this.renderLoginForm} />
-            <Route path='/signup' render={this.renderSignupForm} />
-          </Switch>
-          {this.handleAlert()}
+        <div className="bottom">
+          <Carousel
+            controls={false}
+            // interval={null}
+            indicators={false}
+            pauseOnHover={false}
+          >
+            <Carousel.Item>
+              <img src="/images/slides/soccer.jpg" />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img src="/images/slides/football.jpg" alt='' />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img src="/images/slides/basketball.jpg" alt='' />
+            </Carousel.Item>
+          </Carousel>
+           <div className="overlay">
+             <div className="form-container">
+               <Switch>
+                 <Route path='/login' render={this.renderLoginForm} />
+                 <Route path='/signup' render={this.renderSignupForm} />
+               </Switch>
+               {this.handleAlert()}
+             </div>
+           </div>
         </div>
       </div>
     );
