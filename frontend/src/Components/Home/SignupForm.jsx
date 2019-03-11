@@ -144,7 +144,6 @@ export default class SignupForm extends Component {
         <h1 className="form-title">Sign Up</h1>
           <Form horizontal onSubmit={this.validateAndSubmit}>
             <FormGroup controlId="email">
-              <ControlLabel>Email:</ControlLabel>
               <FormControl
                 type="text"
                 name="email"
@@ -154,7 +153,6 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <FormGroup controlId='fullname'>
-              <ControlLabel>Fullname:</ControlLabel>
               <FormControl
                 type="text"
                 name="fullname"
@@ -164,7 +162,6 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <FormGroup controlId='username'>
-              <ControlLabel>Username:</ControlLabel>
               <FormControl
                 type="input"
                 placeholder="Username"
@@ -174,7 +171,6 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <FormGroup controlId='password'>
-              <ControlLabel>Password:</ControlLabel>
               <FormControl
                 type="password"
                 placeholder="Password"
@@ -184,7 +180,6 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <FormGroup controlId='confirmPass'>
-              <ControlLabel>Confirm Password:</ControlLabel>
               <FormControl
                 type="password"
                 placeholder="Confirm Password"
@@ -194,7 +189,6 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <FormGroup controlId='zipcode'>
-              <ControlLabel>Zipcode:</ControlLabel>
               <FormControl
                 type="text"
                 name="zipcode"
@@ -204,7 +198,6 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Sports: </ControlLabel>
               <HelpBlock>Pick the sports you would like to play.</HelpBlock>
               <SportsSelectionOptions
                 handleSportsSelection={this.handleSportsSelection}
