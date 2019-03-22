@@ -283,17 +283,3 @@ body {
     z-index: 3;
   }
 }
-
-
-
-/*At 480px we start our mobile layout*/
-@media (max-width: 480px) {
-  .form-container{
-    width: 70%;
-  }
-  /*contro-label class given by bootstrap*/
-  .control-label {
-    display: none;
-  }
-
-}

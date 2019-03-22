@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FormGroup, FormControl, ControlLabel, Form, HelpBlock, Button, Alert} from 'react-bootstrap';
-import SportsSelectionOptions from './SportsSelectionOptions'
+import SportsSelectionOptions from '../../Home/SportsSelectionOptions'
 
 export default class SignupForm extends Component {
   state = {

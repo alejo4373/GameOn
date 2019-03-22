@@ -58,8 +58,16 @@
  Sign up & Login Forms 
  */
 .overlay > .form-container {
-  background-color: #fffc;
+  background-color: rgba(255, 255, 255, 0.924);
   display: inline-block;
+  border-radius: 6px;
+  width: 300px;
+}
+
+.overlay > .form-container form{
+  padding-left: 7%;
+  padding-right: 7%;
+  text-align: center;
 }
 
 .form-title {
@@ -76,7 +84,6 @@
 
 /* Bootstrap classes style overrides */
 .form-horizontal .form-group {
-  text-align: left;
   margin-right: 0;
   margin-left: 0;
 } 
