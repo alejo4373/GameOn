@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Switch, Route, Link, Redirect } from "react-router-dom";
+import { Switch, Route, Link, Redirect, withRouter } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import LoginForm from "./AuthForms/LoginForm";
 import SignupForm from "./AuthForms/SignupForm";
+import { connect } from "react-redux";
+import { LOGIN_USER } from "../../store/actionTypes";
 
-export default class Landing extends Component {
+class AuthForms extends Component {
   state = {
     loggedIn: false,
     message: "",
@@ -52,6 +54,7 @@ export default class Landing extends Component {
     return (
       <LoginForm 
         handleLoginResponse={this.handleLoginResponse} 
+        loginUser={this.props.loginUser}
         toggleForm={this.toggleForm}
       />
     )
@@ -87,3 +90,24 @@ export default class Landing extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginUser: (credentials) => {
+      console.log('loginUser Called');
+      dispatch({
+        type: LOGIN_USER,
+        payload: credentials
+      })
+    }
+  }
+}
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.user,
+    otherProp: 'blah'
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthForms);

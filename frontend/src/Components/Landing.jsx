@@ -46,7 +46,7 @@ export default class Landing extends Component {
             </Carousel.Item>
           </Carousel>
            <div className="overlay">
-            <AuthForms />
+            <AuthForms location={this.props.location}/>
            </div>
         </div>
       </div>

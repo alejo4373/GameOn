@@ -31,19 +31,18 @@ export default class LoginForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { username, password } = this.state;
-
-    axios
-      .post("/login", {
-        username: username,
-        password: password
-      })
-      .then(res => {
-        this.props.handleLoginResponse(null, res.data)
-      })
-      .catch(err => {
-        this.props.handleLoginResponse(err, null)
-      });
+    this.props.loginUser(this.state)
+    // axios
+    //   .post("/login", {
+    //     username: username,
+    //     password: password
+    //   })
+    //   .then(res => {
+    //     this.props.handleLoginResponse(null, res.data)
+    //   })
+    //   .catch(err => {
+    //     this.props.handleLoginResponse(err, null)
+    //   });
   };
 
   render() {
