@@ -1,19 +1,20 @@
-import { SET_USER, REMOVE_USER} from '../actionTypes'
-export default (state = {}, action) => {
-  switch (action.type) {
-    case SET_USER:
+import { AUTH_SUCCESS, AUTH_FAILURE } from "../actionTypes";
+
+export default (state = {}, { type, payload }) => {
+  switch (type) {
+    case AUTH_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
-        user: action.payload
-      }
-    case REMOVE_USER:
+        ...payload,
+        isLoggedIn: true
+      };
+    case AUTH_FAILURE:
       return {
         ...state,
-        isLoggedIn: false,
-        user: null
-      }
+        ...payload,
+        isLoggedIn: false
+      };
     default:
       return state;
   }
-}
+};

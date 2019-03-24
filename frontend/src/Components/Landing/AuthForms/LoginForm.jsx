@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { FormGroup, FormControl, Form, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, Form, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default class LoginForm extends Component {
@@ -16,37 +15,21 @@ export default class LoginForm extends Component {
   }
 
   handleDemoLogin = () => {
-    axios
-      .post("/login", {
+    const credentials = {
         username: 'demoUser',
         password: 'demo'
-      })
-      .then(res => {
-        this.props.handleLoginResponse(null, res.data)
-      })
-      .catch(err => {
-        this.props.handleLoginResponse(err, null)
-      });
+    }
+    this.props.loginUser(credentials)
   }
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.loginUser(this.state)
-    // axios
-    //   .post("/login", {
-    //     username: username,
-    //     password: password
-    //   })
-    //   .then(res => {
-    //     this.props.handleLoginResponse(null, res.data)
-    //   })
-    //   .catch(err => {
-    //     this.props.handleLoginResponse(err, null)
-    //   });
   };
 
   render() {
     const { username, password } = this.state;
+    const { msg } = this.props;
     return (
       <div>
         <h1 className="form-title">Log In</h1>
@@ -76,6 +59,7 @@ export default class LoginForm extends Component {
             </div>
             <p>Don't have an Account <Link to='/signup'>Sign Up</Link></p>
           </Form>
+          {msg ? <Alert bsStyle='danger'> {msg} </Alert> : null}
       </div>
     )
   }

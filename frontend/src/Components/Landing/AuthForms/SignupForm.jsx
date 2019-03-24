@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { FormGroup, FormControl, ControlLabel, Form, HelpBlock, Button, Alert} from 'react-bootstrap';
+import { FormGroup, FormControl, Form, HelpBlock, Button, Alert} from 'react-bootstrap';
 import SportsSelectionOptions from '../../Home/SportsSelectionOptions'
 
 export default class SignupForm extends Component {
@@ -39,7 +38,6 @@ export default class SignupForm extends Component {
     //Find if we already have the clicked sport in our array
     //if so it means our user wants to de-select it, so remove it, else add it
     let sportIndex = selectedSportsIds.indexOf(clickedSportId)
-    console.log('index of;', clickedSportId, 'is:', sportIndex)
     if(sportIndex >= 0) {
       //Removing ~ Deselecting
       selectedSportsIds.splice(sportIndex, 1)
@@ -47,7 +45,6 @@ export default class SignupForm extends Component {
       //Adding
       selectedSportsIds.push(clickedSportId)
     }
-    console.log(selectedSportsIds)
 
     this.setState({
       selectedSportsIds: selectedSportsIds
@@ -66,79 +63,48 @@ export default class SignupForm extends Component {
       selectedSportsIds
     } = this.state;
 
-    if (
-      !username ||
-      !password ||
-      !confirmPass ||
-      !email ||
-      !fullname||
-      !zipcode ||
-      !selectedSportsIds.length
-    ) {
+    if (!username || !email || !fullname || !zipcode) {
       return this.setState({
         password: "",
         confirmPass: "",
         alert: true,
-        message: "Please complete all required fields"
+        message: "Please complete all fields."
       });
     }
+
     if (password.length < 5) {
       return this.setState({
-        password: "",
-        confirmPass: "",
         alert: true,
-        message: "Password length must be at least 5 characters"
+        message: "Password length must be at least 5 characters."
       });
     }
+
     if (password!== confirmPass) {
       return this.setState({
-        passwordPass: "",
+        password: "",
         confirmPass: "",
         alert: true,
         message: "Passwords do not match!"
       });
     }
 
-  this.handleSubmit();
- 
+    if (!selectedSportsIds.length) {
+      return this.setState({
+        alert: true,
+        message: "Please select at least one sport."
+      });
+    }
+
+    this.handleSubmit();
   };
 
   handleSubmit = () => {
-    const { username, password, email, fullname, zipcode, selectedSportsIds } = this.state
-    const { handleSignupResponse } = this.props
-    axios
-    .post("/signup", {
-      username,
-      password,
-      email,
-      fullname,
-      zipcode,
-      sports_ids: JSON.stringify(selectedSportsIds)
-    })
-    .then(res => {
-      console.log(res.data);
-      this.setState({
-        username: "",
-        password: "",
-        confirmPass: "",
-        email: "",
-      });
-
-      handleSignupResponse(null, res.data.user) 
-    })
-    .catch(err => {
-      console.log("error: ", err);
-      this.setState({
-        username: "",
-        password: "",
-        confirmPass: "",
-      });
-      handleSignupResponse(err, null) 
-    });
+    this.props.signupUser(this.state)
   };
 
   render() {
     const { email, fullname, username, password, confirmPass, zipcode, message, selectedSportsIds } = this.state;
+    const { msg } = this.props;
     return (
       <div>
         <h1 className="form-title">Sign Up</h1>

@@ -1,22 +1,26 @@
-import { delay, all, fork, call, put, takeEvery } from "redux-saga/effects";
-import { LOGIN_USER, SET_USER, REMOVE_USER } from "./actionTypes";
-import { loginUser } from '../services/auth'
+import { all, call, put, takeEvery } from "redux-saga/effects";
+import { LOGIN_USER, AUTH_FAILURE, AUTH_SUCCESS, SIGNUP_USER } from "./actionTypes";
+import { loginUser, signupUser } from '../services/auth'
 
-export function* loginUserSaga({ payload }) {
+export function* authenticateUser({ type, payload }) {
+  let authCall = loginUser;
+  if (type === SIGNUP_USER) authCall = signupUser;
+
   try {
-    let { data } = yield call(loginUser, payload)
-    yield put({ type: SET_USER, payload: data });
+    let { data } = yield call(authCall, payload)
+    yield put({ type: AUTH_SUCCESS, payload: data });
   } catch(err) {
-    yield put({ type: REMOVE_USER });
+    let { data } = err.response
+    yield put({ type: AUTH_FAILURE, payload: data});
   }
 }
 
-export function* watchLoginUserSaga() {
-  yield takeEvery(LOGIN_USER, loginUserSaga);
+export function* watchAuthenticationSaga() {
+  yield takeEvery([LOGIN_USER, SIGNUP_USER], authenticateUser);
 }
 
 export default function* rootSaga() {
   yield all([
-    watchLoginUserSaga()
+    watchAuthenticationSaga()
   ])
 }

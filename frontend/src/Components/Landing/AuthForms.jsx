@@ -1,79 +1,23 @@
 import React, { Component } from "react";
-import { Switch, Route, Link, Redirect, withRouter } from "react-router-dom";
-import { Alert } from "react-bootstrap";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { LOGIN_USER, SIGNUP_USER } from "../../store/actionTypes";
 import LoginForm from "./AuthForms/LoginForm";
 import SignupForm from "./AuthForms/SignupForm";
-import { connect } from "react-redux";
-import { LOGIN_USER } from "../../store/actionTypes";
 
 class AuthForms extends Component {
-  state = {
-    loggedIn: false,
-    message: "",
-    user: null,
-  };
-
-  handleLoginResponse = (err, user) => {
-    if(err) {
-      this.setState({
-        message: 'Username or Password Not Found'
-      })
-    } else {
-      this.setState({
-        user: user,
-        loggedIn: true
-      })
-    }
-  }
-
-  handleSignupResponse = (err, user) => {
-    if(err) {
-      this.setState({
-        message: 'An error occurred while trying to sign up'
-      })
-    } else {
-      this.setState({
-        user: user,
-        loggedIn: true
-      })
-    }
-  }
-
-  handleAlert = () => {
-    const { message } = this.state
-    if(message) {
-      return(
-        <Alert bsStyle='danger'>
-          {message}
-        </Alert>
-      )
-    }
-  }
-
   renderLoginForm = () => {
-    return (
-      <LoginForm 
-        handleLoginResponse={this.handleLoginResponse} 
-        loginUser={this.props.loginUser}
-        toggleForm={this.toggleForm}
-      />
-    )
+    const { loginUser, msg } = this.props
+    return <LoginForm loginUser={loginUser} msg={msg}/>
   }
 
   renderSignupForm = () => {
-    return (
-      <SignupForm 
-        handleSignupResponse={this.handleSignupResponse} 
-        toggleForm={this.toggleForm}
-      />
-    )
+    const { signupUser, msg } = this.props
+    return <SignupForm signupUser={signupUser} msg={msg}/>
   }
 
   render() {
-    const {
-      loggedIn,
-      user
-    } = this.state;
+    const { loggedIn, user } = this.props;
 
     if (user || loggedIn) {
       return <Redirect to="/user/dashboard" />;
@@ -85,7 +29,6 @@ class AuthForms extends Component {
           <Route path='/login' render={this.renderLoginForm} />
           <Route path='/signup' render={this.renderSignupForm} />
         </Switch>
-      {this.handleAlert()}
       </div>
     );
   }
@@ -94,19 +37,23 @@ class AuthForms extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginUser: (credentials) => {
-      console.log('loginUser Called');
       dispatch({
         type: LOGIN_USER,
+        payload: credentials
+      })
+    },
+    signupUser: (credentials) => {
+      dispatch({
+        type: SIGNUP_USER,
         payload: credentials
       })
     }
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    otherProp: 'blah'
+    ...state.auth,
   }
 }
 
