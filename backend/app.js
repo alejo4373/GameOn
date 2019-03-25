@@ -59,9 +59,9 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   console.log(err)
-  var errorCode = err.status || 500
-  res.status(err.status || 500);
-  res.send(`error ${errorCode}`);
+  res.status(err.status || 500).json({ 
+    msg: "Oops! we are experiencing problems, please try again later." 
+  });
 });
 
 module.exports = app;
