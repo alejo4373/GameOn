@@ -1,4 +1,4 @@
-import { AUTH_SUCCESS, AUTH_FAILURE } from "../actionTypes";
+import { AUTH_SUCCESS, AUTH_FAILURE, SET_AUTH_MESSAGE } from "../actionTypes";
 
 export default (state = {}, { type, payload }) => {
   switch (type) {
@@ -14,6 +14,11 @@ export default (state = {}, { type, payload }) => {
         ...payload,
         isLoggedIn: false
       };
+    case SET_AUTH_MESSAGE:
+      return {
+        ...state,
+        msg: payload
+      }
     default:
       return state;
   }

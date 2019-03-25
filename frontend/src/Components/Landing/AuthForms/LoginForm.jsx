@@ -8,11 +8,25 @@ export default class LoginForm extends Component {
     password: ''
   }
 
+  componentDidMount() {
+    this.props.setAuthMessage('');
+  }
+
   handleTextInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
+
+  validateAndSubmit = (e) => {
+    e.preventDefault()
+    const { username, password } = this.state;
+
+    if (!username || !password) {
+      return this.props.setAuthMessage("Please complete all fields.");
+    }
+    this.props.loginUser(this.state);
+  };
 
   handleDemoLogin = () => {
     const credentials = {
@@ -22,18 +36,12 @@ export default class LoginForm extends Component {
     this.props.loginUser(credentials)
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.loginUser(this.state)
-  };
-
   render() {
     const { username, password } = this.state;
-    const { msg } = this.props;
     return (
       <div>
         <h1 className="form-title">Log In</h1>
-          <Form horizontal onSubmit={this.handleSubmit}>
+          <Form horizontal onSubmit={this.validateAndSubmit}>
             <FormGroup>
               <FormControl
                 type="text"
@@ -52,14 +60,14 @@ export default class LoginForm extends Component {
                 onChange={this.handleTextInput}
               />
             </FormGroup>
-            <div className='login-buttons'>
+            <div className='form-footer'>
+              {this.props.msg ? <Alert bsStyle='danger'> {this.props.msg} </Alert> : null}
               <Button bsStyle='success' type="submit">Log In</Button>
               {' '}
               <Button bsStyle='info' onClick={this.handleDemoLogin}>Demo</Button>
             </div>
             <p>Don't have an Account <Link to='/signup'>Sign Up</Link></p>
           </Form>
-          {msg ? <Alert bsStyle='danger'> {msg} </Alert> : null}
       </div>
     )
   }

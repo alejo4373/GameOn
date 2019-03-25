@@ -1,19 +1,31 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { LOGIN_USER, SIGNUP_USER } from "../../store/actionTypes";
+import { LOGIN_USER, SIGNUP_USER, SET_AUTH_MESSAGE } from "../../store/actionTypes";
 import LoginForm from "./AuthForms/LoginForm";
 import SignupForm from "./AuthForms/SignupForm";
 
 class AuthForms extends Component {
   renderLoginForm = () => {
-    const { loginUser, msg } = this.props
-    return <LoginForm loginUser={loginUser} msg={msg}/>
+    const { loginUser, msg, setAuthMessage } = this.props
+    return (
+      <LoginForm
+        loginUser={loginUser}
+        setAuthMessage={setAuthMessage}
+        msg={msg}
+      />
+    )
   }
 
   renderSignupForm = () => {
-    const { signupUser, msg } = this.props
-    return <SignupForm signupUser={signupUser} msg={msg}/>
+    const { signupUser, msg, setAuthMessage } = this.props
+    return (
+      <SignupForm 
+        signupUser={signupUser} 
+        setAuthMessage={setAuthMessage}
+        msg={msg}
+      />
+    )
   }
 
   render() {
@@ -46,6 +58,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: SIGNUP_USER,
         payload: credentials
+      })
+    },
+    setAuthMessage: (msg) => {
+      dispatch({
+        type: SET_AUTH_MESSAGE,
+        payload: msg
       })
     }
   }

@@ -15,6 +15,10 @@ export default class SignupForm extends Component {
     selectedSportsIds: []
   }
 
+  componentDidMount() {
+    this.props.setAuthMessage('');
+  }
+
   handleTextInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value
@@ -52,6 +56,7 @@ export default class SignupForm extends Component {
   };
 
   validateAndSubmit = (e) => {
+    const { setAuthMessage } = this.props
     e.preventDefault()
     const {
       username,
@@ -64,47 +69,29 @@ export default class SignupForm extends Component {
     } = this.state;
 
     if (!username || !email || !fullname || !zipcode) {
-      return this.setState({
-        password: "",
-        confirmPass: "",
-        alert: true,
-        message: "Please complete all fields."
-      });
+      return setAuthMessage("Please complete all fields.");
     }
 
     if (password.length < 5) {
-      return this.setState({
-        alert: true,
-        message: "Password length must be at least 5 characters."
-      });
+      return setAuthMessage("Password length must be at least 5 characters.");
     }
 
     if (password!== confirmPass) {
-      return this.setState({
+      this.setState({
         password: "",
         confirmPass: "",
-        alert: true,
-        message: "Passwords do not match!"
       });
+      return setAuthMessage("Passwords do not match!");
     }
 
     if (!selectedSportsIds.length) {
-      return this.setState({
-        alert: true,
-        message: "Please select at least one sport."
-      });
+      return setAuthMessage("Please select at least one sport.");
     }
-
-    this.handleSubmit();
-  };
-
-  handleSubmit = () => {
     this.props.signupUser(this.state)
   };
 
   render() {
     const { email, fullname, username, password, confirmPass, zipcode, message, selectedSportsIds } = this.state;
-    const { msg } = this.props;
     return (
       <div>
         <h1 className="form-title">Sign Up</h1>
@@ -171,7 +158,7 @@ export default class SignupForm extends Component {
               />
             </FormGroup>
             <div className='form-footer'>
-              { message ? <Alert bsStyle='warning'>{message}</Alert> : '' }
+              { this.props.msg ? <Alert bsStyle='danger'>{this.props.msg}</Alert> : '' }
               <Button bsStyle='success' type="submit"> Sign Up </Button>
               <p>Already have an Account <Link to='/login'>Log In</Link></p>
            </div> 
