@@ -38,11 +38,12 @@ router.post('/login', (req, res, next) => {
       return res.status(401)
          .json({
            user: null, 
-           msg: 'Invalid username. Please check your username and try again'
+           msg: 'Invalid username or password. Please try again'
          }) 
     }
-    //Else we have the user and there were no errors
-    //lets try to log him in
+    
+    // LocalStrategy verified user exists and has valid credentials
+    // Serializes user establishing a session
     req.login(user, (err) => {
       if(err) { 
         return next(err) 
@@ -56,7 +57,6 @@ router.post('/login', (req, res, next) => {
     })
   })(req, res, next)
 })
- 
 
 router.get('/logged', loginRequired, (req, res, next) =>{
   res.status(200)

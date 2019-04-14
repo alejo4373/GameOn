@@ -3,13 +3,17 @@ const LocalStrategy = require('passport-local').Strategy;
 const dbAPI = require('../db/dbAPI');
 const helpers = require('./helpers');
 
-//Session configuration
+// sets req.session.passport with the user
+// on a login/authenticate request
 passport.serializeUser((user, done) => {
-  done(null, user.id)
+  done(null, user)
 });
 
-passport.deserializeUser((id, done) => {
-  dbAPI.getUserById(id, (err, user) => {
+// sets req.user by bringing user from database based on the id saved in the session
+// it does it for every subsequent request
+passport.deserializeUser((userInSession, done) => {
+  dbAPI.getUserById(userInSession.id, (err, user) => {
+    delete user.password_digest;
     done(err, user)
   })
 })
@@ -19,18 +23,13 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new LocalStrategy((username, password, done) => {
       dbAPI.getUserByUsername(username, (err, user) => {
-        if(err) return done(err);
-        if(!user) return done(null, false);
-        if(!helpers.comparePasswords(password, user.password_digest)) return done(null, false);
-        //If none of the above then all went well
-        const userWithoutPassword = {
-          id: user.id,
-          username: user.username,
-          fullname: user.fullname,
-          profile_pic: user.profile_pic,
+        if(err) {
+          done(err);
+        } else if(!user || !helpers.comparePasswords(password, user.password_digest)) {
+           done(null, false);
         }
-        //console.log(user)
-        return done(null, userWithoutPassword)
+        delete user.password_digest;
+        done(null, user)
       })
     })
 )
