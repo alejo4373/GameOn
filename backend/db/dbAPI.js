@@ -67,7 +67,7 @@ const registerUser = (user, callback) => {
  * @param {string} userId - The user id to grab the info from
  * @param {Function} answer - Function that will be called with (err, data) as its arguments
  */
-const getUserInfo = (userId, answer) => {
+const getUserDetails = (userId, answer) => {
   console.log(userId)
    db.one(`SELECT id, username, fullname, email, zip_code, profile_pic, exp_points FROM users 
            WHERE id = $1`, userId) 
@@ -377,7 +377,7 @@ module.exports = {
   getUserById: getUserById,
   getUserByUsername:getUserByUsername,
   registerUser: registerUser,
-  getUserInfo: getUserInfo,
+  getUserDetails: getUserDetails,
   getSportsForUser: getSportsForUser,
   getEventsUserHosts: getEventsUserHosts,
   getEventsUserParticipatedIn: getEventsUserParticipatedIn,

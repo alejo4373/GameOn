@@ -3,7 +3,7 @@ var router = express.Router();
 var dbAPI = require('../db/dbAPI')
 var { loginRequired, editUsername } = require('../auth/helpers')
 
-router.get('/getinfo/:userId?', loginRequired, function(req, res, next) {
+router.get('/details/:userId?', loginRequired, function(req, res, next) {
   var userId = req.params.userId
   //If we dont request a particular userId in the params
   if(!userId) {
@@ -11,7 +11,7 @@ router.get('/getinfo/:userId?', loginRequired, function(req, res, next) {
     userId = req.user.id  
   }
   console.log('userId', userId)
-  dbAPI.getUserInfo(userId, (err, userInfo) => {
+  dbAPI.getUserDetails(userId, (err, userInfo) => {
     if(err) {
      return next(err)
     }
