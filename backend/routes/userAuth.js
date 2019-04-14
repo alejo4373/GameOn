@@ -61,9 +61,9 @@ router.post('/login', (req, res, next) => {
 router.get('/logged', loginRequired, (req, res, next) =>{
   res.status(200)
   res.json({
-    loggedin: true
+    user: req.user,
+    msg: `Welcome back ${req.user.username}`
   })
-  res.send('user is properly logged in')
 })
 
 router.get('/logout',loginRequired, (req, res, next) => {
