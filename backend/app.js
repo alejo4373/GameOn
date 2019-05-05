@@ -13,6 +13,7 @@ var user = require('./routes/user');
 var auth = require('./routes/userAuth');
 var sport = require('./routes/sport');
 var event = require('./routes/event');
+var sweepstakes = require('./routes/sweepstakes');
 
 
 var app = express();
@@ -48,6 +49,7 @@ app.use('/', auth);
 app.use('/user', user);
 app.use('/sport', sport);
 app.use('/event', event);
+app.use('/sweepstakes', sweepstakes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
