@@ -13,6 +13,7 @@ var user = require('./routes/user');
 var auth = require('./routes/userAuth');
 var sport = require('./routes/sport');
 var event = require('./routes/event');
+var sweepstakes = require('./routes/sweepstakes');
 
 
 var app = express();
@@ -53,6 +54,7 @@ app.use('/', auth);
 app.use('/user', user);
 app.use('/sport', sport);
 app.use('/event', event);
+app.use('/sweepstakes', sweepstakes)
 
 // Handle unhandled routes
 app.use((req, res) => {
@@ -69,9 +71,9 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   console.log(err)
-  var errorCode = err.status || 500
-  res.status(err.status || 500);
-  res.send(`error ${errorCode}`);
+  res.status(err.status || 500).json({ 
+    msg: "Oops! we are experiencing problems, please try again later." 
+  });
 });
 
 module.exports = app;

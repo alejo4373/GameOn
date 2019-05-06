@@ -1,16 +1,11 @@
-.sport-icon {
-  width: 40px;
-} 
-
-.profile-photo {
-  margin-top: 5%;
+.circle-med {
   width: 41%;
   border-radius: 50%;
+  margin: 0 auto;
 }
 
 .progress-metrics {
   width: 41%;
-  margin: 3% auto;
 }
 
 .username {
@@ -23,7 +18,6 @@
   border: #cebebe solid 1px;
   border-radius: 4px;
   margin: 5%;
-  height: 92%;
 }
 
 .tab-content {
@@ -31,39 +25,37 @@
 }
 
 .event-cards-container {
-  height: 74rem;
   overflow: hidden;
   overflow-y: scroll;
 
 }
 
 .event-card {
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  color: black;
+  background-color: aliceblue;
+  display: grid;
+  grid-template-columns: 35% 60%;
+  grid-gap: 5%;
   border: 2px solid #dddddd;
   border-radius: 12px;
-  width: 96%;
-  height: 130px;
-  margin-bottom: 5%;
-  background-color: aliceblue;
   margin: 2%;
   text-align: left;
-  font-size: 13px;
+  overflow: hidden;
 }
 
-.event-card-img {
-  width: 50%;
+.event-card > .left {
+  max-height: 100%;
+}
+
+.event-card > .left > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   clip-path: polygon(0% 0%, 73% 0%, 100% 50%, 61% 122%, 0% 100%);
-  margin-left: -10%;
 }
 
-.event-card-legend {
-  margin-left: 1%;
-  width: 50%;
-  margin: 0 auto;
-}
+.sport-icon {
+  width: 2em;
+} 
 
 .event-card:hover {
   background-color: lightsteelblue;
@@ -80,8 +72,8 @@
 }
 
 .event-name {
-  font-size: 18px;
-  margin-top: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 /* Bootstrap css override */
@@ -91,9 +83,12 @@
   grid-template-columns: 1% 33% 32% 33%;
 }
 
+.event-card-legend > .event-name {
+  text-overflow: ellipsis;
+}
 /*Event name title wraps at a lower width, this rule prevents it*/
 @media (max-width: 462px) {
   .event-card-legend > .event-name {
-    font-size: 1.2em;
+    
   }
 }

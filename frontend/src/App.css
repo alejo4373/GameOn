@@ -1,6 +1,29 @@
-body {
+.two-sided{
+    width: 95%;
+    margin: 2% auto;
+    color:white;
+    display: grid;
+    grid-template-columns: 48% 48%;
+    grid-column-gap: 4%;
+    padding: 2%;
+    min-height: 80vh;
+}
+
+.card {
+  box-shadow: 0px 9px 25px #b39ddb;
+  border: #cebebe solid 1px;
+  background-color: ghostwhite;
+  border-radius: 4px;
+}
+
+.bkgnd-primary-color {
+  background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
+}
+
+.protector {
+  margin: 5%;
   text-align: center;
-  width: 100%;
+  width: 90%;
 }
 
 .login-container {
@@ -13,4 +36,34 @@ body {
 
 #title {
   border: 2px solid pink;
+}
+
+/*MEDIA QUERIES*/
+@media (max-width: 768px) {
+  .two-sided {
+    display: block;
+  }
+}
+
+@media (min-width: 320px) {
+  .card-content {
+    font-size: 0.9em;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-content {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 1440px) {
+  .two-sided {
+    width: 1368px;
+    padding: 50px;
+  }
+
+  .card-content {
+    font-size: 2em;
+  }
 }

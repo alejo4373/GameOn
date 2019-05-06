@@ -1,0 +1,154 @@
+.landing {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 12% 88%;
+}
+
+.landing > .top > nav {
+  display: flex;
+  height: 100%;
+  max-width: 1220px;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.global-logo {
+  display: inline-block;
+}
+
+.auth-nav {
+  display: inline-block;
+  margin-left: auto;
+}
+
+.auth-nav > ul > li {
+  display: inline-block;
+  margin: 0 2px;
+  font-size: 1.3em;
+}
+
+.carousel,
+.carousel-inner, 
+.carousel-inner > .item {
+    height: 100%;
+}
+
+.carousel-inner > .item > img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.bottom {
+  position: relative;
+}
+
+.bottom > .overlay {
+  position: absolute;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+
+/* 
+ Sign up & Login Forms 
+ */
+.overlay > .form-container {
+  background-color: rgba(255, 255, 255, 0.924);
+  display: inline-block;
+  border-radius: 6px;
+  width: 300px;
+}
+
+.overlay > .form-container form{
+  padding-left: 7%;
+  padding-right: 7%;
+  text-align: center;
+}
+
+.form-title {
+  margin-bottom: 1em;
+  color: block;
+  text-align: center;
+}
+
+.sports-selection-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Bootstrap classes style overrides */
+.form-horizontal .form-group {
+  margin-right: 0;
+  margin-left: 0;
+} 
+
+.control-label {
+  text-align: left;
+}
+/* END Bootstrap classes style edits */
+
+
+input[id=login-submit] {
+    /* width: 50%; */
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#signin-button {
+    color: white;
+    border: 2px solid white;
+    width: 15%;
+    margin-left: 43%;
+}
+
+@media only screen and (max-width: 480px) {
+    .pageHeader {
+        position: fixed;
+        background-color: #2f2e2e;
+        width: 100%;
+        padding: 1%;
+        z-index: 1;
+        opacity: 0.5;
+        height: 10%;
+    }
+
+    #login_title {
+        color: White;
+        margin-top: 2%;
+        position: fixed;
+        width: 100%;
+        padding: 1%;
+        z-index: 1;
+    }
+
+    #lets_play_link {
+        margin: 0;
+        position: relative;
+        top: -15vh;
+        color: White;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    #arrow {
+        /* border: 2px red solid; */
+        position: relative;
+        top: -3vh;
+        width: 40px;
+    }
+
+   #signup {
+        color: #2424ff;
+    }
+}

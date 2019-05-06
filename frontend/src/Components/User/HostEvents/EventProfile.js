@@ -174,19 +174,19 @@ export default class EventProfile extends React.Component {
     const endTime = endDate.toLocaleTimeString('en-US', timeOptions)
 
     return (
-      <div className="two-sided">
-        <div className="left">
-          <div className="card">
+      <div className="card two-sided">
+        <div className="card left">
+          <div className="card-content">
             <div className='top' style={{backgroundImage: `url(${event.event_pic})`}}>
             </div>
-            <div className='bottom'>
+            <div className='bottom bkgnd-primary-color'>
               <div className='sub-header'> Details </div>
               <p className='details-p'>{event.description}</p>
             </div>
             </div>
         </div>
 
-        <div className='right'>
+        <div className='card right'>
           <div className='top'>
             <div className='sub-header'> Overview </div>
             <img src={`/icons/calendar-icon.png`} class='icon' alt='icon'/>

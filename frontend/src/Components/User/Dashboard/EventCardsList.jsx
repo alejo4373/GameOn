@@ -30,23 +30,17 @@ class EventCardsList extends Component {
               return (
                 <a href={`/user/event/${e.id}`}>
                   <div className="event-card">
-                    <img
-                      className="event-card-img"
-                      src={e.event_pic}
-                      width={"50px"}
-                      alt=""
-                    />
-                    <div className="event-card-legend" id={e.id}>
-                      <div className="event-name">{e.name}</div>
-                      <span>{date}</span>
-                      <br />
-                      <span>{startTime} - {endTime}</span>
-                      {/* <br />
-                      <span className="event_location">
-                        Location: {e.location}
-                      </span> */}
-                      <br />
-                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} alt='sport-icon' style={{width: 40}}/>
+                    <div class="left">
+                      <img
+                        src={e.event_pic}
+                        alt="People playing a sport"
+                      />
+                    </div>
+                    <div className="right" id={e.id}>
+                      <h3 className="event-name">{e.name}</h3>
+                      <p>{date}</p>
+                      <p>{startTime} - {endTime}</p>
+                      <img className ="sport-icon" src={`/icons/${e.sport_name}-icon.png`} alt='A sport icon'/>
                     </div>
                   </div>
                 </a>

@@ -61,6 +61,13 @@ CREATE TABLE sports_format (
     num_players VARCHAR
 );
 
+CREATE TABLE sweepstakes (
+    id SERIAL PRIMARY KEY,
+    time_stamp TIMESTAMP WITH TIME ZONE,
+    body TEXT,
+    email VARCHAR
+);
+
 INSERT INTO sports (name)
 VALUES ('basketball'),
        ('soccer'),
