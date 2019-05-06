@@ -1,7 +1,18 @@
-DROP DATABASE IF EXISTS gameon_db;
-CREATE DATABASE gameon_db;
+-- DROP DATABASE IF EXISTS gameon_db;
+-- CREATE DATABASE gameon_db;
 
-\c gameon_db;
+-- \c gameon_db;
+
+DROP TABLE IF EXISTS
+    users,
+    sports,
+    users_sports,
+    events,
+    players_events,
+    sports_format,
+    sweepstakes;
+
+DROP TYPE IF EXISTS team_type;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
