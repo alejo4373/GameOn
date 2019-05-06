@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS gameon_db;
-CREATE DATABASE gameon_db;
+-- DROP DATABASE IF EXISTS gameon_db;
+-- CREATE DATABASE gameon_db;
 
-\c gameon_db;
+-- \c gameon_db;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
