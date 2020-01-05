@@ -2,6 +2,8 @@
 
 ## Introduction
 
+# This change should never make it to origin master because we protected the branch against direct pushes
+
 Welcome to **GameOn** a Full-Stack Web App that allows users to connect, play and rank in sport of their liking through a platform that enables them to find games to play wherever and whenever they want.
 
 Built with React.js, Node.js with Express, and PostgreSQL.
