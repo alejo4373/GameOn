@@ -16,6 +16,10 @@
   border-radius: 4px;
 }
 
+.card-content {
+  height: 100%;
+}
+
 .bkgnd-primary-color {
   background: linear-gradient(to bottom right, rgb(255,147,96) 30%, rgb(255,146,160));
 }
@@ -42,10 +46,11 @@
 @media (max-width: 768px) {
   .two-sided {
     display: block;
+    height: unset;
   }
 }
 
-@media (min-width: 320px) {
+/* @media (min-width: 320px) {
   .card-content {
     font-size: 0.9em;
   }
@@ -56,6 +61,7 @@
     font-size: 1.5em;
   }
 }
+ */
 
 @media (min-width: 1440px) {
   .two-sided {
@@ -64,6 +70,6 @@
   }
 
   .card-content {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 }

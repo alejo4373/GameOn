@@ -21,7 +21,13 @@
 }
 
 .tab-content {
-  height: inherit;
+  height: 787px;
+}
+
+.tab-pane.active {
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .event-cards-container {

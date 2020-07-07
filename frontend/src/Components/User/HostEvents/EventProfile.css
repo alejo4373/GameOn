@@ -2,7 +2,6 @@
 
 .left > .card-content {
     display: grid;
-    height: 100%;
     grid-template-rows: 50% 50%;
 }
 
