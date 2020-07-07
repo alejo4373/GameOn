@@ -1,14 +1,45 @@
 # GameOn
 
-## Introduction
+### Live @ [gameon-letsplay.herokuapp.com](https://gameon-letsplay.herokuapp.com/)
 
-# This change should never make it to origin master because we protected the branch against direct pushes
-
-Welcome to **GameOn** a Full-Stack Web App that allows users to connect, play and rank in sport of their liking through a platform that enables them to find games to play wherever and whenever they want.
+**GameOn** is a Full-Stack Web App that allows users to connect, play and rank in sport of their liking through a platform that enables them to find games to play wherever and whenever they want. 
 
 Built with React.js, Node.js with Express, and PostgreSQL.
 
-## Live @ [gameon-letsplay.herokuapp.com](https://gameon-letsplay.herokuapp.com/)
+![game on dashboard](./docs/images/screen1.png)
+
+## Features
+
+Users are able to:
+
+* Create a new event or game with name, description, date, time and number of players.
+* See near by events in the map view.
+* Join an event or game to participate in it.
+* At the end of each game the winning team members are awarded points.
+* Only the creator of the event/game can start the game.
+* The leaderboard displays the top 10 players with the most points in the app.
+
+## Future Features
+
+* Player roles, like captain, defender etc.
+* Display a who won poll among all the players to decide winner.
+* Have the leaderboard be by sport and by city.
+
+## Technical Milestones
+* Using geo-location data and calculations module to get all events happening near the user within a give radius.
+* On an event page displaying an and handling the join or start game button for players that join or the owner of the event.
+* Integrating user authentication with Password.js, securely storing passwords and allowing for cookie-based authorization.
+
+## Technologies Used
+
+* Node.js & Express.js. For the HTTP backend server.
+* Passport.js. For handling user authentication and authorization.
+* React.js. For the front-end/client interface of our app.
+* PostgreSQL. As our relation database management system.
+* pg-promise. For interfacing with our database in our backend code.
+* bcrypt. For hashing and salting passwords before storage.
+* CSS3. 
+* Google Maps. For the map view displaying nearby games.
 
 ## Local Setup
 
