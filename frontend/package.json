@@ -6,7 +6,7 @@
     "axios": "^0.18.0",
     "google-maps-react": "^1.1.11",
     "input-moment": "^0.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "rc-slider": "^8.6.5",
     "rc-tooltip": "^3.7.3",
     "react": "^16.8.2",
